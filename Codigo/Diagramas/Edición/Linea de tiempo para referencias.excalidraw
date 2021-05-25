@@ -1,0 +1,1991 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "https://excalidraw.com",
+  "elements": [
+    {
+      "id": "MOegicUztonwkchEyxknm",
+      "type": "rectangle",
+      "x": 290.00000000000006,
+      "y": 340,
+      "width": 164,
+      "height": 19.83870967741935,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [
+        "YQYtlcgfJIwYVH3IG9_vj"
+      ],
+      "strokeSharpness": "sharp",
+      "seed": 326305337,
+      "version": 305,
+      "versionNonce": 7054199,
+      "isDeleted": false,
+      "boundElementIds": null
+    },
+    {
+      "id": "ckAN4MyLgVLGfhluXSsPB",
+      "type": "text",
+      "x": 292.2043010752697,
+      "y": 341.76344086021584,
+      "width": 156.94623655913978,
+      "height": 17.634408602150536,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [
+        "YQYtlcgfJIwYVH3IG9_vj"
+      ],
+      "strokeSharpness": "sharp",
+      "seed": 166331673,
+      "version": 262,
+      "versionNonce": 1210823545,
+      "isDeleted": false,
+      "boundElementIds": null,
+      "text": "Cellular automata and epidemiological models\nwith spatial dependence",
+      "fontSize": 7.053763440860218,
+      "fontFamily": 1,
+      "textAlign": "center",
+      "verticalAlign": "middle",
+      "baseline": 14.634408602150536
+    },
+    {
+      "id": "37i4MUKnnhkvDZJB_HkY3",
+      "type": "arrow",
+      "x": 352.9383502374034,
+      "y": 301.47399749373454,
+      "width": 785.1834125027805,
+      "height": 0,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "strokeSharpness": "round",
+      "seed": 1923957847,
+      "version": 59,
+      "versionNonce": 2125820377,
+      "isDeleted": false,
+      "boundElementIds": null,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          785.1834125027805,
+          0
+        ]
+      ],
+      "lastCommittedPoint": null,
+      "startBinding": null,
+      "endBinding": null,
+      "startArrowhead": null,
+      "endArrowhead": "arrow"
+    },
+    {
+      "id": "yGNo84mpEuQgUTySop3lc",
+      "type": "freedraw",
+      "x": 369.1217627401839,
+      "y": 290.47399749373454,
+      "width": 2,
+      "height": 19,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "strokeSharpness": "round",
+      "seed": 145953561,
+      "version": 8,
+      "versionNonce": 753808983,
+      "isDeleted": false,
+      "boundElementIds": null,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          0,
+          9
+        ],
+        [
+          0,
+          13
+        ],
+        [
+          -1,
+          16
+        ],
+        [
+          -2,
+          19
+        ],
+        [
+          -2,
+          19
+        ]
+      ],
+      "pressures": [],
+      "simulatePressure": true,
+      "lastCommittedPoint": null
+    },
+    {
+      "id": "MStez5vWs_kg6DU8YxpTF",
+      "type": "text",
+      "x": 356.1217627401839,
+      "y": 318.47399749373454,
+      "width": 29,
+      "height": 20,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "strokeSharpness": "sharp",
+      "seed": 150486681,
+      "version": 26,
+      "versionNonce": 1766884791,
+      "isDeleted": false,
+      "boundElementIds": null,
+      "text": "1999",
+      "fontSize": 16,
+      "fontFamily": 1,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "baseline": 14
+    },
+    {
+      "id": "E-r71xxh44rMiyRu4Joqx",
+      "type": "freedraw",
+      "x": 1014.1217627401838,
+      "y": 293.47399749373454,
+      "width": 0,
+      "height": 14,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "strokeSharpness": "round",
+      "seed": 926499447,
+      "version": 21,
+      "versionNonce": 36066617,
+      "isDeleted": false,
+      "boundElementIds": null,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          0,
+          7
+        ],
+        [
+          0,
+          10
+        ],
+        [
+          0,
+          13
+        ],
+        [
+          0,
+          14
+        ],
+        [
+          0,
+          14
+        ]
+      ],
+      "pressures": [],
+      "simulatePressure": true,
+      "lastCommittedPoint": null
+    },
+    {
+      "id": "5E6evUuJMaH1xT3SZn-IY",
+      "type": "text",
+      "x": 876.1217627401838,
+      "y": 314.47399749373454,
+      "width": 39,
+      "height": 20,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "strokeSharpness": "sharp",
+      "seed": 2031943673,
+      "version": 102,
+      "versionNonce": 863594103,
+      "isDeleted": false,
+      "boundElementIds": null,
+      "text": "2012",
+      "fontSize": 16,
+      "fontFamily": 1,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "baseline": 14
+    },
+    {
+      "id": "QYcVXFd46L01FOvdhlrmz",
+      "type": "text",
+      "x": 775.5331913116131,
+      "y": 342.41494987468667,
+      "width": 242.76571428571447,
+      "height": 18.819047619047627,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [
+        "gr_mx44A9Bla-40pjb7DL"
+      ],
+      "strokeSharpness": "sharp",
+      "seed": 1668609879,
+      "version": 312,
+      "versionNonce": 1807980823,
+      "isDeleted": false,
+      "boundElementIds": null,
+      "text": "cellular automata on graphs: topological properties of ER graphs\nevolved towards low-Entropy dynamics",
+      "fontSize": 7.527619047619056,
+      "fontFamily": 1,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "baseline": 15.819047619047627
+    },
+    {
+      "id": "gW-MtLILEcU-IvOgFsuom",
+      "type": "rectangle",
+      "x": 774.1217627401838,
+      "y": 341.47399749373454,
+      "width": 247,
+      "height": 20.70095238095239,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [
+        "gr_mx44A9Bla-40pjb7DL"
+      ],
+      "strokeSharpness": "sharp",
+      "seed": 156999703,
+      "version": 296,
+      "versionNonce": 1454335961,
+      "isDeleted": false,
+      "boundElementIds": null
+    },
+    {
+      "id": "OkE8f6rGd2xxrpKTX6Ac3",
+      "type": "freedraw",
+      "x": 892.1217627401838,
+      "y": 305.47399749373454,
+      "width": 0,
+      "height": 12,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "strokeSharpness": "round",
+      "seed": 1684822585,
+      "version": 37,
+      "versionNonce": 1675219927,
+      "isDeleted": false,
+      "boundElementIds": null,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          -2
+        ],
+        [
+          0,
+          -3
+        ],
+        [
+          0,
+          -4
+        ],
+        [
+          0,
+          -7
+        ],
+        [
+          0,
+          -9
+        ],
+        [
+          0,
+          -10
+        ],
+        [
+          0,
+          -11
+        ],
+        [
+          0,
+          -12
+        ],
+        [
+          0,
+          -12
+        ]
+      ],
+      "pressures": [],
+      "simulatePressure": true,
+      "lastCommittedPoint": null
+    },
+    {
+      "id": "0U9dhptxA5PljkdMKRxp2",
+      "type": "text",
+      "x": 991.1217627401838,
+      "y": 265.47399749373454,
+      "width": 35,
+      "height": 20,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "strokeSharpness": "sharp",
+      "seed": 747715447,
+      "version": 20,
+      "versionNonce": 612949687,
+      "isDeleted": false,
+      "boundElementIds": null,
+      "text": "2016",
+      "fontSize": 16,
+      "fontFamily": 1,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "baseline": 14
+    },
+    {
+      "id": "7mxvq51pKEWf7g-jTazlj",
+      "type": "text",
+      "x": 922.5467627401838,
+      "y": 237.47399749373454,
+      "width": 184.7750000000001,
+      "height": 19.000000000000007,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [
+        "WnwXV_4S1RVF1GVBZbRHj"
+      ],
+      "strokeSharpness": "sharp",
+      "seed": 200753689,
+      "version": 212,
+      "versionNonce": 1609851799,
+      "isDeleted": false,
+      "boundElementIds": null,
+      "text": "epidemiological modeling with a population density \nmap-based automata simulation system",
+      "fontSize": 7.600000000000008,
+      "fontFamily": 1,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "baseline": 16.000000000000007
+    },
+    {
+      "id": "JgivvBFXHzswVUscxAZHV",
+      "type": "rectangle",
+      "x": 921.1217627401838,
+      "y": 237.47399749373454,
+      "width": 182.8750000000001,
+      "height": 18.525000000000006,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [
+        "WnwXV_4S1RVF1GVBZbRHj"
+      ],
+      "strokeSharpness": "sharp",
+      "seed": 855085271,
+      "version": 180,
+      "versionNonce": 312903001,
+      "isDeleted": false,
+      "boundElementIds": null
+    },
+    {
+      "id": "CJWCDzj9wClQq9vuYTsiF",
+      "type": "freedraw",
+      "x": 671.1217627401838,
+      "y": 310.47399749373454,
+      "width": 1,
+      "height": 14,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "strokeSharpness": "round",
+      "seed": 1574697207,
+      "version": 75,
+      "versionNonce": 1122527449,
+      "isDeleted": false,
+      "boundElementIds": null,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          -5
+        ],
+        [
+          0,
+          -8
+        ],
+        [
+          0,
+          -10
+        ],
+        [
+          0,
+          -11
+        ],
+        [
+          0,
+          -12
+        ],
+        [
+          0,
+          -13
+        ],
+        [
+          0,
+          -14
+        ],
+        [
+          -1,
+          -14
+        ],
+        [
+          -1,
+          -14
+        ]
+      ],
+      "pressures": [],
+      "simulatePressure": true,
+      "lastCommittedPoint": null
+    },
+    {
+      "id": "TReGAkuQpzeiYrWQjAtbn",
+      "type": "text",
+      "x": 650.1217627401838,
+      "y": 269.47399749373454,
+      "width": 42,
+      "height": 20,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "strokeSharpness": "sharp",
+      "seed": 1011849817,
+      "version": 34,
+      "versionNonce": 17936631,
+      "isDeleted": false,
+      "boundElementIds": null,
+      "text": "2007",
+      "fontSize": 16,
+      "fontFamily": 1,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "baseline": 14
+    },
+    {
+      "id": "w6Z8aIWH8kmnFMJmrnfwC",
+      "type": "text",
+      "x": 630.9679165863363,
+      "y": 323.01245903219547,
+      "width": 88.15384615384762,
+      "height": 18.461538461538765,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [
+        "xZYb_pNnPGG1xAfMrUPSM"
+      ],
+      "strokeSharpness": "sharp",
+      "seed": 135985943,
+      "version": 243,
+      "versionNonce": 1027221463,
+      "isDeleted": false,
+      "boundElementIds": null,
+      "text": "modeling epidemics using \ncellular automata",
+      "fontSize": 7.384615384615511,
+      "fontFamily": 1,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "baseline": 15.461538461538765
+    },
+    {
+      "id": "VWKhefVeBxoPiRdw-lefd",
+      "type": "rectangle",
+      "x": 629.1217627401838,
+      "y": 321.16630518604194,
+      "width": 87.69230769230911,
+      "height": 19.84615384615418,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [
+        "xZYb_pNnPGG1xAfMrUPSM"
+      ],
+      "strokeSharpness": "sharp",
+      "seed": 522149111,
+      "version": 252,
+      "versionNonce": 1757291801,
+      "isDeleted": false,
+      "boundElementIds": null
+    },
+    {
+      "id": "2UkTTPczjlExEePuFRVo8",
+      "type": "freedraw",
+      "x": 547.1217627401838,
+      "y": 294.47399749373454,
+      "width": 2,
+      "height": 15,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "strokeSharpness": "round",
+      "seed": 536330265,
+      "version": 45,
+      "versionNonce": 1349668441,
+      "isDeleted": false,
+      "boundElementIds": null,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          2,
+          8
+        ],
+        [
+          2,
+          10
+        ],
+        [
+          2,
+          11
+        ],
+        [
+          2,
+          12
+        ],
+        [
+          2,
+          14
+        ],
+        [
+          2,
+          15
+        ],
+        [
+          2,
+          15
+        ]
+      ],
+      "pressures": [],
+      "simulatePressure": true,
+      "lastCommittedPoint": null
+    },
+    {
+      "id": "meLxikNv4ZGJLvbUl1SjX",
+      "type": "text",
+      "x": 522.1217627401838,
+      "y": 316.47399749373454,
+      "width": 48,
+      "height": 20,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "strokeSharpness": "sharp",
+      "seed": 1067093911,
+      "version": 58,
+      "versionNonce": 277197465,
+      "isDeleted": false,
+      "boundElementIds": null,
+      "text": "2005",
+      "fontSize": 16,
+      "fontFamily": 1,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "baseline": 14
+    },
+    {
+      "id": "PTWfV914_BpWSk5W-Np95",
+      "type": "text",
+      "x": 507.35253197095085,
+      "y": 270.93553595527317,
+      "width": 86.46153846153842,
+      "height": 12.307692307692292,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [
+        "SDYBk9b4aa0wk57Vg-3vO"
+      ],
+      "strokeSharpness": "sharp",
+      "seed": 73383927,
+      "version": 324,
+      "versionNonce": 1800795129,
+      "isDeleted": false,
+      "boundElementIds": null,
+      "text": "modeling infectious diseases using \nglobal stochastic cellular automata",
+      "fontSize": 4.92307692307692,
+      "fontFamily": 1,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "baseline": 10.307692307692292
+    },
+    {
+      "id": "QCwpRWirG5JmPufzApFjK",
+      "type": "rectangle",
+      "x": 506.12176274018384,
+      "y": 269.70476672450377,
+      "width": 88.00000000000001,
+      "height": 14.769230769230791,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [
+        "SDYBk9b4aa0wk57Vg-3vO"
+      ],
+      "strokeSharpness": "sharp",
+      "seed": 284480537,
+      "version": 300,
+      "versionNonce": 338568215,
+      "isDeleted": false,
+      "boundElementIds": null
+    },
+    {
+      "id": "GcM3ZdqZNRx6_rFBl9Qgh",
+      "type": "freedraw",
+      "x": 767.1217627401838,
+      "y": 294.47399749373454,
+      "width": 0,
+      "height": 18,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "strokeSharpness": "round",
+      "seed": 326224377,
+      "version": 16,
+      "versionNonce": 1892597239,
+      "isDeleted": false,
+      "boundElementIds": null,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          2
+        ],
+        [
+          0,
+          3
+        ],
+        [
+          0,
+          6
+        ],
+        [
+          0,
+          7
+        ],
+        [
+          0,
+          9
+        ],
+        [
+          0,
+          11
+        ],
+        [
+          0,
+          12
+        ],
+        [
+          0,
+          13
+        ],
+        [
+          0,
+          14
+        ],
+        [
+          0,
+          15
+        ],
+        [
+          0,
+          16
+        ],
+        [
+          0,
+          17
+        ],
+        [
+          0,
+          18
+        ],
+        [
+          0,
+          18
+        ]
+      ],
+      "pressures": [],
+      "simulatePressure": true,
+      "lastCommittedPoint": null
+    },
+    {
+      "id": "TL0baIMezYWniBIn_lMIv",
+      "type": "text",
+      "x": 742.1217627401838,
+      "y": 314.47399749373454,
+      "width": 47,
+      "height": 20,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "strokeSharpness": "sharp",
+      "seed": 1459454201,
+      "version": 18,
+      "versionNonce": 1828063479,
+      "isDeleted": false,
+      "boundElementIds": null,
+      "text": "2008",
+      "fontSize": 16,
+      "fontFamily": 1,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "baseline": 14
+    },
+    {
+      "id": "Qj_6nbozEjDuoyQSoLlNo",
+      "type": "text",
+      "x": 722.3704937046508,
+      "y": 268.82425130084073,
+      "width": 80.75126903553293,
+      "height": 16.649746192893396,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [
+        "3ROnEh0Izxdu9sSytpWRd"
+      ],
+      "strokeSharpness": "sharp",
+      "seed": 871162583,
+      "version": 170,
+      "versionNonce": 105529081,
+      "isDeleted": false,
+      "boundElementIds": null,
+      "text": "outer-totalistic cellular \nautomata on graphs",
+      "fontSize": 6.659898477157359,
+      "fontFamily": 1,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "baseline": 14.649746192893396
+    },
+    {
+      "id": "X8hn5BfB36Ynid2NhOz2M",
+      "type": "rectangle",
+      "x": 721.1217627401838,
+      "y": 268.82425130084084,
+      "width": 79.91878172588824,
+      "height": 16.233502538071065,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [
+        "3ROnEh0Izxdu9sSytpWRd"
+      ],
+      "strokeSharpness": "sharp",
+      "seed": 397233623,
+      "version": 209,
+      "versionNonce": 163055895,
+      "isDeleted": false,
+      "boundElementIds": null
+    },
+    {
+      "id": "_jbos-rCDkmkb95LTnOMM",
+      "type": "text",
+      "x": 331.1217627401839,
+      "y": 261.47399749373454,
+      "width": 24,
+      "height": 20,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "strokeSharpness": "sharp",
+      "seed": 1901580823,
+      "version": 182,
+      "versionNonce": 2099642585,
+      "isDeleted": false,
+      "boundElementIds": [],
+      "text": "CA",
+      "fontSize": 16,
+      "fontFamily": 1,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "baseline": 14
+    },
+    {
+      "id": "OTJhASwNhZR-t8dsnGb_A",
+      "type": "text",
+      "x": 923.1217627401838,
+      "y": 540.4739974937345,
+      "width": 38,
+      "height": 20,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "strokeSharpness": "sharp",
+      "seed": 1907904697,
+      "version": 137,
+      "versionNonce": 1448843641,
+      "isDeleted": false,
+      "boundElementIds": null,
+      "text": "2021",
+      "fontSize": 16,
+      "fontFamily": 1,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "baseline": 14
+    },
+    {
+      "id": "l0YHqoiOKxe0ph2VYUQri",
+      "type": "text",
+      "x": 917.8021751113172,
+      "y": 473.608018112291,
+      "width": 45.03092783505156,
+      "height": 10.721649484536083,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [
+        "UA9bLgipYCGPVp92qHIva"
+      ],
+      "strokeSharpness": "sharp",
+      "seed": 105451479,
+      "version": 163,
+      "versionNonce": 714391993,
+      "isDeleted": false,
+      "boundElementIds": null,
+      "text": "#stayHome",
+      "fontSize": 8.577319587628862,
+      "fontFamily": 1,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "baseline": 7.7216494845360835
+    },
+    {
+      "id": "4mNUNRqyOn8cczMbRhCUM",
+      "type": "rectangle",
+      "x": 915.1217627401838,
+      "y": 471.4636882153843,
+      "width": 52,
+      "height": 15.010309278350512,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [
+        "UA9bLgipYCGPVp92qHIva"
+      ],
+      "strokeSharpness": "sharp",
+      "seed": 1878459031,
+      "version": 188,
+      "versionNonce": 123474519,
+      "isDeleted": false,
+      "boundElementIds": null
+    },
+    {
+      "id": "XpDEFX2H4kdnJ1AhY82eT",
+      "type": "text",
+      "x": 737.1217627401838,
+      "y": 540.4739974937345,
+      "width": 47,
+      "height": 20,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "strokeSharpness": "sharp",
+      "seed": 2003838839,
+      "version": 117,
+      "versionNonce": 126297239,
+      "isDeleted": false,
+      "boundElementIds": null,
+      "text": "2020",
+      "fontSize": 16,
+      "fontFamily": 1,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "baseline": 14
+    },
+    {
+      "id": "em3B0hMDN1BXXOCNbyHoN",
+      "type": "text",
+      "x": 696.7428400235548,
+      "y": 495.53114035087606,
+      "width": 108.06744730679263,
+      "height": 18.632318501171145,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [
+        "e2Y7YGAocaGy5cNyBMMqu"
+      ],
+      "strokeSharpness": "sharp",
+      "seed": 382206071,
+      "version": 367,
+      "versionNonce": 1492496247,
+      "isDeleted": false,
+      "boundElementIds": null,
+      "text": "an epidemiological neural network exploiting \ndynamic graph structured data applied to \nthe covid-19 outbreak",
+      "fontSize": 4.968618266978971,
+      "fontFamily": 1,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "baseline": 16.632318501171145
+    },
+    {
+      "id": "tHX9lvYoWWYLKzwaSxNaN",
+      "type": "rectangle",
+      "x": 696.1217627401838,
+      "y": 496.1522176342485,
+      "width": 107.13583138173408,
+      "height": 18.32177985948496,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [
+        "e2Y7YGAocaGy5cNyBMMqu"
+      ],
+      "strokeSharpness": "sharp",
+      "seed": 355267895,
+      "version": 269,
+      "versionNonce": 504915833,
+      "isDeleted": false,
+      "boundElementIds": null
+    },
+    {
+      "id": "JAvSjdgXsKL4XSrNK7P90",
+      "type": "text",
+      "x": 732.3439849624053,
+      "y": 475.696219715956,
+      "width": 35.55555555555555,
+      "height": 11.111111111111109,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [
+        "V8RXQktt4pvXeWwc7wTXS"
+      ],
+      "strokeSharpness": "sharp",
+      "seed": 636614745,
+      "version": 132,
+      "versionNonce": 845854585,
+      "isDeleted": false,
+      "boundElementIds": null,
+      "text": "colaGNN",
+      "fontSize": 8.888888888888888,
+      "fontFamily": 1,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "baseline": 8.111111111111109
+    },
+    {
+      "id": "BEJzzzjP-mIWBMVNNSY0T",
+      "type": "rectangle",
+      "x": 730.1217627401838,
+      "y": 473.4739974937345,
+      "width": 39.99999999999999,
+      "height": 15,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [
+        "V8RXQktt4pvXeWwc7wTXS"
+      ],
+      "strokeSharpness": "sharp",
+      "seed": 1133420729,
+      "version": 159,
+      "versionNonce": 140073111,
+      "isDeleted": false,
+      "boundElementIds": null
+    },
+    {
+      "id": "1RJPssuNRNhqFThb8gb4P",
+      "type": "text",
+      "x": 860.351978567523,
+      "y": 497.0711197958926,
+      "width": 168.9496402877698,
+      "height": 16.40287769784173,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [
+        "puRCyQaBO1XcP3t1HVpsl"
+      ],
+      "strokeSharpness": "sharp",
+      "seed": 1046671513,
+      "version": 334,
+      "versionNonce": 218856887,
+      "isDeleted": false,
+      "boundElementIds": null,
+      "text": "combining graph neural network and spatio-temporal \ndisease models to predict covid-19 cases in Germany",
+      "fontSize": 6.561151079136691,
+      "fontFamily": 1,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "baseline": 14.402877697841731
+    },
+    {
+      "id": "r_HuAfGkNwJ1sV9i2IsRT",
+      "type": "rectangle",
+      "x": 859.1217627401838,
+      "y": 497.8912636807854,
+      "width": 170.99999999999994,
+      "height": 13.942446043165459,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [
+        "puRCyQaBO1XcP3t1HVpsl"
+      ],
+      "strokeSharpness": "sharp",
+      "seed": 1515039513,
+      "version": 245,
+      "versionNonce": 968727865,
+      "isDeleted": false,
+      "boundElementIds": null
+    },
+    {
+      "id": "h_yXiTtLCMMyirvsYRtFz",
+      "type": "text",
+      "x": 408.8086786280317,
+      "y": 508.65156758719166,
+      "width": 110.70093457943914,
+      "height": 10.747663551401853,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [
+        "j-qxF1qP6Y025D11x6VSQ"
+      ],
+      "strokeSharpness": "sharp",
+      "seed": 1361206073,
+      "version": 207,
+      "versionNonce": 1126845815,
+      "isDeleted": false,
+      "boundElementIds": null,
+      "text": "from neurons to epidemics",
+      "fontSize": 8.598130841121487,
+      "fontFamily": 1,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "baseline": 7.747663551401853
+    },
+    {
+      "id": "wIBA0CWWZKyg--GKXFzWG",
+      "type": "rectangle",
+      "x": 406.1217627401839,
+      "y": 506.50203487691186,
+      "width": 114.99999999999997,
+      "height": 13.971962616822436,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [
+        "j-qxF1qP6Y025D11x6VSQ"
+      ],
+      "strokeSharpness": "sharp",
+      "seed": 816262615,
+      "version": 167,
+      "versionNonce": 361015673,
+      "isDeleted": false,
+      "boundElementIds": null
+    },
+    {
+      "id": "EU6fTpediZny0wTdiZ5ya",
+      "type": "text",
+      "x": 442.1217627401839,
+      "y": 538.4739974937345,
+      "width": 35,
+      "height": 20,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "strokeSharpness": "sharp",
+      "seed": 1030703223,
+      "version": 30,
+      "versionNonce": 1495271641,
+      "isDeleted": false,
+      "boundElementIds": null,
+      "text": "2016",
+      "fontSize": 16,
+      "fontFamily": 1,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "baseline": 14
+    },
+    {
+      "id": "nYqh3gRCjxdW2GLPrntH8",
+      "type": "text",
+      "x": 886.5401727820256,
+      "y": 453.94680084101407,
+      "width": 110.16317991631787,
+      "height": 9.456066945606699,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [
+        "wu1biME-3AlHSlEQcqYpf"
+      ],
+      "strokeSharpness": "sharp",
+      "seed": 1295031223,
+      "version": 144,
+      "versionNonce": 6336215,
+      "isDeleted": false,
+      "boundElementIds": null,
+      "text": "networks and epidemic models",
+      "fontSize": 7.564853556485345,
+      "fontFamily": 1,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "baseline": 6.456066945606699
+    },
+    {
+      "id": "5_POwY4vQF5F80HWLj_bj",
+      "type": "rectangle",
+      "x": 885.1217627401838,
+      "y": 453.47399749373454,
+      "width": 113,
+      "height": 10.8744769874477,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [
+        "wu1biME-3AlHSlEQcqYpf"
+      ],
+      "strokeSharpness": "sharp",
+      "seed": 484884569,
+      "version": 151,
+      "versionNonce": 912756249,
+      "isDeleted": false,
+      "boundElementIds": null
+    },
+    {
+      "id": "ETW-F-bZ2uDM4Sao7ereP",
+      "type": "text",
+      "x": 921.9847764388132,
+      "y": 433.8301618772967,
+      "width": 30.739726027397257,
+      "height": 9.315068493150687,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [
+        "XToTJIiri4heECCF-iDXn"
+      ],
+      "strokeSharpness": "sharp",
+      "seed": 770503255,
+      "version": 107,
+      "versionNonce": 1882373111,
+      "isDeleted": false,
+      "boundElementIds": null,
+      "text": "transfer",
+      "fontSize": 7.452054794520543,
+      "fontFamily": 1,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "baseline": 6.315068493150687
+    },
+    {
+      "id": "z_ztxaMem8Z0lMDktYyFM",
+      "type": "rectangle",
+      "x": 920.1217627401838,
+      "y": 433.3644084526398,
+      "width": 34.000000000000014,
+      "height": 12.109589041095882,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [
+        "XToTJIiri4heECCF-iDXn"
+      ],
+      "strokeSharpness": "sharp",
+      "seed": 1972994809,
+      "version": 117,
+      "versionNonce": 1851810553,
+      "isDeleted": false,
+      "boundElementIds": null
+    },
+    {
+      "id": "MQdsL-_47AF3P6WMOupN2",
+      "type": "text",
+      "x": 552.9092191861774,
+      "y": 502.9374121278808,
+      "width": 111.03135888501738,
+      "height": 15.749128919860611,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [
+        "7r_6CFePsz5baiLHybVdX"
+      ],
+      "strokeSharpness": "sharp",
+      "seed": 1579916249,
+      "version": 191,
+      "versionNonce": 491252153,
+      "isDeleted": false,
+      "boundElementIds": null,
+      "text": "Algunos modelos epidemiologicos en \ngrafos completos y redes complejas",
+      "fontSize": 6.2996515679442435,
+      "fontFamily": 1,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "baseline": 13.749128919860611
+    },
+    {
+      "id": "9A13ARi6mz16s5lSAeMGq",
+      "type": "rectangle",
+      "x": 552.1217627401838,
+      "y": 501.36249923589565,
+      "width": 112.99999999999997,
+      "height": 18.111498257839703,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [
+        "7r_6CFePsz5baiLHybVdX"
+      ],
+      "strokeSharpness": "sharp",
+      "seed": 1893302969,
+      "version": 142,
+      "versionNonce": 718236247,
+      "isDeleted": false,
+      "boundElementIds": null
+    },
+    {
+      "id": "yrrVwbr9gT5iYnnFXZQ-u",
+      "type": "text",
+      "x": 595.1217627401838,
+      "y": 539.4739974937345,
+      "width": 36,
+      "height": 20,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "strokeSharpness": "sharp",
+      "seed": 1681786743,
+      "version": 12,
+      "versionNonce": 1331973431,
+      "isDeleted": false,
+      "boundElementIds": null,
+      "text": "2019",
+      "fontSize": 16,
+      "fontFamily": 1,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "baseline": 14
+    },
+    {
+      "id": "xtm5ed8pB-rm1FDzcM4yg",
+      "type": "text",
+      "x": 684.8217627401841,
+      "y": 447.0489974937346,
+      "width": 133.45,
+      "height": 17.000000000000007,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [
+        "qUAqu8fCxcfsbcDGRc4Gy"
+      ],
+      "strokeSharpness": "sharp",
+      "seed": 1277277721,
+      "version": 184,
+      "versionNonce": 35380761,
+      "isDeleted": false,
+      "boundElementIds": null,
+      "text": "epidemic inspired framework for false \ninformation mitigation in social networks",
+      "fontSize": 6.800000000000002,
+      "fontFamily": 1,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "baseline": 14.000000000000007
+    },
+    {
+      "id": "0l5U0CRg67jlkCF4jwJfL",
+      "type": "rectangle",
+      "x": 683.1217627401838,
+      "y": 447.0489974937346,
+      "width": 136,
+      "height": 17.425000000000008,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [
+        "qUAqu8fCxcfsbcDGRc4Gy"
+      ],
+      "strokeSharpness": "sharp",
+      "seed": 893301689,
+      "version": 162,
+      "versionNonce": 615214071,
+      "isDeleted": false,
+      "boundElementIds": null
+    },
+    {
+      "id": "1ZdsDscb3l6iQnRIX3N0s",
+      "type": "text",
+      "x": 553.4371473555686,
+      "y": 458.39707441681134,
+      "width": 112.68461538461528,
+      "height": 35.076923076922995,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [
+        "_LFUv3lmo17mrkrP1W32I"
+      ],
+      "strokeSharpness": "sharp",
+      "seed": 1919472919,
+      "version": 238,
+      "versionNonce": 1578069497,
+      "isDeleted": false,
+      "boundElementIds": null,
+      "text": "prediction of the influenza virus \npropagation by using different \nepidemiological and machine \nlearning models",
+      "fontSize": 7.015384615384613,
+      "fontFamily": 1,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "baseline": 32.076923076922995
+    },
+    {
+      "id": "u1FD3mOOE1AUuY7TWTLAd",
+      "type": "rectangle",
+      "x": 552.1217627401838,
+      "y": 459.2739974937346,
+      "width": 111.8076923076922,
+      "height": 33.761538461538414,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [
+        "_LFUv3lmo17mrkrP1W32I"
+      ],
+      "strokeSharpness": "sharp",
+      "seed": 1674127223,
+      "version": 187,
+      "versionNonce": 1600211479,
+      "isDeleted": false,
+      "boundElementIds": null
+    },
+    {
+      "id": "riJO493KYMSi2MfFi6lMy",
+      "type": "arrow",
+      "x": 350.12176274018384,
+      "y": 525.4739974937345,
+      "width": 795,
+      "height": 0,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "strokeSharpness": "round",
+      "seed": 855502647,
+      "version": 174,
+      "versionNonce": 1307616215,
+      "isDeleted": false,
+      "boundElementIds": null,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          795,
+          0
+        ]
+      ],
+      "lastCommittedPoint": null,
+      "startBinding": null,
+      "endBinding": null,
+      "startArrowhead": null,
+      "endArrowhead": "arrow"
+    },
+    {
+      "id": "DrevplMJ_sQI3yDJioREX",
+      "type": "freedraw",
+      "x": 460.1217627401839,
+      "y": 531.4739974937345,
+      "width": 3,
+      "height": 9,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "strokeSharpness": "round",
+      "seed": 2029956023,
+      "version": 10,
+      "versionNonce": 1385327289,
+      "isDeleted": false,
+      "boundElementIds": null,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          2,
+          -1
+        ],
+        [
+          2,
+          -2
+        ],
+        [
+          3,
+          -5
+        ],
+        [
+          3,
+          -7
+        ],
+        [
+          3,
+          -8
+        ],
+        [
+          3,
+          -9
+        ],
+        [
+          3,
+          -9
+        ]
+      ],
+      "pressures": [],
+      "simulatePressure": true,
+      "lastCommittedPoint": null
+    },
+    {
+      "id": "o0AuqqHt7BldH_PAjwp9n",
+      "type": "freedraw",
+      "x": 616.1217627401838,
+      "y": 534.4739974937345,
+      "width": 2,
+      "height": 11,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "strokeSharpness": "round",
+      "seed": 640252247,
+      "version": 12,
+      "versionNonce": 541805561,
+      "isDeleted": false,
+      "boundElementIds": null,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          -1
+        ],
+        [
+          0,
+          -2
+        ],
+        [
+          0,
+          -3
+        ],
+        [
+          0,
+          -4
+        ],
+        [
+          1,
+          -6
+        ],
+        [
+          2,
+          -7
+        ],
+        [
+          2,
+          -9
+        ],
+        [
+          2,
+          -10
+        ],
+        [
+          2,
+          -11
+        ],
+        [
+          2,
+          -11
+        ]
+      ],
+      "pressures": [],
+      "simulatePressure": true,
+      "lastCommittedPoint": null
+    },
+    {
+      "id": "5qrNONuLBE9lamDSiA-zz",
+      "type": "freedraw",
+      "x": 756.1217627401838,
+      "y": 532.4739974937345,
+      "width": 5,
+      "height": 9,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "strokeSharpness": "round",
+      "seed": 1440369687,
+      "version": 7,
+      "versionNonce": 1553403767,
+      "isDeleted": false,
+      "boundElementIds": null,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          1,
+          -1
+        ],
+        [
+          3,
+          -5
+        ],
+        [
+          4,
+          -8
+        ],
+        [
+          5,
+          -9
+        ],
+        [
+          5,
+          -9
+        ]
+      ],
+      "pressures": [],
+      "simulatePressure": true,
+      "lastCommittedPoint": null
+    },
+    {
+      "id": "PhUSedEsGSuGkAi5gEHry",
+      "type": "freedraw",
+      "x": 941.1217627401838,
+      "y": 532.4739974937345,
+      "width": 0,
+      "height": 10,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "strokeSharpness": "round",
+      "seed": 666699641,
+      "version": 10,
+      "versionNonce": 592151831,
+      "isDeleted": false,
+      "boundElementIds": null,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          0,
+          -1
+        ],
+        [
+          0,
+          -2
+        ],
+        [
+          0,
+          -4
+        ],
+        [
+          0,
+          -6
+        ],
+        [
+          0,
+          -7
+        ],
+        [
+          0,
+          -9
+        ],
+        [
+          0,
+          -10
+        ],
+        [
+          0,
+          -10
+        ]
+      ],
+      "pressures": [],
+      "simulatePressure": true,
+      "lastCommittedPoint": null
+    },
+    {
+      "id": "Dd4VsGgMZRvhh7GOFtLcu",
+      "type": "text",
+      "x": 328.1217627401839,
+      "y": 488.47399749373454,
+      "width": 20,
+      "height": 20,
+      "angle": 0,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "strokeSharpness": "sharp",
+      "seed": 334023223,
+      "version": 17,
+      "versionNonce": 1624138839,
+      "isDeleted": false,
+      "boundElementIds": null,
+      "text": "RN",
+      "fontSize": 16,
+      "fontFamily": 1,
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "baseline": 14
+    }
+  ],
+  "appState": {
+    "gridSize": null,
+    "viewBackgroundColor": "#ffffff"
+  }
+}
