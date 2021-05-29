@@ -1,7 +1,6 @@
 ### ¿Qué se hizó?:
- - Primera versión estable de los antecedentes
+ - Modificaciones hasta modelo SIR con natalidad y mortalidad
+ - Orden en la función para el modelo SIR == S - I - R, en todos los datos generados por la función
 ### Próximas tareas:
- - Correcciones sobre el documento
- - Enviar informe con correcciones a Isaac
- - Enviar informe a Henry
- - Terminar de arreglar la estructura del código
+ - Validar el comportamiento de los cambios realizados 
+ - Construir una versión con clases
