@@ -1,7 +1,5 @@
 ### ¿Qué se hizó?:
- - Primera versión estable de los antecedentes
+ - Versión final del anteproyecto
 ### Próximas tareas:
- - Correcciones sobre el documento
- - Enviar informe con correcciones a Isaac
+ - Correcciones finales sobre el documento
  - Enviar informe a Henry
- - Terminar de arreglar la estructura del código
