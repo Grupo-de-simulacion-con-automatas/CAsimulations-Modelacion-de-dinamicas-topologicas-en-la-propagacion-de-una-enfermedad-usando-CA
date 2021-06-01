@@ -1,5 +1,5 @@
 ### ¿Qué se hizó?:
- - Modificaciones hasta modelo SIR con muerte por enfermedad
+ - Validaciones hasta el mapa de calor para el modelo SIS
  - Orden en la función para el modelo SIR == S - I - R, en todos los datos generados por la función
 ### Próximas tareas:
  - Validar el comportamiento de los cambios realizados 
