@@ -1,14 +1,8 @@
 # Trabajo de grado
 
 ## Informe de avances
-Segunda versión del marco teórico
+Versión final del anteproyecto
 
 ## Tareas pendientes
 
-Enviar documento a Isaac 
-
-Posibles correcciones
-
-Enviar documento final a Isaac 
-
-Enviar documento a Henry
+Respuesta por parte del comite
