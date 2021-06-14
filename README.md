@@ -3,11 +3,13 @@
 ## Actualización
 
 Versión final del anteproyecto
+
 Actualización del código hasta antes de la implementación del movimiento
 
 ## Próximas tareas
 
 Respuesta por parte del comite
+
 Implementar clases
 
 # Informe de actualización de funciones
