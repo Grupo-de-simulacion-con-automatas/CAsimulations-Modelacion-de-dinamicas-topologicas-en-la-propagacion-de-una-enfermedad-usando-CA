@@ -2,7 +2,13 @@
 
 ## Actualización
 
+Versión final del anteproyecto
+Actualización del código hasta antes de la implementación del movimiento
+
 ## Próximas tareas
+
+Respuesta por parte del comite
+Implementar clases
 
 # Informe de actualización de funciones
 
@@ -72,3 +78,4 @@ Lista con las actualizaciones realizadas y verificadas:
 |evolution_SIR_dd|SIR_Applied_deathByDisease|Aplica el modelo SIR con muerte por enfermedad n_iterations veces sobre el sistema|
 |SIR_dd_model|SIR_Model_deathByDisease|Modelo SIR con muerte por enfermedad|
 |medium_curves_sir_dd|SIR_MediumCurves_deathByDisease|Promedio de n_simulations simulaciones para el modelo SIR con muerte por enfermedad|
+=======
