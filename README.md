@@ -2,15 +2,25 @@
 
 ## Actualización
 
-Versión final del anteproyecto
-Actualización del código hasta antes de la implementación del movimiento
+Implementación de la clase de métricas
 
 ## Próximas tareas
 
 Respuesta por parte del comite
 Implementar clases
 
-# Informe de actualización de funciones
+## Pasando a clases
+
+1. SystemMetrics(system, states, i=opcional, j=opcional)
+```mermaid
+graph LR
+A[Funciones de conteo] --> B[(False)] --> E[statusInTheSystem] --> J
+H[Funciones de conteo normalizadas] --> I[(True)] --> E[statusInTheSystem]
+F[Cantidad de individuos en el sistema] --> G[numberOfIndividuals] --> J
+J[systemMetrics]
+```
+
+## Informe de actualización de funciones (V0 -> V1)
 
 Lista con las actualizaciones realizadas y verificadas:
 
