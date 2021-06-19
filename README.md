@@ -7,6 +7,7 @@ Implementación de la clase de métricas
 ## Próximas tareas
 
 Respuesta por parte del comite
+
 Implementar clases
 
 ## Pasando a clases
