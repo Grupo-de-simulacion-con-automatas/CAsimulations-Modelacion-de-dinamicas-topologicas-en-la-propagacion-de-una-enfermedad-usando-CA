@@ -2,7 +2,7 @@
 
 ## Actualización
 
-Implementación de la función "appliedModel" y de la clase sis 
+Implementación de la clase sir
 
 ## Próximas tareas
 
@@ -21,6 +21,8 @@ Funciones de conteo normalizadas--> statusInTheSystem
 Cantidad de individuos en el sistema] --> numberOfIndividuals
 
 2. sis(alpha, beta, system, extraRows, extraColumns, neighborhoodType)
+
+3. sir(alpha, beta, system, extraRows, extraColumns, neighborhoodType)
 
 ## Informe de actualización de funciones (V0 -> V1)
 
