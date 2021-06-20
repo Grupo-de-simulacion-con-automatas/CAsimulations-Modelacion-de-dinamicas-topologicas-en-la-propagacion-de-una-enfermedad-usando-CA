@@ -2,7 +2,7 @@
 
 ## Actualización
 
-Implementación de la clase de métricas
+Implementación de la función "appliedModel" y de la clase sis 
 
 ## Próximas tareas
 
@@ -12,14 +12,15 @@ Implementar clases
 
 ## Pasando a clases
 
-1. SystemMetrics(system, states, i=opcional, j=opcional)
-```mermaid
-graph LR
-A[Funciones de conteo] --> B[(False)] --> E[statusInTheSystem] --> J
-H[Funciones de conteo normalizadas] --> I[(True)] --> E[statusInTheSystem]
-F[Cantidad de individuos en el sistema] --> G[numberOfIndividuals] --> J
-J[systemMetrics]
-```
+1. systemMetrics(system, states, i=opcional, j=opcional)
+
+Funciones de conteo --> statusInTheSystem
+
+Funciones de conteo normalizadas--> statusInTheSystem
+
+Cantidad de individuos en el sistema] --> numberOfIndividuals
+
+2. sis(alpha, beta, system, extraRows, extraColumns, neighborhoodType)
 
 ## Informe de actualización de funciones (V0 -> V1)
 
