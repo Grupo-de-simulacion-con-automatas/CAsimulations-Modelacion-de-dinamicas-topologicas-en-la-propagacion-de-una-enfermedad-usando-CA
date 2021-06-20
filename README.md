@@ -2,7 +2,7 @@
 
 ## Actualización
 
-Implementación de la clase sir
+Implementación de la función heatmap
 
 ## Próximas tareas
 
