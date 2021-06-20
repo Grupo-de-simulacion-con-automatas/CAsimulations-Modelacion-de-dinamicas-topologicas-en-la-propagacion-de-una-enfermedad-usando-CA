@@ -7,6 +7,7 @@ Implementación de las funciones '''insideSystem''' y '''dataVisualization'''
 ## Próximas tareas
 
 Respuesta por parte del comite
+
 Implementar clases
 
 ## Pasando a clases
@@ -14,7 +15,9 @@ Implementar clases
 1. SystemMetrics(system, states, i=opcional, j=opcional)
 
 Funciones de conteo --> statusInTheSystem
+
 Funciones de conteo normalizadas--> statusInTheSystem
+
 Cantidad de individuos en el sistema] --> numberOfIndividuals
 
 ## Informe de actualización de funciones (V0 -> V1)
