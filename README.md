@@ -2,7 +2,7 @@
 
 ## Actualización
 
-Implementación de la función heatmap
+Implementación de las clases birthAndMortavility y deathByDisease
 
 ## Próximas tareas
 
@@ -23,6 +23,10 @@ Cantidad de individuos en el sistema] --> numberOfIndividuals
 2. sis(alpha, beta, system, extraRows, extraColumns, neighborhoodType)
 
 3. sir(alpha, beta, system, extraRows, extraColumns, neighborhoodType)
+
+4. birthAndMortavility(model,alpha,beta,birthRate,probabilityOfDyingByAgeGroup,system,systemAges,annualUnit,extraRows,extraColumns,neighborhoodType)
+
+5. deathByDisease(model,alpha,beta,birthRate,probabilityOfDyingByAgeGroup,deathFromDiseaseByAgeRange,system,systemAges,annualUnit,extraRows,extraColumns,neighborhoodType)
 
 ## Informe de actualización de funciones (V0 -> V1)
 
