@@ -2,7 +2,7 @@
 
 ## Actualización
 
-Implementación de las clases birthAndMortavility y deathByDisease
+Generalización de la función appliedModel
 
 ## Próximas tareas
 
