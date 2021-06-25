@@ -2,7 +2,7 @@
 
 ## Actualización
 
-Generalización de la función appliedModel
+Implementación de las funciones mediumData y mediumCurves en las clases sis y sir. Falta en las clases birthAndMortavility y deathByDisease
 
 ## Próximas tareas
 
