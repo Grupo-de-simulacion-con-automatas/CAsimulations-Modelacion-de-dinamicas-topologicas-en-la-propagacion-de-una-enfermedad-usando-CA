@@ -2,13 +2,15 @@
 
 ## Actualización
 
-Implementación de las funciones mediumData y mediumCurves en las clases sis y sir. Falta en las clases birthAndMortavility y deathByDisease
+Implementación de funciones para graficar los datos y los cambios en el sistema para las clases sis y sir
+
+Generalización de las métricas promedio
 
 ## Próximas tareas
 
-Respuesta por parte del comite
+Actualización en las clases birthAndMortavility y deathByDisease
 
-Implementar clases
+Respuesta por parte del comite
 
 ## Pasando a clases
 
