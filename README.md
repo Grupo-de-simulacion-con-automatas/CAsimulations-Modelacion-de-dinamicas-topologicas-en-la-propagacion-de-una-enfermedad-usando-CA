@@ -2,13 +2,13 @@
 
 ## Actualización
 
-Implementación de funciones para graficar los datos y los cambios en el sistema para las clases sis y sir
+Actualización de las clases birthAndMortavility y deathByDisease
 
 Generalización de las métricas promedio
 
 ## Próximas tareas
 
-Actualización en las clases birthAndMortavility y deathByDisease
+Implementación de la clase epidemiologicalModels
 
 Respuesta por parte del comite
 
