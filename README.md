@@ -2,13 +2,15 @@
 
 ## Actualización
 
-Implementación de las clases birthAndMortavility y deathByDisease
+Actualización de las clases birthAndMortavility y deathByDisease
+
+Generalización de las métricas promedio
 
 ## Próximas tareas
 
-Respuesta por parte del comite
+Implementación de la clase epidemiologicalModels
 
-Implementar clases
+Respuesta por parte del comite
 
 ## Pasando a clases
 
