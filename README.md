@@ -2,13 +2,11 @@
 
 ## Actualización
 
-Actualización de las clases birthAndMortavility y deathByDisease
-
-Generalización de las métricas promedio
+División en modulos y validación para las clases sis y sir
 
 ## Próximas tareas
 
-Implementación de la clase epidemiologicalModels
+Validación con las clases birthAndMortavility y deathByDisease
 
 Respuesta por parte del comite
 
