@@ -2,11 +2,11 @@
 
 ## Actualización
 
-División en modulos y validación para las clases sis y sir
+Ajustes sobre las clases birthAndMortavility y deathByDisease y validación de comportamientos para cada modelo
 
 ## Próximas tareas
 
-Validación con las clases birthAndMortavility y deathByDisease
+Empezar a escribir el documento del trabajo de grado
 
 Respuesta por parte del comite
 

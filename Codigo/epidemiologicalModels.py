@@ -6,10 +6,7 @@
 get_ipython().system('pip install opencv-python')
 get_ipython().system('pip install opencv-contrib-python')
 
-import numpy as np
 import seaborn as sns
-from enviroment import *
-from tools import *
 from models import *
 
 class models:
@@ -40,22 +37,27 @@ class models:
         elif self.model == "sir":
             self.epidemiologicalModel = sir(self.alpha,self.beta,self.system,self.extraRows,self.extraColumns,self.neighborhoodType)
         else:
-            if self.birthRate == None: 
-                print("Defina birthRate")
-            if self.probabilityOfDyingByAgeGroup.all() == None: 
-                print("Defina probabilityOfDyingByAgeGroup")
-            if self.systemAges.all() == None: 
-                print("Defina systemAges")
-            if self.annualUnit == None: 
-                print("Defina annualUnit")   
+            if self.birthRate == None:
+                print("Defina birthRate, probabilityOfDyingByAgeGroup, systemAges, annualUnit") 
+            self.modelHasAges = True
             if self.model == "sis_birthAndMortavility":
-                self.states = [0,1,3]; self.epidemiologicalModel = birthAndMortavility(self)
+                self.epidemiologicalModel = birthAndMortavility("sis",self.alpha,self.beta,self.birthRate,
+                                                                self.probabilityOfDyingByAgeGroup,self.system,self.systemAges,
+                                                                self.annualUnit,self.extraRows,self.extraColumns,self.neighborhoodType)
             if self.model == "sir_birthAndMortavility":
-                self.states = [0,1,2,3]; self.epidemiologicalModel = birthAndMortavility(self)
+                self.epidemiologicalModel = birthAndMortavility("sir",self.alpha,self.beta,self.birthRate,
+                                                                self.probabilityOfDyingByAgeGroup,self.system,self.systemAges,
+                                                                self.annualUnit,self.extraRows,self.extraColumns,self.neighborhoodType)
             if self.model == "sis_deathByDisease":
-                self.states = [0,1,3]; self.epidemiologicalModel = birthAndMortavility(self)
+                self.epidemiologicalModel = deathByDisease("sis",self.alpha,self.beta,self.birthRate,
+                                                           self.probabilityOfDyingByAgeGroup,self.deathFromDiseaseByAgeRange,
+                                                           self.system,self.systemAges,self.annualUnit,self.extraRows,
+                                                           self.extraColumns,self.neighborhoodType)
             if self.model == "sir_deathByDisease":
-                self.states = [0,1,2,3]; self.epidemiologicalModel = birthAndMortavility(self)
+                self.epidemiologicalModel = deathByDisease("sir",self.alpha,self.beta,self.birthRate,
+                                                           self.probabilityOfDyingByAgeGroup,self.deathFromDiseaseByAgeRange,
+                                                           self.system,self.systemAges,self.annualUnit,self.extraRows,
+                                                           self.extraColumns,self.neighborhoodType)
     
     def basicModel(self,n_iterations,modifiedSystem=False,system=None):
         self.__evalConditions()
@@ -83,6 +85,7 @@ class models:
         plt.imshow(color(self.evolutions[specificIteration]),cmap="nipy_spectral",interpolation='nearest')
         
     def mediumCurves(self,initialPercentageInfected,n_iterations,n_simulations):
+        self.__evalConditions()
         """Curvas promedio del modelo"""
         return appliedMediumData(self.basicModel,self.system,initialPercentageInfected,
                                  self.epidemiologicalModel.states,n_iterations,n_simulations)     

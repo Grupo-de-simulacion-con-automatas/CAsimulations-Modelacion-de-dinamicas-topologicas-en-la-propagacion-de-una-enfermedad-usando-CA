@@ -6,7 +6,6 @@
 import numpy as np
 import random
 import math
-from IPython.core.pylabtools import figsize
 
 def Moore(system,i,j):
     """Definición de la vecindad de Moore"""
@@ -44,8 +43,8 @@ def insideCopy(system,extraRows=0,extraColumns=0):
 def stateCoordinates(system, stateIndicator):
     """Enlista los agentes que tengan un estado especifico
     stateIndicator : 0 -> Susceptibles; 1 -> Infectados; 2 -> Recuperados; -1 -> Espacios vacios; 3 -> Fallecidos"""
-    nRows,nColumns = system.shape 
     coordinates = []
+    nRows,nColumns = system.shape 
     for i in range(nRows):
         for j in range(nColumns):
             if system[i,j] == stateIndicator:  
@@ -57,8 +56,8 @@ def statePercentageInSpace(a,b,state,spatialState=0):
     a,b => Porcentage visto como fracción
     state => Estado que van a adquirir los individuos
     spatialState => Estado que se considera como base para el cambio al estado state"""
-    space = spatialState*np.ones((1,b))
-    percentageInSpace = [] 
+    percentageInSpace = []
+    space = spatialState*np.ones((1,b)) 
     for j in range(a):
         i = random.randint(1,b-1) 
         space[0][i] = state

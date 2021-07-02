@@ -3,7 +3,6 @@
 
 # In[ ]:
 
-import random
 from tools import *
 
 def baseRuleEvolution(alpha,beta,neighborhood,i,j):
@@ -27,8 +26,7 @@ def baseRuleEvolution(alpha,beta,neighborhood,i,j):
 
 class sis:
     data = None; evolutions = None
-    states = [0,1]
-    col = ["y","r"]; eti = ["susceptibles", "infectados"]
+    states = [0,1]; col = ["y","r"]; eti = ["susceptibles", "infectados"]
     def __init__(self,alpha,beta,system,extraRows,extraColumns,neighborhoodType):
         """Modelo SIS
         alpha => Tasa de recuperación        
@@ -57,8 +55,7 @@ class sis:
         
 class sir:
     data = None; evolutions = None
-    states = [0,1,2]
-    col = ["y","r","g"]; eti = ["susceptibles", "infectados", "recuperados"]
+    states = [0,1,2]; col = ["y","r","g"]; eti = ["susceptibles", "infectados", "recuperados"]
     def __init__(self,alpha,beta,system,extraRows,extraColumns,neighborhoodType):
         """Modelo SIR
         alpha => Tasa de recuperación        
@@ -106,10 +103,8 @@ class sir:
     
 def agesMatrix(ranges, system):
     '''Arreglo de edades aleatorias'''
-    numberOfRows, numberOfColumns = system.shape
-    metricas = systemMetrics(system,[0,1,2,3])
-    amoungIndividuals = metricas.numberOfIndividuals() # numberOfIndividuals(system)   
     agesDivisions = []
+    numberOfRows, numberOfColumns = system.shape; amoungIndividuals = systemMetrics(system,[0,1,2,3]).numberOfIndividuals()  
     for Range in ranges:
         agesDivisions.append([0]*math.ceil(Range[2]*amoungIndividuals))
     for divition in range(len(agesDivisions)):
@@ -121,7 +116,7 @@ def agesMatrix(ranges, system):
     matrixOfAges = -np.ones((numberOfRows,numberOfColumns))
     for row in range(numberOfRows):
         for column in range(numberOfColumns):
-            #Si el píxel no es un espacio vacío o un agente muerto se le asigna una edad
+            # Si el píxel no es un espacio vacío o un agente muerto se le asigna una edad
             if system[row,column] != -1 and system[row,column] != 3:
                 randomAge = random.choice(concatenatedAgeList)
                 matrixOfAges[row,column] = randomAge
@@ -131,8 +126,8 @@ def agesMatrix(ranges, system):
 
 def ageGroupPositions(minAge, maxAge, systemAges):   
     '''Genera las posiciones de los individuos que tienen entre minAge y maxAge años en el sistema'''
-    numberOfRows, numberOfColumns = systemAges.shape
     groupPositions = []
+    numberOfRows, numberOfColumns = systemAges.shape
     for row in range(numberOfRows):
         for column in range(numberOfColumns):
             if minAge < systemAges[row][column] and systemAges[row][column] < maxAge:
@@ -141,6 +136,7 @@ def ageGroupPositions(minAge, maxAge, systemAges):
 
 def newYear(birthRate,probabilityOfDyingByAgeGroup, systemAges, timeUnit, annualUnit):
     '''Nuevo año para los agentes'''
+    agePositions = []; mortalityApplicationGroups = []; deadPositions = []
     numberOfRows, numberOfColumns = systemAges.shape
     newYearMatrix = np.zeros((numberOfRows, numberOfColumns))
     for row in range(numberOfRows):
@@ -157,13 +153,10 @@ def newYear(birthRate,probabilityOfDyingByAgeGroup, systemAges, timeUnit, annual
                 newYearMatrix[row,column] = -1
             else:
                 newYearMatrix[row,column] = systemAges[row,column]
-    agePositions = []
-    mortalityApplicationGroups=[]
     for group in range(len(probabilityOfDyingByAgeGroup)):   
         # Se separan los grupos de edades para aplicar las tasas de mortalidad de probabilityOfDyingByAgeGroup
         agePositions.append(ageGroupPositions(probabilityOfDyingByAgeGroup[group][0],probabilityOfDyingByAgeGroup[group][1],systemAges))
         mortalityApplicationGroups.append(math.ceil(len(agePositions[group])*probabilityOfDyingByAgeGroup[group][2])-1)
-    deadPositions = []
     for group in range(len(mortalityApplicationGroups)):
         for age in range(mortalityApplicationGroups[group]):
             numberOfDead = random.randint(0, len(agePositions[group]) - 1)
@@ -177,25 +170,31 @@ class birthAndMortavility:
     def __init__(self,model,alpha,beta,birthRate,probabilityOfDyingByAgeGroup,system,systemAges,annualUnit,extraRows,extraColumns,neighborhoodType):
         self.model = model
         self.alpha = alpha; self.beta = beta
-        self.birthRate = birthRate; self.probabilityOfDyingByAgeGroup = probabilityOfDyingByAgeGroup
-        self.system = system; self.systemAges = systemAges; self.nRows, self.nColumns = system.shape
+        self.birthRate = birthRate
+        self.probabilityOfDyingByAgeGroup = probabilityOfDyingByAgeGroup
+        self.system = system; self.systemAges = systemAges
+        self.nRows, self.nColumns = system.shape
         self.annualUnit = annualUnit
-        self.neighborhoodType = neighborhoodType; self.extraRows = extraRows; self.extraColumns = extraColumns
+        self.neighborhoodType = neighborhoodType
+        self.extraRows = extraRows; self.extraColumns = extraColumns
         if self.model == "sis":
-            self.states = [0,1,3]; self.col = ["y","r","b"]; self.eti = ["susceptibles", "infectados","muertos"]
+            self.states = [0,1,3]; self.col = ["y","r","b"]
+            self.eti = ["susceptibles","infectados","muertos"]
         elif self.model == "sir":
-            self.states = [0,1,2,3]; self.col = ["y","r","g","b"]; self.eti = ["susceptibles","infectados","recuperados","muertos"]
+            self.states = [0,1,2,3]; self.col = ["y","r","g","b"]
+            self.eti = ["susceptibles","infectados","recuperados","muertos"]
     
     def basicRule(self,previousSystem,previousAgesSystem,timeUnit):
         '''Regla de evolución del modelo SIS con natalidad y mortalidad'''
-        newYearMatrix = newYear(self.birthRate,self.probabilityOfDyingByAgeGroup,previousAgesSystem,timeUnit,self.annualUnit)
+        modelWithBirthAndMortavilityMatrix = np.zeros((self.nRows,self.nColumns))
+        newYearMatrix = newYear(self.birthRate,self.probabilityOfDyingByAgeGroup,
+                                previousAgesSystem,timeUnit,self.annualUnit)
         if self.model == "sis":
             modelMatrix = sis(self.alpha,self.beta,previousSystem,self.extraRows,self.extraColumns,
                               self.neighborhoodType).basicRule(previousSystem)
         elif self.model == "sir":
             modelMatrix = sir(self.alpha,self.beta,previousSystem,self.extraRows,self.extraColumns,
                               self.neighborhoodType).basicRule(previousSystem)
-        modelWithBirthAndMortavilityMatrix = np.zeros((self.nRows,self.nColumns))
         for row in range(self.nRows):
             for column in range(self.nColumns):
                 if newYearMatrix[row,column] == 0:   
@@ -208,41 +207,11 @@ class birthAndMortavility:
                     modelWithBirthAndMortavilityMatrix[row,column] = modelMatrix[row,column]
         return [modelWithBirthAndMortavilityMatrix, newYearMatrix]
     
-    def basicModel(self,n_iterations,modifiedSystem=False,system=None):
-        """Aplica el modelo n_iterations veces"""
-        if modifiedSystem == False:
-            evolutions = appliedModel(self.basicRule,self.system,n_iterations,True,self.systemAges)
-        else:
-            evolutions = appliedModel(self.basicRule,system,n_iterations,True,self.systemAges)
-        visualization = dataVisualization(evolutions,self.states)
-        self.data = visualization[0]; self.evolutions = visualization[2]
-        return visualization
-
-    def metricsPlot(self,n_iterations,title="Modelo con natalidad y mortalidad"):
-        """Gráfica la evolución de los estados en n_iterations"""
-        if self.data == None:
-            visualization = self.basicModel(n_iterations)
-            self.data = visualization[0]; self.evolutions = visualization[2]    
-        graficas(self.data, eti, col, title)
-
-    def evolutionsPlot(self,n_iterations,specificIteration):
-        """Gráfica una evolución especifica del conjunto de evoluciones generadas tras aplicar el modelo"""
-        if self.evolutions == None:
-            visualization = self.basicModel(n_iterations)
-            self.data = visualization[0]; self.evolutions = visualization[2]
-        plt.imshow(color(self.evolutions[specificIteration]),cmap="nipy_spectral",interpolation='nearest')
-    
-    def mediumCurves(self,initialPercentageInfected,n_iterations,n_simulations):
-        return appliedMediumData(self.basicModel,self.system,initialPercentageInfected,self.states,n_iterations,n_simulations)
-    
 def deathByDiseaseRule(deathFromDiseaseByAgeRange,system,systemAges):   
     '''Aplica probabilidades de muerte por enfermedad a grupos de edad sobre el sistema'''
+    infectedIndividualsPerGroup = []; numberOfInfectedIndividualsDeathPerGroup = []; deathPositions = []
     numberOfRows, numberOfColumns = system.shape
-    systemAgesCopy = insideCopy(systemAges)
-    systemCopy = insideCopy(system)
-    infectedIndividualsPerGroup = []
-    numberOfInfectedIndividualsDeathPerGroup = []
-    deathPositions = []
+    systemCopy = insideCopy(system); systemAgesCopy = insideCopy(systemAges)
     for group in range(len(deathFromDiseaseByAgeRange)):
         groupPositions = ageGroupPositions(deathFromDiseaseByAgeRange[group][0],deathFromDiseaseByAgeRange[group][1], systemAgesCopy)
         infectedIndividuals = []
@@ -273,9 +242,11 @@ class deathByDisease(birthAndMortavility):
         self.systemAges = systemAges; self.annualUnit = annualUnit
         self.neighborhoodType = neighborhoodType; self.extraRows = extraRows; self.extraColumns = extraColumns 
         if self.model == "sis":
-            self.states = [0,1,3]
+            self.states = [0,1,3]; self.col = ["y","r","b"]
+            self.eti = ["susceptibles","infectados","muertos"]
         elif self.model == "sir":
-            self.states = [0,1,2,3]
+            self.states = [0,1,2,3]; self.col = ["y","r","g","b"]
+            self.eti = ["susceptibles","infectados","recuperados","muertos"]
         
     def basicRule(self,system,systemAges,timeUnit):
         evolution = birthAndMortavility(self.model,self.alpha,self.beta,self.birthRate,self.probabilityOfDyingByAgeGroup,
@@ -284,34 +255,3 @@ class deathByDisease(birthAndMortavility):
         systemCopy = insideCopy(evolution[0])
         evolutionsAfterDeaths = deathByDiseaseRule(self.deathFromDiseaseByAgeRange,systemCopy,evolution[1])
         return evolutionsAfterDeaths
-    
-    def basicModel(self,n_iterations,modifiedSystem=False,system=None):
-        """Aplica el modelo n_iterations veces"""
-        if modifiedSystem == False:
-            evolutions = appliedModel(self.basicRule,self.system,n_iterations,True,self.systemAges)
-        else:
-            evolutions = appliedModel(self.basicRule,system,n_iterations,True,self.systemAges)
-        visualization = dataVisualization(evolutions,self.states)
-        self.data = visualization[0]; self.evolutions = visualization[2]
-        return visualization
-
-    def metricsPlot(self,n_iterations,title="Modelo con natalidad y mortalidad"):
-        """Gráfica la evolución de los estados en n_iterations"""
-        if self.data == None:
-            visualization = self.basicModel(n_iterations)
-            self.data = visualization[0]; self.evolutions = visualization[2]
-        if self.model == "sis":
-            col = ["y","r","b"]; eti = ["susceptibles", "infectados","muertos"]
-        elif self.model == "sir":
-            col = ["y","r","g","b"]; eti = ["susceptibles","infectados","recuperados","muertos"]
-        graficas(self.data, eti, col, title)
-
-    def evolutionsPlot(self,n_iterations,specificIteration):
-        """Gráfica una evolución especifica del conjunto de evoluciones generadas tras aplicar el modelo"""
-        if self.evolutions == None:
-            visualization = self.basicModel(n_iterations)
-            self.data = visualization[0]; self.evolutions = visualization[2]
-        plt.imshow(color(self.evolutions[specificIteration]),cmap="nipy_spectral",interpolation='nearest')
-    
-    def mediumCurves(self,initialPercentageInfected,n_iterations,n_simulations):
-        return appliedMediumData(self.basicModel,self.system,initialPercentageInfected,self.states,n_iterations,n_simulations)

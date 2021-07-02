@@ -3,26 +3,12 @@
 
 # In[ ]:
 
+from enviroment import *
 import matplotlib.pyplot as plt
 
-import cv2
-import string
-import pandas as pd
-import glob 
-from skimage.color import rgb2gray
-import seaborn as sns
-# import scipy.integrate as spi
-import math 
-from sklearn import linear_model
-from sklearn.metrics import mean_squared_error, r2_score
-import sklearn
-# from IPython.core.pylabtools import figsize
-from enviroment import *
-
-def spline3(A):     #spline cubico para la lista de coordenadas A 
-    n = len(A); alpha = []; spline = []
-    a = []; h = []; x = []; y = []*(n-1); C = [0]*n
-    l = [1]; B = [0] ; g = [0]; gn = 0
+def spline3(A):     #spline cubico para la lista de coordenadas A
+    n = len(A); l = [1]; B = [0] ; g = [0]; gn = 0; C = [0]*n
+    alpha = []; spline = []; a = []; h = []; x = []; y = []*(n-1)
     for i in range(n):
         a.append(A[i][1])
     for i in range(n-1):
