@@ -2,13 +2,11 @@
 
 ## Actualización
 
-Actualización de las clases birthAndMortavility y deathByDisease
-
-Generalización de las métricas promedio
+Ajustes sobre las clases birthAndMortavility y deathByDisease y validación de comportamientos para cada modelo
 
 ## Próximas tareas
 
-Implementación de la clase epidemiologicalModels
+Empezar a escribir el documento del trabajo de grado
 
 Respuesta por parte del comite
 
