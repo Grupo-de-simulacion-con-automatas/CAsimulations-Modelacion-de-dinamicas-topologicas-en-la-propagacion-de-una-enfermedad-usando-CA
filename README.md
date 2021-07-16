@@ -2,11 +2,17 @@
 
 ## Actualización
 
-Ajustes sobre las clases birthAndMortavility y deathByDisease y validación de comportamientos para cada modelo
+bloque de modelos compartimentales e introducción en el bloque de estudio epidemiológico
 
 ## Próximas tareas
 
-Empezar a escribir el documento del trabajo de grado
+Definición de R0, R(t) y sigma(t)
+
+Modelo SIS clásico
+
+Método de Euler
+
+Modelo SIR clásico
 
 Respuesta por parte del comite
 
