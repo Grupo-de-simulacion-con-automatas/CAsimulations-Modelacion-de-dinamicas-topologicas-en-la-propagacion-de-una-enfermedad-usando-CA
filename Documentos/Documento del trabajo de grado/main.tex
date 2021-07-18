@@ -1,5 +1,7 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+
 
 \title{Predicción del comportamiento de una enfermedad simulada en autómatas celulares con un algoritmo propuesto en redes neuronales}
 \author{jibanezh }
@@ -40,14 +42,30 @@ Las siglas de cada estado del modelo definen su nombre, por ejemplo, el modelo M
   \label{fig:ejemplo}
 \end{figure}
 
+\textbf{Nota:} Durante el desarrollo del presente documento trabajaremos con valores normalizados, por lo que 
+$$\begin{array}{cc}
+    M(t) + S(t) + E(t) + I(t) + R(t) = 1 & \text{, para todo tiempo }t.
+\end{array} $$
+
 \subsubsection{Estudio epidemiológico}
 Uno de los objetos de estudio con mayor importancia en el campo de la epidemiología es la cualidad endémica de la enfermedad, es decir, si la enfermedad afectará a la población por un largo periodo de tiempo o si desaparecerá gradualmente. La manera en la que se determina está capacidad está dada por los siguientes indicadores:
 
 \begin{itemize}
-    \item \textbf{Número básico de reproducción $R_0$:} 
-    \item \textbf{Número de desplazamiento $R(t)$:}
-    \item \textbf{Número de contactos adecuados $\sigma(t)$:}
+    \item \textbf{Número básico de reproducción $R_0$:} Se define como la cantidad de individuos que infecta el paciente cero en una población completamente susceptible. En general, si $R_0<1$ la enfermedad desaparecerá paulatinamente y sí $R_0>1$, podríamos estar ante un caso de endemia.
+    \item \textbf{Número de contactos adecuados $\sigma(t)$:} Es la cantidad de contactos con individuos del sistema que realiza un individuo infectado durante su etapa de infección, cuando se introduce en la población en el momento $t$.
+    \item \textbf{Número de desplazamiento $R(t)$:} Se entiende como la cantidad promedio de infecciones secundarias que produce un individuo infectado durante su etapa de infección, cuando es introducido en la población en el momento $t$. De ese modo, $R(t) = \sigma(t)\cdot S(t)$, donde $S(t)$ indica la cantidad de individuos susceptibles en el momento $t$.
 \end{itemize}
+
+\subsubsection{Función de supervivencia}
+Heesterbeek y Dietz definen el número básico de reproducción $R_0$ como
+\begin{equation}
+    R_0 = \int_0^\infty b(a)F(a) da
+\end{equation}
+donde $b(a)$ representa la cantidad promedio de nuevos contagios que producirá un individuo infectado durante un tiempo y $F(a)$, conocida como la función de supervivencia, representa la probabilidad de que un individuo recién infectado se mantenga en ese estado durante al menos un tiempo $a$ \cite{conceptOfR0, perspectivesOnR0}.
+
+\subsection{Modelos SIS y SIR determinísticos}
+\subsubsection{Modelo SIS}
+
 
 \section{Marco teórico}
 
