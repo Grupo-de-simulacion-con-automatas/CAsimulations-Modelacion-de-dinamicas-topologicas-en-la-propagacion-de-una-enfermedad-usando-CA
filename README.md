@@ -2,13 +2,11 @@
 
 ## Actualización
 
-Ajustes sobre las clases birthAndMortavility y deathByDisease y validación de comportamientos para cada modelo
+Clase de modelos compartimentales
 
 ## Próximas tareas
 
-Empezar a escribir el documento del trabajo de grado
-
-Respuesta por parte del comite
+Separación de responsabilidades por clase
 
 ## Pasando a clases
 
