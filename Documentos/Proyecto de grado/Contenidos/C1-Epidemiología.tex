@@ -1,23 +1,4 @@
-\documentclass{article}
-\usepackage[utf8]{inputenc}
-\usepackage{amsmath}
-
-
-\title{Predicción del comportamiento de una enfermedad simulada en autómatas celulares con un algoritmo propuesto en redes neuronales}
-\author{jibanezh }
-\date{July 2021}
-
-\usepackage{natbib}
-\usepackage{graphicx}
-
-\begin{document}
-
-\maketitle
-
-\section{Introducción}
-
-\subsection{Epidemiología}
-
+\chapter{Epidemiología}
 \subsubsection{¿Qué es la epidemiología?}
 De acuerdo con \cite{epiDictionary}, la epidemiología se encarga de estudiar la ocurrencia y distribución de eventos, estados y procesos relacionados con la salud de distintas poblaciones, con el objetivo de brindar estrategias de control y prevención de problemas de salud relevantes.
 
@@ -35,7 +16,7 @@ Tradicionalmente, se han utilizado modelos de compartimientos para elaborar aná
 
 Las siglas de cada estado del modelo definen su nombre, por ejemplo, el modelo MSEIR define la interacción entre poblaciones con inmunidad "pasiva" o temporal (M), en donde la inmunidad de los individuos se genera a partir de los anticuerpos heredados de la madre. Con la desaparición de los anticuerpos, estos individuos se vuelven susceptibles a contraer la enfermedad (S). Si un individuo susceptible entra en contacto con un individuo infectado, pasará al estado de exposición (E) en donde ya se considera infectado pero incapaz de transmitir la enfermedad. En el momento en el que el individuo adquiera la capacidad de contagiar la enfermedad, se pasará al estado (I) y finalmente, cuando el individuo se recupere y adquiera inmunidad, pasará al estado (R) del modelo.\cite{modelCompartimental}
 
-\begin{figure}[h.]
+\begin{figure}[h]
   \centering
     \includegraphics[width=0.8\textwidth]{Imagenes/MSEIR_compatimientos.PNG}
   \caption{Diagrama de compartimientos para el modelo MSEIR}
@@ -62,28 +43,3 @@ Heesterbeek y Dietz definen el número básico de reproducción $R_0$ como
     R_0 = \int_0^\infty b(a)F(a) da
 \end{equation}
 donde $b(a)$ representa la cantidad promedio de nuevos contagios que producirá un individuo infectado durante un tiempo y $F(a)$, conocida como la función de supervivencia, representa la probabilidad de que un individuo recién infectado se mantenga en ese estado durante al menos un tiempo $a$ \cite{conceptOfR0, perspectivesOnR0}.
-
-\subsection{Modelos SIS y SIR determinísticos}
-\subsubsection{Modelo SIS}
-
-
-\section{Marco teórico}
-
-\subsection{Modelo sis}
-\begin{itemize}
-    \item planteamiento del modelo sis 
-    \item explicación del método de Euler 
-    \item pseudo codigo de la implementación
-    \item solucion del modelo 
-    \item analisis de metricas descritas en la subseccion anterior
-\end{itemize}
-\subsection{Modelo sir}
-\begin{itemize}
-    \item planteamiento del modelo sir
-    \item solucion del modelo 
-    \item analisis de metricas descritas en la subseccion anterior
-\end{itemize}
-
-\bibliographystyle{plain}
-\bibliography{references}
-\end{document}
