@@ -2,7 +2,7 @@
 
 ## Actualización
 
-Actualización de la clase para la solución de los modelos compartimentales
+Primera versión del cuadernillo para modelos modelos en ecuaciones diferenciales
 
 ## Próximas tareas
 
