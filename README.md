@@ -2,7 +2,7 @@
 
 ## Actualización
 
-Clase de modelos compartimentales
+Actualización de la clase para la solución de los modelos compartimentales
 
 ## Próximas tareas
 
