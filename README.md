@@ -2,7 +2,7 @@
 
 ## Actualización
 
-Primera versión del cuadernillo para modelos modelos en ecuaciones diferenciales
+DefineSpaceInCA.py == enviroment.py
 
 ## Próximas tareas
 
