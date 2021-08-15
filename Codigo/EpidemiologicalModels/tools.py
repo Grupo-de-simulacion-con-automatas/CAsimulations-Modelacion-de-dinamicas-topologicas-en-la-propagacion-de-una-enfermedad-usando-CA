@@ -3,7 +3,7 @@
 
 # In[ ]:
 
-from enviroment import *
+from EpidemiologicalModels.DefineSpaceInCA import *
 import matplotlib.pyplot as plt
 
 def spline3(A):     #spline cubico para la lista de coordenadas A

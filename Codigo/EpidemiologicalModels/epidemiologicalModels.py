@@ -7,7 +7,7 @@ get_ipython().system('pip install opencv-python')
 get_ipython().system('pip install opencv-contrib-python')
 
 import seaborn as sns
-from models import *
+from EpidemiologicalModels.models import *
 
 class models:
     # En las variables data y evolutions se almacenaran los datos luego de aplicar los modelos
