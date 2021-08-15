@@ -2,13 +2,11 @@
 
 ## Actualización
 
-DefineSpaceInCA.py == enviroment.py
-
-## Próximas tareas
-
-Separación de responsabilidades por clase
+Reglas de evolución para modelos SIS y SIR
 
 ## Pasando a clases
+
+DefineSpaceInCA.py == enviroment.py
 
 1. systemMetrics(system, states, i=opcional, j=opcional)
 

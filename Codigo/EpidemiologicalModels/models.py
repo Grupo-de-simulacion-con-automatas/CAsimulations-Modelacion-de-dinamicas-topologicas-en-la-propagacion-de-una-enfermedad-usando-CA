@@ -3,7 +3,7 @@
 
 # In[ ]:
 
-from tools import *
+from EpidemiologicalModels.tools import *
 
 def baseRuleEvolution(alpha,beta,neighborhood,i,j):
     """Regla totalística que describe el cambio entre los estados S e I de manera local"""
