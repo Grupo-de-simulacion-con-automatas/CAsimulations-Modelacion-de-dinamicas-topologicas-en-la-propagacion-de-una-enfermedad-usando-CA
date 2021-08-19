@@ -179,10 +179,10 @@ class birthAndMortavility:
         self.extraRows = extraRows; self.extraColumns = extraColumns
         if self.model == "sis":
             self.states = [0,1,3]; self.col = ["y","r","b"]
-            self.eti = ["susceptibles","infectados","muertos"]
+            self.eti = ["susceptibles","infectados","Espacios disponibles"]
         elif self.model == "sir":
             self.states = [0,1,2,3]; self.col = ["y","r","g","b"]
-            self.eti = ["susceptibles","infectados","recuperados","muertos"]
+            self.eti = ["susceptibles","infectados","recuperados","Espacios disponibles"]
     
     def basicRule(self,previousSystem,previousAgesSystem,timeUnit):
         '''Regla de evolución del modelo SIS con natalidad y mortalidad'''
@@ -243,10 +243,10 @@ class deathByDisease(birthAndMortavility):
         self.neighborhoodType = neighborhoodType; self.extraRows = extraRows; self.extraColumns = extraColumns 
         if self.model == "sis":
             self.states = [0,1,3]; self.col = ["y","r","b"]
-            self.eti = ["susceptibles","infectados","muertos"]
+            self.eti = ["susceptibles","infectados","Espacios disponibles"]
         elif self.model == "sir":
             self.states = [0,1,2,3]; self.col = ["y","r","g","b"]
-            self.eti = ["susceptibles","infectados","recuperados","muertos"]
+            self.eti = ["susceptibles","infectados","recuperados","Espacios disponibles"]
         
     def basicRule(self,system,systemAges,timeUnit):
         evolution = birthAndMortavility(self.model,self.alpha,self.beta,self.birthRate,self.probabilityOfDyingByAgeGroup,
