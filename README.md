@@ -2,7 +2,7 @@
 
 ## Actualización
 
-Reglas de evolución para modelos SIS y SIR
+Reglas de evolución para modelos SIS y SIR - Versión del documento antes de correcciones sobre modelos compartimentales clásicos
 
 ## Pasando a clases
 
