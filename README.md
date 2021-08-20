@@ -2,21 +2,11 @@
 
 ## Actualización
 
-bloque de modelos compartimentales e introducción en el bloque de estudio epidemiológico
-
-## Próximas tareas
-
-Definición de R0, R(t) y sigma(t)
-
-Modelo SIS clásico
-
-Método de Euler
-
-Modelo SIR clásico
-
-Respuesta por parte del comite
+Reglas de evolución para modelos SIS y SIR - Versión del documento antes de correcciones sobre modelos compartimentales clásicos
 
 ## Pasando a clases
+
+DefineSpaceInCA.py == enviroment.py
 
 1. systemMetrics(system, states, i=opcional, j=opcional)
 
