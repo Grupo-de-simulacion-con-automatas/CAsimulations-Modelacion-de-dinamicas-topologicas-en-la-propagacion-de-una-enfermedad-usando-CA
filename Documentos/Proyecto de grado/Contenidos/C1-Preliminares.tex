@@ -274,3 +274,37 @@ R_{t+1} = R_t + h\cdot(\alpha I_t - \alpha\theta I_t - \mu R_t)
     \end{figure}
 \end{itemize}
 
+\section{Autómatas celulares}\label{sec:Autómatas celulares}
+
+Los autómatas celulares son una herramienta para modelar sistemas dinámicos y complejos de manera discreta. Están compuestos por un conjunto finito de celdas capaces de adquirir distintos estados o valores de acuerdo con unas reglas de comportamiento.
+
+De manera formal definiremos a un autómata celular como la tupla $A = (\mathcal{L}, \tau, \Sigma, \phi)$, donde:
+
+\begin{itemize}
+    \item $\mathcal{L}$ es un espacio discreto d-dimensional dividido de manera uniforme.
+    \item $\Sigma$ es el conjunto de todos los posibles estados del autómata celular.
+    \item $\tau$ es un sistema de vecindades definido a partir de las vecindades de cada celda o célula.
+    \item $\phi:\overbrace{\Sigma\times\Sigma\times\cdots\times\Sigma}^{N}\to\Sigma$ es la regla de transición (o evolución) que define la manera en la que se actualiza el estado de cada celda teniendo en cuenta sus $N$ vecinos.
+\end{itemize}
+
+$\textbf{Observación:}$ Trabajaremos sobre espacios discretos de dos dimensiones salvo se indique lo contrario.
+
+Antes de continuar con la definición de las reglas para nuestros modelos epidemiológicos, debemos profundizar algunos de conceptos anteriores:
+
+Típicamente cuando se desarrollan análisis con autómatas celulares se trabaja con sistemas de vecindades definidos a partir de la vecindad de Moore o de la vecindad de Von neumann. Esta vecindad se compone de todas las células que rodean a la ubicada en alguna posición $i,j$ en nuestro espacio, la definimos como 
+
+$$\mathcal{V}_M(x_{i,j}) = \{x_{k,l}||i-k|,|j-l|\leq1\text{, con }k,l\in\mathbb{Z}\}$$
+
+Por otro lado encontramos a la vecindad de Von neumman, esta vecindad se compone de las celdas que rodean a la ubicada en la posición $i,j$ sin contar a los que se encuentran en las "esquinas". Se define como:
+
+$$\mathcal{V}_V(x_{i,j}) = \{x_{k,l}||i-k|+|j-l|\leq1\text{, con }k,l\in\mathbb{Z}\}$$
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=0.6\textwidth]{Imagenes/vecindades.PNG}
+  \caption{Vecindades usuales para autómatas celulares}
+  \label{fig:Moore - Von neumann}
+\end{figure}
+
+
+
