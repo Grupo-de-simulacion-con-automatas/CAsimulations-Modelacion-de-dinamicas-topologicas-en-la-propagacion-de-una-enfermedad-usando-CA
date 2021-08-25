@@ -276,20 +276,34 @@ R_{t+1} = R_t + h\cdot(\alpha I_t - \alpha\theta I_t - \mu R_t)
 
 \section{Autómatas celulares}\label{sec:Autómatas celulares}
 
-Los autómatas celulares son una herramienta para modelar sistemas dinámicos y complejos de manera discreta. Están compuestos por un conjunto finito de celdas capaces de adquirir distintos estados o valores de acuerdo con unas reglas de comportamiento.
+Los autómatas celulares nacen con el trabajo de Von Neumann a finales de la década de 1940 con su trabajo \textit{"The
+General and Logical Theory of Automata"} en el que se plantean por primera vez las ideas para una máquina capaz de autorreplicarse. Trabajó sobre un sistema bidimensional discreto para desarrollar dinámicas bastante complejas que además fueran autorreplicables \cite{alfons2010,ACaplicacionesComputacion}.
 
-De manera formal definiremos a un autómata celular como la tupla $A = (\mathcal{L}, \tau, \Sigma, \phi)$, donde:
+De acuerdo con \cite{descripcionyAplicaciones}, podemos pensar en un autómata celular como un conjunto de células que tienen diferentes comportamientos en el tiempo y que interactúan entre sí, de la misma manera que en sistema biológico de donde se obtiene su nombre.
+
+La implementación computacional de un autómata celular por lo general se hace sobre matrices, por lo que el sistema que se quiere modelar se describe sobre una malla de tamaño regular, como en la figura (\ref{fig:AC a matriz}). Una vez se define el significado de cada célula se establece una equivalencia con un conjunto de valores o caracteres que conoceremos como estados del autómata y finalmente, sobre esos estados definiremos las reglas de comportamiento para nuestro modelo.
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=1\textwidth]{Imagenes/ACaMatriz.PNG}
+  \caption{Vecindades usuales para autómatas celulares}
+  \label{fig:AC a matriz}
+\end{figure}
+
+Los elementos que definen a un autómata celular son:
 
 \begin{itemize}
-    \item $\mathcal{L}$ es un espacio discreto d-dimensional dividido de manera uniforme.
-    \item $\Sigma$ es el conjunto de todos los posibles estados del autómata celular.
-    \item $\tau$ es un sistema de vecindades definido a partir de las vecindades de cada celda o célula.
-    \item $\phi:\overbrace{\Sigma\times\Sigma\times\cdots\times\Sigma}^{N}\to\Sigma$ es la regla de transición (o evolución) que define la manera en la que se actualiza el estado de cada celda teniendo en cuenta sus $N$ vecinos.
+    \item Un espacio discreto $\mathcal{L}$ regular en el que se encuentran todas las células. En nuestro caso trabajaremos únicamente con espacios bidimensionales por lo que $\text{dim}(\mathcal{L})=m\times n$ para $m,n\in\mathbb{Z}$.
+    \item Un conjunto finito $\Sigma$ de todos los posibles valores que pueda adquirir una célula. Cada elemento de $\Sigma$ se conocerá como un estado y cada célula podrá cambiar de estado en diferentes momentos del tiempo.
+    \item Un sistema de vecindades que defina una topología sobre $\mathcal{L}$. Usualmente se define explícitamente la vecindad que se considera para todas las células.
+    \item Una regla de evolución $\phi:\overbrace{\Sigma\times\Sigma\times\cdots\times\Sigma}^{N}\to\Sigma$ que define el cambio entre los $N$ posibles estados para una célula. Esta asignación puede tener componentes probabilísticos o ser completamente determinista, la manera en la que se defina esta regla dependerá completamente del fenómeno que se quiera modelar.
 \end{itemize}
 
-$\textbf{Observación:}$ Trabajaremos sobre espacios discretos de dos dimensiones salvo se indique lo contrario.
+Así, podemos definir a un autómata celular en términos de sus elementos como una tupla, es decir, $A = (\mathcal{L}, \tau, \Sigma, \phi)$ es un autómata celular donde $\mathcal{L}$ es un espacio discreto y regular, $\tau$ es una topología definida a partir del sistema de vecindades que se establezca, $\Sigma$ es el conjunto de estados y $\phi$ la regla de evolución o cambios entre entados.
 
-Antes de continuar con la definición de las reglas para nuestros modelos epidemiológicos, debemos profundizar algunos de conceptos anteriores:
+A continuación profundizaremos más sobre algunos de los conceptos que definimos en esta sección:
+
+\subsection{Sistemas de vecindades}
 
 Típicamente cuando se desarrollan análisis con autómatas celulares se trabaja con sistemas de vecindades definidos a partir de la vecindad de Moore o de la vecindad de Von neumann. Esta vecindad se compone de todas las células que rodean a la ubicada en alguna posición $i,j$ en nuestro espacio, la definimos como 
 
@@ -305,6 +319,5 @@ $$\mathcal{V}_V(x_{i,j}) = \{x_{k,l}||i-k|+|j-l|\leq1\text{, con }k,l\in\mathbb{
   \caption{Vecindades usuales para autómatas celulares}
   \label{fig:Moore - Von neumann}
 \end{figure}
-
 
 
