@@ -1,5 +1,7 @@
 # Actualizaciones sobre la última versión de CAsimulations
 
+Documentación de funciones públicas por archivo en la carpeta \Tesis\Codigo\EpidemiologicalModels
+
 ## CompartimentalModelsInEDOS
 
 |Función|Parámetros|Descripción|
@@ -62,3 +64,17 @@
 |---|---|---|
 |interaction_SI|__siRule|Regla de interacción del estado S|
 |interaction_IR|__irRule|Regla de interacción del estado I|
+
+## GenerateDatabases
+
+|Función|Parámetros|Descripción|
+|---|---|---|
+|Coordinates|system|Retorna un arreglo con las coordenadas de cada célula|
+|ListOfNeighbors|system, insideCopy=True|Lista con las células capaces de interactuar en el sistema (o vecindad si el sistema es una vecindad)|
+|NeighborsOfijInSystemCoordinates|system, i, j, neighborCoordinates|Retorna una lista con las coordenadas de los vecinos de $i,j$|
+|Neighbors|system, functionOfNeighbors, extraRows, extraColumns|Lista con las coordenadas de los vecinos de cada célula y su coordenada|
+|StateOfNeighbors|system, coordinatesOfneighborsOfij|Lista con los estados de los vecinos de cada célula y su estado|
+|IndexOfListInList|item, listOfList|Retorna el índice de un objeto iterable dentro de una lista|
+|ListOfEvolutionsByCell|cell, listOfCoordinatesNeighbors, listOfNeighborsStatesByEvolution|Lista con los cambios de estado de una célula específica|
+|GetStatesByIteration|modelEvolutions, listOfCoordinatesNeighbors|Genera un DataFrame con todos los cambios de estado de las células del sistema|
+|NeighborsStatesInDataFrame|cell, listOfCoordinatesNeighbors, dataFrame|Filtra el DataFrame por los vecinos de una célula específica|
