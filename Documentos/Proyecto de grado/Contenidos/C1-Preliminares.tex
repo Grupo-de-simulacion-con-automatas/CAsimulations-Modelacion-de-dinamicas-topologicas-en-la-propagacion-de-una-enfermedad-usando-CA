@@ -281,12 +281,12 @@ General and Logical Theory of Automata"} en el que se plantean por primera vez l
 
 De acuerdo con \cite{descripcionyAplicaciones}, podemos pensar en un autómata celular como un conjunto de células que tienen diferentes comportamientos en el tiempo y que interactúan entre sí, de la misma manera que en sistema biológico de donde se obtiene su nombre.
 
-La implementación computacional de un autómata celular por lo general se hace sobre matrices, por lo que el sistema que se quiere modelar se describe sobre una malla de tamaño regular, como en la figura (\ref{fig:AC a matriz}). Una vez se define el significado de cada célula se establece una equivalencia con un conjunto de valores o caracteres que conoceremos como estados del autómata y finalmente, sobre esos estados definiremos las reglas de comportamiento para nuestro modelo.
+La implementación computacional de un autómata celular por lo general se hace sobre matrices, por lo que el sistema que se quiere modelar se describe sobre una malla de tamaño regular, como en la figura (\ref{fig:AC a matriz}). Una vez se definen las características de cada célula y sus relaciones con las demás se establece una equivalencia con un conjunto de valores o caracteres que conoceremos como estados del autómata y finalmente, sobre esos estados definiremos las reglas de comportamiento para nuestro modelo.
 
 \begin{figure}[h]
   \centering
     \includegraphics[width=1\textwidth]{Imagenes/ACaMatriz.PNG}
-  \caption{Vecindades usuales para autómatas celulares}
+  \caption{Implementación computacional clásica de un autómata celular}
   \label{fig:AC a matriz}
 \end{figure}
 
@@ -297,27 +297,52 @@ Los elementos que definen a un autómata celular son:
     \item Un conjunto finito $\Sigma$ de todos los posibles valores que pueda adquirir una célula. Cada elemento de $\Sigma$ se conocerá como un estado y cada célula podrá cambiar de estado en diferentes momentos del tiempo.
     \item Un sistema de vecindades que defina una topología sobre $\mathcal{L}$. Usualmente se define explícitamente la vecindad que se considera para todas las células.
     \item Una regla de evolución $\phi:\overbrace{\Sigma\times\Sigma\times\cdots\times\Sigma}^{N}\to\Sigma$ que define el cambio entre los $N$ posibles estados para una célula. Esta asignación puede tener componentes probabilísticos o ser completamente determinista, la manera en la que se defina esta regla dependerá completamente del fenómeno que se quiera modelar.
+    \item Las condiciones de frontera para el espacio $\mathcal{L}$. De acuerdo con \cite{ACaplicacionesComputacion}, se consideran tres tipos de bordes: 
+    \begin{itemize}
+        \item \textbf{Bordes periódicos:} Las células opuestas son vecinas, es decir, $\mathcal{L}$ es un toro.
+        \item \textbf{Bordes absorbentes:} Las células de los bordes no tienen vecinos fuera de los límites. En este caso $\mathcal{L}$ se puede entender como una región rectangular.
+        \item \textbf{Bordes reflejantes:} Las células de los bordes tienen como vecinos fuera de los límites a la celda misma, formando una especie de espejo.
+    \end{itemize}
+    En nuestro caso trabajaremos solo con bordes del tipo absorbente.
 \end{itemize}
 
 Así, podemos definir a un autómata celular en términos de sus elementos como una tupla, es decir, $A = (\mathcal{L}, \tau, \Sigma, \phi)$ es un autómata celular donde $\mathcal{L}$ es un espacio discreto y regular, $\tau$ es una topología definida a partir del sistema de vecindades que se establezca, $\Sigma$ es el conjunto de estados y $\phi$ la regla de evolución o cambios entre entados.
 
-A continuación profundizaremos más sobre algunos de los conceptos que definimos en esta sección:
+A continuación profundizaremos más sobre algunos de los conceptos que definimos previamente en esta sección:
 
 \subsection{Sistemas de vecindades}
 
-Típicamente cuando se desarrollan análisis con autómatas celulares se trabaja con sistemas de vecindades definidos a partir de la vecindad de Moore o de la vecindad de Von neumann. Esta vecindad se compone de todas las células que rodean a la ubicada en alguna posición $i,j$ en nuestro espacio, la definimos como 
+Generalmente cuando se desarrollan análisis usando autómatas celulares se trabaja con sistemas de vecindades definidos a partir de las vecindades de Moore o de la de Von neumann. 
 
-$$\mathcal{V}_M(x_{i,j}) = \{x_{k,l}||i-k|,|j-l|\leq1\text{, con }k,l\in\mathbb{Z}\}$$
+La vecindad de Von neumann se compone de una célula central y de las que se encuentran a los lados formando así una especie de cruz. De manera formal definimos a la vecindad de Von neumann de la celda $i,j$ al igual que en \cite{alfons2010} como:
 
-Por otro lado encontramos a la vecindad de Von neumman, esta vecindad se compone de las celdas que rodean a la ubicada en la posición $i,j$ sin contar a los que se encuentran en las "esquinas". Se define como:
+$$\mathcal{V}_V(x_{i,j}) = \{x_{k,l}\mid\abs{i-k}+\abs{j-l}\leq1\text{, con }k,l\in\mathbb{Z}\}$$
 
-$$\mathcal{V}_V(x_{i,j}) = \{x_{k,l}||i-k|+|j-l|\leq1\text{, con }k,l\in\mathbb{Z}\}$$
+La vecindad de Moore se define de manera similar a la vecindad de Von neumann, la diferencia entre una y otra radica en que la vecindad de Moore incluye a las células de las diagonales formando un cuadrado. La vecindad de Moore se define al igual que en \cite{alfons2010} como:
+
+$$\mathcal{V}_M(x_{i,j}) = \{x_{k,l}\mid\abs{i-k},\abs{j-l}\leq1\text{, con }k,l\in\mathbb{Z}\}$$
+
+En la figura (\ref{fig:Moore - Von neumann}) podemos identificar a las celdas de color verde como las células centrales para cada vecindad y las de color azul que representan a sus respectivos vecinos:
 
 \begin{figure}[h]
   \centering
-    \includegraphics[width=0.6\textwidth]{Imagenes/vecindades.PNG}
+    \includegraphics[width=0.5\textwidth]{Imagenes/vecindades.PNG}
   \caption{Vecindades usuales para autómatas celulares}
   \label{fig:Moore - Von neumann}
 \end{figure}
 
+Es importante mencionar que el conjunto de todas las vecindades en el autómata celular no forman una topología sobre el espacio $\mathcal{L}$, ya que $\mathcal{L}$ no pertenece al conjunto de todas las vecindades. Sin embargo, si nos dan una idea de la manera en la que está descrita.
+
+Denotaremos como $\mathcal{N}(x_{i,j})$ a la familia de todos los conjuntos en $\mathcal{L}$ que contienen a $x_{i,j}$. Si nos quedamos únicamente con los que están formados por una vecindad particular, digamos la de Von neumann obtendremos algo como lo que se ve en la figura (\ref{fig:vecinos}).
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=0.5\textwidth]{Imagenes/vecinos.PNG}
+  \caption{Grados de impacto sobre el estado de la célula central}
+  \label{fig:vecinos}
+\end{figure}
+
+Si partimos del supuesto de que todas las células poseen la misma vecindad estaremos construyendo una maya uniforme de interacciones, esto implica que todas las células estarán relacionadas de alguna manera y que el cambio de estado de una célula puede impactar a las demás.
+
+Para determinar el grado de impacto que tiene una célula $x$ sobre una $y$ se medirá con la menor cantidad de vecindades que se deben recorrer para llegar de $x$ a $y$. Por ejemplo, para determinar impacto que tiene una célula de color anaranjado con la célula central de la figura (\ref{fig:vecinos}) veremos que para llegar de una a otra debemos pasar por dos vecindades, la roja y la azul por lo que el impacto que tiene una anaranjada con la central es de grado 2. En la figura (\ref{fig:vecinos}) los números sobre cada célula indican el grado de impacto que tienen con la célula central.
 
