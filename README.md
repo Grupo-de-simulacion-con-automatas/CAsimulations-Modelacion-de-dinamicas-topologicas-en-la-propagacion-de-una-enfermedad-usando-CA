@@ -1,1 +1,1 @@
-# Trabajo de grado
+# Proyecto de grado
