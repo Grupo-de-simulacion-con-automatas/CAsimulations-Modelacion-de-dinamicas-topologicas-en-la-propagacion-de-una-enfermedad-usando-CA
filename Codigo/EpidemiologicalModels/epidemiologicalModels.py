@@ -12,6 +12,7 @@ from EpidemiologicalModels.models import *
 class models:
     # En las variables data y evolutions se almacenaran los datos luego de aplicar los modelos
     data = None  # Reporte numperico de los cambios en cada estado
+    mediumData = None  # Reporte numperico promedio de los cambios en cada estado
     evolutions = None  # Reporte visual de los cambios del sistema   
     # Datos tomados por defecto
     extraRows = 1; extraColumns = 1  # Cantidad de filas y columnas extra para aplicar el tipo de vecindad elegido
@@ -88,7 +89,14 @@ class models:
         self.__evalConditions()
         """Curvas promedio del modelo"""
         return appliedMediumData(self.basicModel,self.system,initialPercentageInfected,
-                                 self.epidemiologicalModel.states,n_iterations,n_simulations)     
+                                 self.epidemiologicalModel.states,n_iterations,n_simulations)
+    
+    def plotMediumCurves(self,initialPercentageInfected,n_iterations,n_simulations,title):
+        """Gráfica la evolución promedio en n_simulations de los estados en n_iterations"""
+        if self.mediumData == None:
+            visualization = self.mediumCurves(initialPercentageInfected,n_iterations,n_simulations)
+            self.mediumData = visualization[0]
+        graficas(self.mediumData, self.epidemiologicalModel.eti, self.epidemiologicalModel.col, title) 
                  
 def heatmap(evolutionsOfSystem,state):
     """Mapa de calor para la población infectada (SIR_Model[6])"""
