@@ -274,6 +274,80 @@ R_{t+1} = R_t + h\cdot(\alpha I_t - \alpha\theta I_t - \mu R_t)
     \end{figure}
 \end{itemize}
 
+\section{Algunos conceptos de topología}\label{sec:Algunos conceptos de topología}
+\textbf{Definición:} Una \textit{topología} sobre un conjunto $X$ es una colección $\tau$ de subconjuntos de $X$ que satisface las siguientes condiciones:
+\begin{enumerate}
+    \item $\emptyset$ y $X$ están en $\tau$,
+    \item si $A,B\in\tau$, entonces $A\cap B\in\tau$, y 
+    \item la unión de cualquier subcolección de $\tau$ esta en $\tau$.
+\end{enumerate}
+Los elementos de $\tau$ se conocen como \textit{abiertos} de $X$ y la pareja $(X,\tau)$ es llamada como un \textit{espacio topológico}. Es común encontrar en la literatura menciones a $X$ como un espacio topológico, esto se hace solo si el contexto es lo suficientemente claro como para omitir a $\tau$ de la escritura.
+
+\begin{itemize}
+    \item \textbf{Ejemplo:} Sea $X$ un conjunto cualquiera. La familia de todos los subconjuntos de $X$ es una topología sobre $X$ y es llamada la topología discreta de $X$.
+\end{itemize}
+
+En ocasiones describir específicamente la topología de un conjunto es una tarea bastante compleja. Para evitar este tipo de inconvenientes se especifica una colección más pequeña de subconjuntos de $X$ que es capaz de definir dicha topología.
+
+\textbf{Definición:} Una \textit{base} para una topología sobre un conjunto $X$ es una colección $\mathcal{B}$ de subconjuntos de $X$ tales que:
+\begin{enumerate}
+    \item Para todo $x\in X$, existe $B\in\mathcal{B}$ tal que $x\in B$, y
+    \item dados $B_1,B_2\in\mathcal{B}$, existe $B_3\in\mathcal{B}$ tal que $B_3\subseteq B_1\cap B_2$.
+\end{enumerate}
+Los elementos de $\mathcal{B}$ son llamados elementos básicos de $\mathcal{B}$.
+
+\begin{itemize}
+    \item \textbf{Ejemplo:} La colección de conjuntos unipuntuales de cualquier conjunto $X$ forma una base para la topología discreta de $X$.
+\end{itemize}
+
+\textbf{Definición:} Sean $X$ un espacio topológico y $x\in X$. Diremos que un subconjunto $X$ de $X$ es una \textit{vecindad} de $x$ si existe un abierto $A$ tal que $x\in A\subset V$.
+
+Denotaremos por $\mathcal{V}(x)$ a la familia de todas las vecindades de $x$.
+
+\textbf{Lema:}\label{lema*}
+
+\textbf{Proposición:} Sea $X$ un espacio topológico, entonces para cada $x\in X$:
+\begin{enumerate}
+    \item Si $U\in\mathcal{V}(x)$, entonces $x\in U$,
+    \item si $U,V\in\mathcal{V}(x)$, entonces $U\cap V\in\mathcal{V}(x)$,
+    \item para cada $U\in\mathcal{V}(x)$, existe $V\in\mathcal{V}(y)$ tal que $U\in\mathcal{V}(y)$ para cada $y\in V$, y 
+    \item si $U\in\mathcal{V}(x)$ y $U\subseteq V\subseteq X$ entonces $V\in\mathcal{V}(x)$.
+\end{enumerate}
+
+\begin{proof}
+\begin{enumerate}
+    \item Se verifica directamente de la definición de vecindad. 
+    \item Sean $A,B\in\tau$ tales que $x\in A\subset U$ y $x\in B\subset V$, luego $x\in A\cap B\subseteq U\cap V$, con $A\cap B\in\tau$. De ese modo, por la definición de vecindad se concluye que $U\cap V\in\mathcal{V}(x)$.
+    \item Sea $U\in\mathcal{V}(x)$. Entonces existe $V\in\tau$ tal que $x\in V\subseteq U$.
+    
+    Dado que $V$ es abierto, por el lema \ref{lema*} se cumple que $V\in\mathcal{V}(x)$. Además, si $y\in V$ entonces $y\in V\subseteq U$ y $V\in\tau$ por lo que $U\in\mathcal{V}(y)$ para $y\in V$ arbitrario.
+    \item Sea $U\in\mathcal{V}(x)$, luego existe $A\in\tau$ tal que $x\in A\subseteq V$, además como $A\in\mathcal{\tau}$ aplicamos la definición de vecindad y tenemos $V\in\mathcal{V}(x)$.
+\end{enumerate} 
+\end{proof}
+
+\textbf{Definición:} Para un punto $x$ en un espacio topológico $X$ un subconjunto $\mathcal{B}(x)$ de $\mathcal{V}(x)$ es un sistema fundamental de vecindades de $x$ sí para cada $V\in\mathcal{V}(x)$ existe $B\in\mathcal{B}(x)$ tal que $B\subseteq V$. 
+
+Los elementos de $\mathcal{B}(x)$ son llamados vecindades básicas de $x$.
+
+\textbf{Proposición:} Sea $\mathcal{B}$ una familia de subconjuntos de un conjunto $X$ que satisface:
+\begin{enumerate}
+    \item $X=\bigcup \mathcal{B}$, y 
+    \item si $B_1,B_2\in\mathcal{B}$ y $x\in B_1\cap B_2$, entonces existe $B\in\mathcal{B}$ tal que $x\in B\subseteq B_1\cap B_2$.
+\end{enumerate}
+Entonces la colección $\tau_\mathcal{B}=\{A\subseteq X:\exists\mathcal{A}\subseteq\mathcal{B}\text{ con }A=\bigcup\mathcal{A}\}$ es una topología sobre $X$ que contiene a $\mathcal{B}$ como base.
+\begin{proof}
+
+\end{proof}
+
+\textbf{Proposición:} Si para cada $x\in X$ se elige una familia $\mathcal{V}(x)\neq\emptyset$  de subconjuntos de $X$ de tal forma que las colecciones $\mathcal{V}(x)$ cumplen:
+\begin{enumerate}
+    \item Si $U\in\mathcal{V}(x)$, entonces $x\in U$,
+    \item si $U,V\in\mathcal{V}(x)$, entonces $U\cap V\in\mathcal{V}(x)$,
+    \item para cada $U\in\mathcal{V}(x)$, existe $V\in\mathcal{V}(x)$ tal que $U\in\mathcal{V}(y)$ para cada $y\in V$, y 
+    \item Si $U\in\mathcal{V}(x)$ y $U\subseteq V\subseteq X$, entonces $V\in\mathcal{V}(x)$,
+\end{enumerate}
+entonces la familia $\tau=\{\emptyset\}\cup\{A\subseteq X:\text{para cada }x\in A\text{ existe }V\in\mathcal{V}(x)\text{ con }V\subseteq A\}$ es un sistema de vecindades de $x$ para esta topología.
+
 \section{Autómatas celulares}\label{sec:Autómatas celulares}
 
 Los autómatas celulares nacen con el trabajo de Von Neumann a finales de la década de 1940 con su trabajo \textit{"The
