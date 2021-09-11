@@ -9,4 +9,5 @@ En esta carpeta se reportan los avances en cuanto a código del trabajo de grado
 * **3. Datos para la red neuronal:** Construcción de las bases de datos para entrenar la red neuronal.
 * **4. Análisis de condición de frontera:** Plantilla para desarrollar análisis sobre el cambio de condición para la frontera del espacio.
 * **5. Cambios de escala:** Plantilla para desarrollar análisis en el cambio de escalas.
+* **6. Comparación con los modelos clásicos:** Plantilla con las herramientas para realizar las comparaciones con los modelos clásicos.
 * **Cuaderno actualizado del proyecto CAsimulations:** Contiene los resultados de análisis previos que no se han profundizado en ningún módulo del proyecto de grado.
