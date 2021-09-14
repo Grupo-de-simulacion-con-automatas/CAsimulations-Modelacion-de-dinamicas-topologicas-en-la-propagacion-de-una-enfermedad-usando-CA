@@ -371,15 +371,29 @@ Por lo tanto $\bigcup\mathcal{A}\in\tau_\mathcal{B}$.
 \end{enumerate}
 entonces la familia $\tau=\{\emptyset\}\cup\{A\subseteq X:\text{para cada }x\in A\text{ existe }V\in\mathcal{V}(x)\text{ con }V\subseteq A\}$ es un sistema de vecindades de $x$ para esta topología.
 
-\textbf{Definición:} Un espacio topológico $X$ es $T_0$ si para cada par de puntos $x,y\in X$ con $x\neq y$, existe $V\in\mathcal{V}(x)$ tal que $y\notin V$.
+\begin{proof}
+Demostraremos primero que $\tau$ es una topología: Por la definición de $\tau$ tenemos $\emptyset\in\tau$. Si tomamos $x\in X$ sabemos que existe $U\in\mathcal{V}(x)$, en particular $U\subseteq X$ y de ese modo $X\in\tau$. Considere ahora $A_1,A_2\in\tau$ y $x\in A_1\cap A_2$, luego por hipotésis existen $U_1,U_2\in\mathcal{V}(x)$ tales que $x\in U_1\subseteq A_1$ y $x\in U_2\subseteq A_2$. Del inciso (2) se tiene que $U_1\cap U_2\in\mathcal{V}(x)$ y como $x\in A_1\cap A_2$ se afirma que $U_1\cap U_2\subseteq A_1\cap A_2\in\tau$. Para mostrar el (3) inciso de la definición de topología, considere $\mathcal{A}\subseteq\tau$ y $x\in\bigcup\mathcal{A}$, entonces existe $A\in\mathcal{A}$ tal que $x\in A$. Como $A\in\tau$ existe $U\in\mathcal{V}(x)$ tal que $x\in U\subseteq A$. De lo anterior y del hecho de que $U\subseteq\bigcup\mathcal{A}$, concluimos que $\bigcup\mathcal{A}\in\tau$ y por lo tanto $\tau$ es una topología sobre $X$.
 
-\textbf{Definición:} Una colección $\mathcal{A}$ de subconjuntos de un espacio $X$ se dice que cubre a $X$ o que es un cobrimiento de $X$, si la unión de los elementos de $\mathcal{A}$ coincide con $X$. Se dice que $A$ es un cubrimiento abierto de $X$ si es un cubrimiento de $X$ formado por conjuntos abiertos de $X$.
+Para demostrar que $\mathcal{V}(x)$ es el sistema fundamental de vecindades veamos primero que es una familia de vecindades: Tome $U\in\mathcal{V}(x)$ y $A=\{y\in U:U\in\mathcal{V}(y)\}\in\tau$. Luego, para $a\in A$ se cumple que $a\in U$ y $U\in\mathcal{V}(a)$. De la condición (3) se sabe que existe $V_a\in\mathcal{V}(a)$ tal que $U\in\mathcal{V}(y)$ para cada $y\in V_a$. De la definición de $A$ se cumple que $V_a\subseteq A$ y de la cuarta condición podemos afirmar que $A\in\mathcal{V}(a)$, con lo cual $A\in\tau$. Se concluye que $U$ es vecindad de $x$ y $\mathcal{V}(x)$ es una familia de vecindades de $x$.
 
-\textbf{Definición:} Un espacio $X$ se dice que es compacto si de cada cubrimiento abierto $\mathcal{A}$ de $X$ podemos extraer una subcolección finita que también cubre a $X$.
+Finalmente, para una vecindad $U$ de $x$ existe $V\in\tau$ tal que $x\in V\subseteq U$ por la definición de vecindad. Luego $V\in\mathcal{V}(x)$ y así, $\mathcal{V}(x)$ es sistema fundamental de vecindades en $(X,\tau)$.
+\end{proof}
 
-\textbf{Definición:} Una colección $\mathcal{C}$ de subconjuntos de $X$ se dice que tiene la propiedad de intersección finita si cada subcolección finita de $\mathcal{C}$ tiene intersección no vacía.
+Es natural pensar en que si consideramos un sistema de vecindades $\mathcal{V}(x)$ se establezca una relación de orden parcial con los demás elementos. Teniendo esto en mente definimos los siguientes conceptos:
 
-\textbf{Definición:} Un espacio topológico $X$ que tiene un sistema fundamental de vecindades numerable en cada uno de sus puntos se dice que satisface el primer axioma de numerabilidad o simplemente que es uno-numerable.
+\textbf{Definición 1.4.11:} Una \textit{vecindad minimal de} $x$ es la intersección de todas las vecindades de $x$. Lo denotaremos como $U_x$.
+
+\textbf{Proposición 1.4.12:} La unión de todas las vecindades minimales $U_x$ para $x\in X$ forma una base para la topología de $X$. Esta base es llamada \textit{base minimal}.
+
+Es facil ver que cualquier otra base de la topología sobre $X$ continene a la base minimal y esto a su vez garantiza que es una base para lo topología.
+
+\textbf{Definición 1.4.13:} Un \textit{conjunto preordenado finito} es un conjunto finito con una relación transitiva y reflexiva. Definiremos el la relación de orden parcial $x\preceq y$ si $x\in U_y$.
+
+\textbf{Definición 1.4.14:} Un elemento $x$ en un conjunto parcialmente ordenado es llamado un maximal si $y\succeq x$ implica $y=x$, y es un máximo si $y\preceq x$ para todo $y\in X$.
+
+\textbf{Definición 1.4.15:} Un espacio topológico $X$ es $T_0$ si para cada par de puntos $x,y\in X$ con $x\neq y$, existe $V\in\mathcal{V}(x)$ tal que $y\notin V$.
+
+\textbf{Definición 1.4.16:} Un espacio topológico $X$ que tiene un sistema fundamental de vecindades numerable en cada uno de sus puntos se dice que satisface el primer axioma de numerabilidad o simplemente que es uno-numerable.
 
 \section{Autómatas celulares}\label{sec:Autómatas celulares}
 
