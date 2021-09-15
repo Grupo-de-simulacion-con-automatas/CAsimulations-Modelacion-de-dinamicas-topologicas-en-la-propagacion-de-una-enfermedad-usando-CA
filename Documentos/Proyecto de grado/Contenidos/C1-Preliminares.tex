@@ -276,7 +276,7 @@ R_{t+1} = R_t + h\cdot(\alpha I_t - \alpha\theta I_t - \mu R_t).
 
 \section{Algunos conceptos de topología}\label{sec:Algunos conceptos de topología}
 
-En esta sección abordaremos los conceptos y resultados de topología que usaremos para el desarrollo de nuestro proyecto. Para esto nos apoyaremos en los conceptos expuestos por Munkres en \cite{munkres}, Casarrubias y Tamariz en \cite{elementosTopologiaGeneral}, Macho en \cite{stadler2002}, Neira en \cite{NeiraNacional} y Barmak en \cite{barmak2011}.
+Empezaremos esta sección con algunas definiciones y propiedades básicas de topología, pasando por conceptos como el de base y de vecindad para luego exponer dos proposiciones para la construcción de topologías a partir de sub colecciones de la familia de partes de un conjunto y finalmente hablaremos de propiedades de orden y numerabilidad para el enfoque de nuestro proyecto. Para esto nos apoyaremos en los conceptos expuestos por Munkres en \cite{munkres}, Casarrubias y Tamariz en \cite{elementosTopologiaGeneral}, Macho en \cite{stadler2002}, Neira en \cite{NeiraNacional} y Barmak en \cite{barmak2011}.
 
 \textbf{Definición 1.4.1:} Una \textit{topología} sobre un conjunto $X$ es una colección $\tau$ de subconjuntos de $X$ que satisface las siguientes condiciones:
 \begin{enumerate}
@@ -397,8 +397,7 @@ Es facil ver que cualquier otra base de la topología sobre $X$ continene a la b
 
 \section{Autómatas celulares}\label{sec:Autómatas celulares}
 
-Los autómatas celulares nacen con el trabajo de Von Neumann a finales de la década de 1940 con su trabajo \textit{"The
-General and Logical Theory of Automata"} en el que se plantean por primera vez las ideas para una máquina capaz de autorreplicarse. Trabajó sobre un sistema bidimensional discreto para desarrollar dinámicas bastante complejas que además fueran autorreplicables \cite{alfons2010,ACaplicacionesComputacion}.
+Los autómatas celulares nacen con el trabajo de Von Neumann a finales de la década de 1940 con su trabajo \textit{"The General and Logical Theory of Automata"} en el que se plantean por primera vez las ideas para una máquina capaz de autorreplicarse. Trabajó sobre un sistema bidimensional discreto para desarrollar dinámicas bastante complejas que además fueran autorreplicables \cite{alfons2010,ACaplicacionesComputacion}.
 
 De acuerdo con \cite{descripcionyAplicaciones}, podemos pensar en un autómata celular como un conjunto de células que tienen diferentes comportamientos en el tiempo y que interactúan entre sí, de la misma manera que en sistema biológico de donde se obtiene su nombre.
 
@@ -411,39 +410,65 @@ La implementación computacional de un autómata celular por lo general se hace 
   \label{fig:AC a matriz}
 \end{figure}
 
-Los elementos que definen a un autómata celular son:
+A continuación definiremos los elementos que componen a un autómata celular:
+
+\subsubsection{Espacio de células}
+
+Un espacio de células $\mathcal{L}$ es el conjunto donde viven e interactuan todas las células que se consideran para el modelo. En general este espacio es discreto, regular y finito, esto último debido a las limitaciones computacionales con las que se construyen los modelos en autómatas celulares.
+
+La conición de regularidad de nuestro espacio de células se refiere a que las celdas que lo conforman se organizan de una manera regular, con lo que podemos dotar al espacio $\mathcal{L}$ de una dimensión de la forma $n_1\times\cdots\times n_m$ para $n_1,\cdots,n_m\in\mathbb{Z}$.
+
+\textbf{Proposición 1.5.1:} Todo espacio de células es un conjunto enumerable.
+
+La demostración de esta proposición se deduce directamente de la definición de espacio de células.
+
+\underline{\textit{Nota:}} En adelante cuando hablemos de un espacio de células se asumira que la dimensión del espacio es igual a 2 a menos que se indique lo contrario.
+
+La implementación computacional de estos espacios nos permite definir condiciones de frontera que resultan bastante utiles para diferentes aplicaciones. Usualmente se consideran los siguientes tipos de borde:
 
 \begin{itemize}
-    \item Un espacio discreto $\mathcal{L}$ regular en el que se encuentran todas las células. En nuestro caso trabajaremos únicamente con espacios bidimensionales por lo que $\text{dim}(\mathcal{L})=m\times n$ para $m,n\in\mathbb{Z}$.
-    \item Un conjunto finito $\Sigma$ de todos los posibles valores que pueda adquirir una célula. Cada elemento de $\Sigma$ se conocerá como un estado y cada célula podrá cambiar de estado en diferentes momentos del tiempo.
-    \item Un sistema de vecindades que defina una topología sobre $\mathcal{L}$. Usualmente se define explícitamente la vecindad que se considera para todas las células.
-    \item Una regla de evolución $\phi:\overbrace{\Sigma\times\Sigma\times\cdots\times\Sigma}^{N}\to\Sigma$ que define el cambio entre los $N$ posibles estados para una célula. Esta asignación puede tener componentes probabilísticos o ser completamente determinista, la manera en la que se defina esta regla dependerá completamente del fenómeno que se quiera modelar.
-    \item Las condiciones de frontera para el espacio $\mathcal{L}$. De acuerdo con \cite{ACaplicacionesComputacion}, se consideran tres tipos de bordes: 
-    \begin{itemize}
-        \item \textbf{Bordes periódicos:} Las células opuestas son vecinas, es decir, $\mathcal{L}$ es un toro.
-        \item \textbf{Bordes absorbentes:} Las células de los bordes no tienen vecinos fuera de los límites. En este caso $\mathcal{L}$ se puede entender como una región rectangular.
-        \item \textbf{Bordes reflejantes:} Las células de los bordes tienen como vecinos fuera de los límites a la celda misma, formando una especie de espejo.
-    \end{itemize}
-    En nuestro caso trabajaremos solo con bordes del tipo absorbente.
+    \item \textbf{Bordes periódicos:} Las células opuestas son vecinas, es decir, $\mathcal{L}$ es un toro.
+    \item \textbf{Bordes absorbentes:} Las células de los bordes no tienen vecinos fuera de los límites. En este caso $\mathcal{L}$ se puede entender como una región rectangular.
+    \item \textbf{Bordes reflejantes:} Las células de los bordes tienen como vecinos fuera de los límites a la celda misma, formando una especie de espejo.
 \end{itemize}
 
-Así, podemos definir a un autómata celular en términos de sus elementos como una tupla, es decir, $A = (\mathcal{L}, \tau, \Sigma, \phi)$ es un autómata celular donde $\mathcal{L}$ es un espacio discreto y regular, $\tau$ es una topología definida a partir del sistema de vecindades que se establezca, $\Sigma$ es el conjunto de estados y $\phi$ la regla de evolución o cambios entre entados.
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=0.8\textwidth]{Imagenes/Tipos_de_borde.PNG}
+  \caption{Tipos de borde usuales para autómatas celulares}
+  \label{fig:Tipos de borde}
+\end{figure}
+    
+\underline{\textit{Nota:}} Para los objetivos del proyecto implementaremos unicamente bordes del tipo absorbente.
 
-A continuación profundizaremos más sobre algunos de los conceptos que definimos previamente en esta sección:
+\subsubsection{Conjunto de estados}
 
-\subsection{Sistemas de vecindades}
+Dependiendo del contexto en que estemos implementando nuestro autómata celular, las células podrán adquirir diferentes atributos. Por ejemplo, si consideramos el ejercicio realizado en  \cite{NetLogoFireModel} en el que se modela la propagación del fuego en un bosque se consideran dos estados: los arboles que están quemados de color rojo y los que no se quemaron verde en la figura (\ref{fig:Fuego Netlogo}). Como puede apreciarse en el ejemplo, hay células que cambian de estado en el tiempo.
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=0.4\textwidth]{Imagenes/netlogoEx1.PNG}
+  \caption{Modelo del fuego en Netlogo. Captura tomada de \cite{NetLogoFireModel}.}
+  \label{fig:Fuego Netlogo}
+\end{figure}
+
+\textbf{Definición 1.5.2:} El \textit{conjunto de estados} $\Sigma$ es el conjunto finito de todas las posibles categorias en las que pueden estar las células del espacio $\mathcal{L}$. Cada elemento $\simga$ de $\Sigma$ será conocido como un estado del modelo.
+
+\subsubsection{Vecindades}
+
+Una de las ventajas de trabajar con autómatas celulares es que permiten establecer relaciones entre las células por medio de vecindades. En general no se trabaja con todo el conjunto $\mathcal{V}(x)$ sino que se consideran elementos de cada una de estas familias para conformar un conjunto de vecindades sobre el espacio $\mathcal{L}$. Este conjunto se conoce como un \textit{sistema de vecindades} sobre $\mathcal{L}$.
 
 Generalmente cuando se desarrollan análisis usando autómatas celulares se trabaja con sistemas de vecindades definidos a partir de las vecindades de Moore o de la de Von neumann. 
 
-La vecindad de Von neumann se compone de una célula central y de las que se encuentran a los lados formando así una especie de cruz. De manera formal definimos a la vecindad de Von neumann de la celda $i,j$ al igual que en \cite{alfons2010} como:
+La vecindad de Von neumann se compone de una célula central y de las que se encuentran a los lados formando así una especie de cruz. De manera formal la vecindad de Von neumann de la celda $i,j$ se define como:
 
 $$\mathcal{V}_V(x_{i,j}) = \{x_{k,l}\mid\abs{i-k}+\abs{j-l}\leq1\text{, con }k,l\in\mathbb{Z}\}$$
 
-La vecindad de Moore se define de manera similar a la vecindad de Von neumann, la diferencia entre una y otra radica en que la vecindad de Moore incluye a las células de las diagonales formando un cuadrado. La vecindad de Moore se define al igual que en \cite{alfons2010} como:
+Por otro parte tenemos a la vecindad de Moore la cual se define de manera similar a la vecindad de Von neumann. La diferencia entre una y otra radica en que la vecindad de Moore incluye a las células de las diagonales formando un cuadrado. La vecindad de Moore se define  de la célula $i,j$ como:
 
 $$\mathcal{V}_M(x_{i,j}) = \{x_{k,l}\mid\abs{i-k},\abs{j-l}\leq1\text{, con }k,l\in\mathbb{Z}\}$$
 
-En la figura (\ref{fig:Moore - Von neumann}) podemos identificar a las celdas de color verde como las células centrales para cada vecindad y las de color azul que representan a sus respectivos vecinos:
+En la figura (\ref{fig:Moore - Von neumann}) podemos identificar a las celdas de color verde como las células centrales para cada vecindad y las de color azul como sus vecinos:
 
 \begin{figure}[h]
   \centering
@@ -452,18 +477,19 @@ En la figura (\ref{fig:Moore - Von neumann}) podemos identificar a las celdas de
   \label{fig:Moore - Von neumann}
 \end{figure}
 
-Es importante mencionar que el conjunto de todas las vecindades en el autómata celular no forman una topología sobre el espacio $\mathcal{L}$, ya que $\mathcal{L}$ no pertenece al conjunto de todas las vecindades. Sin embargo, si nos dan una idea de la manera en la que está descrita.
+\subsubsection{Reglas de evolución}
 
-Denotaremos como $\mathcal{N}(x_{i,j})$ a la familia de todos los conjuntos en $\mathcal{L}$ que contienen a $x_{i,j}$. Si nos quedamos únicamente con los que están formados por una vecindad particular, digamos la de Von neumann obtendremos algo como lo que se ve en la figura (\ref{fig:vecinos}).
+Las reglas de evolución definen la manera en la que cambian los estados de cada célula teniendo en cuenta el estado de sus vecinos. En general definimos una regla de evolución $\phi$ como sigue:
 
-\begin{figure}[h]
-  \centering
-    \includegraphics[width=0.5\textwidth]{Imagenes/vecinos.PNG}
-  \caption{Grados de impacto sobre el estado de la célula central}
-  \label{fig:vecinos}
-\end{figure}
+$$\phi(x):\overbrace{\Sigma\times\Sigma\times\cdots\times\Sigma}^{N}\longrightarrow\Sigma,$$
 
-Si partimos del supuesto de que todas las células poseen la misma vecindad estaremos construyendo una maya uniforme de interacciones, esto implica que todas las células estarán relacionadas de alguna manera y que el cambio de estado de una célula puede impactar a las demás.
+donde $N$ es la cantidad de vecinos de $x$.
 
-Para determinar el grado de impacto que tiene una célula $x$ sobre una $y$ se medirá con la menor cantidad de vecindades que se deben recorrer para llegar de $x$ a $y$. Por ejemplo, para determinar impacto que tiene una célula de color anaranjado con la célula central de la figura (\ref{fig:vecinos}) veremos que para llegar de una a otra debemos pasar por dos vecindades, la roja y la azul por lo que el impacto que tiene una anaranjada con la central es de grado 2. En la figura (\ref{fig:vecinos}) los números sobre cada célula indican el grado de impacto que tienen con la célula central.
+\begin{itemize}
+    \item Una regla de evolución $\phi:\overbrace{\Sigma\times\Sigma\times\cdots\times\Sigma}^{N}\to\Sigma$ que define el cambio entre los $N$ posibles estados para una célula. Esta asignación puede tener componentes probabilísticos o ser completamente determinista, la manera en la que se defina esta regla dependerá completamente del fenómeno que se quiera modelar.
+\end{itemize}
+
+Así, podemos definir a un autómata celular en términos de sus elementos como una tupla, es decir, $A = (\mathcal{L}, \tau, \Sigma, \phi)$ es un autómata celular donde $\mathcal{L}$ es un espacio discreto y regular, $\tau$ es una topología definida a partir del sistema de vecindades que se establezca, $\Sigma$ es el conjunto de estados y $\phi$ la regla de evolución o cambios entre entados.
+
+A continuación profundizaremos más sobre algunos de los conceptos que definimos previamente en esta sección:
 
