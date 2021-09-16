@@ -3,4 +3,4 @@ En esta carpeta se reportan los avances en el documento de la tesis.
 
 ## Últimas actualizaciones 
 
-Sección de autómatas hasta grado de impacto
+Secciones de conceptos topológicos y de autómatas celulares antes de correcciones.

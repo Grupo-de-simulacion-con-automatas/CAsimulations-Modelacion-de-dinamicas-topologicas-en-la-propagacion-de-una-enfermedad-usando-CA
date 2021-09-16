@@ -481,15 +481,59 @@ En la figura (\ref{fig:Moore - Von neumann}) podemos identificar a las celdas de
 
 Las reglas de evolución definen la manera en la que cambian los estados de cada célula teniendo en cuenta el estado de sus vecinos. En general definimos una regla de evolución $\phi$ como sigue:
 
-$$\phi(x):\overbrace{\Sigma\times\Sigma\times\cdots\times\Sigma}^{N}\longrightarrow\Sigma,$$
+$$\phi:\Sigma_x\times\overbrace{\Sigma\times\Sigma\times\cdots\times\Sigma}^{N}\longrightarrow\Sigma_x,$$
 
-donde $N$ es la cantidad de vecinos de $x$.
+donde $N$ es la cantidad de vecinos de $x$ y $\Sigma_x$ el conjunto de estados que puede tomar $x$. 
+
+Para determinar la evolución del espacio $\mathcal{L}$ se debe aplicar la regla de evolución simultáneamente sobre cada una de sus células. De ese modo podemos definir una regla global de evolución $\Phi$ como la aplicación de la regla $\phi$ sobre cada una de las células de un espacio $\mathcal{L}$.
+
+Las reglas de evolución pueden ser de dos tipos:
 
 \begin{itemize}
-    \item Una regla de evolución $\phi:\overbrace{\Sigma\times\Sigma\times\cdots\times\Sigma}^{N}\to\Sigma$ que define el cambio entre los $N$ posibles estados para una célula. Esta asignación puede tener componentes probabilísticos o ser completamente determinista, la manera en la que se defina esta regla dependerá completamente del fenómeno que se quiera modelar.
+    \item \textbf{Reglas determinísticas}
+    
+    Son aquellas en las que se define un estado para cada posible combinación de estados en la vecindad. Un ejemplo de esto son las \textbf{reglas de Wolfram} en las que se define la correspondencia entre los estados de una celda $x$ y sus vecinos con el estado posterior de la celda $x$. Consideremos como caso particular a la regla 30 en la que se define la siguiente correspondencia:
+    
+    \begin{figure}[h]
+      \centering
+        \includegraphics[width=0.7\textwidth]{Imagenes/regla30.PNG}
+      \caption{Regla 30. Captura tomada de \cite{rule30}}
+      \label{fig:Regla30}
+    \end{figure}
+    
+    Al tratarse de una regla sobre un espacio 1-dimensional los vecinos de cada célula son los que se encuentran a lados izquierdo y derecho, como se ve en la figura (\ref{fig:Regla30}). En este caso el conjunto de estados es de la forma $\Sigma=\{0,1\}$. En la figura (\ref{fig:regla30en15y250}) podemos apreciar la evolución del espacio de células $\mathcal{L}$ en 15 y 250 iteraciones respectivamente para la aplicación de la regla 30 denotada como $\phi_{30}$.
+    
+    \begin{figure}[htbp]
+        \centering
+        \subfigure[Evolución del espacio $\mathcal{L}$ luego de 15 iteraciones]{\includegraphics[width=60mm]{Imagenes/regla30en15.PNG}}
+        \subfigure[Evolución del espacio $\mathcal{L}$ luego de 250 iteraciones]{\includegraphics[width=60mm]{Imagenes/regla30en250.PNG}}
+        \caption{Evoluciones al aplicar la regla 30 de Wolfram. Captura tomada de \cite{rule30}}\label{fig:regla30en15y250}
+    \end{figure}
+    
+    \item \textbf{Reglas totalísticas}
+    
+    A diferencia de las reglas determinísticas, las reglas totalísticas no establecen una correspondencia directa entre estados y combinaciones de vecindades, sino que en su lugar utilizan un componente probabilístico. Esto significa que dependiendo de la combinación, la célula sobre la que se aplica la regla puede tomar un estado de un subconjunto del conjunto de estados $\Sigma$. 
+    
+    Existe un subtipo de este tipo de reglas conocido como las reglas semi-totalísticas, en las que el subconjunto que se considera para la evolución de la célula sobre la que se aplica la regla depende del estado de la misma célula. De ese modo:
+    
+    \begin{align*}
+        \phi:\Sigma_x\times\overbrace{\Sigma\times\Sigma\times\cdots\times\Sigma}^{N}&\longrightarrow \left\{ \begin{array}{cc}
+        \sigma_1 \subseteq \Sigma_x & \text{si el estado de }x\text{ es }s_1 \\
+        \sigma_2 \subseteq \Sigma_x & \text{si el estado de }x\text{ es }s_2 \\
+        \vdots & \vdots \\
+        \sigma_k \subseteq \Sigma_x & \text{si el estado de }x\text{ es }s_k
+        \end{array} \right. ,
+    \end{align*}
+    
+    donde $k$ es la cantidad de posibles estados que puede tomar $x$.
 \end{itemize}
 
-Así, podemos definir a un autómata celular en términos de sus elementos como una tupla, es decir, $A = (\mathcal{L}, \tau, \Sigma, \phi)$ es un autómata celular donde $\mathcal{L}$ es un espacio discreto y regular, $\tau$ es una topología definida a partir del sistema de vecindades que se establezca, $\Sigma$ es el conjunto de estados y $\phi$ la regla de evolución o cambios entre entados.
+A pesar de que las reglas determinísticas pueden generar resultados interesantes su implementación computacional no resulta muy cómoda, sobre todo si consideramos espacios de células de más de una dimensión. De acuerdo con \cite{alfons2010}, la cantidad de posibles combinaciones o reglas que se pueden definir si usáramos las del tipo determinista serían:
 
-A continuación profundizaremos más sobre algunos de los conceptos que definimos previamente en esta sección:
+$$N_r=\#\Sigma^{\#\Sigma^N},$$
 
+donde $\#\Sigma$ es la cantidad de estados en $\Sigma$ y $N$ es la cantidad de vecinos que se consideran en el sistema de vecindades. Por ejemplo, para el caso de la regla 30 la cantidad de reglas que se pueden definir es igual a $2^{2^2}=16$. Esto representa una complicación al trabajar con espacios de más de una dimensión por lo que para los propósitos del proyecto nos enfocaremos únicamente sobre las reglas totalísticas y para ser más específicos sobre las reglas semi-totalísticas, esto debido al contexto de nuestro proyecto.
+
+Una vez aclarados todos los conceptos que abarcan los autómatas celulares podemos dar una definición formal de ellos:
+
+\textbf{Definición 1.5.3:} Un autómata celular es una la tupla de la forma  $A=(\mathcal{L},\Sigma,\mathcal{N}(\mathcal{L}),\phi)$ con $\mathcal{N}(\mathcal{L})$ un sistema de vecindades sobre $\mathcal{L}$.
