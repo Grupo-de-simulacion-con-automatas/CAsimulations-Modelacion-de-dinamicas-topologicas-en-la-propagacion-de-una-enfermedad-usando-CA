@@ -1,0 +1,20 @@
+\chapter{Introducción}\label{ch;Introduccion}
+
+La predicción del comportamiento de una enfermedad, su nivel de afectación en una población y las maneras de controlarla son los aspectos más importantes que se estudian en la epidemiología por medio de herramientas como datos históricos y modelos matemáticos.
+
+Existe una gran variedad de modelos aplicados a diferentes enfoques dentro del estudio epidemiológico. Enfoques como el nivel de propagación considerando los patrones de movilidad dentro de una región \cite{colaGNN, epidemiologicalNeuralNetwork}, el impacto de medidas como el aislamiento preventivo para la disminución de contagios \cite{stayHome}, la vacunación de la población \cite{shortHistory}, los contactos de individuo a individuo \cite{heterogeneousPopulation}, las relaciones entre individuos \cite{redesComplejas} y las interacciones en masa \cite{combiningGraph, transfer2021} sirven como punto de partida para generar pronósticos para los comportamientos de enfermedades como la gripe, la viruela o incluso enfermedades de transmisión sexual como el VIH en una población determinada.
+
+Los datos juegan un papel primordial al momento de generar pronósticos realistas y así poder implementar medidas de prevención y control sobre la enfermedad en cuestión. Ejemplos de esto son los modelos analizados en \cite{epidemiologicalNeuralNetwork, combiningGraph, forecasting} y en \cite{transfer2021}, en los que a partir de algoritmos de clasificación y redes neuronales basadas en grafos se analizan las dinámicas al rededor del Covid-19.
+
+Sin embargo, en la mayoría de ocasiones los datos están mal tomados o simplemente no existen. Para confrontar este tipo de limitaciones usualmente se simulan datos a partir de comportamientos observados en la población o en eventos anteriores, como es en el caso de \cite{populationDensity}, en donde a partir de una serie de medidas de movilidad entre regiones de la población en Polonia se simula la propagación de una enfermedad usando autómatas celulares.
+
+Los autómatas celulares son una herramienta con una aplicabilidad particularmente amplia en los modelos epidemiológicos debido a los comportamientos globales que pueden ser generados a partir de comportamientos locales, la generación de datos fácilmente interpretables y su capacidad de implementar nuevas características como en \cite{spatialDependences, populationDensity, globalStochastic}.
+
+Hemos evidenciado la inexistencia de un algoritmo capaz de realizar predicciones para el comportamiento de una enfermedad que considere las interacciones de individuo a individuo. Esto se debe a la naturaleza con la que se almacenan los datos de la misma enfermedad como número de contagios, muertes causadas por la enfermedad, entre otros generando así, predicciones limitadas por los comportamientos cercanos entre los individuos. 
+
+Teniendo en cuenta la aplicabilidad de los autómatas celulares y las cualidades predictivas de los modelos en redes neuronales, nos podemos plantear el objetivo de diseñar un algoritmo en redes neuronales que permita realizar pronósticos sobre el comportamiento de una enfermedad simulada con autómatas celulares, teniendo en cuenta aspectos topológicos que modelen las interacciones entre individuos para responder a la pregunta: ¿Qué impacto tienen las relaciones sociales cercanas, en la propagación de una enfermedad?
+
+Daremos inicio al desarrollo de nuestro proyecto con el repaso de los conceptos preliminares en donde hablaremos de una historia breve de los modelos epidemiológicos en la sección 2.1, para luego hablar de los objetos de mayor importancia en el estudio epidemiológico como lo son el indicador $\mathcal{R}_0$ en la sección 2.2. Hablaremos también de los modelos epidemiológicos que serán objeto principal de nuestra investigación: los modelos SIS y SIR clásicos en la sección 2.3.
+
+En las secciones 2.4 y 2.5 daremos unas generalidades de los conceptos de topología y de autómatas celulares respectivamente que serán primordiales cuando estemos desarrollando la simulación de la enfermedad.
+

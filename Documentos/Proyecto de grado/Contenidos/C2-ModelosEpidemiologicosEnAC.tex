@@ -1,0 +1,20 @@
+\chapter{Modelos epidemiológicos en autómatas celulares}\label{ch:Modelos epidemiológicos en AC}
+
+\section{El espacio $\mathcal{L}$ y sus interacciones sociales}
+A diferencia del trabajo realizado en \cite{populationDensity} en el que cada celda denotaba una región, consideraremos a cada división como un único individuo que será dotado de un conjunto de cualidades como estado de salud, edad, vecinos, etc. Estas cualidades vendrán dadas por las necesidades del modelo que estemos desarrollando, por ejemplo en los modelos clásicos no será necesario dotar de edades a las células, pero si tendremos que tener en cuenta sus vecindades y sus estados de salud.
+
+Pensemos por un momento en las características que hay detrás de relación cercana entre individuos o células:
+
+\begin{itemize}
+    \item Todas las células están en contacto con ellas mismas, por lo que para cada célula $x$ se cumple $x \thicksim x$.
+    \item Si una célula estuviera en contacto con alguna otra entonces esa célula estaría en contacto con la primera, es decir, $x\thicksim y$ implica $y\thicksim x$.
+    \item Si una célula interactúa con otras dos no implica necesariamente que ellas interactúen por lo que $x\thicksim y$ y $x\thicksim z$ no implican que $y\thicksim z$.
+\end{itemize}
+
+
+
+\section{Reglas de evolución}
+\subsection{Modelos SIS y SIR simples}
+\subsection{Modelos con natalidad y mortalidad}
+\subsection{Modelos con muerte por enfermedad}
+\section{Comparación con los modelos clásicos}
