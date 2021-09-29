@@ -156,7 +156,7 @@ I_{t+1} = I_t + h\cdot(\beta S_t I_t - (1 - \theta)\alpha I_t - \mu I_t).
       \centering
         \includegraphics[width=0.4\textwidth]{Imagenes/ex1SIS.PNG}
       \caption{Evolución de la enfermedad en 1100 días con $S_0=0.9,I_0=0.1$ y $h=0.1$.}
-      \label{fig:Ejemplo 1 - SIS}
+      \label{fig:Ejemplo 2 - SIS}
     \end{figure}
 \end{itemize}
 
@@ -268,7 +268,7 @@ R_{t+1} = R_t + h\cdot(\alpha I_t - \alpha\theta I_t - \mu R_t).
       \centering
         \includegraphics[width=0.4\textwidth]{Imagenes/ex1SIR.PNG}
       \caption{\centering Evolución de la enfermedad en 1100 días con $S_0=0.9,I_0=0.1,R_0=0$ y $h=0.1$.}
-      \label{fig:Ejemplo 1 - SIR}
+      \label{fig:Ejemplo 2 - SIR}
     \end{figure}
 \end{itemize}
 
@@ -276,7 +276,7 @@ R_{t+1} = R_t + h\cdot(\alpha I_t - \alpha\theta I_t - \mu R_t).
 
 Empezaremos esta sección con algunas definiciones y propiedades básicas de topología, pasando por conceptos como el de base y de vecindad para luego exponer dos proposiciones para la construcción de topologías a partir de sub colecciones de la familia de partes de un conjunto y finalmente hablaremos de propiedades de orden y numerabilidad para el enfoque de nuestro proyecto. Para esto nos apoyaremos en los conceptos expuestos por Munkres en \cite{munkres}, Casarrubias y Tamariz en \cite{elementosTopologiaGeneral}, Macho en \cite{stadler2002}, Neira en \cite{NeiraNacional} y Barmak en \cite{barmak2011}.
 
-\textbf{Definición 1.4.1:} Una \textit{topología} sobre un conjunto $X$ es una colección $\tau$ de subconjuntos de $X$ que satisface las siguientes condiciones:
+\textbf{Definición 2.4.1:} Una \textit{topología} sobre un conjunto $X$ es una colección $\tau$ de subconjuntos de $X$ que satisface las siguientes condiciones:
 \begin{enumerate}
     \item $\emptyset$ y $X$ están en $\tau$,
     \item si $A,B\in\tau$, entonces $A\cap B\in\tau$, y 
@@ -285,12 +285,12 @@ Empezaremos esta sección con algunas definiciones y propiedades básicas de top
 Los elementos de $\tau$ se conocen como \textit{abiertos} de $X$ y la pareja $(X,\tau)$ es llamada como un \textit{espacio topológico}. Es común encontrar menciones a $X$ como un espacio topológico, esto se hace solo si el contexto es lo suficientemente claro como para omitir a $\tau$ de la escritura.
 
 \begin{itemize}
-    \item \textbf{Ejemplo 1.4.2:} Sea $X$ un conjunto cualquiera. La familia de todos los subconjuntos de $X$ es una topología sobre $X$ y es llamada la \textit{topología discreta} de $X$.
+    \item \textbf{Ejemplo 2.4.2:} Sea $X$ un conjunto cualquiera. La familia de todos los subconjuntos de $X$ es una topología sobre $X$ y es llamada la \textit{topología discreta} de $X$.
 \end{itemize}
 
 En ocasiones describir específicamente la topología de un conjunto es una tarea bastante compleja. Para evitar este tipo de inconvenientes se especifica una colección más pequeña de subconjuntos de $X$ llamada base de la topología sobre $X$, que es capaz de definir dicha topología. 
 
-\textbf{Definición 1.4.3:} Una \textit{base} para una topología sobre un conjunto $X$ es una colección $\mathcal{B}$ de subconjuntos de $X$ tales que:
+\textbf{Definición 2.4.3:} Una \textit{base} para una topología sobre un conjunto $X$ es una colección $\mathcal{B}$ de subconjuntos de $X$ tales que:
 \begin{enumerate}
     \item Para todo $x\in X$, existe $B\in\mathcal{B}$ tal que $x\in B$, y
     \item dados $B_1,B_2\in\mathcal{B}$, existe $B_3\in\mathcal{B}$ tal que $B_3\subseteq B_1\cap B_2$.
@@ -298,14 +298,14 @@ En ocasiones describir específicamente la topología de un conjunto es una tare
 Los elementos de $\mathcal{B}$ son llamados elementos básicos de $\mathcal{B}$.
 
 \begin{itemize}
-    \item \textbf{Ejemplo 1.4.4:} La colección de conjuntos unipuntuales de cualquier conjunto $X$ forma una base para la topología discreta de $X$.
+    \item \textbf{Ejemplo 2.4.4:} La colección de conjuntos unipuntuales de cualquier conjunto $X$ forma una base para la topología discreta de $X$.
 \end{itemize}
 
-\textbf{Definición 1.4.5:} Sean $X$ un espacio topológico y $x\in X$. Diremos que un subconjunto $V$ de $X$ es una \textit{vecindad} de $x$ si existe un abierto $A$ tal que $x\in A\subseteq V$. Denotaremos por $\mathcal{V}(x)$ a la familia de todas las vecindades de $x$.
+\textbf{Definición 2.4.5:} Sean $X$ un espacio topológico y $x\in X$. Diremos que un subconjunto $V$ de $X$ es una \textit{vecindad} de $x$ si existe un abierto $A$ tal que $x\in A\subseteq V$. Denotaremos por $\mathcal{V}(x)$ a la familia de todas las vecindades de $x$.
 
 Esta definición nos permite realizar la siguiente afirmación:
 
-\textbf{Teorema 1.4.6:} Un subconjunto $A$ de un espacio topológico $X$ es un conjunto abierto si, y solo si es vecindad de cada uno de los puntos que contiene.
+\textbf{Teorema 2.4.6:} Un subconjunto $A$ de un espacio topológico $X$ es un conjunto abierto si, y solo si es vecindad de cada uno de los puntos que contiene.
 
 \begin{proof}
 La primera implicación se obtiene del hecho de que $A$ es abierto y $A\subseteq A$. Por otra parte, si suponemos que $A$ es vecindad de cada uno de sus puntos podemos afirmar que para cada $x\in A$ existe un abierto $V_x$ tal que $x\in V_x\subseteq A$. Veamos que $A=\bigcup_{x\in A}V_x$:
@@ -317,7 +317,7 @@ $(\subseteq)$ Sea $x\in A$. Ya que $A$ es vecindad de cada uno de sus puntos exi
 
 La siguiente proposición resume las propiedades más importantes de las vecindades:
 
-\textbf{Proposición 1.4.7:} Sea $X$ un espacio topológico, entonces para cada $x\in X$:
+\textbf{Proposición 2.4.7:} Sea $X$ un espacio topológico, entonces para cada $x\in X$:
 \begin{enumerate}
     \item Si $U\in\mathcal{V}(x)$, entonces $x\in U$,
     \item si $U,V\in\mathcal{V}(x)$, entonces $U\cap V\in\mathcal{V}(x)$,
@@ -331,18 +331,18 @@ La siguiente proposición resume las propiedades más importantes de las vecinda
     \item Sean $A,B\in\tau$ tales que $x\in A\subset U$ y $x\in B\subset V$, luego $x\in A\cap B\subseteq U\cap V$, con $A\cap B\in\tau$. De ese modo, por la definición de vecindad se concluye que $U\cap V\in\mathcal{V}(x)$.
     \item Sea $U\in\mathcal{V}(x)$. Entonces existe $V\in\tau$ tal que $x\in V\subseteq U$.
     
-    Dado que $V$ es abierto, por el teorema 1.4.6 se cumple que $V\in\mathcal{V}(x)$. Además, si $y\in V$ entonces $y\in V\subseteq U$ y $V\in\tau$ por lo que $U\in\mathcal{V}(y)$ para $y\in V$ arbitrario.
+    Dado que $V$ es abierto, por el Teorema 2.4.6 se cumple que $V\in\mathcal{V}(x)$. Además, si $y\in V$ entonces $y\in V\subseteq U$ y $V\in\tau$ por lo que $U\in\mathcal{V}(y)$ para $y\in V$ arbitrario.
     \item Sea $U\in\mathcal{V}(x)$, luego existe $A\in\tau$ tal que $x\in A\subseteq V$, además como $A\in\mathcal{\tau}$ aplicamos la definición de vecindad y tenemos $V\in\mathcal{V}(x)$.
 \end{enumerate} 
 \end{proof}
 
 Así como una base de una topología $\tau$ contiene toda la información necesaria para generarla, también podemos tomar de manera conveniente alguna subcolección de $\mathcal{V}(x)$ que guarde la información topológica necesaria para generar a $\mathcal{V}(x)$.
 
-\textbf{Definición 1.4.8:} Para un punto $x$ en un espacio topológico $X$ un subconjunto $\mathcal{B}(x)$ de $\mathcal{V}(x)$ es un \textit{sistema fundamental de vecindades de $x$} sí para cada $V\in\mathcal{V}(x)$, existe $B\in\mathcal{B}(x)$ tal que $B\subseteq V$. Los elementos de $\mathcal{B}(x)$ son llamados \textit{vecindades (o entornos) básicos} de $x$.
+\textbf{Definición 2.4.8:} Para un punto $x$ en un espacio topológico $X$ un subconjunto $\mathcal{B}(x)$ de $\mathcal{V}(x)$ es un \textit{sistema fundamental de vecindades de $x$} sí para cada $V\in\mathcal{V}(x)$, existe $B\in\mathcal{B}(x)$ tal que $B\subseteq V$. Los elementos de $\mathcal{B}(x)$ son llamados \textit{vecindades (o entornos) básicos} de $x$.
 
 Esta definición nos motiva a pensar en los métodos para contruir topologías sobre un conjunto $X$ con propiedades particulares. A continuación mostraremos dos de ellos:
 
-\textbf{Proposición 1.4.9:} Sea $\mathcal{B}$ una familia de subconjuntos de un conjunto $X$ que satisface:
+\textbf{Proposición 2.4.9:} Sea $\mathcal{B}$ una familia de subconjuntos de un conjunto $X$ que satisface:
 \begin{enumerate}
     \item $X=\bigcup \mathcal{B}$, y 
     \item si $B_1,B_2\in\mathcal{B}$ y $x\in B_1\cap B_2$, entonces existe $B\in\mathcal{B}$ tal que $x\in B\subseteq B_1\cap B_2$.
@@ -351,7 +351,7 @@ Entonces la colección $\tau_\mathcal{B}=\{A\subseteq X:\exists\mathcal{A}\subse
 \begin{proof}
 Claramente $\emptyset$ y $X$ estan en $\tau_\mathcal{B}$. Considere ahora los conjuntos $A_1,A_2\in\tau_\mathcal{B}$ y veamos que su interesección es un elemento en $\tau_\mathcal{B}$: Si $A_1\cap A_2=\emptyset$ la propiedad se deduce del caso anterior. Supongamos que $A_1\cap A_2\neq\emptyset$, luego para $x\in A_1\cap A_2$ existen $B_1,B_2\in\mathcal{B}$ tales que $x\in B_1\cap B_2$ y $B_1\subseteq A_1, B_2\subseteq A_2$ con $A_i=\bigcup B_i$ para $B_i\in\mathcal{B}$ e $i\in\{1,2\}$. Así, de (2) podemos afirmar que existe $B_x\in\mathcal{B}$ tal que $B_x\subseteq B_1\cap B_2$. De manera análoga a la demostración de la igualdad de conjuntos del teoréma 1.4.6 podemos afirmar que: 
 $$A_1\cap A_2=\bigcup\{B_x:x\in A_1\cap A_2\}.$$
-Para demostrar el inciso 3 en la definición 1.4.1 considere una subcolección $\mathcal{A}\subset\tau_\mathcal{B}$ y observe que
+Para demostrar el inciso 3 en la Definición 2.4.1 considere una subcolección $\mathcal{A}\subset\tau_\mathcal{B}$ y observe que
 \begin{align*}
     \bigcup\mathcal{A} &= \bigcup\{A:A=\bigcup\mathcal{C}\text{ con }A\in\mathcal{A}\text{ y }\mathcal{C}\subseteq\mathcal{B}\}\\
     &= \bigcup\{\bigcup\mathcal{C}:\bigcup\mathcal{C}\in\mathcal{A}\text{ y }\mathcal{C}\subseteq\mathcal{B}\}\\
@@ -360,7 +360,7 @@ Para demostrar el inciso 3 en la definición 1.4.1 considere una subcolección $
 Por lo tanto $\bigcup\mathcal{A}\in\tau_\mathcal{B}$.
 \end{proof}
 
-\textbf{Proposición 1.4.10:} Si para cada $x\in X$ se elige una familia $\mathcal{V}(x)\neq\emptyset$  de subconjuntos de $X$ de tal forma que las colecciones $\mathcal{V}(x)$ cumplen:
+\textbf{Proposición 2.4.10:} Si para cada $x\in X$ se elige una familia $\mathcal{V}(x)\neq\emptyset$  de subconjuntos de $X$ de tal forma que las colecciones $\mathcal{V}(x)$ cumplen:
 \begin{enumerate}
     \item Si $U\in\mathcal{V}(x)$, entonces $x\in U$,
     \item si $U,V\in\mathcal{V}(x)$, entonces $U\cap V\in\mathcal{V}(x)$,
@@ -379,19 +379,19 @@ Finalmente, para una vecindad $U$ de $x$ existe $V\in\tau$ tal que $x\in V\subse
 
 Es natural pensar en que si consideramos un sistema de vecindades $\mathcal{V}(x)$ se establezca una relación de orden parcial con los demás elementos. Teniendo esto en mente definimos los siguientes conceptos:
 
-\textbf{Definición 1.4.11:} Una \textit{vecindad minimal de} $x$ es la intersección de todas las vecindades de $x$. Lo denotaremos como $U_x$.
+\textbf{Definición 2.4.11:} Una \textit{vecindad minimal de} $x$ es la intersección de todas las vecindades de $x$. Lo denotaremos como $U_x$.
 
-\textbf{Proposición 1.4.12:} La unión de todas las vecindades minimales $U_x$ para $x\in X$ forma una base para la topología de $X$. Esta base es llamada \textit{base minimal}.
+\textbf{Proposición 2.4.12:} La unión de todas las vecindades minimales $U_x$ para $x\in X$ forma una base para la topología de $X$. Esta base es llamada \textit{base minimal}.
 
 Es facil ver que cualquier otra base de la topología sobre $X$ continene a la base minimal y esto a su vez garantiza que es una base para lo topología.
 
-\textbf{Definición 1.4.13:} Un \textit{conjunto preordenado finito} es un conjunto finito con una relación transitiva y reflexiva. Definiremos el la relación de orden parcial $x\preceq y$ si $x\in U_y$.
+\textbf{Definición 2.4.13:} Un \textit{conjunto preordenado finito} es un conjunto finito con una relación transitiva y reflexiva. Definiremos el la relación de orden parcial $x\preceq y$ si $x\in U_y$.
 
-\textbf{Definición 1.4.14:} Un elemento $x$ en un conjunto parcialmente ordenado es llamado un maximal si $y\succeq x$ implica $y=x$, y es un máximo si $y\preceq x$ para todo $y\in X$.
+\textbf{Definición 2.4.14:} Un elemento $x$ en un conjunto parcialmente ordenado es llamado un maximal si $y\succeq x$ implica $y=x$, y es un máximo si $y\preceq x$ para todo $y\in X$.
 
-\textbf{Definición 1.4.15:} Un espacio topológico $X$ es $T_0$ si para cada par de puntos $x,y\in X$ con $x\neq y$, existe $V\in\mathcal{V}(x)$ tal que $y\notin V$.
+\textbf{Definición 2.4.15:} Un espacio topológico $X$ es $T_0$ si para cada par de puntos $x,y\in X$ con $x\neq y$, existe $V\in\mathcal{V}(x)$ tal que $y\notin V$.
 
-\textbf{Definición 1.4.16:} Un espacio topológico $X$ que tiene un sistema fundamental de vecindades numerable en cada uno de sus puntos se dice que satisface el primer axioma de numerabilidad o simplemente que es uno-numerable.
+\textbf{Definición 2.4.16:} Un espacio topológico $X$ que tiene un sistema fundamental de vecindades numerable en cada uno de sus puntos se dice que satisface el primer axioma de numerabilidad o simplemente que es uno-numerable.
 
 \section{Autómatas celulares}\label{sec:Autómatas celulares}
 
@@ -416,7 +416,7 @@ Un espacio de células $\mathcal{L}$ es el conjunto donde viven e interactuan to
 
 La conición de regularidad de nuestro espacio de células se refiere a que las celdas que lo conforman se organizan de una manera regular, con lo que podemos dotar al espacio $\mathcal{L}$ de una dimensión de la forma $n_1\times\cdots\times n_m$ para $n_1,\cdots,n_m\in\mathbb{Z}$.
 
-\textbf{Proposición 1.5.1:} Todo espacio de células es un conjunto enumerable.
+\textbf{Proposición 2.5.1:} Todo espacio de células es un conjunto enumerable.
 
 La demostración de esta proposición se deduce directamente de la definición de espacio de células.
 
@@ -450,7 +450,7 @@ Dependiendo del contexto en que estemos implementando nuestro autómata celular,
   \label{fig:Fuego Netlogo}
 \end{figure}
 
-\textbf{Definición 1.5.2:} El \textit{conjunto de estados} $\Sigma$ es el conjunto finito de todas las posibles categorias en las que pueden estar las células del espacio $\mathcal{L}$. Cada elemento $\simga$ de $\Sigma$ será conocido como un estado del modelo.
+\textbf{Definición 2.5.2:} El \textit{conjunto de estados} $\Sigma$ es el conjunto finito de todas las posibles categorias en las que pueden estar las células del espacio $\mathcal{L}$. Cada elemento $\simga$ de $\Sigma$ será conocido como un estado del modelo.
 
 \subsubsection{Vecindades}
 
@@ -534,6 +534,6 @@ donde $\#\Sigma$ es la cantidad de estados en $\Sigma$ y $N$ es la cantidad de v
 
 Una vez aclarados todos los conceptos que abarcan los autómatas celulares podemos dar una definición formal de ellos:
 
-\textbf{Definición 1.5.3:} Un autómata celular es una la tupla de la forma  $A=(\mathcal{L},\Sigma,\mathcal{N}(\mathcal{L}),\phi)$ con $\mathcal{N}(\mathcal{L})$ un sistema de vecindades sobre $\mathcal{L}$.
+\textbf{Definición 2.5.3:} Un autómata celular es una la tupla de la forma  $A=(\mathcal{L},\Sigma,\mathcal{N}(\mathcal{L}),\phi)$ con $\mathcal{N}(\mathcal{L})$ un sistema de vecindades sobre $\mathcal{L}$.
 
 \section{Redes neuronales (falta)}

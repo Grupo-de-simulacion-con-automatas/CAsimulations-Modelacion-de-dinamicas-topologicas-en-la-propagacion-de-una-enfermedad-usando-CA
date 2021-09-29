@@ -1,17 +1,55 @@
 \chapter{Modelos epidemiológicos en autómatas celulares}\label{ch:Modelos epidemiológicos en AC}
 
-\section{El espacio $\mathcal{L}$ y sus interacciones sociales}
-A diferencia del trabajo realizado en \cite{populationDensity} en el que cada celda denotaba una región, consideraremos a cada división como un único individuo que será dotado de un conjunto de cualidades como estado de salud, edad, vecinos, etc. Estas cualidades vendrán dadas por las necesidades del modelo que estemos desarrollando, por ejemplo en los modelos clásicos no será necesario dotar de edades a las células, pero si tendremos que tener en cuenta sus vecindades y sus estados de salud.
+\section{Interacciones e impactos sociales}
+A diferencia del trabajo realizado en \cite{populationDensity} en el que cada celda representaba una región, consideraremos a cada división como un único individuo que será dotado de un conjunto de cualidades como estado de salud, edad, vecinos, etc. Estas cualidades vendrán dadas por las necesidades del modelo que estemos desarrollando, por ejemplo en los modelos clásicos no será necesario dotar de edades a las células, pero si tendremos que tener en cuenta sus vecindades y sus estados de salud.
 
-Pensemos por un momento en las características que hay detrás de relación cercana entre individuos o células:
+Pensemos por un momento en las características que hay detrás de relación cercana entre individuos o células. Denotaremos la relación entre células con el símbolo $\thicksim$ y una vez dicho esto tenemos que:
 
 \begin{itemize}
     \item Todas las células están en contacto con ellas mismas, por lo que para cada célula $x$ se cumple $x \thicksim x$.
     \item Si una célula estuviera en contacto con alguna otra entonces esa célula estaría en contacto con la primera, es decir, $x\thicksim y$ implica $y\thicksim x$.
-    \item Si una célula interactúa con otras dos no implica necesariamente que ellas interactúen por lo que $x\thicksim y$ y $x\thicksim z$ no implican que $y\thicksim z$.
+    \item Si una célula interactúa con otras dos no implica necesariamente que estas interactúen entre sí, por lo que $x\thicksim y$ y $x\thicksim z$ no implican que $y\thicksim z$.
 \end{itemize}
 
+ \textbf{Ejemplo 3.1.1:} Consideremos por ejemplo el conjunto $A=\{a,b,c,d\}$ y a la sub-colección $\mathcal{B} = \{\{a\},\{b\},\{c\},\{d\},\{a,c,d\}, \{b,c\}, \{b,d\}\}$ de $\mathcal{P}(A)$. Claramente se obtienen las siguientes relaciones
 
+$$\begin{array}{cccc}
+    a\thicksim a, & b\thicksim b, & c\thicksim c, & d\thicksim d, \\ 
+    a\thicksim c, & a\thicksim d, & b\thicksim c, & b\thicksim d,
+\end{array}$$
+
+junto con sus relaciones simétricas equivalentes. Esta noción de relación de interacción entre células puede ir un poco más allá. Pensemos por un momento en el impacto que puede tener un comportamiento sobre la célula $b$ en la célula $a$, si bien estas dos celdas no interactúan entre sí, la relación que cada una de ellas tiene con las células $c$ y $d$ puede tener un impacto sobre la otra. Con lo cual definimos la siguiente relación de interacción:
+
+\textbf{Definición 3.1.2:} Definimos el \textit{grado de impacto} entre dos puntos $a$ y $b$ como la menor cantidad de interacciones necesaria para llegar de $a$ a $b$. Para reconocer el grado de impacto entre dos puntos usaremos la notación $a\thicksim_n b$ donde $n\in\mathbb{N}$ denota la menor cantidad de interacciones entre $a$ y $b$.
+
+Si retomamos el ejemplo 3.1.1 podremos identificar los siguientes grados de impacto:
+
+$$\begin{array}{cccc}
+    a\thicksim_0 a, & b\thicksim_0 b, & c\thicksim_0 c, & d\thicksim_0 d, \\ 
+    a\thicksim_1 c, & a\thicksim_1 d, & b\thicksim_1 c, & b\thicksim_1 d, \\
+    a\thicksim_2 b, & c\thicksim_2 d.
+\end{array}$$
+
+De la definición anterior se deduce el siguiente resultado:
+
+\textbf{Teorema 3.1.3:} Los grados de impacto de una célula $x$ definen un sistema fundamental de vecindades en la topología discreta.
+
+\begin{proof}
+Sea $x\in\mathcal{L}$ y $\mathcal{V}(x)$ una familia de vecindades de $x$. Defina el conjunto $A_0=\{x\}$ como el conjunto de puntos con grado de impacto con $x$ es igual a cero y a continuación defina de manera recursiva a los conjuntos $A_k$ cuyos elementos tienen grado de impacto con $x$ sea igual o menor a $k$. Claramente $A_i\subseteq A_j$ para $0\leq i\leq j$ y de ese modo $A_i\in\mathcal{V}(x)$ para $i=0,1,\cdots,n$.
+
+Defina la colección $\mathcal{A}=\{A_0,A_1,\cdots,A_k,\cdots,A_N\}$ como la familia de conjuntos encajados definidos por el grado de impacto con $x$. Dado que por hipótesis estamos sobre la topología discreta podemos afirmar que para todo $V\in\mathcal{V}(x)$ el conjunto $A_0\subseteq V$ y de ese modo por la definición 2.4.8 concluimos que la colección $\mathcal{A}$ es un sistema fundamental de vecindades de $x$.
+\end{proof}
+
+A continuación mostraremos algunas de las propiedades del conjunto $\mathcal{A}$ definido en la demostración anterior:
+
+\textbf{Proposición 3.1.4:} Sea $x\in\mathcal{L}$ una célula y sea $\mathcal{A}$ la familia de conjuntos encajados definidos por el grado de impacto con $x$. Se cumplen las siguientes propiedades:
+
+\begin{enumerate}
+    \item El conjunto $\mathcal{A}$ posee elemento mínima igual a $A_0=\{x\}$,
+    \item $\mathcal{A}$ es un conjunto pre-ordenado finito,
+    \item $\mathcal{L}$ es un espacio $T_0$, y
+    \item $\mathcal{L}$ es un espacio uno-numerable.
+\end{enumerate}
 
 \section{Reglas de evolución}
 \subsection{Modelos SIS y SIR simples}
