@@ -55,8 +55,57 @@ A continuación mostraremos algunas de las propiedades del conjunto $\mathcal{A}
 Cada numeral se deduce directamente de las definiciones 2.4.11, 2.4.13, 2.4.14, 2.4.15, 2.4.16 y el teorema 3.1.3.
 \end{proof}
 
+\underline{\textit{Nota:}} Desde ahora en adelante cuando hablemos de vecinos de una célula asumiremos que son vecinos con un grado de impacto igual a 0.
+
+Una vez establecidos los conceptos de topología implementados para nuestro espacio $\mathcal{L}$ y sus sistemas fundamentales de vecindades podemos definir cada una de las reglas que implementaremos para cada modelo epidemiológico.
+
 \section{Reglas de evolución}
+
+En esta sección partiremos de una abstracción sobre la naturaleza de los modelos epidemiológicos definidos en el capítulo 1, esto nos permitirá definir de manera intuitiva las reglas de evolución de nuestros modelos en autómatas celulares.
+
+Antes de comenzar a definir nuestras reglas de evolución definiremos las siguientes notaciones:
+\begin{itemize}
+    \item Denotaremos por $\pi^t(x)$ al estado de la célula $x$ en el momento $t$.
+    \item Para describir la cantidad de vecinos de una célula $x$ que tengan un estado $K$ en un momento $t$ usaremos el símbolo $\sigma_K^t(x)$.
+\end{itemize}
+
 \subsection{Modelos SIS y SIR simples}
+
+Recordemos que para las tasas de infección $\beta$ y de recuperación $\alpha$ los modelos SIS y SIR nos afirman que para $\mathcal{R}_0=\frac{\beta}{\alpha}>1$ la enfermedad será endémica. Trataremos de replicar inicialmente esté comportamiento de manera local sobre una célula para cada uno de los posibles estados en dos casos puntuales para el valor de $\mathcal{R}_0$:
+
+\begin{itemize}
+    \item \textbf{Caso $\mathcal{R}_0>1$:} Dado que $\beta>\alpha$ la probabilidad de que un individuo susceptible se enferme luego de tener contacto con un infectado es más alta que la probabilidad de continuar susceptible a la enfermedad. Esta probabilidad de adquirir la enfermedad se ve directamente afectada por la cantidad de individuos infectados que la célula tenga en su vecindad.
+\end{itemize}
+
+* Supongamos por un momento que la célula es susceptible con $R_0>1$, esto significa que la probabilidad de adquirir la enfermedad luego de tener contacto con algún infectado es más alta que la probabilidad de que se mantenga sana luego de dicho contacto, pues $\beta>\alpha$. Adicionalmente, si la célula tiene más de un vecino infectado, la probabilidad de infectarse crecerá. De ese modo, para un valor aleatorio $\rho\in[0,1]$ generado uniformemente se tendrá que:
+
+$$"\text{Sea }\pi^t(x_{i,j})=S\text{ y suponga que }\rho>\frac{\beta}{\alpha}\frac{\sigma(\mathcal{V}(x_{i,j}),I,t)}{\#\mathcal{V}(x_{i,j})}\text{, entonces }\pi^{t+1}(x_{i,j})=I\text{, en caso contrario }\pi^{t+1}(x_{i,j})=S"$$
+
+* En el caso en el que la célula está infectada, $R_0>1$ se entiende como que la probabilidad de mantenerse infectado es mayor a la probabilidad de recuperarse. Al igual que en el caso anterior, si hay más de un individuo infectado en la vecindad de un infectado es más probable que la célula se mantenga infectada, de ese modo:
+
+$$"\text{Sea }\pi^t(x_{i,j})=I\text{ y suponga que }\rho\leq\frac{\beta}{\alpha}\frac{\sigma(\mathcal{V}(x_{i,j}),I,t)}{\#\mathcal{V}(x_{i,j})}\text{, entonces }\pi^{t+1}(x_{i,j})=S\text{, en caso contrario }\pi^{t+1}(x_{i,j})=I"$$
+
+Analicemos ahora el caso en el que $R_0<1$:
+
+* Si suponemos que la célula esta infectada, la probabilidad de curarse es mayor que la de mantenerse enfermo dado que $\alpha>\beta$. En este caso la probabilidad de recuperarse disminuira en función de la cantidad de infectados en la vecindad, con lo cual
+
+$$"\text{Sea }\pi^t(x_{i,j})=I\text{ y suponga que }\rho>\frac{\beta}{\alpha}\frac{\sigma(\mathcal{V}(x_{i,j}),I,t)}{\#\mathcal{V}(x_{i,j})}\text{, entonces }\pi^{t+1}(x_{i,j})=I\text{, en caso contrario }\pi^{t+1}(x_{i,j})=S"$$
+
+* Finalmente, si suponemos que la celda es susceptible, la probabilidad de infectarse es menor que la probabilidad de mantenerse sana de modo que
+
+$$"\text{Sea }\pi^t(x_{i,j})=S\text{ y suponga que }\rho\leq\frac{\beta}{\alpha}\frac{\sigma(\mathcal{V}(x_{i,j}),I,t)}{\#\mathcal{V}(x_{i,j})}\text{, entonces }\pi^{t+1}(x_{i,j})=S\text{, en caso contrario }\pi^{t+1}(x_{i,j})=I"$$
+
+Podemos expresar cada uno de los escenarios anteriormente mencionados por medio de la siguiente expresión:
+
+\begin{equation}
+\phi_{ij}^{t+1}(\alpha,\beta)=\left\{\begin{array}{ll}
+S & \textrm{si }\rho\leq\frac{\beta}{\alpha}\cdot \frac{\sigma(\mathcal{V}(x_{i,j}),I,t)}{\#\mathcal{V}(x_{i,j})} \\
+I & \textrm{en otro caso}
+\end{array}\right.
+\end{equation}
+
+Denotaremos la aplicación de la regla $\phi_{ij}^{t+1}(\alpha,\beta)$ en todas las celdas del espacio $\mathcal{L}$ como $\phi^{t+1}(\alpha,\beta)$.
+
 \subsection{Modelos con natalidad y mortalidad}
 \subsection{Modelos con muerte por enfermedad}
 \section{Comparación con los modelos clásicos}
