@@ -1,0 +1,113 @@
+\chapter{Modelos epidemiológicos en autómatas celulares}\label{ch:Modelos epidemiológicos en AC}
+
+\section{Interacciones e impactos sociales}
+A diferencia del trabajo realizado en \cite{populationDensity} en el que cada celda representaba una región, consideraremos a cada división como un único individuo que será dotado de un conjunto de cualidades como estado de salud, edad, vecinos, etc. Estas cualidades vendrán dadas por las necesidades del modelo que estemos desarrollando, por ejemplo en los modelos clásicos no será necesario dotar de edades a las células, pero si tendremos que tener en cuenta sus vecindades y sus estados de salud.
+
+Pensemos por un momento en las características que hay detrás de relación cercana entre individuos o células. Denotaremos la relación entre células con el símbolo $\thicksim$ y una vez dicho esto tenemos que:
+
+\begin{itemize}
+    \item Todas las células están en contacto con ellas mismas, por lo que para cada célula $x$ se cumple $x \thicksim x$.
+    \item Si una célula estuviera en contacto con alguna otra entonces esa célula estaría en contacto con la primera, es decir, $x\thicksim y$ implica $y\thicksim x$.
+    \item Si una célula interactúa con otras dos no implica necesariamente que estas interactúen entre sí, por lo que $x\thicksim y$ y $x\thicksim z$ no implican que $y\thicksim z$.
+\end{itemize}
+
+ \textbf{Ejemplo 3.1.1:} Consideremos por ejemplo el conjunto $A=\{a,b,c,d\}$ y a la sub-colección $\mathcal{B} = \{\{a\},\{b\},\{c\},\{d\},\{a,c,d\}, \{b,c\}, \{b,d\}\}$ de $\mathcal{P}(A)$. Claramente se obtienen las siguientes relaciones
+
+$$\begin{array}{cccc}
+    a\thicksim a, & b\thicksim b, & c\thicksim c, & d\thicksim d, \\ 
+    a\thicksim c, & a\thicksim d, & b\thicksim c, & b\thicksim d,
+\end{array}$$
+
+junto con sus relaciones simétricas equivalentes. Esta noción de relación de interacción entre células puede ir un poco más allá. Pensemos por un momento en el impacto que puede tener un comportamiento sobre la célula $b$ en la célula $a$, si bien estas dos celdas no interactúan entre sí, la relación que cada una de ellas tiene con las células $c$ y $d$ puede tener un impacto sobre la otra. Con lo cual definimos la siguiente relación de interacción:
+
+\textbf{Definición 3.1.2:} Definimos el \textit{grado de impacto} entre dos puntos $a$ y $b$ como la menor cantidad de interacciones necesaria para llegar de $a$ a $b$. Para reconocer el grado de impacto entre dos puntos usaremos la notación $a\thicksim_n b$ donde $n\in\mathbb{N}$ denota la menor cantidad de interacciones entre $a$ y $b$.
+
+Si retomamos el ejemplo 3.1.1 podremos identificar los siguientes grados de impacto:
+
+$$\begin{array}{cccc}
+    a\thicksim_0 a, & b\thicksim_0 b, & c\thicksim_0 c, & d\thicksim_0 d, \\ 
+    a\thicksim_1 c, & a\thicksim_1 d, & b\thicksim_1 c, & b\thicksim_1 d, \\
+    a\thicksim_2 b, & c\thicksim_2 d.
+\end{array}$$
+
+De la definición anterior se deduce el siguiente resultado:
+
+\textbf{Teorema 3.1.3:} Los grados de impacto de una célula $x$ definen un sistema fundamental de vecindades en la topología discreta.
+
+\begin{proof}
+Sea $x\in\mathcal{L}$ y $\mathcal{V}(x)$ una familia de vecindades de $x$. Defina el conjunto $A_0=\{x\}$ como el conjunto de puntos con grado de impacto con $x$ es igual a cero y a continuación defina de manera recursiva a los conjuntos $A_k$ cuyos elementos tienen grado de impacto con $x$ sea igual o menor a $k$. Claramente $A_i\subseteq A_j$ para $0\leq i\leq j$ y de ese modo $A_i\in\mathcal{V}(x)$ para $i=0,1,\cdots,n$.
+
+Defina la colección $\mathcal{A}=\{A_0,A_1,\cdots,A_k,\cdots,A_N\}$ como la familia de conjuntos encajados definidos por el grado de impacto con $x$. Dado que por hipótesis estamos sobre la topología discreta podemos afirmar que para todo $V\in\mathcal{V}(x)$ el conjunto $A_0\subseteq V$ y de ese modo por la definición 2.4.8 concluimos que la colección $\mathcal{A}$ es un sistema fundamental de vecindades de $x$.
+\end{proof}
+
+A continuación mostraremos algunas de las propiedades del conjunto $\mathcal{A}$ definido en la demostración anterior:
+
+\textbf{Proposición 3.1.4:} Sea $x\in\mathcal{L}$ una célula y sea $\mathcal{A}$ la familia de conjuntos encajados definidos por el grado de impacto con $x$. Se cumplen las siguientes propiedades:
+
+\begin{enumerate}
+    \item El conjunto $\mathcal{A}$ posee elemento mínima igual a $A_0=\{x\}$,
+    \item $\mathcal{A}$ es un conjunto ordenado finito con el orden de la contenencia,
+    \item $\mathcal{L}$ es un espacio $T_0$, y
+    \item $\mathcal{L}$ es un espacio uno-numerable.
+\end{enumerate}
+
+\begin{proof}
+Cada numeral se deduce directamente de las definiciones 2.4.11, 2.4.13, 2.4.14, 2.4.15, 2.4.16 y el teorema 3.1.3.
+\end{proof}
+
+\underline{\textit{Nota:}} Desde ahora en adelante cuando hablemos de vecinos de una célula asumiremos que son vecinos con un grado de impacto igual a 0.
+
+Una vez establecidos los conceptos de topología implementados para nuestro espacio $\mathcal{L}$ y sus sistemas fundamentales de vecindades podemos definir cada una de las reglas que implementaremos para cada modelo epidemiológico.
+
+\section{Reglas de evolución}
+
+En esta sección partiremos de una abstracción sobre la naturaleza de los modelos epidemiológicos definidos en el capítulo 1, esto nos permitirá definir de manera intuitiva las reglas de evolución de nuestros modelos en autómatas celulares.
+
+Antes de comenzar a definir nuestras reglas de evolución definiremos las siguientes notaciones:
+\begin{itemize}
+    \item Denotaremos por $\pi^t(x)$ al estado de la célula $x$ en el momento $t$.
+    \item Para describir la cantidad de vecinos de una célula $x$ que tengan un estado $K$ en un momento $t$ usaremos el símbolo $\sigma_K^t(x)$.
+    \item Usaremos los símbolos $\mathcal{S}^t,\mathcal{I}^t,\mathcal{R}^t$ y $\mathcal{D}^t$ para denotar a los conjuntos de células susceptibles, infectadas, recuperadas y muertas respectivamente en el espacio $\mathcal{L}$ en el tiempo $t$. De manera formal
+    $$\mathcal{S}^t=\{x\in\mathcal{L}:\pi^t(x)=S\},$$
+    y de manera análoga se definen los conjuntos $\mathcal{I}^t,\mathcal{R}^t$ y $\mathcal{D}^t$. Note que $$\mathcal{S}^t\cup\mathcal{I}^t\cup\mathcal{R}^t\cup\mathcal{D}^t=\mathcal{L}\text{ para todo tiempo }t.$$
+\end{itemize}
+
+\subsection{Modelos SIS y SIR simples}
+
+Recordemos que para las tasas de infección $\beta$ y de recuperación $\alpha$ los modelos SIS y SIR nos afirman que para $\mathcal{R}_0=\frac{\beta}{\alpha}>1$ la enfermedad será endémica. Trataremos de replicar inicialmente esté comportamiento de manera local sobre una célula analizando los siguientes escenarios para cada estado:
+
+\begin{itemize}
+    \item Para el caso $\mathcal{R}_0>1$, la probabilidad de que un individuo susceptible se enferme luego de tener contacto con un infectado es más alta que la probabilidad de continuar susceptible a la enfermedad; caso contrario ocurre sí $\mathcal{R}_0<1$. Esta probabilidad de adquirir la enfermedad depende en gran medida de la cantidad de individuos infectados que la célula tenga en su vecindad. 
+    
+    \item Como vimos en el capítulo 1 la recuperación de los individuos infectados no se ve afectada por la cantidad de contactos con otras células y en lugar de eso depende completamente de la tasa de recuperación $\alpha$, la cual en nuestro caso entenderemos como la proporción de individuos infectados que se recuperan de la enfermedad.
+    
+    \item Para el estado de inmunidad en el modelo SIR, supondremos que los individuos que posean este estado se mantendrán inmunes. Esto quiere decir que la transformación para individuos recuperados será constante.
+\end{itemize}
+
+De manera natural definimos las siguientes reglas de evolución para los modelos SIS y SIR en autómatas celulares:
+
+\textbf{Definición 3.2.1:} Dada una célula $x$ en un conjunto $\mathcal{L}$ definimos la regla de evolución para el modelo SIS como:
+\begin{equation}
+    \phi_{SIS}^t(x)=\left\{\begin{array}{ll}
+        S & \text{si }\pi^t(x)=S\text{ y }\rho\leq\frac{\beta}{\alpha}\frac{\pi_I^t(x)}{\#\mathcal{V}(x)}, \\
+        I & \text{si }\pi^t(x)=S\text{ y }\rho>\frac{\beta}{\alpha}\frac{\pi_I^t(x)}{\#\mathcal{V}(x)}, \\
+        I & \text{si }\pi^t(x)=I\text{ y }\rho>\alpha,\\
+        S & \text{si }\pi^t(x)=I\text{ y }\rho\leq\alpha.
+    \end{array}\right.
+\end{equation}
+Donde $\rho\in\mathcal{U}_{[0,1]}$.
+    
+\textbf{Definición 3.2.2:} Dada una célula $x$ en un conjunto $\mathcal{L}$ definimos la regla de evolución para el modelo SIR como:
+\begin{equation}
+    \phi_{SIR}^t(x)=\left\{\begin{array}{ll}
+        S & \text{si }\pi^t(x)=S\text{ y }\rho\leq\frac{\beta}{\alpha}\frac{\pi_I^t(x)}{\#\mathcal{V}(x)}, \\
+        I & \text{si }\pi^t(x)=S\text{ y }\rho>\frac{\beta}{\alpha}\frac{\pi_I^t(x)}{\#\mathcal{V}(x)}, \\
+        I & \text{si }\pi^t(x)=I\text{ y }\rho>\alpha,\\
+        R & \text{si }\pi^t(x)=I\text{ y }\rho\leq\alpha, \\
+        R & \text{si }\pi^t(x)=R.
+    \end{array}\right.
+\end{equation}
+Con $\rho\in\mathcal{U}_{[0,1]}$.
+\subsection{Modelos con natalidad y mortalidad}
+\subsection{Modelos con muerte por enfermedad}
+\section{Comparación con los modelos clásicos}
