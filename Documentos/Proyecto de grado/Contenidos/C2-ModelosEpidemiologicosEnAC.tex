@@ -67,45 +67,47 @@ Antes de comenzar a definir nuestras reglas de evolución definiremos las siguie
 \begin{itemize}
     \item Denotaremos por $\pi^t(x)$ al estado de la célula $x$ en el momento $t$.
     \item Para describir la cantidad de vecinos de una célula $x$ que tengan un estado $K$ en un momento $t$ usaremos el símbolo $\sigma_K^t(x)$.
+    \item Usaremos los símbolos $\mathcal{S}^t,\mathcal{I}^t,\mathcal{R}^t$ y $\mathcal{D}^t$ para denotar a los conjuntos de células susceptibles, infectadas, recuperadas y muertas respectivamente en el espacio $\mathcal{L}$ en el tiempo $t$. De manera formal
+    $$\mathcal{S}^t=\{x\in\mathcal{L}:\pi^t(x)=S\},$$
+    y de manera análoga se definen los conjuntos $\mathcal{I}^t,\mathcal{R}^t$ y $\mathcal{D}^t$. Note que $$\mathcal{S}^t\cup\mathcal{I}^t\cup\mathcal{R}^t\cup\mathcal{D}^t=\mathcal{L}\text{ para todo tiempo }t.$$
 \end{itemize}
 
 \subsection{Modelos SIS y SIR simples}
 
-Recordemos que para las tasas de infección $\beta$ y de recuperación $\alpha$ los modelos SIS y SIR nos afirman que para $\mathcal{R}_0=\frac{\beta}{\alpha}>1$ la enfermedad será endémica. Trataremos de replicar inicialmente esté comportamiento de manera local sobre una célula para cada uno de los posibles estados en dos casos puntuales para el valor de $\mathcal{R}_0$:
+Recordemos que para las tasas de infección $\beta$ y de recuperación $\alpha$ los modelos SIS y SIR nos afirman que para $\mathcal{R}_0=\frac{\beta}{\alpha}>1$ la enfermedad será endémica. Trataremos de replicar inicialmente esté comportamiento de manera local sobre una célula analizando los siguientes escenarios para cada estado:
 
 \begin{itemize}
-    \item \textbf{Caso $\mathcal{R}_0>1$:} Dado que $\beta>\alpha$ la probabilidad de que un individuo susceptible se enferme luego de tener contacto con un infectado es más alta que la probabilidad de continuar susceptible a la enfermedad. Esta probabilidad de adquirir la enfermedad se ve directamente afectada por la cantidad de individuos infectados que la célula tenga en su vecindad.
+    \item Para el caso $\mathcal{R}_0>1$, la probabilidad de que un individuo susceptible se enferme luego de tener contacto con un infectado es más alta que la probabilidad de continuar susceptible a la enfermedad; caso contrario ocurre sí $\mathcal{R}_0<1$. Esta probabilidad de adquirir la enfermedad depende en gran medida de la cantidad de individuos infectados que la célula tenga en su vecindad. 
+    
+    \item Como vimos en el capítulo 1 la recuperación de los individuos infectados no se ve afectada por la cantidad de contactos con otras células y en lugar de eso depende completamente de la tasa de recuperación $\alpha$, la cual en nuestro caso entenderemos como la proporción de individuos infectados que se recuperan de la enfermedad.
+    
+    \item Para el estado de inmunidad en el modelo SIR, supondremos que los individuos que posean este estado se mantendrán inmunes. Esto quiere decir que la transformación para individuos recuperados será constante.
 \end{itemize}
 
-* Supongamos por un momento que la célula es susceptible con $R_0>1$, esto significa que la probabilidad de adquirir la enfermedad luego de tener contacto con algún infectado es más alta que la probabilidad de que se mantenga sana luego de dicho contacto, pues $\beta>\alpha$. Adicionalmente, si la célula tiene más de un vecino infectado, la probabilidad de infectarse crecerá. De ese modo, para un valor aleatorio $\rho\in[0,1]$ generado uniformemente se tendrá que:
+De manera natural definimos las siguientes reglas de evolución para los modelos SIS y SIR en autómatas celulares:
 
-$$"\text{Sea }\pi^t(x_{i,j})=S\text{ y suponga que }\rho>\frac{\beta}{\alpha}\frac{\sigma(\mathcal{V}(x_{i,j}),I,t)}{\#\mathcal{V}(x_{i,j})}\text{, entonces }\pi^{t+1}(x_{i,j})=I\text{, en caso contrario }\pi^{t+1}(x_{i,j})=S"$$
-
-* En el caso en el que la célula está infectada, $R_0>1$ se entiende como que la probabilidad de mantenerse infectado es mayor a la probabilidad de recuperarse. Al igual que en el caso anterior, si hay más de un individuo infectado en la vecindad de un infectado es más probable que la célula se mantenga infectada, de ese modo:
-
-$$"\text{Sea }\pi^t(x_{i,j})=I\text{ y suponga que }\rho\leq\frac{\beta}{\alpha}\frac{\sigma(\mathcal{V}(x_{i,j}),I,t)}{\#\mathcal{V}(x_{i,j})}\text{, entonces }\pi^{t+1}(x_{i,j})=S\text{, en caso contrario }\pi^{t+1}(x_{i,j})=I"$$
-
-Analicemos ahora el caso en el que $R_0<1$:
-
-* Si suponemos que la célula esta infectada, la probabilidad de curarse es mayor que la de mantenerse enfermo dado que $\alpha>\beta$. En este caso la probabilidad de recuperarse disminuira en función de la cantidad de infectados en la vecindad, con lo cual
-
-$$"\text{Sea }\pi^t(x_{i,j})=I\text{ y suponga que }\rho>\frac{\beta}{\alpha}\frac{\sigma(\mathcal{V}(x_{i,j}),I,t)}{\#\mathcal{V}(x_{i,j})}\text{, entonces }\pi^{t+1}(x_{i,j})=I\text{, en caso contrario }\pi^{t+1}(x_{i,j})=S"$$
-
-* Finalmente, si suponemos que la celda es susceptible, la probabilidad de infectarse es menor que la probabilidad de mantenerse sana de modo que
-
-$$"\text{Sea }\pi^t(x_{i,j})=S\text{ y suponga que }\rho\leq\frac{\beta}{\alpha}\frac{\sigma(\mathcal{V}(x_{i,j}),I,t)}{\#\mathcal{V}(x_{i,j})}\text{, entonces }\pi^{t+1}(x_{i,j})=S\text{, en caso contrario }\pi^{t+1}(x_{i,j})=I"$$
-
-Podemos expresar cada uno de los escenarios anteriormente mencionados por medio de la siguiente expresión:
-
+\textbf{Definición 3.2.1:} Dada una célula $x$ en un conjunto $\mathcal{L}$ definimos la regla de evolución para el modelo SIS como:
 \begin{equation}
-\phi_{ij}^{t+1}(\alpha,\beta)=\left\{\begin{array}{ll}
-S & \textrm{si }\rho\leq\frac{\beta}{\alpha}\cdot \frac{\sigma(\mathcal{V}(x_{i,j}),I,t)}{\#\mathcal{V}(x_{i,j})} \\
-I & \textrm{en otro caso}
-\end{array}\right.
+    \phi_{SIS}^t(x)=\left\{\begin{array}{ll}
+        S & \text{si }\pi^t(x)=S\text{ y }\rho\leq\frac{\beta}{\alpha}\frac{\pi_I^t(x)}{\#\mathcal{V}(x)}, \\
+        I & \text{si }\pi^t(x)=S\text{ y }\rho>\frac{\beta}{\alpha}\frac{\pi_I^t(x)}{\#\mathcal{V}(x)}, \\
+        I & \text{si }\pi^t(x)=I\text{ y }\rho>\alpha,\\
+        S & \text{si }\pi^t(x)=I\text{ y }\rho\leq\alpha.
+    \end{array}\right.
 \end{equation}
-
-Denotaremos la aplicación de la regla $\phi_{ij}^{t+1}(\alpha,\beta)$ en todas las celdas del espacio $\mathcal{L}$ como $\phi^{t+1}(\alpha,\beta)$.
-
+Donde $\rho\in\mathcal{U}_{[0,1]}$.
+    
+\textbf{Definición 3.2.2:} Dada una célula $x$ en un conjunto $\mathcal{L}$ definimos la regla de evolución para el modelo SIR como:
+\begin{equation}
+    \phi_{SIR}^t(x)=\left\{\begin{array}{ll}
+        S & \text{si }\pi^t(x)=S\text{ y }\rho\leq\frac{\beta}{\alpha}\frac{\pi_I^t(x)}{\#\mathcal{V}(x)}, \\
+        I & \text{si }\pi^t(x)=S\text{ y }\rho>\frac{\beta}{\alpha}\frac{\pi_I^t(x)}{\#\mathcal{V}(x)}, \\
+        I & \text{si }\pi^t(x)=I\text{ y }\rho>\alpha,\\
+        R & \text{si }\pi^t(x)=I\text{ y }\rho\leq\alpha, \\
+        R & \text{si }\pi^t(x)=R.
+    \end{array}\right.
+\end{equation}
+Con $\rho\in\mathcal{U}_{[0,1]}$.
 \subsection{Modelos con natalidad y mortalidad}
 \subsection{Modelos con muerte por enfermedad}
 \section{Comparación con los modelos clásicos}
