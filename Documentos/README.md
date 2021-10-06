@@ -3,4 +3,4 @@ En esta carpeta se reportan los avances en el documento de la tesis.
 
 ## Últimas actualizaciones 
 
-Primera versión de la introducción.
+Primera de las reglas de evolución.
