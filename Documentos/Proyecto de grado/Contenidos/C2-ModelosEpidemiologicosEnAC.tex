@@ -125,7 +125,7 @@ Teniendo estas ideas en mente podemos definir la regla de evolución para un mod
 
 \textbf{Definición 3.2.3:} Sea $x$ una célula en un conjunto $\mathcal{L}$, $M$ un modelo epidemiológico y $T$ una unidad temporal (días, meses, años, etc.). Definimos la regla de evolución con nacimientos y muertes para $M$ como:
 \begin{equation}
-    \phi_{M,T}^t(x)=\left\{\begin{array}{ll}
+    \mu_{M,T}^t(x)=\left\{\begin{array}{ll}
         D,0 & \text{si }t\not\equiv 0 \text{ (modulo }T\text{), }\pi^t(x)\in\{S,I,R\}\text{ y }\rho\leq\omega_k, \\
         D,0 & \text{si }\pi^t(x)=D\text{ y }\rho>b,\\
         S,1 & \text{si }\pi^t(x)=D\text{ y }\rho\leq b,\\
@@ -135,5 +135,16 @@ Teniendo estas ideas en mente podemos definir la regla de evolución para un mod
 \end{equation}
 donde $\omega_k$ es la probabilidad de morir por causas ajenas a la enfermedad para las edades en la partición k-ésima del intervalo $[0,100]$, $b$ es la tasa de natalidad, $\phi_M^t$ es la regla de evolución del modelo epidemiológico, $E^t(x)$ denota la edad de la célula $x$ en el momento $t$ y $\rho\in\mathcal{U}_{[0,1]}$.
 \subsection{Modelos con muerte por enfermedad}
+En esta sección nos enfocaremos en definir la versión más general de los modelos epidemiológicos clásicos en ecuaciones diferenciales definidas en el capítulo 1. La muerte por enfermedad afectará únicamente a las células que posean la enfermedad y, buscando una mayor aplicabilidad sobre eventos más realistas asumiremos que la enfermedad puede tener un mayor impacto mortal sobre algunas edades. 
 
+Al igual que en la sección anterior, realizaremos una partición sobre el intervalo $[0,100]$ y definiremos una probabilidad $\theta_k$ que indique la probabilidad de morir a causa de la enfermedad en la k-ésima partición. De manera formal:
+
+\textbf{Definición 3.2.4:} Sea $x$ una célula en un conjunto $\mathcal{L}$, $M$ un modelo epidemiológico y $T$ una unidad temporal (días, meses, años, etc.). Definimos la regla de evolución con muerte por enfermedad para $M$ como:
+\begin{equation}
+    \theta_{M,T}^t(x)=\left\{\begin{array}{ll}
+        D,0 & \text{si }\pi^t(x)=I\text{ y }\rho\leq\theta_k, \\
+        \mu_{M,T}^t & \text{en otro caso.}
+    \end{array}\right.
+\end{equation}
+Donde $\theta_k$ es la probabilidad de morir por la enfermedad para los individuos con una edad en el intervalo k-ésimo de la partición del intervalo $[0,100]$, $\mu_{M,T}^t$ es la regla de evolución para modelos con nacimientos y muertes y $\rho\in\mathcal{U}_{[0,1]}$.
 \section{Comparación con los modelos clásicos}
