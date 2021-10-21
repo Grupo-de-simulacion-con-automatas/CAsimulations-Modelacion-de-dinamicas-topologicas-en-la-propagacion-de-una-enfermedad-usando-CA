@@ -3,16 +3,38 @@
 
 # In[ ]:
 
-import math
-import random
 import numpy as np
+import random
+import math
+
+def Moore(system,i,j):
+    """Definición de la vecindad de Moore"""
+    vicinityOf_ij = np.zeros((3,3))      
+    vicinityOf_ij[0][0] = system[i-1][j-1]; vicinityOf_ij[0][1] = system[i-1][j]; vicinityOf_ij[0][2] = system[i-1][j+1]    
+    vicinityOf_ij[1][0] = system[i][j-1]; vicinityOf_ij[1][1] = system[i][j]; vicinityOf_ij[1][2] = system[i][j+1]      
+    vicinityOf_ij[2][0] = system[i+1][j-1]; vicinityOf_ij[2][1] = system[i+1][j]; vicinityOf_ij[2][2] = system[i+1][j+1]    
+    return [vicinityOf_ij,[1,1]]  # Los valores en su vecindad, junto con la coordenada de la célula principal
+
+def Von_Neumann(system,i,j):
+    """Definición de la vecindad de Von Neumann"""
+    vicinityOf_ij = -np.ones((3,3))              
+    vicinityOf_ij[0][1] = system[i-1][j]
+    vicinityOf_ij[1][0] = system[i][j-1]; vicinityOf_ij[1][1] = system[i][j]; vicinityOf_ij[1][2] = system[i][j+1]      
+    vicinityOf_ij[2][1] = system[i+1][j]      
+    return [vicinityOf_ij,[1,1]]  # Los valores en su vecindad, junto con la coordenada de la célula principal
+
+def identificador(neighborhoodType,system,i,j):
+    """Reconoce a function como la vecindad del agente en la posición ij en el sistema"""
+    vicinityOf_ij = neighborhoodType(system,i,j)[0]
+    masterCell = [neighborhoodType(system,i,j)[1]]
+    return (vicinityOf_ij, masterCell)  # Los valores en su vecindad, junto con la coordenada de la célula principal
 
 def insideCopy(system,extraRows=0,extraColumns=0):
     """Copia del sistema en un entorno extendido
     extraRows    => Cantidad de filas extra del entorno
     extraColumns => Cantidad de columnas extra del entorno"""
     nRows,nColumns = system.shape
-    copy = -np.ones((nRows + (extraRows * 2), nColumns + (extraColumns * 2)))
+    copy = -np.ones((nRows+(extraRows*2),nColumns+(extraColumns*2)))
     for row in range(nRows):
         for column in range(nColumns):
             copy[row+extraRows][column+extraColumns] = system[row][column]

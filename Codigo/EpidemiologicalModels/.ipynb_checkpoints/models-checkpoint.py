@@ -38,20 +38,61 @@ class sis:
         self.system = system; self.nRows, self.nColumns = system.shape
         self.neighborhoodType = neighborhoodType; self.extraRows = extraRows; self.extraColumns = extraColumns
     
-    def basicRule(self,updateSystem):
-        """Aplica la regla base de evolución al sistema updateSystem"""
-        extendedSystem = insideCopy(updateSystem,self.extraRows,self.extraColumns)
-        numberOfInfected = systemMetrics(updateSystem,[1]).statusInTheSystem(False)[0]
-        if numberOfInfected > 0:
-            systemUpdate = np.zeros((self.nRows,self.nColumns))
-            for i in range(self.nRows):
-                for j in range(self.nColumns):
-                    vecinityOf_ij, masterCell = identificador(self.neighborhoodType,extendedSystem,i+self.extraRows,j+self.extraColumns)
-                    # Aplica la regla base de evolución local y guarda los valores en systemUpdate
-                    systemUpdate[i][j] = baseRuleEvolution(self.alpha,self.beta,vecinityOf_ij,masterCell[0][0],masterCell[0][1])
-            return systemUpdate
-        else: 
-            return updateSystem
+    def __siRule(self,updatedSystem): 
+        """Regla S -> I"""
+        extendedSystem = insideCopy(updatedSystem,self.extraRows,self.extraColumns)
+        systemUpdate = np.zeros((self.nRows,self.nColumns))
+        for row in range(self.nRows):
+            for column in range(self.nColumns): 
+                vecinityOf_ij, masterCell = identificador(self.neighborhoodType,
+                                                          extendedSystem,row+self.extraRows,
+                                                          column+self.extraColumns)
+                if updatedSystem[row][column] == 0:
+                    # Si el estado de la célula es susceptible aplique la regla base de interaccion local
+                    systemUpdate[row][column] = baseRuleEvolution(self.alpha,
+                                                                  self.beta,
+                                                                  vecinityOf_ij,
+                                                                  masterCell[0][0],
+                                                                  masterCell[0][1])
+                else:
+                    systemUpdate[row][column] = updatedSystem[row][column]
+        return systemUpdate  
+    
+    def __isRule(self,previousSystem):      
+        """Regla I -> S"""
+        infectedCoordinates = stateCoordinates(previousSystem,1)
+        # alpha de los infectados se curará
+        initialRecoveredNumber = math.ceil(len(infectedCoordinates)*self.alpha)
+        percentageInSpace = statePercentageInSpace(initialRecoveredNumber,
+                                                   len(infectedCoordinates)+1,0,1)
+        systemCopy = insideCopy(previousSystem)
+        for i in range(len(percentageInSpace)):
+            # Los individuos que se recuperarón se envian a la posición que tenian en el estado I  
+            systemCopy[infectedCoordinates[i][0]][infectedCoordinates[i][1]]=percentageInSpace[i]
+        return systemCopy
+    
+    def basicRule(self,previousSystem):   
+        """Aplica la regla de evolución al sistema previousSystem"""
+        # Primero se evalua cuales individuos se curarán
+        updatedStates_IS = self.__isRule(previousSystem)      
+        # Los que no se curarón siguen infectando la población susceptible
+        updatedStates_SI = self.__siRule(updatedStates_IS)  
+        return updatedStates_SI
+    
+#     def basicRule(self,updateSystem):
+#         """Aplica la regla base de evolución al sistema updateSystem"""
+#         extendedSystem = insideCopy(updateSystem,self.extraRows,self.extraColumns)
+#         numberOfInfected = systemMetrics(updateSystem,[1]).statusInTheSystem(False)[0]
+#         if numberOfInfected > 0:
+#             systemUpdate = np.zeros((self.nRows,self.nColumns))
+#             for i in range(self.nRows):
+#                 for j in range(self.nColumns):
+#                     vecinityOf_ij, masterCell = identificador(self.neighborhoodType,extendedSystem,i+self.extraRows,j+self.extraColumns)
+#                     # Aplica la regla base de evolución local y guarda los valores en systemUpdate
+#                     systemUpdate[i][j] = baseRuleEvolution(self.alpha,self.beta,vecinityOf_ij,masterCell[0][0],masterCell[0][1])
+#             return systemUpdate
+#         else: 
+#             return updateSystem
         
 class sir:
     data = None; evolutions = None
@@ -73,10 +114,17 @@ class sir:
         systemUpdate = np.zeros((self.nRows,self.nColumns))
         for row in range(self.nRows):
             for column in range(self.nColumns): 
-                vecinityOf_ij, masterCell = identificador(self.neighborhoodType,extendedSystem,row+self.extraRows,column+self.extraColumns)
+                vecinityOf_ij, masterCell = identificador(self.neighborhoodType,
+                                                          extendedSystem,
+                                                          row+self.extraRows,
+                                                          column+self.extraColumns)
                 if updatedSystem[row][column] == 0:
-                    # Si el estado de la célula es susceptible aplique la regla base de interaccion local
-                    systemUpdate[row][column] = baseRuleEvolution(self.alpha,self.beta,vecinityOf_ij,masterCell[0][0],masterCell[0][1])
+                    # Si la célula es susceptible aplique la regla base de interaccion local
+                    systemUpdate[row][column] = baseRuleEvolution(self.alpha,
+                                                                  self.beta,
+                                                                  vecinityOf_ij,
+                                                                  masterCell[0][0],
+                                                                  masterCell[0][1])
                 else:
                     systemUpdate[row][column] = updatedSystem[row][column]
         return systemUpdate  
@@ -86,7 +134,8 @@ class sir:
         infectedCoordinates = stateCoordinates(previousSystem,1)
         # alpha de los infectados se curará
         initialRecoveredNumber = math.ceil(len(infectedCoordinates)*self.alpha)
-        percentageInSpace = statePercentageInSpace(initialRecoveredNumber,len(infectedCoordinates)+1,2,1)
+        percentageInSpace = statePercentageInSpace(initialRecoveredNumber,
+                                                   len(infectedCoordinates)+1,2,1)
         systemCopy = insideCopy(previousSystem)
         for i in range(len(percentageInSpace)):
             # Los individuos que se recuperarón se envian a la posición que tenian en el estado I  
@@ -104,12 +153,14 @@ class sir:
 def agesMatrix(ranges, system):
     '''Arreglo de edades aleatorias'''
     agesDivisions = []
-    numberOfRows, numberOfColumns = system.shape; amoungIndividuals = systemMetrics(system,[0,1,2,3]).numberOfIndividuals()  
+    numberOfRows, numberOfColumns = system.shape
+    amoungIndividuals = systemMetrics(system,[0,1,2,3]).numberOfIndividuals()  
     for Range in ranges:
         agesDivisions.append([0]*math.ceil(Range[2]*amoungIndividuals))
     for divition in range(len(agesDivisions)):
         for individualPerGroup in range(len(agesDivisions[divition])):
-            agesDivisions[divition][individualPerGroup] = random.randint(ranges[divition][0],ranges[divition][1]) 
+            agesDivisions[divition][individualPerGroup] = random.randint(ranges[divition][0],
+                                                                         ranges[divition][1]) 
     concatenatedAgeList = agesDivisions[0]
     for i in range(1,len(agesDivisions)):
         concatenatedAgeList = concatenatedAgeList + agesDivisions[i]
@@ -155,7 +206,9 @@ def newYear(birthRate,probabilityOfDyingByAgeGroup, systemAges, timeUnit, annual
                 newYearMatrix[row,column] = systemAges[row,column]
     for group in range(len(probabilityOfDyingByAgeGroup)):   
         # Se separan los grupos de edades para aplicar las tasas de mortalidad de probabilityOfDyingByAgeGroup
-        agePositions.append(ageGroupPositions(probabilityOfDyingByAgeGroup[group][0],probabilityOfDyingByAgeGroup[group][1],systemAges))
+        agePositions.append(ageGroupPositions(probabilityOfDyingByAgeGroup[group][0],
+                                              probabilityOfDyingByAgeGroup[group][1],
+                                              systemAges))
         mortalityApplicationGroups.append(math.ceil(len(agePositions[group])*probabilityOfDyingByAgeGroup[group][2])-1)
     for group in range(len(mortalityApplicationGroups)):
         for age in range(mortalityApplicationGroups[group]):
@@ -198,10 +251,10 @@ class birthAndMortavility:
         for row in range(self.nRows):
             for column in range(self.nColumns):
                 if newYearMatrix[row,column] == 0:   
-                    # Si en la evolución de edades, la edad de un agente es 0 el agente se representará como muerto
+                    # Si la edad de un agente es 0 el agente se interpreta como muerto
                     modelWithBirthAndMortavilityMatrix[row,column] = 3
                 elif newYearMatrix[row,column] == 1:   
-                    # Si en la evolución de edades, la edad de un agente es 1 el agente es susceptible
+                    # Si la edad de un agente es 1 el agente es susceptible
                     modelWithBirthAndMortavilityMatrix[row,column] = 0
                 else:
                     modelWithBirthAndMortavilityMatrix[row,column] = modelMatrix[row,column]
@@ -209,11 +262,15 @@ class birthAndMortavility:
     
 def deathByDiseaseRule(deathFromDiseaseByAgeRange,system,systemAges):   
     '''Aplica probabilidades de muerte por enfermedad a grupos de edad sobre el sistema'''
-    infectedIndividualsPerGroup = []; numberOfInfectedIndividualsDeathPerGroup = []; deathPositions = []
+    infectedIndividualsPerGroup = []
+    numberOfInfectedIndividualsDeathPerGroup = []
+    deathPositions = []
     numberOfRows, numberOfColumns = system.shape
     systemCopy = insideCopy(system); systemAgesCopy = insideCopy(systemAges)
     for group in range(len(deathFromDiseaseByAgeRange)):
-        groupPositions = ageGroupPositions(deathFromDiseaseByAgeRange[group][0],deathFromDiseaseByAgeRange[group][1], systemAgesCopy)
+        groupPositions = ageGroupPositions(deathFromDiseaseByAgeRange[group][0],
+                                           deathFromDiseaseByAgeRange[group][1], 
+                                           systemAgesCopy)
         infectedIndividuals = []
         for individual in range(len(groupPositions)):          
             # Aplica la probabilidad de muerte únicamente a los individuos infectados
@@ -249,9 +306,17 @@ class deathByDisease(birthAndMortavility):
             self.eti = ["susceptibles","infectados","recuperados","Espacios disponibles"]
         
     def basicRule(self,system,systemAges,timeUnit):
-        evolution = birthAndMortavility(self.model,self.alpha,self.beta,self.birthRate,self.probabilityOfDyingByAgeGroup,
-                                        system,systemAges,self.annualUnit,self.extraRows,self.extraColumns,
+        evolution = birthAndMortavility(self.model,
+                                        self.alpha,
+                                        self.beta,
+                                        self.birthRate,
+                                        self.probabilityOfDyingByAgeGroup,
+                                        system,systemAges,
+                                        self.annualUnit,
+                                        self.extraRows,
+                                        self.extraColumns,
                                         self.neighborhoodType).basicRule(system,systemAges,timeUnit)
         systemCopy = insideCopy(evolution[0])
-        evolutionsAfterDeaths = deathByDiseaseRule(self.deathFromDiseaseByAgeRange,systemCopy,evolution[1])
+        evolutionsAfterDeaths = deathByDiseaseRule(self.deathFromDiseaseByAgeRange,
+                                                   systemCopy,evolution[1])
         return evolutionsAfterDeaths

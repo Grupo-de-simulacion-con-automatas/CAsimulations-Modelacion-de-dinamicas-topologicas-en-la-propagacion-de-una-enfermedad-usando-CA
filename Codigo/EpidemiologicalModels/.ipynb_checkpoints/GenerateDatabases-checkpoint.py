@@ -3,9 +3,7 @@
 
 # In[ ]:
 
-import numpy as np
 import pandas as pd
-import EpidemiologicalModels.DefineSpaceInCA as defSpace
 from EpidemiologicalModels.epidemiologicalModels import *
 
 def Coordinates(system):
@@ -36,7 +34,7 @@ def NeighborsOfijInSystemCoordinates(system,i,j,neighborCoordinates):
 
 def Neighbors(system,functionOfNeighbors,extraRows,extraColumns):
     nrows, ncolumns = system.shape
-    systemExtended = defSpace.insideCopy(system,extraRows,extraColumns)
+    systemExtended = insideCopy(system,extraRows,extraColumns)
     coordinatesSystem = Coordinates(system)
     listOfNeighborsByCell = []
     for i in range(nrows):
