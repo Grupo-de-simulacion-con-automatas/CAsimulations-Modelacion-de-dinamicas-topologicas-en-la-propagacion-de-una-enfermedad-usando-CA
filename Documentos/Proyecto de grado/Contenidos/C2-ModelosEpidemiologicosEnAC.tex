@@ -11,11 +11,10 @@ Pensemos por un momento en las características que hay detrás de relación cer
     \item Si una célula interactúa con otras dos no implica necesariamente que estas interactúen entre sí, por lo que $x\thicksim y$ y $x\thicksim z$ no implican que $y\thicksim z$.
 \end{itemize}
 
- \textbf{Ejemplo 3.1.1:} Consideremos por ejemplo el conjunto $A=\{a,b,c,d\}$ y a la sub-colección $\mathcal{B} = \{\{a\},\{b\},\{c\},\{d\},\{a,c,d\}, \{b,c\}, \{b,d\}\}$ de $\mathcal{P}(A)$. Claramente se obtienen las siguientes relaciones
+ \textbf{Ejemplo 3.1.1:} Consideremos por ejemplo el conjunto $X=\{a,b,c\}$ y a la sub-colección $\mathcal{A}$ del ejemplo 2.4.3 dado por $\mathcal{A}=\{\emptyset,\{a\},\{b\}.\{a,b\},\{a,c\},\{a,b,c\}\}$. Entonces se obtienen las siguientes relaciones
 
-$$\begin{array}{cccc}
-    a\thicksim a, & b\thicksim b, & c\thicksim c, & d\thicksim d, \\ 
-    a\thicksim c, & a\thicksim d, & b\thicksim c, & b\thicksim d,
+$$\begin{array}{cccccc}
+    a\thicksim a, & b\thicksim b, & a\thicksim b, & a\thicksim c & \text{, y} & b\thicksim c,
 \end{array}$$
 
 junto con sus relaciones simétricas equivalentes. Esta noción de relación de interacción entre células puede ir un poco más allá. Pensemos por un momento en el impacto que puede tener un comportamiento sobre la célula $b$ en la célula $a$, si bien estas dos celdas no interactúan entre sí, la relación que cada una de ellas tiene con las células $c$ y $d$ puede tener un impacto sobre la otra. Con lo cual definimos la siguiente relación de interacción:
@@ -24,11 +23,16 @@ junto con sus relaciones simétricas equivalentes. Esta noción de relación de 
 
 Si retomamos el ejemplo 3.1.1 podremos identificar los siguientes grados de impacto:
 
-$$\begin{array}{cccc}
-    a\thicksim_0 a, & b\thicksim_0 b, & c\thicksim_0 c, & d\thicksim_0 d, \\ 
-    a\thicksim_1 c, & a\thicksim_1 d, & b\thicksim_1 c, & b\thicksim_1 d, \\
-    a\thicksim_2 b, & c\thicksim_2 d.
+$$\begin{array}{ccccccc}
+    a\thicksim_0 a, & b\thicksim_0 b, & a\thicksim_1 c, & a\thicksim_1 b, &
+    b\thicksim_1 a, & b\thicksim_2 c, & c\thicksim_0 a
 \end{array}$$
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=0.3\textwidth]{Imagenes/grados_de_impacto.PNG}
+  \caption{Grados de impacto para el espacio $X$ con la topología $\mathcal{A}$.}
+  \label{fig:gradoImpacto}
+\end{figure}
 
 De la definición anterior se deduce el siguiente resultado:
 
@@ -65,7 +69,7 @@ En esta sección partiremos de una abstracción sobre la naturaleza de los model
 
 Antes de comenzar a definir nuestras reglas de evolución definiremos las siguientes notaciones:
 \begin{itemize}
-    \item Denotaremos por $\pi^t(x)$ al estado de la célula $x$ en el momento $t$.
+    \item Denotaremos por $\pi^t(x)$ al estado de la célula $x$ en el momento $t$. Mientras que por $\pi_K^t(x)$ representará a la cantidad de individuos que poseen el estado $K$ en la vecindad de $x$ en un tiempo $t$.
     \item Para describir la cantidad de vecinos de una célula $x$ que tengan un estado $K$ en un momento $t$ usaremos el símbolo $\sigma_K^t(x)$.
     \item Usaremos los símbolos $\mathcal{S}^t,\mathcal{I}^t,\mathcal{R}^t$ y $\mathcal{D}^t$ para denotar a los conjuntos de células susceptibles, infectadas, recuperadas y muertas respectivamente en el espacio $\mathcal{L}$ en el tiempo $t$. De manera formal
     $$\mathcal{S}^t=\{x\in\mathcal{L}:\pi^t(x)=S\},$$
@@ -89,8 +93,9 @@ De manera natural definimos las siguientes reglas de evolución para los modelos
 \textbf{Definición 3.2.1:} Dada una célula $x$ en un conjunto $\mathcal{L}$ definimos la regla de evolución para el modelo SIS como:
 \begin{equation}
     \phi_{SIS}^t(x)=\left\{\begin{array}{ll}
-        S & \text{si }\pi^t(x)=S\text{ y }\rho\leq\frac{\beta}{\alpha}\frac{\pi_I^t(x)}{\#\mathcal{V}(x)}, \\
+        S & \text{si }\pi^t(x)=S\text{, }\pi_I^t(x)\leq\pi_S^t(x)\text{ y }\rho\leq\frac{\beta}{\alpha}\frac{\pi_I^t(x)}{\#\mathcal{V}(x)}, \\
         I & \text{si }\pi^t(x)=S\text{ y }\rho>\frac{\beta}{\alpha}\frac{\pi_I^t(x)}{\#\mathcal{V}(x)}, \\
+        I & \text{si }\pi^t(x)=S\text{ y }\pi_I^t(x)>\pi_S^t(x), \\
         I & \text{si }\pi^t(x)=I\text{ y }\rho>\alpha,\\
         S & \text{si }\pi^t(x)=I\text{ y }\rho\leq\alpha.
     \end{array}\right.
@@ -100,8 +105,9 @@ Donde $\rho\in\mathcal{U}_{[0,1]}$.
 \textbf{Definición 3.2.2:} Dada una célula $x$ en un conjunto $\mathcal{L}$ definimos la regla de evolución para el modelo SIR como:
 \begin{equation}
     \phi_{SIR}^t(x)=\left\{\begin{array}{ll}
-        S & \text{si }\pi^t(x)=S\text{ y }\rho\leq\frac{\beta}{\alpha}\frac{\pi_I^t(x)}{\#\mathcal{V}(x)}, \\
+        S & \text{si }\pi^t(x)=S\text{, }\pi_I^t(x)\leq\pi_S^t(x)\text{ y }\rho\leq\frac{\beta}{\alpha}\frac{\pi_I^t(x)}{\#\mathcal{V}(x)}, \\
         I & \text{si }\pi^t(x)=S\text{ y }\rho>\frac{\beta}{\alpha}\frac{\pi_I^t(x)}{\#\mathcal{V}(x)}, \\
+        I & \text{si }\pi^t(x)=S\text{ y }\pi_I^t(x)>\pi_S^t(x), \\
         I & \text{si }\pi^t(x)=I\text{ y }\rho>\alpha,\\
         R & \text{si }\pi^t(x)=I\text{ y }\rho\leq\alpha, \\
         R & \text{si }\pi^t(x)=R.
