@@ -36,12 +36,14 @@ $$\begin{array}{ccccccc}
 
 De la definición anterior se deduce el siguiente resultado:
 
-\textbf{Teorema 3.1.3:} Los grados de impacto de una célula $x$ definen un sistema fundamental de vecindades en la topología discreta.
+\textbf{Teorema 3.1.3:} Los grados de impacto de una célula $x$ definen un sistema fundamental de vecindades.
 
 \begin{proof}
-Sea $x\in\mathcal{L}$ y $\mathcal{V}(x)$ una familia de vecindades de $x$. Defina el conjunto $A_0=\{x\}$ como el conjunto de puntos con grado de impacto con $x$ es igual a cero y a continuación defina de manera recursiva a los conjuntos $A_k$ cuyos elementos tienen grado de impacto con $x$ sea igual o menor a $k$. Claramente $A_i\subseteq A_j$ para $0\leq i\leq j$ y de ese modo $A_i\in\mathcal{V}(x)$ para $i=0,1,\cdots,n$.
+Sea $x\in\mathcal{L}$ y $\mathcal{V}(x)$ una familia de vecindades de $x$. Defina el conjunto $A_0$ como el conjunto de puntos con grado de impacto con $x$ es igual a cero y de manera recursiva a los conjuntos $A_k$, cuyos elementos tienen grado de impacto con $x$ sea igual o menor a $k$. Claramente $A_i\subseteq A_j$ para $0\leq i\leq j$ y de ese modo $A_i\in\mathcal{V}(x)$ para $i=0,1,\cdots,n$.
 
-Defina la colección $\mathcal{A}=\{A_0,A_1,\cdots,A_k,\cdots,A_N\}$ como la familia de conjuntos encajados definidos por el grado de impacto con $x$. Dado que por hipótesis estamos sobre la topología discreta podemos afirmar que para todo $V\in\mathcal{V}(x)$ el conjunto $A_0\subseteq V$ y de ese modo por la definición 2.4.8 concluimos que la colección $\mathcal{A}$ es un sistema fundamental de vecindades de $x$.
+Veamos ahora que el conjunto $A_0$ es la vecindad mínimal de $x$. Considere $y\in U_x$, en particular $y\in\bigcap\mathcal{V}(x)$ por la definición de 2.4.14. Si el grado de impacto de $y$ con $x$ es mayor a cero por la definición 3.1.2 podemos afirmar que existe $z\in\mathcal{L}$ tal que $z\thicksim x$, $z\thicksim y$ y $x\not\thicksim y$ y de ese modo $x$ e $y$ son puntos separables. Esto es una contradicción por el hecho de que $y\in \bigcap \mathcal{V}(x)$ y por lo tanto $y\thicksim_0 x$, es decir $y\in A_0$.
+
+Considere $y\in A_0$ y por la definición de grado de impacto cero, afirmamos que los puntos $x$ e $y$ no son separables por lo que $y\in\mathcal{V}(x)$ y con esto concluimos la prueba.
 \end{proof}
 
 A continuación mostraremos algunas de las propiedades del conjunto $\mathcal{A}$ definido en la demostración anterior:
@@ -49,14 +51,13 @@ A continuación mostraremos algunas de las propiedades del conjunto $\mathcal{A}
 \textbf{Proposición 3.1.4:} Sea $x\in\mathcal{L}$ una célula y sea $\mathcal{A}$ la familia de conjuntos encajados definidos por el grado de impacto con $x$. Se cumplen las siguientes propiedades:
 
 \begin{enumerate}
-    \item El conjunto $\mathcal{A}$ posee elemento mínima igual a $A_0=\{x\}$,
-    \item $\mathcal{A}$ es un conjunto ordenado finito con el orden de la contenencia,
-    \item $\mathcal{L}$ es un espacio $T_0$, y
+    \item El conjunto $\mathcal{A}$ posee elemento mínima igual a $A_0$,
+    \item $\mathcal{A}$ es un conjunto ordenado finito con el orden de la contenencia, y
     \item $\mathcal{L}$ es un espacio uno-numerable.
 \end{enumerate}
 
 \begin{proof}
-Cada numeral se deduce directamente de las definiciones 2.4.11, 2.4.13, 2.4.14, 2.4.15, 2.4.16 y el teorema 3.1.3.
+Cada numeral se deduce directamente de las definiciones 2.4.14, 2.4.16, 2.4.22 y el teorema 3.1.3.
 \end{proof}
 
 \underline{\textit{Nota:}} Desde ahora en adelante cuando hablemos de vecinos de una célula asumiremos que son vecinos con un grado de impacto igual a 0.
