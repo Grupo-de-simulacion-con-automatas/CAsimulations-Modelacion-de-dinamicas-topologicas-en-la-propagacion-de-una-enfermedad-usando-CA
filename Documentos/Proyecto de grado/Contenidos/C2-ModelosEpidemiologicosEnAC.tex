@@ -60,7 +60,20 @@ A continuación mostraremos algunas de las propiedades del conjunto $\mathcal{A}
 Cada numeral se deduce directamente de las definiciones 2.4.14, 2.4.16, 2.4.22 y el teorema 3.1.3.
 \end{proof}
 
-\underline{\textit{Nota:}} Desde ahora en adelante cuando hablemos de vecinos de una célula asumiremos que son vecinos con un grado de impacto igual a 0.
+Algo que debemos tener en cuenta es que el grado de impacto por si solo no nos proporciona una medida del impacto que tienen los cambios de estado de células "lejanas" (o de grado de impacto mayor a cero). Estas medidas de impacto se entenderán como la probabilidad de que un cambio de estado afecte a la célula con la que estamos realizando la comparación, de ese modo las tasas de impacto serán valores entre 0 y 1.
+
+Las tasas de impacto pueden venir dadas por cualquier tipo de función en $[0,1]$ que tenga como dominio al conjunto de grados de impacto. Por ejemplo, para las vecindades de Moore y de Von Neumann vistas en el capítulo anterior definimos las siguientes funciones para las tasas de impacto:
+
+\textbf{Definición 3.1.5:} Dada una célula $x\in\mathcal{L}$ definimos las tasas de impacto para las vecindades de Von Neumann y de Moore para un grado de impacto $k$ como sigue:
+\begin{equation*}
+    P(k) = \left\{\begin{array}{ll}
+        1 & \text{si }k=0, \\
+        0 & \text{en otro caso.}
+    \end{array}\right.
+\end{equation*}
+Donde las células que poseen un grado de impacto igual a cero son las definidas en la sección 2.5.
+
+\underline{\textit{Nota:}} Desde ahora cuando hablemos de vecinos de una célula asumiremos que son vecinos con un grado de impacto igual a 0.
 
 Una vez establecidos los conceptos de topología implementados para nuestro espacio $\mathcal{L}$ y sus sistemas fundamentales de vecindades podemos definir cada una de las reglas que implementaremos para cada modelo epidemiológico.
 
@@ -70,8 +83,9 @@ En esta sección partiremos de una abstracción sobre la naturaleza de los model
 
 Antes de comenzar a definir nuestras reglas de evolución definiremos las siguientes notaciones:
 \begin{itemize}
-    \item Denotaremos por $\pi^t(x)$ al estado de la célula $x$ en el momento $t$. Mientras que por $\pi_K^t(x)$ representará a la cantidad de individuos que poseen el estado $K$ en la vecindad de $x$ en un tiempo $t$.
-    \item Para describir la cantidad de vecinos de una célula $x$ que tengan un estado $K$ en un momento $t$ usaremos el símbolo $\sigma_K^t(x)$.
+    \item El estado de la célula $x$ en un momento $t$ se denotará como $\pi^t(x)$.
+    \item La cantidad de individuos con grado de impacto $g$ y estado $K$ de una célula $x$ en un momento $t$ será representado como $\sigma_{g,K}^t(x)$.
+    \item Para representar a la cantidad de individuos con un grado de impacto $g$ usaremos el símbolo $\Delta_g$. 
     \item Usaremos los símbolos $\mathcal{S}^t,\mathcal{I}^t,\mathcal{R}^t$ y $\mathcal{D}^t$ para denotar a los conjuntos de células susceptibles, infectadas, recuperadas y muertas respectivamente en el espacio $\mathcal{L}$ en el tiempo $t$. De manera formal
     $$\mathcal{S}^t=\{x\in\mathcal{L}:\pi^t(x)=S\},$$
     y de manera análoga se definen los conjuntos $\mathcal{I}^t,\mathcal{R}^t$ y $\mathcal{D}^t$. Note que $$\mathcal{S}^t\cup\mathcal{I}^t\cup\mathcal{R}^t\cup\mathcal{D}^t=\mathcal{L}\text{ para todo tiempo }t.$$
@@ -79,42 +93,48 @@ Antes de comenzar a definir nuestras reglas de evolución definiremos las siguie
 
 \subsection{Modelos SIS y SIR simples}
 
-Recordemos que para las tasas de infección $\beta$ y de recuperación $\alpha$ los modelos SIS y SIR nos afirman que para $\mathcal{R}_0=\frac{\beta}{\alpha}>1$ la enfermedad será endémica. Trataremos de replicar inicialmente esté comportamiento de manera local sobre una célula analizando los siguientes escenarios para cada estado:
+Recordemos que para las tasas de infección $\beta$ y de recuperación $\alpha$ los modelos SIS y SIR nos afirman que para $\mathcal{R}_0=\frac{\beta}{\alpha}>1$ la enfermedad será endémica. Trataremos de replicar inicialmente esté comportamiento de manera local sobre una célula analizando los siguientes puntos:
 
 \begin{itemize}
-    \item Para el caso $\mathcal{R}_0>1$, la probabilidad de que un individuo susceptible se enferme luego de tener contacto con un infectado es más alta que la probabilidad de continuar susceptible a la enfermedad; caso contrario ocurre sí $\mathcal{R}_0<1$. Esta probabilidad de adquirir la enfermedad depende en gran medida de la cantidad de individuos infectados que la célula tenga en su vecindad. 
-    
+    \item La probabilidad de que un individuo susceptible se enferme depende no solo de la enfermedad, sino que además depende de la cantidad de individuos infectados que tenga en su sistema de vecindades locales, atada a las tasas de impacto que definimos en la sección anterior. 
     \item Como vimos en el capítulo 1 la recuperación de los individuos infectados no se ve afectada por la cantidad de contactos con otras células y en lugar de eso depende completamente de la tasa de recuperación $\alpha$, la cual en nuestro caso entenderemos como la proporción de individuos infectados que se recuperan de la enfermedad.
-    
     \item Para el estado de inmunidad en el modelo SIR, supondremos que los individuos que posean este estado se mantendrán inmunes. Esto quiere decir que la transformación para individuos recuperados será constante.
 \end{itemize}
 
-De manera natural definimos las siguientes reglas de evolución para los modelos SIS y SIR en autómatas celulares:
+Dado que los modelos SIS y SIR comparten el paso del estado S al estado I definiremos primero la regla de evolución para un modelo SI:
 
-\textbf{Definición 3.2.1:} Dada una célula $x$ en un conjunto $\mathcal{L}$ definimos la regla de evolución para el modelo SIS como:
+\textbf{Definición 3.2.1:} Para una célula $x$ en un espacio $\mathcal{L}$ definimos la regla SI como:
+\begin{equation}
+    \phi_{SI}^t(x)=\left\{\begin{array}{ll}
+        S & \text{si }\pi^t(x)=S\text{, }\sum_g{\sigma_{g,I}^t(x)\cdot P(g)}\leq \sum_g{\sigma_{g,S}^t(x)\cdot P(g)}\text{ y }\rho\geq i(t),\\
+        I & \text{en otro caso,}
+    \end{array}\right.
+\end{equation}
+con $\rho\in\mathcal{U}_{[0,1]}$, $P(g)$ la tasa de impacto del grado $g$ e
+\begin{equation}
+    i(t) = \frac{\beta}{\alpha}\sum_g{\frac{\sigma_{g,I}^t(x)}{\Delta_g}}\cdot P(g).
+\end{equation}
+
+La definición anterior nos permite definir de manera natural a las reglas de evolución para los modelos SIS y SIR en autómatas celulares:
+
+\textbf{Definición 3.2.2:} Dada una célula $x$ en un conjunto $\mathcal{L}$ definimos respectivamente las reglas de evolución para los modelos SIS y SIR respectivamente como:
 \begin{equation}
     \phi_{SIS}^t(x)=\left\{\begin{array}{ll}
-        S & \text{si }\pi^t(x)=S\text{, }\pi_I^t(x)\leq\pi_S^t(x)\text{ y }\rho\leq\frac{\beta}{\alpha}\frac{\pi_I^t(x)}{\#\mathcal{V}(x)}, \\
-        I & \text{si }\pi^t(x)=S\text{ y }\rho>\frac{\beta}{\alpha}\frac{\pi_I^t(x)}{\#\mathcal{V}(x)}, \\
-        I & \text{si }\pi^t(x)=S\text{ y }\pi_I^t(x)>\pi_S^t(x), \\
+        \phi_{SI}^t(x) & \text{si }\pi^t(x) = S,\\
         I & \text{si }\pi^t(x)=I\text{ y }\rho>\alpha,\\
         S & \text{si }\pi^t(x)=I\text{ y }\rho\leq\alpha.
     \end{array}\right.
 \end{equation}
-Donde $\rho\in\mathcal{U}_{[0,1]}$.
-    
-\textbf{Definición 3.2.2:} Dada una célula $x$ en un conjunto $\mathcal{L}$ definimos la regla de evolución para el modelo SIR como:
+
 \begin{equation}
     \phi_{SIR}^t(x)=\left\{\begin{array}{ll}
-        S & \text{si }\pi^t(x)=S\text{, }\pi_I^t(x)\leq\pi_S^t(x)\text{ y }\rho\leq\frac{\beta}{\alpha}\frac{\pi_I^t(x)}{\#\mathcal{V}(x)}, \\
-        I & \text{si }\pi^t(x)=S\text{ y }\rho>\frac{\beta}{\alpha}\frac{\pi_I^t(x)}{\#\mathcal{V}(x)}, \\
-        I & \text{si }\pi^t(x)=S\text{ y }\pi_I^t(x)>\pi_S^t(x), \\
+        \phi_{SI}^t(x) & \text{si }\pi^t(x) = S,\\
         I & \text{si }\pi^t(x)=I\text{ y }\rho>\alpha,\\
-        R & \text{si }\pi^t(x)=I\text{ y }\rho\leq\alpha, \\
-        R & \text{si }\pi^t(x)=R.
+        R & \text{si }\pi^t(x)=I\text{ y }\rho\leq\alpha, y \\
+        R & \text{si }\pi^t(x)=R,
     \end{array}\right.
 \end{equation}
-Con $\rho\in\mathcal{U}_{[0,1]}$.
+donde $\rho\in\mathcal{U}_{[0,1]}$.
 \subsection{Modelos con natalidad y mortalidad}
 Partiendo del principio de que los análisis desarrollados en nuestra investigación tengan una mayor aplicabilidad en el ámbito epidemiológico decidimos separarnos un poco de los modelos clásicos, ya que en estos se supone que las tasas de natalidad y mortalidad son iguales y esto no necesariamente se cumple en el mundo real.
 
@@ -154,4 +174,3 @@ Al igual que en la sección anterior, realizaremos una partición sobre el inter
     \end{array}\right.
 \end{equation}
 Donde $\theta_k$ es la probabilidad de morir por la enfermedad para los individuos con una edad en el intervalo k-ésimo de la partición del intervalo $[0,100]$, $\mu_{M,T}^t$ es la regla de evolución para modelos con nacimientos y muertes y $\rho\in\mathcal{U}_{[0,1]}$.
-\section{Comparación con los modelos clásicos}

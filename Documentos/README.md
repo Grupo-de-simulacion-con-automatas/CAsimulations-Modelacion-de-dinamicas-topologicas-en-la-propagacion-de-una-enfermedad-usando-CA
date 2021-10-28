@@ -3,4 +3,4 @@ En esta carpeta se reportan los avances en el documento de la tesis.
 
 ## Últimas actualizaciones 
 
-Paso a diferentes topologías para el teorema 3.1.3. No es posible el paso a topologías T0 por el caso tratado en el ejemplo 3.1.2.
+Definición de la tasa de impacto y la regla para el modelo SI, actualización de las reglas para modelos SIS y SIR teniendo en cuenta los grados de impacto.
