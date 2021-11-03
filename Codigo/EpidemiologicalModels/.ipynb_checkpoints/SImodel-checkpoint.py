@@ -44,14 +44,15 @@ class SImodel:
     def __SI_rule(self,cellState,neighborsByImpact,impacts = [1,0]): # Grados de impacto 0 y 1
         """Regla totalística que describe el cambio entre los estados S e I de manera local"""
         impactRanges = list(neighborsByImpact.keys())
-        numberOfS = 0; numberOfI = 0
+        numberOfS = 0; numberOfI = 0; numberOfH = 0
         numberOfCells = 0
         for ir in impactRanges:
             amountOfIndividuals = 0
             neighbors = neighborsByImpact.get(ir)
-            numberOfSByImpact, numberOfIByImpact, amountOfCells, numberOfH = self.__CountNeighborsByState(neighbors)
+            numberOfSByImpact, numberOfIByImpact, amountOfCells, amountOfHoles = self.__CountNeighborsByState(neighbors)
             numberOfS += numberOfSByImpact * impacts[impactRanges.index(ir)]
             numberOfI += numberOfIByImpact * impacts[impactRanges.index(ir)]
+            numberOfH += amountOfHoles * impacts[impactRanges.index(ir)]
             numberOfCells += amountOfCells * impacts[impactRanges.index(ir)]
         rho = random.random()
         if numberOfI > 0:
