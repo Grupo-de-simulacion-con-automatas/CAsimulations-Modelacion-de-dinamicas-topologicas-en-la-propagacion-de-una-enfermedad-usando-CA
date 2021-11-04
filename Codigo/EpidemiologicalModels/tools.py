@@ -153,7 +153,7 @@ def mediumData(dataPerSimulation,states,n_iterations,n_simulations):
         amountsIndividuals.append(np.array((range(n_iterations),percentages[state])).transpose())
     return [amountsIndividuals,percentages]
 
-def appliedMediumData(modelFunction,system,initialPercentageInfected,states,n_iterations,n_simulations,impactRates):
+def appliedMediumData(modelFunction,system,initialPercentageInfected,states,n_iterations,n_simulations):
     """Aplica el modelo epidemiológico en n_simulations
     modelFunction => Función basica del modelo epidemiológico
     initialPercentageInfected => Porcentaje de infectados en el momento inicial
@@ -164,7 +164,7 @@ def appliedMediumData(modelFunction,system,initialPercentageInfected,states,n_it
         mediumStates.append([])
     for simulation in range(n_simulations):
         infectedSystem = initialCondition(initialPercentageInfected,stationarySystem)
-        evolution = modelFunction(n_iterations,True,infectedSystem,impactRates)[1]
+        evolution = modelFunction(n_iterations,True,infectedSystem)[1]
         for state in range(len(states)):
             mediumStates[state].append(evolution[state])
     return mediumData(mediumStates,states,n_iterations,n_simulations)
