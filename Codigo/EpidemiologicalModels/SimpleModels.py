@@ -8,9 +8,9 @@ class SISmodel(SI.SImodel):
     colors = ["y", "r"]
     labels = ["Susceptibles", "Infectados"]
     
-    def __siRule(self, updatedSystem): 
+    def __siRule(self, updatedSystem, impactRates): 
         """Regla S -> I"""
-        return SI.SImodel(self.alpha, self.beta, updatedSystem, self.neighborhoodSystems).Apply()  
+        return SI.SImodel(self.alpha, self.beta, updatedSystem, self.neighborhoodSystems, impactRates).Apply()  
     
     def __isRule(self, previousSystem):      
         """Regla I -> S"""
@@ -26,7 +26,7 @@ class SISmodel(SI.SImodel):
     def basicRule(self,previousSystem):   
         """Aplica la regla de evolución al sistema previousSystem"""
         updatedStates_IS = self.__isRule(previousSystem)      
-        updatedStates_SI = self.__siRule(updatedStates_IS)  
+        updatedStates_SI = self.__siRule(updatedStates_IS, self.impactRates)  
         return updatedStates_SI
 
 class SIRmodel(SI.SImodel):
@@ -35,9 +35,9 @@ class SIRmodel(SI.SImodel):
     colors = ["y", "r", "g"]
     labels = ["Susceptibles", "Infectados", "Recuperados"]
         
-    def __siRule(self, updatedSystem): 
+    def __siRule(self, updatedSystem, impactRates): 
         """Regla S -> I"""
-        return SI.SImodel(self.alpha, self.beta, updatedSystem, self.neighborhoodSystems).Apply()
+        return SI.SImodel(self.alpha, self.beta, updatedSystem, self.neighborhoodSystems, impactRates).Apply()
     
     def __irRule(self,previousSystem):      
         """Regla I -> R"""
@@ -53,5 +53,5 @@ class SIRmodel(SI.SImodel):
     def basicRule(self,previousSystem):   
         """Aplica la regla de evolución al sistema previousSystem"""
         updatedStates_IR = self.__irRule(previousSystem)  
-        updatedStates_SI = self.__siRule(updatedStates_IR)  
+        updatedStates_SI = self.__siRule(updatedStates_IR, self.impactRates)  
         return updatedStates_SI

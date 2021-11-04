@@ -28,35 +28,38 @@ class models:
     modelHasDeathByDisease = False  
     deathFromDiseaseByAgeRange = None  # Tasa de mortalidad causada por la enfermedad por grupo de edad
     
-    def __init__(self, model, alpha, beta, system, neighborhoodSystems):
+    def __init__(self, model, alpha, beta, system, neighborhoodSystems, impactRates = [1,0]):
         """Modelos soportados: sis, sir, sis_birthAndMortavility, sir_birthAndMortavility, sis_deathByDisease, sir_deathByDisease"""
         self.model = model  # Modelo epidemiológico que se va a aplicar
         self.alpha = alpha; self.beta = beta  # Datos básicos de la enfermedad
         self.system = system  # Sistema sobre el que se va a aplicar el modelo
         self.neighborhoodSystems = neighborhoodSystems  # Tipo de vecindad que va a considerar para el análisis
+        self.impactRates = impactRates
         
     def __evalConditions(self):
         # Definición de las herramientas para aplicar los modelos
         if self.model == "sis":
-            self.epidemiologicalModel = SModels.SISmodel(self.alpha,self.beta,self.system,self.neighborhoodSystems)
+            self.epidemiologicalModel = SModels.SISmodel(self.alpha,self.beta,self.system,self.neighborhoodSystems, self.impactRates)
         elif self.model == "sir":
-            self.epidemiologicalModel = SModels.SIRmodel(self.alpha,self.beta,self.system,self.neighborhoodSystems)
+            self.epidemiologicalModel = SModels.SIRmodel(self.alpha,self.beta,self.system,self.neighborhoodSystems, self.impactRates)
         else:
             if self.birthRate == None:
                 print("Defina birthRate, probabilityOfDyingByAgeGroup, systemAges, annualUnit") 
             self.modelHasAges = True
             if self.model == "sis_birthAndMortavility":
                 self.epidemiologicalModel = BMModel.birthAndMortavility("sis", self.alpha, self.beta, self.birthRate, self.probabilityOfDyingByAgeGroup, 
-                                                                        self.system,self.systemAges, self.annualUnit, self.neighborhoodSystems)
+                                                                        self.system,self.systemAges, self.annualUnit, self.neighborhoodSystems, self.impactRates)
             if self.model == "sir_birthAndMortavility":
                 self.epidemiologicalModel = BMModel.birthAndMortavility("sir", self.alpha, self.beta, self.birthRate, self.probabilityOfDyingByAgeGroup, 
-                                                                        self.system,self.systemAges, self.annualUnit, self.neighborhoodSystems)
+                                                                        self.system,self.systemAges, self.annualUnit, self.neighborhoodSystems, self.impactRates)
             if self.model == "sis_deathByDisease":
                 self.epidemiologicalModel = DDModel.deathByDisease("sis", self.alpha, self.beta, self.birthRate, self.probabilityOfDyingByAgeGroup, 
-                                                                    self.deathFromDiseaseByAgeRange, self.system, self.systemAges, self.annualUnit, self.neighborhoodSystems)
+                                                                    self.deathFromDiseaseByAgeRange, self.system, self.systemAges, self.annualUnit, 
+                                                                    self.neighborhoodSystems, self.impactRates)
             if self.model == "sir_deathByDisease":
                 self.epidemiologicalModel = DDModel.deathByDisease("sir", self.alpha, self.beta, self.birthRate, self.probabilityOfDyingByAgeGroup, 
-                                                                    self.deathFromDiseaseByAgeRange, self.system, self.systemAges, self.annualUnit, self.neighborhoodSystems)
+                                                                    self.deathFromDiseaseByAgeRange, self.system, self.systemAges, self.annualUnit, 
+                                                                    self.neighborhoodSystems, self.impactRates)
     
     def basicModel(self, n_iterations, modifiedSystem = False, system = None):
         self.__evalConditions()
