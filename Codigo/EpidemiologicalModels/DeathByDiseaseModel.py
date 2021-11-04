@@ -34,7 +34,7 @@ class deathByDisease:
     data = None
     evolutions = None
 
-    def __init__(self, model, alpha, beta, birthRate, probabilityOfDyingByAgeGroup, deathFromDiseaseByAgeRange, system, systemAges, annualUnit, neighborhoodSystems):
+    def __init__(self, model, alpha, beta, birthRate, probabilityOfDyingByAgeGroup, deathFromDiseaseByAgeRange, system, systemAges, annualUnit, neighborhoodSystems, impactRates):
         self.model = model
         self.alpha = alpha; self.beta = beta
         self.birthRate = birthRate
@@ -52,10 +52,11 @@ class deathByDisease:
             self.states = [SI.State.S.value, SI.State.I.value, SI.State.R.value, SI.State.D.value]
             self.colors = ["y", "r", "g", "b"]
             self.labels = ["Susceptibles", "Infectados", "Recuperados","Espacios disponibles"]
+        self.impactRates = impactRates
         
     def basicRule(self,system,systemAges,timeUnit):
         evolution = BMModel.birthAndMortavility(self.model, self.alpha, self.beta, self.birthRate, self.probabilityOfDyingByAgeGroup, 
-                                                system, systemAges, self.annualUnit, self.neighborhoodSystems).basicRule(system,systemAges,timeUnit)
+                                                system, systemAges, self.annualUnit, self.neighborhoodSystems, self.impactRates).basicRule(system,systemAges,timeUnit)
         systemCopy = defSpace.insideCopy(evolution[0])
         evolutionsAfterDeaths = deathByDiseaseRule(self.deathFromDiseaseByAgeRange, systemCopy,evolution[1])
         return evolutionsAfterDeaths

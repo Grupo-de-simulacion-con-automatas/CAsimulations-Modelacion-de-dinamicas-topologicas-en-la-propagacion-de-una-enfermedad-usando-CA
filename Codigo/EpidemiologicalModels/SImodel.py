@@ -14,8 +14,8 @@ class SImodel:
 
     data = None
     evolutions = None
-
-    def __init__(self, alpha, beta, system, neighborhoodSystems):
+    
+    def __init__(self, alpha, beta, system, neighborhoodSystems, impactRates):
         """Modelo SI
         alpha => Tasa de recuperación
         beta  => Tasa de infección
@@ -28,6 +28,7 @@ class SImodel:
         self.nRows, self.nColumns = system.shape
         self.neighborhoodSystems = neighborhoodSystems
         self.nRows, self.nColumns = system.shape
+        self.impactRates = impactRates
     
     def __CountNeighborsByState(self,neighbors):
         """Cantidad de individuos por estado"""
@@ -41,7 +42,7 @@ class SImodel:
         amountOfCells = numberOfSByImpact + numberOfIByImpact + numberOfRByImpact + numberOfDByImpact + numberOfH
         return (numberOfSByImpact, numberOfIByImpact, amountOfCells, numberOfH)
 
-    def __SI_rule(self,cellState,neighborsByImpact,impacts = [1,0]): # Grados de impacto 0 y 1
+    def __SI_rule(self,cellState,neighborsByImpact): # Grados de impacto 0 y 1
         """Regla totalística que describe el cambio entre los estados S e I de manera local"""
         impactRanges = list(neighborsByImpact.keys())
         numberOfS = 0; numberOfI = 0; numberOfH = 0
@@ -50,10 +51,10 @@ class SImodel:
             amountOfIndividuals = 0
             neighbors = neighborsByImpact.get(ir)
             numberOfSByImpact, numberOfIByImpact, amountOfCells, amountOfHoles = self.__CountNeighborsByState(neighbors)
-            numberOfS += numberOfSByImpact * impacts[impactRanges.index(ir)]
-            numberOfI += numberOfIByImpact * impacts[impactRanges.index(ir)]
-            numberOfH += amountOfHoles * impacts[impactRanges.index(ir)]
-            numberOfCells += amountOfCells * impacts[impactRanges.index(ir)]
+            numberOfS += numberOfSByImpact * self.impactRates[impactRanges.index(ir)]
+            numberOfI += numberOfIByImpact * self.impactRates[impactRanges.index(ir)]
+            numberOfH += amountOfHoles * self.impactRates[impactRanges.index(ir)]
+            numberOfCells += amountOfCells * self.impactRates[impactRanges.index(ir)]
         rho = random.random()
         if numberOfI > 0:
             localInfectionRate = (self.beta / self.alpha) * (numberOfI / ((numberOfCells - 1) - numberOfH))

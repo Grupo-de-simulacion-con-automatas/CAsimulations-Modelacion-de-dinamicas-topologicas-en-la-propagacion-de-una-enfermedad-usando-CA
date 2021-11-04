@@ -72,7 +72,7 @@ class birthAndMortavility:
     data = None
     evolutions = None
 
-    def __init__(self, model, alpha, beta, birthRate, probabilityOfDyingByAgeGroup, system, systemAges, annualUnit, neighborhoodSystems):
+    def __init__(self, model, alpha, beta, birthRate, probabilityOfDyingByAgeGroup, system, systemAges, annualUnit, neighborhoodSystems, impactRates):
         self.model = model
         self.alpha = alpha; self.beta = beta
         self.birthRate = birthRate
@@ -89,6 +89,7 @@ class birthAndMortavility:
             self.states = [SI.State.S.value, SI.State.I.value, SI.State.R.value, SI.State.D.value]
             self.colors = ["y", "r", "g", "b"]
             self.labels = ["Susceptibles", "Infectados", "Recuperados","Espacios disponibles"]
+        self.impactRates = impactRates
     
     def basicRule(self,previousSystem,previousAgesSystem,timeUnit):
         '''Regla de evolución del modelo con natalidad y mortalidad'''
@@ -96,9 +97,9 @@ class birthAndMortavility:
         newYearMatrix = newYear(self.birthRate,self.probabilityOfDyingByAgeGroup,
                                 previousAgesSystem,timeUnit,self.annualUnit)
         if self.model == "sis":
-            modelMatrix = SModels.SISmodel(self.alpha, self.beta, previousSystem, self.neighborhoodSystems).basicRule(previousSystem)
+            modelMatrix = SModels.SISmodel(self.alpha, self.beta, previousSystem, self.neighborhoodSystems, self.impactRates).basicRule(previousSystem)
         elif self.model == "sir":
-            modelMatrix = SModels.SIRmodel(self.alpha, self.beta, previousSystem, self.neighborhoodSystems).basicRule(previousSystem)
+            modelMatrix = SModels.SIRmodel(self.alpha, self.beta, previousSystem, self.neighborhoodSystems, self.impactRates).basicRule(previousSystem)
         for row in range(self.nRows):
             for column in range(self.nColumns):
                 if newYearMatrix[row,column] == 0: modelWithBirthAndMortavilityMatrix[row,column] = SI.State.D.value
