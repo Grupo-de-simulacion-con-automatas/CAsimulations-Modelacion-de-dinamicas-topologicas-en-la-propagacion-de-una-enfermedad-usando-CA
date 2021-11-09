@@ -1,5 +1,9 @@
 \chapter{Modelos epidemiológicos en autómatas celulares}\label{ch:Modelos epidemiológicos en AC}
 
+Podemos pensar en que si un individuo susceptible a una enfermedad tiene contacto con muchos infectados, puede enfermarse con mucha más facilidad que un individuo que tiene contacto con pocos infectados. Ahora bien ¿cuántas interacciones con infectados de todos las que puede llegar a tener una célula, son suficientes para generar una probabilidad de contagio más alta?, para responder a esto primero debemos determinar la naturaleza detrás de las posibles relaciones entre células y para esto haremos uso de herramientas como los sistemas fundamentales de vecindades.
+
+Seguido de esto realizaremos una construcción de las reglas que definirán las dinámicas de cada modelo, partiendo de principios lógicos tomados directamente de los modelos clásicos descritos en el capítulo 2 y nociones de topología que permitan establecer las interacciones entre células.
+
 \section{Interacciones e impactos sociales}
 A diferencia del trabajo realizado en \cite{populationDensity} en el que cada celda representaba una región, consideraremos a cada división como un único individuo que será dotado de un conjunto de cualidades como estado de salud, edad, vecinos, etc. Estas cualidades vendrán dadas por las necesidades del modelo que estemos desarrollando, por ejemplo en los modelos clásicos no será necesario dotar de edades a las células, pero si tendremos que tener en cuenta sus vecindades y sus estados de salud.
 
