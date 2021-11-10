@@ -66,24 +66,33 @@ Cada numeral se deduce directamente de las definiciones 2.4.14, 2.4.16, 2.4.22 y
 
 Algo que debemos tener en cuenta es que el grado de impacto por si solo no nos proporciona una medida del impacto que tienen los cambios de estado de células "lejanas" (o de grado de impacto mayor a cero). Estas medidas de impacto se entenderán como la probabilidad de que un cambio de estado afecte a la célula con la que estamos realizando la comparación, de ese modo las tasas de impacto serán valores entre 0 y 1.
 
-Las tasas de impacto pueden venir dadas por cualquier tipo de función en $[0,1]$ que tenga como dominio al conjunto de grados de impacto. Por ejemplo, para las vecindades de Moore y de Von Neumann vistas en el capítulo anterior definimos las siguientes funciones para las tasas de impacto:
+\textbf{Ejemplo 3.1.5:} Las tasas de impacto pueden venir dadas por cualquier tipo de función en $[0,1]$, que tenga como dominio al conjunto de grados de impacto. 
 
-\textbf{Definición 3.1.5:} Dada una célula $x\in\mathcal{L}$ definimos las tasas de impacto para las vecindades de Von Neumann y de Moore para un grado de impacto $k$ como sigue:
-\begin{equation*}
-    P(k) = \left\{\begin{array}{ll}
-        1 & \text{si }k=0, \\
-        0 & \text{en otro caso.}
-    \end{array}\right.
-\end{equation*}
-Donde las células que poseen un grado de impacto igual a cero son las definidas en la sección 2.5.
+Consideremos por ejemplo las siguientes matrices que describen los grados de impacto en tres distintos sistemas fundamentales de vecindades para la célula en la posición 2,2:
 
-\underline{\textit{Nota:}} Desde ahora cuando hablemos de vecinos de una célula asumiremos que son vecinos con un grado de impacto igual a 0.
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=0.7\textwidth]{Imagenes/ex315.PNG}
+  \caption{Grados de impacto en diferentes sistemas de vecindades.}
+  \label{fig:gradoImpacto}
+\end{figure}
+
+En la figura anterior podemos ver que debido a la manera en la que implementamos nuestro espacio de células, es posible representar los grados de impacto de cada una con una célula particular en un arreglo matricial, al igual que los estados de cada célula como se vio en el capítulo dos.
+
+La asignación entre grados y tasas de impacto puede escogerse de cualquier manera dependiendo del contexto y la enfermedad que esté modelando. Para los efectos del ejemplo consideraremos las siguientes matrices de tasas de impacto:
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=0.7\textwidth]{Imagenes/ex3152.PNG}
+  \caption{Tasas de impacto en diferentes sistemas de vecindades.}
+  \label{fig:gradoImpacto}
+\end{figure}
 
 Una vez establecidos los conceptos de topología implementados para nuestro espacio $\mathcal{L}$ y sus sistemas fundamentales de vecindades podemos definir cada una de las reglas que implementaremos para cada modelo epidemiológico.
 
 \section{Reglas de evolución}
 
-En esta sección partiremos de una abstracción sobre la naturaleza de los modelos epidemiológicos definidos en el capítulo 1, esto nos permitirá definir de manera intuitiva las reglas de evolución de nuestros modelos en autómatas celulares.
+En esta sección partiremos de una abstracción sobre la naturaleza de los modelos epidemiológicos definidos en el capítulo 2, esto nos permitirá definir de manera intuitiva las reglas de evolución de nuestros modelos en autómatas celulares.
 
 Antes de comenzar a definir nuestras reglas de evolución definiremos las siguientes notaciones:
 \begin{itemize}
@@ -118,6 +127,8 @@ con $\rho\in\mathcal{U}_{[0,1]}$, $P(g)$ la tasa de impacto del grado $g$ e
 \begin{equation}
     i(t) = \frac{\beta}{\alpha}\sum_g{\frac{\sigma_{g,I}^t(x)}{\Delta_g}}\cdot P(g).
 \end{equation}
+
+\textbf{Ejemplo:}
 
 La definición anterior nos permite definir de manera natural a las reglas de evolución para los modelos SIS y SIR en autómatas celulares:
 

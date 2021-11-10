@@ -3,4 +3,4 @@ En esta carpeta se reportan los avances en el documento de la tesis.
 
 ## Últimas actualizaciones 
 
-Introducción por capítulos.
+Ejemplo de tasas de impacto.
