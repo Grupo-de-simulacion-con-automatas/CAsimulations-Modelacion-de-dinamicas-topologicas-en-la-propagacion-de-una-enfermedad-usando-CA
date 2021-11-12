@@ -128,9 +128,64 @@ con $\rho\in\mathcal{U}_{[0,1]}$, $P(g)$ la tasa de impacto del grado $g$ e
     i(t) = \frac{\beta}{\alpha}\sum_g{\frac{\sigma_{g,I}^t(x)}{\Delta_g}}\cdot P(g).
 \end{equation}
 
-\textbf{Ejemplo:}
+\textbf{Ejemplo:} En la figura imagen podemos encontrar la configuración de estados para un sistema de 25 células y en las últimas tres, encontramos la disposición de grados de impacto para las tres células marcadas en color verde (primera imagen).
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=0.9\textwidth]{Imagenes/cellSpace.PNG}
+\end{figure}\\
+Donde SFV es una abreviación de Sistema Fundamental de Vecindades.\\
+Para este ejemplo consideraremos las siguientes tasas de impacto:\\
 
-La definición anterior nos permite definir de manera natural a las reglas de evolución para los modelos SIS y SIR en autómatas celulares:
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{| c | c |}
+\hline
+\multicolumn{2}{ |c| }{Relación grado/tasa} \\ \hline
+Grados & Tasas \\ \hline
+0 & 0.5 \\
+1 & 0.3\\
+2 & 0.25\\
+3 & 0.1\\ 
+4 & 0.05\\ \hline
+\end{tabular}
+\caption{Relación entre tasas y grados de impacto.}
+\end{center}
+\end{table}
+A continuación calcularemos las magnitudes ponderadas de individuos susceptibles e infectados y la probabilidad de infectarse para cada una de las tres células:
+
+\begin{itemize}
+    \item Célula $x_{2,2}$:
+    \begin{align*}
+    \begin{array}{l}
+        \sum_g\sigma_{g,S}^0(x_{2,2})\cdot P(g) = 4\cdot0.5+6\cdot0.3+6\cdot0.25+2\cdot0.1+1\cdot0.05 = 5.55 \\
+        \sum_g\sigma_{g,I}^0(x_{2,2})\cdot P(g) = 3\cdot0.5+1\cdot0.3+2\cdot0.25+0\cdot0.1+0\cdot0.05 = 2.3\\
+        i_{2,2}(0) = \frac{\beta}{\alpha}\cdot\left(\frac{3\cdot0.5}{7}+\frac{1\cdot0.3}{7}+\frac{2\cdot0.25}{8}+\frac{0\cdot0.1}{2}+\frac{0\cdot0.05}{1}\right)=\frac{179}{560}\cdot\frac{\beta}{\alpha}
+    \end{array}
+    \end{align*}
+    \item Célula $x_{5,2}$:
+    \begin{align*}
+    \begin{array}{l}
+        \sum_g\sigma_{g,S}^0(x_{5,2})\cdot P(g) = 6\cdot0.5+8\cdot0.3+4\cdot0.25+1\cdot0.1+0\cdot0.05 = 6.5 \\
+        \sum_g\sigma_{g,I}^0(x_{5,2})\cdot P(g) = 2\cdot0.5+2\cdot0.3+2\cdot0.25+0\cdot0.1+0\cdot0.05 = 2.1\\
+        i_{5,2}(0) = \frac{\beta}{\alpha}\cdot\left(\frac{2\cdot0.5}{8}+\frac{2\cdot0.3}{10}+\frac{2\cdot0.25}{6}+\frac{0\cdot0.1}{1}\right)=\frac{161}{600}\cdot\frac{\beta}{\alpha}
+    \end{array}
+    \end{align*}
+    \item Célula $x_{4,4}$:
+    \begin{align*}
+    \begin{array}{l}
+        \sum_g\sigma_{g,S}^0(x_{4,4})\cdot P(g) = 1\cdot0.5+7\cdot0.3+5\cdot0.25+6\cdot0.1+0\cdot0.05 = 4.45 \\
+        \sum_g\sigma_{g,I}^0(x_{4,4})\cdot P(g) = 0\cdot0.5+1\cdot0.3+2\cdot0.25+3\cdot0.1+0\cdot0.05 = 1.1\\
+        i_{4,4}(0) = \frac{\beta}{\alpha}\cdot\left(\frac{0\cdot0.5}{1}+\frac{1\cdot0.3}{8}+\frac{2\cdot0.25}{7}+\frac{3\cdot0.1}{9}\right)=\frac{239}{1680}\cdot\frac{\beta}{\alpha}
+    \end{array}
+    \end{align*}
+\end{itemize}
+En este caso las tres células pueden o no contagiarse de la enfermedad si aplicamos la regla $\phi_{SI}^t(x)$. Supongamos que la enfermedad cuenta con una tasa de infección $\beta=0.5$ y una tasa $\alpha=0.2$, de ese modo las probabilidades de adquirir la enfermedad son:
+$$\begin{array}{ccccc}
+    i_{2,2}(0)=0.8, & i_{5,2}(0)=0.675. & \text{e} & i_{4,4}(0)=0.35.
+\end{array}$$
+Podemos observar que la célula $x_{4,4}$ tiene una probabilidad menor de adquirir la enfermedad, esto se debe a que según el sistema de vecindades escogido la célula se encuentra más alejada de los infectados que las células $x_{2,2}$ y $x_{5,2}$.\\
+
+La definición 3.2.1 nos permite definir de manera natural a las reglas de evolución para los modelos SIS y SIR en autómatas celulares:
 
 \textbf{Definición 3.2.2:} Dada una célula $x$ en un conjunto $\mathcal{L}$ definimos respectivamente las reglas de evolución para los modelos SIS y SIR respectivamente como:
 \begin{equation}
@@ -150,6 +205,8 @@ La definición anterior nos permite definir de manera natural a las reglas de ev
     \end{array}\right.
 \end{equation}
 donde $\rho\in\mathcal{U}_{[0,1]}$.
+
+\textbf{Ejemplo:}
 \subsection{Modelos con natalidad y mortalidad}
 Partiendo del principio de que los análisis desarrollados en nuestra investigación tengan una mayor aplicabilidad en el ámbito epidemiológico decidimos separarnos un poco de los modelos clásicos, ya que en estos se supone que las tasas de natalidad y mortalidad son iguales y esto no necesariamente se cumple en el mundo real.
 
