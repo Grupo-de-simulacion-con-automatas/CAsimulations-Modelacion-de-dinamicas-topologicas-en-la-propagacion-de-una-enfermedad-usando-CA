@@ -120,7 +120,8 @@ Dado que los modelos SIS y SIR comparten el paso del estado S al estado I defini
 \begin{equation}
     \phi_{SI}^t(x)=\left\{\begin{array}{ll}
         S & \text{si }\pi^t(x)=S\text{, }\sum_g{\sigma_{g,I}^t(x)\cdot P(g)}\leq \sum_g{\sigma_{g,S}^t(x)\cdot P(g)}\text{ y }\rho\geq i(t),\\
-        I & \text{en otro caso,}
+        I & \text{si }\pi^t(x)\in\{S,I\}\text{,} \\
+        \pi^t(x) & \text{en otro caso,}
     \end{array}\right.
 \end{equation}
 con $\rho\in\mathcal{U}_{[0,1]}$, $P(g)$ la tasa de impacto del grado $g$ e
@@ -131,7 +132,7 @@ con $\rho\in\mathcal{U}_{[0,1]}$, $P(g)$ la tasa de impacto del grado $g$ e
 \textbf{Ejemplo:} En la figura imagen podemos encontrar la configuración de estados para un sistema de 25 células y en las últimas tres, encontramos la disposición de grados de impacto para las tres células marcadas en color verde (primera imagen).
 \begin{figure}[h]
   \centering
-    \includegraphics[width=0.9\textwidth]{Imagenes/cellSpace.PNG}
+    \includegraphics[width=0.8\textwidth]{Imagenes/cellSpace.PNG}
 \end{figure}\\
 Donde SFV es una abreviación de Sistema Fundamental de Vecindades.\\
 Para este ejemplo consideraremos las siguientes tasas de impacto:\\
@@ -206,7 +207,26 @@ La definición 3.2.1 nos permite definir de manera natural a las reglas de evolu
 \end{equation}
 donde $\rho\in\mathcal{U}_{[0,1]}$.
 
-\textbf{Ejemplo:}
+\textbf{Observación:} Dado que las reglas $\phi_{SIS}^t(x)$ y $\phi_{SIR}^t(x)$ actúan como una composición de funciones para el estado $S$, podemos establecer el orden de aplicación de reglas de adentro hacia afuera, esto significa que computacionalmente tendremos que aplicar primero la regla $\phi_{SI}^t(x)$ y luego las probabilidades para la recuperación de los individuos.
+
+\textbf{Ejemplo:} Consideremos la configuración de estados del ejemplo anterior junto con las tasas de infección y recuperación $\beta=0.5$ y $\alpha=0.2$ respectivamente. De acuerdo con la definición 3.2.2 y la observación anterior, si aplicamos las reglas $\phi_{SIS}^t(x)$ y $\phi_{SIR^t(x)}$ podremos observar un comportamiento similar a los siguientes:
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=0.7\textwidth]{Imagenes/sisAplication.PNG}
+    \caption{Aplicación de la regla $\phi_{SIS}^t(x)$}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=0.7\textwidth]{Imagenes/sirAplication.PNG}
+    \caption{Aplicación de la regla $\phi_{SIR}^t(x)$}
+\end{figure}
+
+Como se puede observar en la aplicación de ambas reglas existe una unidad temporal intermedia en la que se aplica la regla $\phi_{SI}^t(x)$ para luego aplicar la regla sobre el estado $I$. En el caso del modelo SIS vemos que las células pasan al estado $S$ de acuerdo con las reglas del modelo clásico y de manera similar con el modelo SIR.
+
+\textbf{Observación:} Es importante recordar que el paso del estado $I$ al estado $S$ o al $R$ no depende del sistema de vecindades, ya que se asume que no es necesario el contacto con células no infectadas para que una que se encuentra enferma se recupere.
+
 \subsection{Modelos con natalidad y mortalidad}
 Partiendo del principio de que los análisis desarrollados en nuestra investigación tengan una mayor aplicabilidad en el ámbito epidemiológico decidimos separarnos un poco de los modelos clásicos, ya que en estos se supone que las tasas de natalidad y mortalidad son iguales y esto no necesariamente se cumple en el mundo real.
 

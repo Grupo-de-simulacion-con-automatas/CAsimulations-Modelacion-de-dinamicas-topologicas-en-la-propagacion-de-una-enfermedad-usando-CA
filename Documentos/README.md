@@ -3,4 +3,4 @@ En esta carpeta se reportan los avances en el documento de la tesis.
 
 ## Últimas actualizaciones 
 
-Ejemplo para la regla SI.
+Ejemplo para las reglas SIS y SIR.
