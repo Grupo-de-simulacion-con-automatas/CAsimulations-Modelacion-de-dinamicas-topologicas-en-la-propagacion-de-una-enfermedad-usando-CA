@@ -12,7 +12,7 @@
 \usepackage{verbatim}
 \usepackage{booktabs}
 \usepackage{float}
-\usepackage{hyperref}
+%\usepackage{hyperref}
 \usepackage{threeparttable}
 \usepackage{amscd}
 \usepackage{here}
@@ -27,6 +27,7 @@
 \usepackage{diagbox}
 \usepackage{array,multirow}
 \usepackage[all]{ xy}
+\usepackage[hidelinks]{hyperref}
 
 \usepackage{rotating} %Para rotar texto, objetos y tablas seite. No se ve en DVI solo en PS. Seite 328 Hundebuch
                         %se usa junto con \rotate, \sidewidestable ....
@@ -70,13 +71,16 @@
 \newtheorem{teor}{Teorema}[section]
 \theoremstyle{definition}
 \newtheorem{definition}[teor]{Definición}
-\theoremstyle{example}
+\newtheorem{teorema}[teor]{Teorema}
+%\newtheorem{defi}{{\textbf{Definición}}}[chapter]
+%\theoremstyle{example}
 \newtheorem{example}[teor]{Ejemplo}
 \newtheorem{lema}[teor]{Lema}
 \newtheorem{afirmacion}[teor]{Afirmación}
 \newtheorem{proposicion}[teor]{Proposición}
 \newtheorem{coro}[teor]{Corolario}
 \newtheorem{ole}[teor]{Conjetura}
+
 %\theoremstyle{proposicion}
 
 %\def\proof{\paragraph{Demostración:\\}}%\begin{proof}
@@ -98,21 +102,20 @@
 \listoffigures % indice de figuras
 
 %\cleardoublepage
-%\addcontentsline{toc}{chapter}{Lista de tablas} % para que aparezca en el indice de contenidos
+\addcontentsline{toc}{chapter}{Lista de tablas} % para que aparezca en el indice de contenidos
+\listoftables % indice de tablas
 
 \tableofcontents %% this produces the table of contents - you might have guessed :-)
-
-%\listoftables % indice de tablas
 
 %\include{Tab_Simbolos/TabSimbolosMSc}
 %\include{Resumen}%\newcommand{\clearemptydoublepage}{\newpage{\pagestyle{empty}\cleardoublepage}}
 
 \pagenumbering{arabic}
-\include{Contenidos/Introduccion}
-\include{Contenidos/C1-Preliminares}
-\include{Contenidos/C2-ModelosEpidemiologicosEnAC}
-\include{Contenidos/C3-ComparaciónConModelosClasicos}
-% \include{Contenidos/Conclusiones}
+\include{Contenidos/C1-Introduccion}
+\include{Contenidos/C2-Preliminares}
+\include{Contenidos/C3-ModelosEpidemiologicosEnAC}
+\include{Contenidos/C4-ComparaciónConModelosClasicos}
+% \include{Contenidos/C5-Conclusiones}
 % \include{Contenidos/Apéndices}
 
 \addcontentsline{toc}{chapter}{\numberline{}Bibliografía}
