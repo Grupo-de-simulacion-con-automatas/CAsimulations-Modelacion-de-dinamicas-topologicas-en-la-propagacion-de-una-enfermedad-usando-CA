@@ -25,8 +25,8 @@ class SISmodel(SI.SImodel):
     
     def basicRule(self,previousSystem):   
         """Aplica la regla de evolución al sistema previousSystem"""
-        updatedStates_SI = self.__siRule(previousSystem, self.impactRates)  
-        updatedStates_IS = self.__isRule(updatedStates_SI)      
+        updatedStates_IS = self.__isRule(previousSystem)
+        updatedStates_SI = self.__siRule(updatedStates_IS, self.impactRates)        
         return updatedStates_SI
 
 class SIRmodel(SI.SImodel):
@@ -52,6 +52,6 @@ class SIRmodel(SI.SImodel):
     
     def basicRule(self,previousSystem):   
         """Aplica la regla de evolución al sistema previousSystem"""
-        updatedStates_SI = self.__siRule(previousSystem, self.impactRates)  
-        updatedStates_IR = self.__irRule(updatedStates_SI)  
+        updatedStates_IR = self.__irRule(previousSystem) 
+        updatedStates_SI = self.__siRule(updatedStates_IR, self.impactRates)   
         return updatedStates_SI

@@ -254,8 +254,33 @@ Como se puede observar en la aplicación de ambas reglas existe una unidad tempo
 
 \textbf{Observación:} Es importante recordar que el paso del estado $I$ al estado $S$ o al $R$ no depende del sistema de vecindades, ya que se asume que no es necesario el contacto con células no infectadas para que una que se encuentra enferma se recupere.
 
-\begin{example}
+\begin{example}\label{ex:SISySIRclásicovsModeloEnAC}
+Consideremos dos espacios de 900 células en donde una misma enfermedad actúa de manera diferente. Mientras que en el primer espacio los individuos no generan inmunidad tras recuperarse de la enfermedad, en el segundo espacio si y durante un tiempo indefinido.
 
+Las tasas de infección y de recuperación de la enfermedad son $\beta=0.5$ y $\alpha=0.2$, lo que implica que la enfermedad será endémica, pues $\mathcal{R}_0=\frac{\beta}{\alpha}=2.5>1$. Asumiremos que el brote de infectados inicial se ubicó en la zona central de ambos espacios y que las interacciones entre células se describen a partir del sistema de vecindades generado por las vecindades de Moore. La evolución de la enfermedad en ambos espacios se puede apreciar en las figuras (\ref{fig:sisEn30}) y (\ref{fig:sirEn30}).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{figure}[h]\label{fig:sisEn30}
+  \centering
+    \includegraphics[width=0.93\textwidth]{Imagenes/sisEn30.PNG}
+    \caption{Evolución de la enfermedad en 30 días (modelo SIS).}
+\end{figure}
+\begin{figure}[h]\label{fig:sirEn30}
+  \centering
+    \includegraphics[width=0.93\textwidth]{Imagenes/sirEn30.PNG}
+    \caption{Evolución de la enfermedad en 30 días (modelo SIR).}
+\end{figure}
+
+A continuación podremos visualizar las soluciones obtenidas al analizar el mismo escenario con los modelos clásicos (izquierda) y las generadas por nuestras reglas de evolución $\phi_{SIS}^t(x)$ y $\phi_{SIR}^t(x)$ (derecha):
+
+\begin{figure}[h]\label{fig:sirEn30}
+  \centering
+    \includegraphics[width=0.6\textwidth]{Imagenes/solucionesSISySIR1.PNG}
+    \caption{Evolución de la enfermedad en 30 días (modelos clásicos vs reglas de evolución).}
+\end{figure}
 \end{example}
 
 \subsection{Modelos con natalidad y mortalidad}\label{sub:NatalidadyMortalidad}
@@ -290,10 +315,6 @@ donde $\omega_k$ es la probabilidad de morir por causas ajenas a la enfermedad p
 \begin{example}\label{ex:natalidadyMortalidad}
 Consideremos una probabilidad de nacimiento (u ocupación de espacios disponibles) $b=0.02$ y una unidad temporal $T=2$ sobre la siguiente configuración de estados en un espacio de células junto con las probabilidades de muerte por grupo de edad: 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \begin{figure}[h]\label{ex:configuraciónInicialNatalidadyMortalidad}
   \centering
     \includegraphics[width=0.8\textwidth]{Imagenes/conInicialMNM.PNG}
@@ -311,8 +332,22 @@ Dado que las células que posean una edad igual a cero no podrán interactuar co
 En la figura \ref{ex:aplicaciónReglaNatalidadyMortalidad} podemos observar la aplicación del modelo SIR con natalidad y mortalidad en donde en particular en los tiempos $t=1/2$ y $t=3/2$ mueren y nacen nuevas células de acuerdo con las probabilidades de muerte por rango de edad y tasa de nacimiento establecidas. Por otra parte y de acuerdo con la definición del parámetro $T$, todas las células cumplen un ciclo (que puede entenderse como un año) cuando $t\equiv0$ (Módulo $T$).
 \end{example}
 
-\begin{example}
+\begin{example}\label{ex:sisClásicovsModeloEnAC}
+Consideremos ahora una enfermedad que actúa sobre un espacio de 100 células y que posee tasas de infección de recuperación $\beta=0.05$ y $\beta=0.2$. Para comparar los resultados con el modelo clásico asumiremos que las tasas de natalidad y mortalidad son iguales a $\mu=\frac{1}{75\cdot6}$ (esperanza de vida de 75 años y $T=6$, es decir, las medidas se toman cada 2 meses). En particular podemos observar que la enfermedad no será endémica, pues $\mathcal{R}_0=\frac{\beta}{\alpha+\mu}\approx0.25<1$.
 
+\begin{figure}[h]\label{ex:aplicaciónReglaNatalidadyMortalidad}
+  \centering
+    \includegraphics[width=0.6\textwidth]{Imagenes/sistemaYEdades.PNG}
+    \caption{Configuración inicial de estados y de edades}
+\end{figure}
+
+A continuación ejecutaremos 40 veces la regla de evolución $\mu_{SIS,6}^t(x)$ y comparemos los resultados con los generados por el modelo clásico (figura (\ref{ex:aplicaciónReglaNatalidadyMortalidad})). Podemos observar que en ambos casos la población de infectados tiende a cero y que la cantidad de espacios libres (o células muertas) no crece demasiado, esto se debe a la baja probabilidad de muerte de nuestro espacio de células.
+
+\begin{figure}[h]\label{ex:aplicaciónReglaNatalidadyMortalidad}
+  \centering
+    \includegraphics[width=0.75\textwidth]{Imagenes/solucionesNatalidadYMortalidad.PNG}
+    \caption{Evolución de la enfermedad en 30 bimestres (modelo clásico y regla $\mu_{SIS,6}^t(x)$)}
+\end{figure}
 \end{example}
 
 \subsection{Modelos con muerte por enfermedad}\label{sub:MuertePorEnfermedad}
@@ -348,8 +383,27 @@ Al igual que en el ejemplo \ref{ex:natalidadyMortalidad}, la aplicación de la r
 \end{figure}
 \end{example}
 
-\begin{example}
+\begin{example}\label{ex:muertePorEnfermedadClásicovsModeloEnAC}
+Partiremos de la misma configuración de edades sobre un sistema de 100 células y las mismas tasas de natalidad y mortalidad consideradas en el ejemplo \ref{ex:aplicaciónReglaNatalidadyMortalidad}. Tomaremos las vecindades de Von Neumann para describir sus interacciones; en cuanto a la enfermedad, supondremos una tasa de infección $\beta=0.5$, una de recuperación $\alpha=0.2$ y una probabilidad de muerte causada por la misma enfermedad de $\theta=0.4$ (tomamos este valor con el objetivo de comparar los resultados con el modelo clásico).
 
+\begin{figure}[h]\label{fig:muertePorEnfermedad10Veces}
+  \centering
+    \includegraphics[width=1\textwidth]{Imagenes/evolucionesMuertePorEnfermedad.PNG}
+    \caption{Aplicación de la regla $\theta_{SIR,6}^t(x)$ en 10 iteraciones}
+\end{figure}
+
+En la figura (\ref{fig:muertePorEnfermedad10Veces}) podemos observar que hay un incremento bastante pronunciado desde la segunda iteración hasta la quinta debido a la alta mortalidad de la enfermedad.
+
+Una de las ventajas que ofrece nuestra librería es la de aplicar la regla de evolución varias veces y visualizar el comportamiento promedio de la enfermedad. A continuación aplicaremos la regla $\theta_{SIR,6}^t(x)$ 10 veces y compararemos los resultados con el modelo clásico:
+
+\begin{figure}[h]\label{fig:muertePorEnfermedad10Veces}
+  \centering
+    \includegraphics[width=0.9\textwidth]{Imagenes/solucionesMuertePorEnfermedad.PNG}
+    \caption{Evolución de la enfermedad en 100 bimestres (modelo clásico y regla $\theta_{SIR,6}^t(x)$)}
+\end{figure}
+Se evidencia un pico para la enfermedad en las primeras iteraciones, esto se debe principalmente a la alta tasa de contagio. Sin embargo, la alta tasa de muerte causada por la enfermedad hace que esta población desaparezca rápidamente como observa en ambos modelos.
+
+Una diferencia significativa se puede apreciar en la cantidad promedio de contagios. En el caso del modelo en autómatas celulares podemos afirmar que el número de contagios pudo no haber crecido en gran medida por algo como lo que se observa en la figura (\ref{fig:muertePorEnfermedad10Veces}), en donde las limitadas relaciones de las células hacen que los individuos infectados tiendan a aislarse.
 \end{example}
 
-En el siguiente capítulo profundizaremos sobre la manera en la que una enfermedad con unas características dadas, se comporta en un conjunto de células tanto en los modelos clásicos como en autómatas celulares. Esto nos permitirá validar cada una de las reglas definidas en el presente capítulo y nos brindará un punto de vista espacial sobre las dinámicas de una enfermedad.
+En el siguiente capítulo analizaremos diferentes tipos de vecindades y expondremos sus diferencias e implicaciones dentro del estudio epidemiológico, esto con el fin de apreciar comportamientos como el mencionado en el ejemplo \ref{ex:muertePorEnfermedadClásicovsModeloEnAC}.
