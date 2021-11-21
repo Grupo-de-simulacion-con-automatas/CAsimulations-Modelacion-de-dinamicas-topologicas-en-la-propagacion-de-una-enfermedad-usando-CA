@@ -3,19 +3,16 @@ import random
 import EpidemiologicalModels.SImodel as SI
 import EpidemiologicalModels.DefineSpaceInCA as defSpace
 import EpidemiologicalModels.BirthAndMortavilityModel as BMModel
-import EpidemiologicalModels.StateSpaceConfiguration as StateSpaceConfiguration
-import EpidemiologicalModels.AgeManagement as AgeManagement
 
 def deathByDiseaseRule(deathFromDiseaseByAgeRange,system,systemAges):   
     '''Aplica probabilidades de muerte por enfermedad a grupos de edad sobre el sistema'''
     deathPositions = []
     infectedIndividualsPerGroup = []
     numberOfInfectedIndividualsDeathPerGroup = []
-    systemCopy = StateSpaceConfiguration.createSpace(system).insideCopy()
-    systemAgesCopy = StateSpaceConfiguration.createSpace(systemAges).insideCopy()
+    systemCopy = defSpace.insideCopy(system)
+    systemAgesCopy = defSpace.insideCopy(systemAges)
     for group in range(len(deathFromDiseaseByAgeRange)):
-        # groupPositions = BMModel.ageGroupPositions(deathFromDiseaseByAgeRange[group][0], deathFromDiseaseByAgeRange[group][1], systemAgesCopy)
-        groupPositions = AgeManagement.AgeMatrixEvolution(systemAgesCopy, 0).ageGroupPositions()
+        groupPositions = BMModel.ageGroupPositions(deathFromDiseaseByAgeRange[group][0], deathFromDiseaseByAgeRange[group][1], systemAgesCopy)
         infectedIndividuals = []
         for individual in range(len(groupPositions)):          
             if system[groupPositions[individual][0],groupPositions[individual][1]] == SI.State.I.value:
@@ -60,7 +57,6 @@ class deathByDisease:
     def basicRule(self,system,systemAges,timeUnit):
         evolution = BMModel.birthAndMortavility(self.model, self.alpha, self.beta, self.birthRate, self.probabilityOfDyingByAgeGroup, 
                                                 system, systemAges, self.annualUnit, self.neighborhoodSystems, self.impactRates).basicRule(system,systemAges,timeUnit)
-        # systemCopy = defSpace.insideCopy(evolution[0])
-        systemCopy = StateSpaceConfiguration.createSpace(evolution[0]).insideCopy()
+        systemCopy = defSpace.insideCopy(evolution[0])
         evolutionsAfterDeaths = deathByDiseaseRule(self.deathFromDiseaseByAgeRange, systemCopy,evolution[1])
         return evolutionsAfterDeaths

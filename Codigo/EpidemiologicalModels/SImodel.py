@@ -2,6 +2,7 @@ import enum
 import random
 import EpidemiologicalModels.DefineSpaceInCA as defSpace
 import EpidemiologicalModels.NeighborhoodManager as N_Manager
+import EpidemiologicalModels.StateSpaceConfiguration as StateSpaceConfiguration
 
 class State(enum.Enum):
     H = -1  # Huecos
@@ -66,7 +67,8 @@ class SImodel:
         
     def Apply(self): 
         """Regla S -> I"""
-        systemUpdate = defSpace.insideCopy(self.system)
+        # systemUpdate = defSpace.insideCopy(self.system)
+        systemUpdate = StateSpaceConfiguration.createSpace(self.system).insideCopy()
         for ns in self.neighborhoodSystems:
             neighborsByImpact = N_Manager.NeigborhoodManager(self.system,ns[1]).ImpactNeighborClassifier()
             if systemUpdate[ns[0][0]][ns[0][1]] not in [State.H.value, State.R.value, State.D.value]:

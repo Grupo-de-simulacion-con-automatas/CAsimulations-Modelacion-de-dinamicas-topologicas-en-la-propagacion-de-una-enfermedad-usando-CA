@@ -1,6 +1,7 @@
 import math
 import EpidemiologicalModels.SImodel as SI
-import EpidemiologicalModels.DefineSpaceInCA as defSpace
+# import EpidemiologicalModels.DefineSpaceInCA as defSpace
+import EpidemiologicalModels.StateSpaceConfiguration as StateSpaceConfiguration
 
 class SISmodel(SI.SImodel):
 
@@ -14,11 +15,16 @@ class SISmodel(SI.SImodel):
     
     def __isRule(self, previousSystem):      
         """Regla I -> S"""
-        infectedCoordinates = defSpace.stateCoordinates(previousSystem, SI.State.I.value)
+        PreviousSystem = StateSpaceConfiguration.createSpace(previousSystem)
+        # infectedCoordinates = defSpace.stateCoordinates(previousSystem, SI.State.I.value)
+        infectedCoordinates = PreviousSystem.stateCoordinates(SI.State.I.value)
         initialRecoveredNumber = math.ceil(len(infectedCoordinates) * self.alpha)
-        percentageInSpace = defSpace.statePercentageInSpace(initialRecoveredNumber, len(infectedCoordinates) + 1, 
-                                                            self.states[0], self.states[1])
-        systemCopy = defSpace.insideCopy(previousSystem)
+        # percentageInSpace = defSpace.statePercentageInSpace(initialRecoveredNumber, len(infectedCoordinates) + 1, 
+        #                                                     self.states[0], self.states[1])
+        percentageInSpace = PreviousSystem.statePercentageInSpace(initialRecoveredNumber, len(infectedCoordinates) + 1, 
+                                                                  self.states[0], self.states[1])
+        # systemCopy = defSpace.insideCopy(previousSystem)
+        systemCopy = PreviousSystem.insideCopy()
         for i in range(len(percentageInSpace)):
             systemCopy[infectedCoordinates[i][0]][infectedCoordinates[i][1]] = percentageInSpace[i]
         return systemCopy
@@ -41,11 +47,17 @@ class SIRmodel(SI.SImodel):
     
     def __irRule(self,previousSystem):      
         """Regla I -> R"""
-        infectedCoordinates = defSpace.stateCoordinates(previousSystem, SI.State.I.value)
+        PreviousSystem = StateSpaceConfiguration.createSpace(previousSystem)
+        # infectedCoordinates = defSpace.stateCoordinates(previousSystem, SI.State.I.value)
+        infectedCoordinates = PreviousSystem.stateCoordinates(SI.State.I.value)
         initialRecoveredNumber = math.ceil(len(infectedCoordinates) * self.alpha)
-        percentageInSpace = defSpace.statePercentageInSpace(initialRecoveredNumber, len(infectedCoordinates) + 1, 
+        # percentageInSpace = defSpace.statePercentageInSpace(initialRecoveredNumber, len(infectedCoordinates) + 1, 
+        #                                                     self.states[2], self.states[1])
+        percentageInSpace = PreviousSystem.statePercentageInSpace(initialRecoveredNumber, len(infectedCoordinates) + 1, 
                                                             self.states[2], self.states[1])
-        systemCopy = defSpace.insideCopy(previousSystem)
+        # systemCopy = defSpace.insideCopy(previousSystem)
+        systemCopy = PreviousSystem.insideCopy()
+
         for i in range(len(percentageInSpace)):
             systemCopy[infectedCoordinates[i][0]][infectedCoordinates[i][1]] = percentageInSpace[i]
         return systemCopy

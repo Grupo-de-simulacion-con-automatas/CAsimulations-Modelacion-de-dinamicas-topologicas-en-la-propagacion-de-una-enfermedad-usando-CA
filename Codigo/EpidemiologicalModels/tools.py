@@ -5,6 +5,7 @@
 
 from EpidemiologicalModels.DefineSpaceInCA import *
 import matplotlib.pyplot as plt
+import EpidemiologicalModels.StateSpaceConfiguration as StateSpaceConfiguration
 
 def spline3(A):     #spline cubico para la lista de coordenadas A
     n = len(A); l = [1]; B = [0] ; g = [0]; gn = 0; C = [0]*n
@@ -163,7 +164,8 @@ def appliedMediumData(modelFunction,system,initialPercentageInfected,states,n_it
     for state in states:
         mediumStates.append([])
     for simulation in range(n_simulations):
-        infectedSystem = initialCondition(initialPercentageInfected,stationarySystem)
+        # infectedSystem = initialCondition(initialPercentageInfected,stationarySystem)
+        infectedSystem = StateSpaceConfiguration.createSpace(stationarySystem).initialCondition(initialPercentageInfected)
         evolution = modelFunction(n_iterations,True,infectedSystem)[1]
         for state in range(len(states)):
             mediumStates[state].append(evolution[state])
