@@ -3,4 +3,4 @@ En esta carpeta se reportan los avances en el documento de la tesis.
 
 ## Últimas actualizaciones 
 
-Versión del capítulo 3 antes de correciones.
+Primera parte de la documentación del ejercicio aplicado.
