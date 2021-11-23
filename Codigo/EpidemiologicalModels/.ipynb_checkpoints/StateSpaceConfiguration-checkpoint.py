@@ -111,16 +111,13 @@ class createSpace:
                         system[i][j] = infectedBlock[i-2*a][j-2*b]
             return system
 
-class boundaryConditions:
-
-    def __init__(self, basicArray):
-        self.system = createSpace(basicArray).system
+class boundaryConditions(createSpace):
 
     def boundaryDefinition(self,boundaryConditions):
         """Definición de la estructura del sistema dadas las condiciones de frontera    
         boundaryConditions : Lista con las posiciones con individuos dentro del sistema"""
         for condition in range(len(boundaryConditions)):
-            self.system[boundaryConditions[condition][0],boundaryConditions[condition][1]] = 0 
+            self.system[boundaryConditions[condition][0],boundaryConditions[condition][1]] = 0  
         return self.system
 
     def rectangularBoundary(self, rectangleRows, rectangleColumns, rowPosition, columnPosition):
