@@ -1,10 +1,10 @@
 # import random
 # import math
-import numpy as np
-import EpidemiologicalModels.SImodel as SI
-# import EpidemiologicalModels.SystemMetrics as metrics
-import EpidemiologicalModels.SimpleModels as SModels
-import EpidemiologicalModels.AgeManagement as AgeManagement
+# import numpy as np
+# import EpidemiologicalModels.SImodel as SI
+# # import EpidemiologicalModels.SystemMetrics as metrics
+# import EpidemiologicalModels.SimpleModels as SModels
+# import EpidemiologicalModels.AgeManagement as AgeManagement
 
 # def agesMatrix(ranges, system):
 #     '''Arreglo de edades aleatorias'''
@@ -68,43 +68,43 @@ import EpidemiologicalModels.AgeManagement as AgeManagement
 #         newYearMatrix[deadPositions[position][0]][deadPositions[position][1]] = 0
 #     return newYearMatrix
 
-class birthAndMortavility:
+# class birthAndMortavility:
     
-    data = None
-    evolutions = None
+#     data = None
+#     evolutions = None
 
-    def __init__(self, model, alpha, beta, birthRate, probabilityOfDyingByAgeGroup, system, systemAges, annualUnit, neighborhoodSystems, impactRates):
-        self.model = model
-        self.alpha = alpha; self.beta = beta
-        self.birthRate = birthRate
-        self.probabilityOfDyingByAgeGroup = probabilityOfDyingByAgeGroup
-        self.system = system; self.systemAges = systemAges
-        self.nRows, self.nColumns = system.shape
-        self.annualUnit = annualUnit
-        self.neighborhoodSystems = neighborhoodSystems
-        if self.model == "sis" or self.model == "SIS":
-            self.states = [SI.State.S.value, SI.State.I.value, SI.State.D.value]
-            self.colors = ["y", "r", "b"]
-            self.labels = ["Susceptibles", "Infectados", "Espacios disponibles"]
-        elif self.model == "sir" or self.model == "SIR":
-            self.states = [SI.State.S.value, SI.State.I.value, SI.State.R.value, SI.State.D.value]
-            self.colors = ["y", "r", "g", "b"]
-            self.labels = ["Susceptibles", "Infectados", "Recuperados","Espacios disponibles"]
-        self.impactRates = impactRates
+#     def __init__(self, model, alpha, beta, birthRate, probabilityOfDyingByAgeGroup, system, systemAges, annualUnit, neighborhoodSystems, impactRates):
+#         self.model = model
+#         self.alpha = alpha; self.beta = beta
+#         self.birthRate = birthRate
+#         self.probabilityOfDyingByAgeGroup = probabilityOfDyingByAgeGroup
+#         self.system = system; self.systemAges = systemAges
+#         self.nRows, self.nColumns = system.shape
+#         self.annualUnit = annualUnit
+#         self.neighborhoodSystems = neighborhoodSystems
+#         if self.model == "sis" or self.model == "SIS":
+#             self.states = [SI.State.S.value, SI.State.I.value, SI.State.D.value]
+#             self.colors = ["y", "r", "b"]
+#             self.labels = ["Susceptibles", "Infectados", "Espacios disponibles"]
+#         elif self.model == "sir" or self.model == "SIR":
+#             self.states = [SI.State.S.value, SI.State.I.value, SI.State.R.value, SI.State.D.value]
+#             self.colors = ["y", "r", "g", "b"]
+#             self.labels = ["Susceptibles", "Infectados", "Recuperados","Espacios disponibles"]
+#         self.impactRates = impactRates
     
-    def basicRule(self,previousSystem,previousAgesSystem,timeUnit):
-        '''Regla de evolución del modelo con natalidad y mortalidad'''
-        modelWithBirthAndMortavilityMatrix = np.zeros((self.nRows,self.nColumns))
-        # newYearMatrix = newYear(self.birthRate,self.probabilityOfDyingByAgeGroup,
-        #                         previousAgesSystem,timeUnit,self.annualUnit)
-        newYearMatrix = AgeManagement.AgeMatrixEvolution(previousAgesSystem, self.birthRate, self.annualUnit, self.probabilityOfDyingByAgeGroup).evolutionRuleForAges(timeUnit)
-        if self.model == "sis":
-            modelMatrix = SModels.SISmodel(self.alpha, self.beta, previousSystem, self.neighborhoodSystems, self.impactRates).basicRule(previousSystem)
-        elif self.model == "sir":
-            modelMatrix = SModels.SIRmodel(self.alpha, self.beta, previousSystem, self.neighborhoodSystems, self.impactRates).basicRule(previousSystem)
-        for row in range(self.nRows):
-            for column in range(self.nColumns):
-                if newYearMatrix[row,column] == 0: modelWithBirthAndMortavilityMatrix[row,column] = SI.State.D.value
-                elif newYearMatrix[row,column] == 1: modelWithBirthAndMortavilityMatrix[row,column] = SI.State.S.value
-                else: modelWithBirthAndMortavilityMatrix[row,column] = modelMatrix[row,column]
-        return [modelWithBirthAndMortavilityMatrix, newYearMatrix]
+#     def basicRule(self,previousSystem,previousAgesSystem,timeUnit):
+#         '''Regla de evolución del modelo con natalidad y mortalidad'''
+#         modelWithBirthAndMortavilityMatrix = np.zeros((self.nRows,self.nColumns))
+#         # newYearMatrix = newYear(self.birthRate,self.probabilityOfDyingByAgeGroup,
+#         #                         previousAgesSystem,timeUnit,self.annualUnit)
+#         newYearMatrix = AgeManagement.AgeMatrixEvolution(previousAgesSystem, self.birthRate, self.annualUnit, self.probabilityOfDyingByAgeGroup).evolutionRuleForAges(timeUnit)
+#         if self.model == "sis":
+#             modelMatrix = SModels.SISmodel(self.alpha, self.beta, previousSystem, self.neighborhoodSystems, self.impactRates).basicRule(previousSystem)
+#         elif self.model == "sir":
+#             modelMatrix = SModels.SIRmodel(self.alpha, self.beta, previousSystem, self.neighborhoodSystems, self.impactRates).basicRule(previousSystem)
+#         for row in range(self.nRows):
+#             for column in range(self.nColumns):
+#                 if newYearMatrix[row,column] == 0: modelWithBirthAndMortavilityMatrix[row,column] = SI.State.D.value
+#                 elif newYearMatrix[row,column] == 1: modelWithBirthAndMortavilityMatrix[row,column] = SI.State.S.value
+#                 else: modelWithBirthAndMortavilityMatrix[row,column] = modelMatrix[row,column]
+#         return [modelWithBirthAndMortavilityMatrix, newYearMatrix]

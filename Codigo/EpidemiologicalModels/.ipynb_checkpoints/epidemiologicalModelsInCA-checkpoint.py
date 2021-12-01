@@ -31,7 +31,7 @@ def createSystemFromDim(nRows, nColumns):
     if nColumns == 0:
         print("Defina una cantidad de columnas distinta de cero.")
         return
-    return StateSpaceConfiguration.createSpace(None, nRows, nColumns)
+    return StateSpaceConfiguration.cellManagement(None, nRows, nColumns)
 
 def createSystemFromEmptyArray(emptyArray):
     """
@@ -60,7 +60,7 @@ def createSystemFromEmptyArray(emptyArray):
         nRows, nColumns = emptyArray.shape
         return createSystemFromDim(nRows, nColumns)
     else:
-        return StateSpaceConfiguration.createSpace(emptyArray)
+        return StateSpaceConfiguration.cellManagement(emptyArray)
 
 def createAgeMatrix(ranges, system):
     """
@@ -97,7 +97,7 @@ def createAgeMatrix(ranges, system):
                 return
             elif r[2] > 1:
                 print("Asegurese de que todas las proporciones sean menores o iguales a 1.")
-    return AgeManagement.CreateAgesMatrix(ranges, system).create()
+    return AgeManagement.AgesMatrix(ranges, system).create()
 
 def defineBoundaryConditions(basicArray, rectangleRows, rectangleColumns, rowPosition, columnPosition):
     """

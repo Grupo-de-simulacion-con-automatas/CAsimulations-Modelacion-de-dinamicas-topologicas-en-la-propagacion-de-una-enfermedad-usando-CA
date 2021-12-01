@@ -2,12 +2,12 @@ import random
 import math
 import numpy as np
 import EpidemiologicalModels.SImodel as SI
-import EpidemiologicalModels.SystemMetrics as metrics
+import EpidemiologicalModels.SystemMetrics as SystemMetrics
 import EpidemiologicalModels.SimpleModels as SModels
 
 def agesMatrix(ranges, system):
     '''Arreglo de edades aleatorias'''
-    amoungIndividuals = metrics.SystemMetrics(system, [SI.State.S.value, SI.State.I.value, SI.State.R.value, SI.State.H.value]).numberOfIndividuals() 
+    amoungIndividuals = SystemMetrics.SystemMetrics(system, [SI.State.S.value, SI.State.I.value, SI.State.R.value, SI.State.H.value]).numberOfIndividuals() 
     agesDivisions = AgesDivisions(ranges, amoungIndividuals)
     for divition in range(len(agesDivisions)):
         for individualPerGroup in range(len(agesDivisions[divition])):

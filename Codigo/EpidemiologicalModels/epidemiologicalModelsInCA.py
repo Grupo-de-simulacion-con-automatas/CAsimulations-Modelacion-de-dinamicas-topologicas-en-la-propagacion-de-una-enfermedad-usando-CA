@@ -1,137 +1,368 @@
+import EpidemiologicalModels.CellSpaceConfiguration as CellSpaceConfiguration
 import EpidemiologicalModels.AgeManagement as AgeManagement
-import EpidemiologicalModels.StateSpaceConfiguration as StateSpaceConfiguration
+import EpidemiologicalModels.NeighborhoodManager as NeighborhoodManager
+import EpidemiologicalModels.Models as Models
 
-def createSystemFromDim(nRows, nColumns):
+def CellSpace(nRows, nColumns, xnRows = -1, xnColumns = -1, unRows = 0, unColumns = 0):
     """
-    Genera la configuración básica de un sistema de células a partir de una dimensión establecida.
+    Genera la configuración básica de un sistema de células
     Parámetros:
-        nRows(int)     Cantidad de filas del sistema
-        nColumns(int)  Cantidad de columnas del sistema
-    Salidas:
-        EpidemiologicalModels.StateSpaceConfiguration.createSpace  Herramientas para configurar la forma básica del sistema.
-        
-    Ejemplo:
-    system = createSystemFromDim(10,10)
-    system.initialCondition(0.5)
-    
-    --> array([[1., 0., 0., 0., 0., 1., 0., 0., 1., 0.],
-               [1., 1., 0., 1., 0., 1., 1., 0., 0., 1.],
-               [1., 0., 0., 1., 0., 0., 1., 1., 0., 0.],
-               [1., 0., 0., 1., 0., 0., 1., 0., 0., 0.],
-               [0., 1., 0., 0., 1., 0., 0., 1., 0., 0.],
-               [0., 0., 1., 0., 1., 1., 1., 0., 0., 0.],
-               [0., 0., 0., 0., 0., 1., 0., 0., 1., 0.],
-               [0., 0., 0., 1., 0., 1., 0., 0., 0., 1.],
-               [1., 1., 1., 1., 0., 0., 0., 0., 1., 1.],
-               [1., 1., 1., 0., 0., 0., 0., 0., 1., 0.]])
-    """
-    if nRows == 0:
-        print("Defina una cantidad de filas distinta de cero.")
-        return
-    if nColumns == 0:
-        print("Defina una cantidad de columnas distinta de cero.")
-        return
-    return StateSpaceConfiguration.createSpace(None, nRows, nColumns)
+        nRows(int)     Filas de la región interna inicial del sistema / filas del sistema
+        nColumns(int)  Columnas de la región interna inicial del sistema / Columnas del sistema
+        xnRows(int)    Fila donde se ubica la región interna inicial
+        xnColumns(int) Columna donde se ubica la región interna inicial
+        unRows(int)    Filas del área externa
+        unColumns(int) Columnas del área externa
+    Salida:
+        EpidemiologicalModels.CellSpaceConfiguration.CellSpaceConfiguration  Sistema de células
 
-def createSystemFromEmptyArray(emptyArray):
-    """
-    Genera la configuración básica de un sistema de células a partir de un sistema base.
-    Parámetros:
-        emptyArray(numpy.ndarray) Sistema base.
-    Salidas:
-        EpidemiologicalModels.StateSpaceConfiguration.createSpace  Herramientas para configurar la forma básica del sistema.
-        
-    Ejemplo:
-    system = createSystemFromEmptyArray(np.ones((10,10)))
-    system.system
-    
-    --> array([[1., 1., 1., 1., 1., 1., 1., 1., 1., 1.],
-               [1., 1., 1., 1., 1., 1., 1., 1., 1., 1.],
-               [1., 1., 1., 1., 1., 1., 1., 1., 1., 1.],
-               [1., 1., 1., 1., 1., 1., 1., 1., 1., 1.],
-               [1., 1., 1., 1., 1., 1., 1., 1., 1., 1.],
-               [1., 1., 1., 1., 1., 1., 1., 1., 1., 1.],
-               [1., 1., 1., 1., 1., 1., 1., 1., 1., 1.],
-               [1., 1., 1., 1., 1., 1., 1., 1., 1., 1.],
-               [1., 1., 1., 1., 1., 1., 1., 1., 1., 1.],
-               [1., 1., 1., 1., 1., 1., 1., 1., 1., 1.]])
-    """
-    if emptyArray.any == None:
-        nRows, nColumns = emptyArray.shape
-        return createSystemFromDim(nRows, nColumns)
-    else:
-        return StateSpaceConfiguration.createSpace(emptyArray)
+    Ejemplo 1:
+    space = CellSpace(10,10)
+    space.system
+    --> array([[0., 0., 0., 0., 0.],
+               [0., 0., 0., 0., 0.],
+               [0., 0., 0., 0., 0.],
+               [0., 0., 0., 0., 0.],
+               [0., 0., 0., 0., 0.]])
 
-def createAgeMatrix(ranges, system):
+    space.initialLocationOfInfected(0.1)
+    --> array([[0., 0., 0., 0., 0.],
+               [0., 0., 1., 0., 0.],
+               [1., 0., 0., 0., 0.],
+               [0., 1., 0., 0., 0.],
+               [0., 0., 0., 0., 0.]])
+
+    Ejemplo 2:
+    space = CellSpace(3,1,5,5)
+    space.system
+    --> array([[ 0., -1., -1., -1., -1.],
+               [ 0., -1., -1., -1., -1.],
+               [ 0., -1., -1., -1., -1.],
+               [-1., -1., -1., -1., -1.],
+               [-1., -1., -1., -1., -1.]])
+
+    space.rectangularBoundary(2,2,3,1)
+    --> array([[ 0., -1., -1., -1., -1.],
+               [ 0., -1., -1., -1., -1.],
+               [ 0., -1., -1., -1., -1.],
+               [-1.,  0.,  0., -1., -1.],
+               [-1.,  0.,  0., -1., -1.]])
+
+    Ejemplo 3:
+    space = CellSpace(3,1,5,5,1,2)
+    space.system
+    --> array([[-1., -1., -1., -1., -1.],
+               [-1., -1.,  0., -1., -1.],
+               [-1., -1.,  0., -1., -1.],
+               [-1., -1.,  0., -1., -1.],
+               [-1., -1., -1., -1., -1.]])
+    """
+    return CellSpaceConfiguration.CellSpaceConfiguration(nRows, nColumns, xnRows, xnColumns, unRows, unColumns)
+
+def CreateAgeMatrix(ranges, cellSpace):
     """
     Crea una matriz con las edades de las células de acuerdon con las probabilidades definidas en ranges.
     Parámetros: 
-        ranges(list(list))     Debe contener los rangos de edad y la proporción de individuos del sistema que tendran una edad en el rango.
-        system(numpy.ndarray)  Systema de células a las que se les asignará una edad.
+        ranges(list(list))  Debe contener los rangos de edad y la proporción de individuos del sistema que tendran una edad en el rango.
+        cellSpace(EpidemiologicalModels.CellSpaceConfiguration.CellSpaceConfiguration)  Systema de células a las que se les asignará una edad.
     Salidas:
-        numpy.ndarray          Arreglo con las edades del sistema de células.
+        numpy.ndarray  Arreglo con las edades del sistema de células.
     
     Ejemplo:
     ranges = [[0,10,0.2],[11,100,0.8]]  # 20% tienen entre 0 y 10 años, y 80% tienen entre 11 y 100.
-    system = np.zeros((10,10)) 
-    createAgeMatrix(ranges, system)
+    space = CellSpace(5,5)
+    createAgeMatrix(ranges, space)
     
-    --> array([[ 68.,   2.,  53.,  63.,  51.,  59.,  36.,  38.,  58.,  92.],
-               [ 73.,  77.,  73.,  42.,  93.,  58.,  98.,   6.,  72.,  27.],
-               [ 70.,  53.,  55.,  14.,  45.,  17.,  38.,  36.,  36.,  27.],
-               [ 56.,  35.,  16.,  23.,  12.,  53.,  64.,  36.,  92.,  73.],
-               [ 93.,  96.,  45.,  16.,  68.,  22.,  45.,  51., 100.,  88.],
-               [ 10.,  71.,  76.,  71.,  55.,  50.,  45.,   3.,   4.,   8.],
-               [ 64.,   1.,  94.,  10.,  27.,  13.,  96.,  71.,  67.,  27.],
-               [ 96.,   5.,  71.,  51.,  90., 100.,  84.,  35.,  95.,  97.],
-               [ 22.,   3.,  19.,  65.,  88.,  23.,  51.,  34.,  97.,   8.],
-               [  1.,  35.,  98.,  96.,  76.,  58.,   2.,  19.,   2.,  55.]])
+    --> array([[ 1., 81., 33.,  5., 18.],
+               [90., 19., 18., 36., 50.],
+               [ 5., 67.,  4., 18., 74.],
+               [45., 36.,  4., 36.,  4.],
+               [ 5., 67., 74.,  1.,  1.]])
     """
-    if len(ranges) == 0:
-        print("Debe definir los rangos de edades en el sistema.")
-        return
-    else:
-        for r in ranges:
-            if len(ranges != 3):
-                print("Asegurese de que todos los rangos de edad posean límite inferior, límite superior y la proporción en el sistema.")
-                return
-            elif r[2] > 1:
-                print("Asegurese de que todas las proporciones sean menores o iguales a 1.")
-    return AgeManagement.CreateAgesMatrix(ranges, system).create()
+    return AgeManagement.AgesMatrix(ranges, cellSpace).agesMatrix
 
-def defineBoundaryConditions(basicArray, rectangleRows, rectangleColumns, rowPosition, columnPosition):
+def GenerateNeighborhoodSystem(cellSpace, neighborhoodType = "random"):
     """
-    Permite definir una condición inicial sobre la ubicación de las células a partir de regiones rectangulares.
+    Genera un conjunto de vecindades básico para aplicar los modelos epidemiológicos
     Parámetros:
-        basicArray(numpy.ndarray)  Arreglo sobre el cual se va a definir la región rectangular.
-        rectangleRows(int)         Cantidad de filas del rectangulo.
-        rectangleColumns(int)      Cantidad de columnas del rectangulo.
-        rowPosition(int)           Fila desde donde iniciará la región rectangular.
-        columnPosition(int)        Columna desde donde iniciará la región rectangular.
+        cellSpace(EpidemiologicalModels.CellSpaceConfiguration.CellSpaceConfiguration)  Sistema de células para el cuál se definirá el sistema de vecindades
+        neighborhoodType(string)  Configuración del sistema - Valores permitidos (Moore - Von Neumann), por defecto se genera un sistema con valores aleatorios
     Salidas:
-        numpy.ndarray  Arreglo con la nueva región.
-        
-    Ejemplo:
-    basicArray = -np.ones((5,5))
-    system = defineBoundaryConditions(basicArray,3,3,0,0)
-    system
-    
-    --> array([[-1., -1., -1., -1., -1.],
-               [-1.,  0.,  0.,  0.,  0.],
-               [-1.,  0.,  0.,  0.,  0.],
-               [-1.,  0.,  0.,  0.,  0.],
-               [-1., -1., -1., -1., -1.]])
+        list  Lista con los arreglos que describen el conjunto de vecindades y las coordenadas de cada célula
+
+    Ejemplo 1:
+    GenerateNeighborhoodSystem(CellSpace(3,3))
+    --> [[[0, 0],array([[0., 1., 1.],
+                        [1., 1., 1.],
+                        [1., 1., 1.]])],
+         [[0, 1],array([[1., 0., 1.],
+                        [1., 1., 1.],
+                        [1., 1., 1.]])],
+         [[0, 2],array([[1., 1., 1.],
+                        [1., 1., 1.],
+                        [1., 1., 1.]])],
+         [[1, 0],array([[1., 1., 1.],
+                        [1., 1., 1.],
+                        [1., 1., 1.]])],
+         [[1, 1],array([[1., 1., 1.],
+                        [1., 1., 1.],
+                        [1., 1., 1.]])],
+         [[1, 2],array([[1., 1., 1.],
+                        [1., 1., 0.],
+                        [1., 1., 1.]])],
+         [[2, 0],array([[1., 1., 1.],
+                        [1., 1., 1.],
+                        [0., 1., 1.]])],
+         [[2, 1],array([[1., 1., 1.],
+                        [1., 1., 1.],
+                        [1., 1., 1.]])],
+         [[2, 2],array([[1., 1., 1.],
+                        [1., 1., 1.],
+                        [1., 1., 0.]])]]
+
+    Ejemplo 2:
+    GenerateNeighborhoodSystem(CellSpace(3,3),"Moore")
+    --> [[[0, 0],array([[0., 0., 1.],
+                        [0., 0., 1.],
+                        [1., 1., 1.]])],
+         [[0, 1],array([[0., 0., 0.],
+                        [0., 0., 0.],
+                        [1., 1., 1.]])],
+         [[0, 2],array([[1., 0., 0.],
+                        [1., 0., 0.],
+                        [1., 1., 1.]])],
+         [[1, 0],array([[0., 0., 1.],
+                        [0., 0., 1.],
+                        [0., 0., 1.]])],
+         [[1, 1],array([[0., 0., 0.],
+                        [0., 0., 0.],
+                        [0., 0., 0.]])],
+         [[1, 2],array([[1., 0., 0.],
+                        [1., 0., 0.],
+                        [1., 0., 0.]])],
+         [[2, 0],array([[1., 1., 1.],
+                        [0., 0., 1.],
+                        [0., 0., 1.]])],
+         [[2, 1],array([[1., 1., 1.],
+                        [0., 0., 0.],
+                        [0., 0., 0.]])],
+         [[2, 2],array([[1., 1., 1.],
+                        [1., 0., 0.],
+                        [1., 0., 0.]])]]
     """
-    if rectangleRows == None or rectangleRows == 0:
-        print("Debe definir una cantidad de filas para el rectángulo.")
-        return
-    if rectangleColumns == None or rectangleColumns == 0:
-        print("Debe definir una cantidad de columnas para el rectángulo.")
-        return
-    if rowPosition == None:
-        print("Debe establecer la fila desde donde se generará la región rectángular.")
-        return
-    if columnPosition == None:
-        print("Debe establecer la columna desde donde se generará la región rectángular.")
-        return
-    return StateSpaceConfiguration.boundaryConditions(basicArray).rectangularBoundary(rectangleRows, rectangleColumns, rowPosition, columnPosition)
+    if neighborhoodType.lower() == 'moore':
+        return NeighborhoodManager.Moore(cellSpace)
+    elif neighborhoodType.lower() == 'von neumann':
+        return NeighborhoodManager.Von_Neumann(cellSpace)
+    else:
+        return NeighborhoodManager.randomNeighborhoods(cellSpace)
+
+def SIS(alpha, beta, n_iterations, cellSpace, neighborhoodSystem, impactRates):
+    """
+    Modelo SIS aplicado sobre el espacio de células
+    Parámetros:
+        alpha(float)  Tasa de recuperación
+        beta(float)  Tasa de infección
+        n_iterations(int)  Cantidad de iteraciones en las que se aplica en modelo
+        cellSpace(EpidemiologicalModels.CellSpaceConfiguration.CellSpaceConfiguration)  Espacio de células
+        neighborhoodSystem(list)  Lista con los grados de impacto para cada célula
+        impactRates(list)  Tasas de impacto consideradas
+    Salidas:
+        EpidemiologicalModels.Models.applyEpidemiologicalModel  Contiene toda la información generada al aplicar el modelo
+
+    Ejemplo:
+    cellSpace = CellSpace(9,9).initialLocationOfInfected(0.1)
+    neighborhoodSystem = GenerateNeighborhoodSystem(cellSpace,"moore")
+    sis = SIS(0.2,0.5,10,cellSpace,neighborhoodSystem,[1,0])
+    sis.data
+    --> [array([[ 0.        ,  0.88888889],
+                [ 1.        ,  0.67901235],
+                [ 2.        ,  0.38271605],
+                [ 3.        ,  0.19753086],
+                [ 4.        ,  0.09876543],
+                [ 5.        ,  0.03703704],
+                [ 6.        ,  0.        ],
+                [ 7.        ,  0.        ],
+                [ 8.        ,  0.        ],
+                [ 9.        ,  0.        ],
+                [10.        ,  0.        ],
+                [11.        ,  0.        ]]),
+         array([[ 0.        ,  0.11111111],
+                [ 1.        ,  0.32098765],
+                [ 2.        ,  0.61728395],
+                [ 3.        ,  0.80246914],
+                [ 4.        ,  0.90123457],
+                [ 5.        ,  0.96296296],
+                [ 6.        ,  1.        ],
+                [ 7.        ,  1.        ],
+                [ 8.        ,  1.        ],
+                [ 9.        ,  1.        ],
+                [10.        ,  1.        ],
+                [11.        ,  1.        ]])]
+
+    sis.evolutions[1].system
+    --> array([[1., 1., 0., 0., 0., 0., 0., 0., 0.],
+               [1., 1., 0., 0., 0., 1., 0., 0., 0.],
+               [1., 1., 0., 0., 0., 1., 1., 0., 0.],
+               [1., 1., 0., 0., 0., 1., 0., 0., 0.],
+               [1., 0., 0., 0., 0., 0., 0., 0., 0.],
+               [0., 1., 1., 1., 0., 0., 0., 0., 0.],
+               [1., 0., 1., 1., 1., 0., 0., 0., 0.],
+               [0., 0., 1., 1., 1., 0., 0., 0., 1.],
+               [0., 0., 1., 0., 0., 0., 0., 0., 1.]])
+    """
+    modelApply = Models.applyEpidemiologicalModel("sis", alpha, beta, cellSpace, neighborhoodSystem, impactRates)
+    modelApply.basicModel(n_iterations)
+    return modelApply
+
+def SIR(alpha, beta, n_iterations, cellSpace, neighborhoodSystem, impactRates):
+    """
+    Modelo SIR aplicado sobre el espacio de células
+    Parámetros:
+        alpha(float)  Tasa de recuperación
+        beta(float)  Tasa de infección
+        n_iterations(int)  Cantidad de iteraciones en las que se aplica en modelo
+        cellSpace(EpidemiologicalModels.CellSpaceConfiguration.CellSpaceConfiguration)  Espacio de células
+        neighborhoodSystem(list)  Lista con los grados de impacto para cada célula
+        impactRates(list)  Tasas de impacto consideradas
+    Salidas:
+        EpidemiologicalModels.Models.applyEpidemiologicalModel  Contiene toda la información generada al aplicar el modelo
+
+    Ejemplo:
+    cellSpace = CellSpace(9,9).initialLocationOfInfected(0.1)
+    neighborhoodSystem = GenerateNeighborhoodSystem(cellSpace,"moore")
+    sir = SIR(0.2,0.5,10,cellSpace,neighborhoodSystem,[1,0])
+    sir.data
+    [array([[ 0.        ,  0.90123457],
+            [ 1.        ,  0.75308642],
+            [ 2.        ,  0.50617284],
+            [ 3.        ,  0.2345679 ],
+            [ 4.        ,  0.12345679],
+            [ 5.        ,  0.08641975],
+            [ 6.        ,  0.04938272],
+            [ 7.        ,  0.02469136],
+            [ 8.        ,  0.        ],
+            [ 9.        ,  0.        ],
+            [10.        ,  0.        ],
+            [11.        ,  0.        ]]),
+     array([[ 0.        ,  0.09876543],
+            [ 1.        ,  0.22222222],
+            [ 2.        ,  0.43209877],
+            [ 3.        ,  0.61728395],
+            [ 4.        ,  0.62962963],
+            [ 5.        ,  0.54320988],
+            [ 6.        ,  0.4691358 ],
+            [ 7.        ,  0.39506173],
+            [ 8.        ,  0.35802469],
+            [ 9.        ,  0.28395062],
+            [10.        ,  0.2345679 ],
+            [11.        ,  0.18518519]]),
+     array([[ 0.        ,  0.        ],
+            [ 1.        ,  0.02469136],
+            [ 2.        ,  0.0617284 ],
+            [ 3.        ,  0.14814815],
+            [ 4.        ,  0.24691358],
+            [ 5.        ,  0.37037037],
+            [ 6.        ,  0.48148148],
+            [ 7.        ,  0.58024691],
+            [ 8.        ,  0.64197531],
+            [ 9.        ,  0.71604938],
+            [10.        ,  0.7654321 ],
+            [11.        ,  0.81481481]])]
+
+    sir.evolutions[4].system
+    --> array([[0., 0., 2., 1., 2., 1., 2., 1., 2.],
+               [0., 0., 0., 1., 1., 1., 1., 1., 1.],
+               [0., 0., 0., 1., 2., 2., 1., 1., 1.],
+               [0., 0., 2., 2., 1., 1., 1., 1., 1.],
+               [1., 1., 1., 2., 2., 1., 1., 1., 1.],
+               [2., 1., 1., 2., 2., 2., 1., 1., 1.],
+               [2., 1., 2., 1., 1., 1., 1., 2., 2.],
+               [1., 1., 1., 1., 1., 2., 1., 1., 1.],
+               [1., 1., 1., 1., 1., 1., 1., 2., 1.]])
+    """
+    modelApply = Models.applyEpidemiologicalModel("sir", alpha, beta, cellSpace, neighborhoodSystem, impactRates)
+    modelApply.basicModel(n_iterations)
+    return modelApply
+
+def SIS_BM(alpha, beta, birthRate, probabilityOfDyingByAgeGroup, annualUnit, n_iterations, cellSpace, neighborhoodSystem, impactRates, systemAges):
+    modelApply = Models.applyEpidemiologicalModel("sis_bm", alpha, beta, cellSpace, neighborhoodSystem, impactRates)
+    modelApply.birthRate = birthRate
+    modelApply.probabilityOfDyingByAgeGroup = probabilityOfDyingByAgeGroup
+    modelApply.annualUnit = annualUnit
+    modelApply.systemAges = systemAges
+    modelApply.basicModel(n_iterations)
+    return modelApply
+
+def SIR_BM(alpha, beta, birthRate, probabilityOfDyingByAgeGroup, annualUnit, n_iterations, cellSpace, neighborhoodSystem, impactRates, systemAges):
+    modelApply = Models.applyEpidemiologicalModel("sir_bm", alpha, beta, cellSpace, neighborhoodSystem, impactRates)
+    modelApply.birthRate = birthRate
+    modelApply.probabilityOfDyingByAgeGroup = probabilityOfDyingByAgeGroup
+    modelApply.annualUnit = annualUnit
+    modelApply.systemAges = systemAges
+    modelApply.basicModel(n_iterations)
+    return modelApply
+
+def SIS_DD(alpha, beta, birthRate, probabilityOfDyingByAgeGroup, deathFromDiseaseByAgeRange, annualUnit, n_iterations, cellSpace, neighborhoodSystem, impactRates, systemAges):
+    modelApply = Models.applyEpidemiologicalModel("sis_dd", alpha, beta, cellSpace, neighborhoodSystem, impactRates)
+    modelApply.birthRate = birthRate
+    modelApply.probabilityOfDyingByAgeGroup = probabilityOfDyingByAgeGroup
+    modelApply.deathFromDiseaseByAgeRange = deathFromDiseaseByAgeRange
+    modelApply.annualUnit = annualUnit
+    modelApply.systemAges = systemAges
+    modelApply.basicModel(n_iterations)
+    return modelApply
+
+def SIR_DD(alpha, beta, birthRate, probabilityOfDyingByAgeGroup, deathFromDiseaseByAgeRange, annualUnit, n_iterations, cellSpace, neighborhoodSystem, impactRates, systemAges):
+    modelApply = Models.applyEpidemiologicalModel("sir_dd", alpha, beta, cellSpace, neighborhoodSystem, impactRates)
+    modelApply.birthRate = birthRate
+    modelApply.probabilityOfDyingByAgeGroup = probabilityOfDyingByAgeGroup
+    modelApply.deathFromDiseaseByAgeRange = deathFromDiseaseByAgeRange
+    modelApply.annualUnit = annualUnit
+    modelApply.systemAges = systemAges
+    modelApply.basicModel(n_iterations)
+    return modelApply
+
+def medium_SIS(alpha, beta, initialPercentageInfected, n_iterations, nSimulations, cellSpace, neighborhoodSystem, impactRates):
+    return Models.applyEpidemiologicalModel_nIterations("sis", alpha, beta, cellSpace, neighborhoodSystem, impactRates, nSimulations, initialPercentageInfected).basicModel(n_iterations)
+
+def medium_SIR(alpha, beta, initialPercentageInfected, n_iterations, nSimulations, cellSpace, neighborhoodSystem, impactRates):
+    return Models.applyEpidemiologicalModel_nIterations("sir", alpha, beta, cellSpace, neighborhoodSystem, impactRates, nSimulations, initialPercentageInfected).basicModel(n_iterations)
+
+def medium_SIS_BM(alpha, beta, birthRate, probabilityOfDyingByAgeGroup, annualUnit, initialPercentageInfected, n_iterations, nSimulations, cellSpace, neighborhoodSystem, impactRates, systemAges):
+    modelApply = Models.applyEpidemiologicalModel_nIterations("sis_bm", alpha, beta, cellSpace, neighborhoodSystem, impactRates, nSimulations, initialPercentageInfected)
+    modelApply.birthRate = birthRate
+    modelApply.probabilityOfDyingByAgeGroup = probabilityOfDyingByAgeGroup
+    modelApply.annualUnit = annualUnit
+    modelApply.systemAges = systemAges
+    modelApply.basicModel(n_iterations)
+    return modelApply
+
+def medium_SIR_BM(alpha, beta, birthRate, probabilityOfDyingByAgeGroup, annualUnit, initialPercentageInfected, n_iterations, nSimulations, cellSpace, neighborhoodSystem, impactRates, systemAges):
+    modelApply = Models.applyEpidemiologicalModel_nIterations("sir_bm", alpha, beta, cellSpace, neighborhoodSystem, impactRates, nSimulations, initialPercentageInfected)
+    modelApply.birthRate = birthRate
+    modelApply.probabilityOfDyingByAgeGroup = probabilityOfDyingByAgeGroup
+    modelApply.annualUnit = annualUnit
+    modelApply.systemAges = systemAges
+    modelApply.basicModel(n_iterations)
+    return modelApply
+
+def medium_SIS_DD(alpha, beta, birthRate, probabilityOfDyingByAgeGroup, deathFromDiseaseByAgeRange, annualUnit, initialPercentageInfected, n_iterations, nSimulations, cellSpace, neighborhoodSystem, impactRates, systemAges):
+    modelApply = Models.applyEpidemiologicalModel("sis_dd", alpha, beta, cellSpace, neighborhoodSystem, impactRates, nSimulations, initialPercentageInfected)
+    modelApply.birthRate = birthRate
+    modelApply.probabilityOfDyingByAgeGroup = probabilityOfDyingByAgeGroup
+    modelApply.deathFromDiseaseByAgeRange = deathFromDiseaseByAgeRange
+    modelApply.annualUnit = annualUnit
+    modelApply.systemAges = systemAges
+    modelApply.basicModel(n_iterations)
+    return modelApply
+
+def medium_SIR_DD(alpha, beta, birthRate, probabilityOfDyingByAgeGroup, deathFromDiseaseByAgeRange, annualUnit, initialPercentageInfected, n_iterations, nSimulations, cellSpace, neighborhoodSystem, impactRates, systemAges):
+    modelApply = Models.applyEpidemiologicalModel("sir_dd", alpha, beta, cellSpace, neighborhoodSystem, impactRates, nSimulations, initialPercentageInfected)
+    modelApply.birthRate = birthRate
+    modelApply.probabilityOfDyingByAgeGroup = probabilityOfDyingByAgeGroup
+    modelApply.deathFromDiseaseByAgeRange = deathFromDiseaseByAgeRange
+    modelApply.annualUnit = annualUnit
+    modelApply.systemAges = systemAges
+    modelApply.basicModel(n_iterations)
+    return modelApply

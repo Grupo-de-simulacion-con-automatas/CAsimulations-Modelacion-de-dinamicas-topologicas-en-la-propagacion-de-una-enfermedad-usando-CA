@@ -3,9 +3,9 @@
 
 # In[ ]:
 
-import math
-import random
-import numpy as np
+# import math
+# import random
+# import numpy as np
 
 # def insideCopy(system,extraRows=0,extraColumns=0):
 #     """Copia del sistema en un entorno extendido
