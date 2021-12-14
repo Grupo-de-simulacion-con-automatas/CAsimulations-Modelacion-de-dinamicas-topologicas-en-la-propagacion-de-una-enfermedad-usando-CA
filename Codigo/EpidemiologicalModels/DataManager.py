@@ -87,7 +87,7 @@ def mediumData(dataPerSimulation,states,n_iterations,n_simulations):
     """Organiza la información de cada simulación
     dataPerSimulation => Lista con los datos por estado
     states => Estados que se consideran"""
-    percentages = []; amountsIndividuals = []
+    percentages = []; amountsIndividuals = []; percentageAmounts = []
     for state in range(len(states)):
         percentages.append([])
     for iteration in range(n_iterations):
@@ -96,6 +96,8 @@ def mediumData(dataPerSimulation,states,n_iterations,n_simulations):
             for simulation in range(n_simulations):
                 rate += dataPerSimulation[states.index(state)][simulation][iteration]/n_simulations
             percentages[states.index(state)].append(rate)
+    for percentage in percentages:
+        percentageAmounts.append(percentage[1])
     for state in range(len(states)):
         amountsIndividuals.append(np.array((range(n_iterations),percentages[state])).transpose())
     return [amountsIndividuals,percentages]
@@ -106,13 +108,22 @@ def appliedMediumData(modelFunction,cellSpace,initialPercentageInfected,states,n
     initialPercentageInfected => Porcentaje de infectados en el momento inicial
     states => Estados que se consideran"""
     mediumStates = []
-    if theSystemHasAges:
-        for state in states:
+    for state in states:
             mediumStates.append([])
+    if theSystemHasAges:
         for simulation in range(n_simulations):
             # infectedSystem = initialCondition(initialPercentageInfected,stationarySystem)
             infectedCellSpace = CellManagement.CellManagement(cellSpace).InitialCondition(initialPercentageInfected)
-            evolution = modelFunction(infectedCellSpace,n_iterations,True)[1]
+            systemEvolution = appliedModel(modelFunction, infectedCellSpace, n_iterations, True, systemAges)
+            evolution = OrderData(systemEvolution, states)[1]
+            for state in range(len(states)):
+                mediumStates[state].append(evolution[state])
+    else:
+        for simulation in range(n_simulations):
+            # infectedSystem = initialCondition(initialPercentageInfected,stationarySystem)
+            infectedCellSpace = CellManagement.CellManagement(cellSpace).InitialCondition(initialPercentageInfected)
+            systemEvolution = appliedModel(modelFunction, infectedCellSpace, n_iterations, False)
+            evolution = OrderData(systemEvolution, states)[1]
             for state in range(len(states)):
                 mediumStates[state].append(evolution[state])
     return mediumData(mediumStates,states,n_iterations,n_simulations)

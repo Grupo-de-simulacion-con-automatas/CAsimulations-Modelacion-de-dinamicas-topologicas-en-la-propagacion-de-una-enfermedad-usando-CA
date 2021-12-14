@@ -421,9 +421,7 @@ class applyEpidemiologicalModel_nIterations:
         if self.__validate():
             self.__evalConditions()
             evolutions = DataManager.appliedMediumData(self.epidemiologicalModel.basicRule, self.cellSpace, self.initialPercentageInfected, self.epidemiologicalModel.states, n_iterations, self.nSimulations)
-            visualization = DataManager.OrderData(evolutions, self.epidemiologicalModel.states)
-            self.data = visualization[0]
-            self.evolutions = visualization[2]
+            self.data = evolutions[0]
 
     def plotCurvesModel(self, title = "", limit = False):
         if title == "":

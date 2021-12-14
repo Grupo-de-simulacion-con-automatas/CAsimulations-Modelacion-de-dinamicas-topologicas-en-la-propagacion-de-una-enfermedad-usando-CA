@@ -324,10 +324,14 @@ def SIR_DD(alpha, beta, birthRate, probabilityOfDyingByAgeGroup, deathFromDiseas
     return modelApply
 
 def medium_SIS(alpha, beta, initialPercentageInfected, n_iterations, nSimulations, cellSpace, neighborhoodSystem, impactRates):
-    return Models.applyEpidemiologicalModel_nIterations("sis", alpha, beta, cellSpace, neighborhoodSystem, impactRates, nSimulations, initialPercentageInfected).basicModel(n_iterations)
+    modelApply = Models.applyEpidemiologicalModel_nIterations("sis", alpha, beta, cellSpace, neighborhoodSystem, impactRates, nSimulations, initialPercentageInfected)
+    modelApply.basicModel(n_iterations)
+    return modelApply
 
 def medium_SIR(alpha, beta, initialPercentageInfected, n_iterations, nSimulations, cellSpace, neighborhoodSystem, impactRates):
-    return Models.applyEpidemiologicalModel_nIterations("sir", alpha, beta, cellSpace, neighborhoodSystem, impactRates, nSimulations, initialPercentageInfected).basicModel(n_iterations)
+    modelApply = Models.applyEpidemiologicalModel_nIterations("sir", alpha, beta, cellSpace, neighborhoodSystem, impactRates, nSimulations, initialPercentageInfected)
+    modelApply.basicModel(n_iterations)
+    return modelApply
 
 def medium_SIS_BM(alpha, beta, birthRate, probabilityOfDyingByAgeGroup, annualUnit, initialPercentageInfected, n_iterations, nSimulations, cellSpace, neighborhoodSystem, impactRates, systemAges):
     modelApply = Models.applyEpidemiologicalModel_nIterations("sis_bm", alpha, beta, cellSpace, neighborhoodSystem, impactRates, nSimulations, initialPercentageInfected)
