@@ -420,7 +420,12 @@ class applyEpidemiologicalModel_nIterations:
         """Aplica el modelo n_iterations veces"""
         if self.__validate():
             self.__evalConditions()
-            evolutions = DataManager.appliedMediumData(self.epidemiologicalModel.basicRule, self.cellSpace, self.initialPercentageInfected, self.epidemiologicalModel.states, n_iterations, self.nSimulations)
+            if self.model == "sis" or self.model == "sir":
+                evolutions = DataManager.appliedMediumData(self.epidemiologicalModel.basicRule, self.cellSpace, self.initialPercentageInfected, 
+                                                           self.epidemiologicalModel.states, n_iterations, self.nSimulations)
+            else:
+                evolutions = DataManager.appliedMediumData(self.epidemiologicalModel.basicRule, self.cellSpace, self.initialPercentageInfected, 
+                                                           self.epidemiologicalModel.states, n_iterations, self.nSimulations, True, self.systemAges)
             self.data = evolutions[0]
 
     def plotCurvesModel(self, title = "", limit = False):

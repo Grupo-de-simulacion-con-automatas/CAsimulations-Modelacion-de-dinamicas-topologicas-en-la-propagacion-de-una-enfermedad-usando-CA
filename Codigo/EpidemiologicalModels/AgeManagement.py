@@ -95,6 +95,10 @@ class AgeMatrixEvolution:
                         newYearMatrix[r][c] = self.systemAges[r][c] + 1
                     elif self.systemAges[r][c] == 0:
                         newYearMatrix[r][c] = self.__birthCell()
+        else:
+            for r in range(self.nRows):
+                for c in range(self.nColumns):
+                    newYearMatrix[r][c] = self.systemAges[r][c]
         return newYearMatrix
 
     def evolutionRuleForAges(self, timeUnit):
@@ -120,13 +124,11 @@ class AgeMatrixEvolution:
         infectedIndividualsPerGroup = []
         numberOfInfectedIndividualsDeathPerGroup = []
         systemCopy = CellManagement.CellManagement(cellSpace).InsideCopy()
-        agesMatrix = CellSpaceConfiguration.CellSpaceConfiguration(self.nRows, self.nColumns)
-        self.systemAges = CellManagement.CellManagement(agesMatrix).InsideCopy().system
         for group in range(len(deathFromDiseaseByAgeRange)):
             groupPositions = self.ageGroupPositions(deathFromDiseaseByAgeRange[group][0], deathFromDiseaseByAgeRange[group][1])
             infectedIndividuals = []
-            for individual in range(len(groupPositions)):          
-                if cellSpace[groupPositions[individual][0],groupPositions[individual][1]] == Models.State.I.value:
+            for individual in range(len(groupPositions)):     
+                if cellSpace.system[groupPositions[individual][0],groupPositions[individual][1]] == Models.State.I.value:
                     infectedIndividuals.append(groupPositions[individual])
             numberOfInfectedIndividualsDeath = math.ceil(len(infectedIndividuals) * deathFromDiseaseByAgeRange[group][2]) - 1
             infectedIndividualsPerGroup.append(infectedIndividuals)

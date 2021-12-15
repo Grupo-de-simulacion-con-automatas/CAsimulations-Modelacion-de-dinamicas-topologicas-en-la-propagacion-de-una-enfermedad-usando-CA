@@ -352,7 +352,7 @@ def medium_SIR_BM(alpha, beta, birthRate, probabilityOfDyingByAgeGroup, annualUn
     return modelApply
 
 def medium_SIS_DD(alpha, beta, birthRate, probabilityOfDyingByAgeGroup, deathFromDiseaseByAgeRange, annualUnit, initialPercentageInfected, n_iterations, nSimulations, cellSpace, neighborhoodSystem, impactRates, systemAges):
-    modelApply = Models.applyEpidemiologicalModel("sis_dd", alpha, beta, cellSpace, neighborhoodSystem, impactRates, nSimulations, initialPercentageInfected)
+    modelApply = Models.applyEpidemiologicalModel_nIterations("sis_dd", alpha, beta, cellSpace, neighborhoodSystem, impactRates, nSimulations, initialPercentageInfected)
     modelApply.birthRate = birthRate
     modelApply.probabilityOfDyingByAgeGroup = probabilityOfDyingByAgeGroup
     modelApply.deathFromDiseaseByAgeRange = deathFromDiseaseByAgeRange
@@ -362,7 +362,7 @@ def medium_SIS_DD(alpha, beta, birthRate, probabilityOfDyingByAgeGroup, deathFro
     return modelApply
 
 def medium_SIR_DD(alpha, beta, birthRate, probabilityOfDyingByAgeGroup, deathFromDiseaseByAgeRange, annualUnit, initialPercentageInfected, n_iterations, nSimulations, cellSpace, neighborhoodSystem, impactRates, systemAges):
-    modelApply = Models.applyEpidemiologicalModel("sir_dd", alpha, beta, cellSpace, neighborhoodSystem, impactRates, nSimulations, initialPercentageInfected)
+    modelApply = Models.applyEpidemiologicalModel_nIterations("sir_dd", alpha, beta, cellSpace, neighborhoodSystem, impactRates, nSimulations, initialPercentageInfected)
     modelApply.birthRate = birthRate
     modelApply.probabilityOfDyingByAgeGroup = probabilityOfDyingByAgeGroup
     modelApply.deathFromDiseaseByAgeRange = deathFromDiseaseByAgeRange
