@@ -1,9 +1,7 @@
 from typing import Type
 import numpy as np
 import random
-import EpidemiologicalModels.DefineSpaceInCA as defSpace
 import math
-import EpidemiologicalModels.SImodel as SI
 import EpidemiologicalModels.Models as Models
 import EpidemiologicalModels.CellManagement as CellManagement
 import EpidemiologicalModels.DataManager as DataManager

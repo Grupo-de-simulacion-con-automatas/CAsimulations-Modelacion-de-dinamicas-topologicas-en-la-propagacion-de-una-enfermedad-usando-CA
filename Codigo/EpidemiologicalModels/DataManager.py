@@ -112,7 +112,6 @@ def appliedMediumData(modelFunction,cellSpace,initialPercentageInfected,states,n
             mediumStates.append([])
     if theSystemHasAges:
         for simulation in range(n_simulations):
-            # infectedSystem = initialCondition(initialPercentageInfected,stationarySystem)
             infectedCellSpace = CellManagement.CellManagement(cellSpace).InitialCondition(initialPercentageInfected)
             systemEvolution = appliedModel(modelFunction, infectedCellSpace, n_iterations, True, systemAges)
             evolution = OrderData(systemEvolution, states)[1]
@@ -120,7 +119,6 @@ def appliedMediumData(modelFunction,cellSpace,initialPercentageInfected,states,n
                 mediumStates[state].append(evolution[state])
     else:
         for simulation in range(n_simulations):
-            # infectedSystem = initialCondition(initialPercentageInfected,stationarySystem)
             infectedCellSpace = CellManagement.CellManagement(cellSpace).InitialCondition(initialPercentageInfected)
             systemEvolution = appliedModel(modelFunction, infectedCellSpace, n_iterations, False)
             evolution = OrderData(systemEvolution, states)[1]

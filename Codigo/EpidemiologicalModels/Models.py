@@ -7,7 +7,6 @@ import EpidemiologicalModels.CellManagement as CellManagement
 import numpy as np
 import EpidemiologicalModels.AgeManagement as AgeManagement
 import EpidemiologicalModels.DataManager as DataManager
-import EpidemiologicalModels.tools as tools
 import EpidemiologicalModels.PlotsManager as PlotsManager
 import EpidemiologicalModels.SystemVisualization as SystemVisualization
 
@@ -108,13 +107,9 @@ class SISmodel(SImodel):
     def __isRule(self, previousCellSpace):
         """Regla I -> S"""
         PreviousCellSpace = CellManagement.CellManagement(previousCellSpace)
-        # infectedCoordinates = defSpace.stateCoordinates(previousSystem, SI.State.I.value)
         infectedCoordinates = PreviousCellSpace.StateCoordinates(State.I.value)
         initialRecoveredNumber = math.ceil(len(infectedCoordinates) * self.alpha)
-        # percentageInSpace = defSpace.statePercentageInSpace(initialRecoveredNumber, len(infectedCoordinates) + 1, 
-        #                                                     self.states[0], self.states[1])
         percentageInSpace = PreviousCellSpace.StatePercentageInSpace(initialRecoveredNumber, len(infectedCoordinates) + 1, State.S.value, State.I.value)
-        # systemCopy = defSpace.insideCopy(previousSystem)
         cellSpaceCopy = PreviousCellSpace.InsideCopy()
         for i in range(len(percentageInSpace)):
             cellSpaceCopy.system[infectedCoordinates[i][0]][infectedCoordinates[i][1]] = percentageInSpace[i]
@@ -139,13 +134,9 @@ class SIRmodel(SImodel):
     def __irRule(self,previousCellSpace):      
         """Regla I -> R"""
         PreviousSystem = CellManagement.CellManagement(previousCellSpace)
-        # infectedCoordinates = defSpace.stateCoordinates(previousSystem, SI.State.I.value)
         infectedCoordinates = PreviousSystem.StateCoordinates(State.I.value)
         initialRecoveredNumber = math.ceil(len(infectedCoordinates) * self.alpha)
-        # percentageInSpace = defSpace.statePercentageInSpace(initialRecoveredNumber, len(infectedCoordinates) + 1, 
-        #                                                     self.states[2], self.states[1])
         percentageInSpace = PreviousSystem.StatePercentageInSpace(initialRecoveredNumber, len(infectedCoordinates) + 1, State.R.value, State.I.value)
-        # systemCopy = defSpace.insideCopy(previousSystem)
         cellSpaceCopy = PreviousSystem.InsideCopy()
 
         for i in range(len(percentageInSpace)):
@@ -220,8 +211,6 @@ class birthAndMortavility:
         '''Regla de evolución del modelo con natalidad y mortalidad'''
         if self.__validate():
             modelWithBirthAndMortavilityCellSpace = CellManagement.CellManagement(self.cellSpace).InsideCopy()
-            # newYearMatrix = newYear(self.birthRate,self.probabilityOfDyingByAgeGroup,
-            #                         previousAgesSystem,timeUnit,self.annualUnit)
             newYearMatrix = AgeManagement.AgeMatrixEvolution(previousAgesSystem, self.birthRate, self.annualUnit, self.probabilityOfDyingByAgeGroup).evolutionRuleForAges(timeUnit)
             if self.model == "sis":
                 modelCellSpace = SISmodel(self.alpha, self.beta, previousCellSpace, self.neighborhoodSystems, self.impactRates).basicRule(previousCellSpace)
@@ -273,7 +262,6 @@ class deathByDisease:
         if self.__validate():
             evolution = birthAndMortavility(self.model, self.alpha, self.beta, self.birthRate, self.probabilityOfDyingByAgeGroup, self.annualUnit,
                                             cellSpace, self.neighborhoodSystems, self.impactRates, systemAges).basicRule(cellSpace,systemAges,timeUnit)
-            # systemCopy = defSpace.insideCopy(evolution[0])
             cellSpaceCopy = CellManagement.CellManagement(evolution[0]).InsideCopy()
             evolutionsAfterDeaths = AgeManagement.AgeMatrixEvolution(evolution[1],0).deathByDiseaseRule(cellSpaceCopy, self.deathFromDiseaseByAgeRange)
             return evolutionsAfterDeaths
