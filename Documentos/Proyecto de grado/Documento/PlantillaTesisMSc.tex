@@ -29,6 +29,11 @@
 \usepackage[all]{ xy}
 \usepackage[hidelinks]{hyperref}
 
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{subfig}
+
 \usepackage{rotating} %Para rotar texto, objetos y tablas seite. No se ve en DVI solo en PS. Seite 328 Hundebuch
                         %se usa junto con \rotate, \sidewidestable ....
                         
@@ -115,11 +120,11 @@
 \include{Contenidos/C2-Preliminares}
 \include{Contenidos/C3-ModelosEpidemiologicosEnAC}
 \include{Contenidos/C4-ComparaciónConModelosClasicos}
-% \include{Contenidos/C5-Conclusiones}
-% \include{Contenidos/Apéndices}
+\include{Contenidos/C5-Conclusiones}
+\include{Contenidos/C6-Apéndices}
 
 \addcontentsline{toc}{chapter}{\numberline{}Bibliografía}
-  \nocite{*}
+%   \nocite{*}
   \bibliography{BibliMSc}
   \bibliographystyle{abbrv}
 \end{document}
