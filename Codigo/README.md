@@ -5,9 +5,9 @@ En esta carpeta se reportan los avances en cuanto a código del trabajo de grado
 * **Imagenes:** Carpeta con las imágenes y diagramas del proyecto.
 ## Cuadernillos
 * **1. Modelos compartiméntales en ecuaciones diferenciales:** Modelos SIS y SIR con muerte por enfermedad en ecuaciones diferenciales.
-* **2. Autómatas celulares:** Breve explicación de la teoría de autómatas celulares.
+* **2. Interacciones e impactos sociales:** Se presentan las justificaciones descritas en el documento principal junto con ejemplos para la implementación de las matrices de impactos
 * **3. Reglas de evolución:** Descripción de las reglas de evolución desarrolladas en el proyecto.
-* **4. Datos para la red neuronal:** Construcción de las bases de datos para entrenar la red neuronal.
+* **4. Evolución de la enfermedad en un entorno controlado:** Ejemplo desarrollado en el capítulo 4 del documento principal.
 * **5. Análisis de condición de frontera:** Plantilla para desarrollar análisis sobre el cambio de condición para la frontera del espacio.
 * **6. Cambios de escala:** Plantilla para desarrollar análisis en el cambio de escalas.
 * **7. Comparación con los modelos clásicos:** Plantilla con las herramientas para realizar las comparaciones con los modelos clásicos.

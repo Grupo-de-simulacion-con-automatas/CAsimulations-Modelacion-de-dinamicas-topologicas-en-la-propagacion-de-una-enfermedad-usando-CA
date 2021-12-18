@@ -286,6 +286,29 @@ def SIR(alpha, beta, n_iterations, cellSpace, neighborhoodSystem, impactRates):
     return modelApply
 
 def SIS_BM(alpha, beta, birthRate, probabilityOfDyingByAgeGroup, annualUnit, n_iterations, cellSpace, neighborhoodSystem, impactRates, systemAges):
+    """
+    Modelo SIS con natalidad y mortalidad aplicado sobre el espacio de células
+    Parámetros:
+        alpha(float)  Tasa de recuperación
+        beta(float)  Tasa de infección
+        birthRate(float)  Tasa de natalidad
+        probabilityOfDyingByAgeGroup(list)  Lista con las probabilidades de muerte de una célula por rangos de edad
+        annualUnit(int)  Unidad que se toma como base para un ciclo (se puede entender como un año de 365 días)
+        n_iterations(int)  Cantidad de iteraciones en las que se aplica en modelo
+        cellSpace(EpidemiologicalModels.CellSpaceConfiguration.CellSpaceConfiguration)  Espacio de células
+        neighborhoodSystem(list)  Lista con los grados de impacto para cada célula
+        impactRates(list)  Tasas de impacto consideradas
+        systemAges(numpy.ndarray)  Matriz con las edades de cada célula
+    Salidas:
+        EpidemiologicalModels.Models.applyEpidemiologicalModel  Contiene toda la información generada al aplicar el modelo
+
+    Ejemplo:
+    cellSpace = CellSpace(9, 9).initialLocationOfInfected(0.1)
+    neighborhoodSystem = GenerateNeighborhoodSystem(cellSpace, "moore")
+    ageMatrix = CreateAgeMatrix([[0,100,1]], cellSpace)
+
+    sis_bm = SIS_BM(0.2,0.5,0.2,[[0,100,0.0005]],365,20,cellSpace,neighborhoodSystem,[1,0],ageMatrix)
+    """
     modelApply = Models.applyEpidemiologicalModel("sis_bm", alpha, beta, cellSpace, neighborhoodSystem, impactRates)
     modelApply.birthRate = birthRate
     modelApply.probabilityOfDyingByAgeGroup = probabilityOfDyingByAgeGroup
@@ -295,6 +318,29 @@ def SIS_BM(alpha, beta, birthRate, probabilityOfDyingByAgeGroup, annualUnit, n_i
     return modelApply
 
 def SIR_BM(alpha, beta, birthRate, probabilityOfDyingByAgeGroup, annualUnit, n_iterations, cellSpace, neighborhoodSystem, impactRates, systemAges):
+    """
+    Modelo SIR con natalidad y mortalidad aplicado sobre el espacio de células
+    Parámetros:
+        alpha(float)  Tasa de recuperación
+        beta(float)  Tasa de infección
+        birthRate(float)  Tasa de natalidad
+        probabilityOfDyingByAgeGroup(list)  Lista con las probabilidades de muerte de una célula por rangos de edad
+        annualUnit(int)  Unidad que se toma como base para un ciclo (se puede entender como un año de 365 días)
+        n_iterations(int)  Cantidad de iteraciones en las que se aplica en modelo
+        cellSpace(EpidemiologicalModels.CellSpaceConfiguration.CellSpaceConfiguration)  Espacio de células
+        neighborhoodSystem(list)  Lista con los grados de impacto para cada célula
+        impactRates(list)  Tasas de impacto consideradas
+        systemAges(numpy.ndarray)  Matriz con las edades de cada célula
+    Salidas:
+        EpidemiologicalModels.Models.applyEpidemiologicalModel  Contiene toda la información generada al aplicar el modelo
+
+    Ejemplo:
+    cellSpace = CellSpace(9, 9).initialLocationOfInfected(0.1)
+    neighborhoodSystem = GenerateNeighborhoodSystem(cellSpace, "moore")
+    ageMatrix = CreateAgeMatrix([[0,100,1]], cellSpace)
+
+    sir_bm = SIR_BM(0.2,0.5,0.2,[[0,100,0.0005]],365,20,cellSpace,neighborhoodSystem,[1,0],ageMatrix)
+    """
     modelApply = Models.applyEpidemiologicalModel("sir_bm", alpha, beta, cellSpace, neighborhoodSystem, impactRates)
     modelApply.birthRate = birthRate
     modelApply.probabilityOfDyingByAgeGroup = probabilityOfDyingByAgeGroup
@@ -304,6 +350,30 @@ def SIR_BM(alpha, beta, birthRate, probabilityOfDyingByAgeGroup, annualUnit, n_i
     return modelApply
 
 def SIS_DD(alpha, beta, birthRate, probabilityOfDyingByAgeGroup, deathFromDiseaseByAgeRange, annualUnit, n_iterations, cellSpace, neighborhoodSystem, impactRates, systemAges):
+    """
+    Modelo SIS con muerte por enfermedad aplicado sobre el espacio de células
+    Parámetros:
+        alpha(float)  Tasa de recuperación
+        beta(float)  Tasa de infección
+        birthRate(float)  Tasa de natalidad
+        probabilityOfDyingByAgeGroup(list)  Lista con las probabilidades de muerte de una célula por rangos de edad
+        deathFromDiseaseByAgeRange(list)  Lista con las probabilidades de muerte ocasionada por la enfermedad por rango de edad
+        annualUnit(int)  Unidad que se toma como base para un ciclo (se puede entender como un año de 365 días)
+        n_iterations(int)  Cantidad de iteraciones en las que se aplica en modelo
+        cellSpace(EpidemiologicalModels.CellSpaceConfiguration.CellSpaceConfiguration)  Espacio de células
+        neighborhoodSystem(list)  Lista con los grados de impacto para cada célula
+        impactRates(list)  Tasas de impacto consideradas
+        systemAges(numpy.ndarray)  Matriz con las edades de cada célula
+    Salidas:
+        EpidemiologicalModels.Models.applyEpidemiologicalModel  Contiene toda la información generada al aplicar el modelo
+
+    Ejemplo:
+    cellSpace = CellSpace(9, 9).initialLocationOfInfected(0.1)
+    neighborhoodSystem = GenerateNeighborhoodSystem(cellSpace, "moore")
+    ageMatrix = CreateAgeMatrix([[0,100,1]], cellSpace)
+
+    sis_dd = SIS_DD(0.2,0.5,0.2,[[0,100,0.0005]],[[0,100,0.0005]],365,20,cellSpace,neighborhoodSystem,[1,0],ageMatrix)
+    """
     modelApply = Models.applyEpidemiologicalModel("sis_dd", alpha, beta, cellSpace, neighborhoodSystem, impactRates)
     modelApply.birthRate = birthRate
     modelApply.probabilityOfDyingByAgeGroup = probabilityOfDyingByAgeGroup
@@ -314,6 +384,30 @@ def SIS_DD(alpha, beta, birthRate, probabilityOfDyingByAgeGroup, deathFromDiseas
     return modelApply
 
 def SIR_DD(alpha, beta, birthRate, probabilityOfDyingByAgeGroup, deathFromDiseaseByAgeRange, annualUnit, n_iterations, cellSpace, neighborhoodSystem, impactRates, systemAges):
+    """
+    Modelo SIR con muerte por enfermedad aplicado sobre el espacio de células
+    Parámetros:
+        alpha(float)  Tasa de recuperación
+        beta(float)  Tasa de infección
+        birthRate(float)  Tasa de natalidad
+        probabilityOfDyingByAgeGroup(list)  Lista con las probabilidades de muerte de una célula por rangos de edad
+        deathFromDiseaseByAgeRange(list)  Lista con las probabilidades de muerte ocasionada por la enfermedad por rango de edad
+        annualUnit(int)  Unidad que se toma como base para un ciclo (se puede entender como un año de 365 días)
+        n_iterations(int)  Cantidad de iteraciones en las que se aplica en modelo
+        cellSpace(EpidemiologicalModels.CellSpaceConfiguration.CellSpaceConfiguration)  Espacio de células
+        neighborhoodSystem(list)  Lista con los grados de impacto para cada célula
+        impactRates(list)  Tasas de impacto consideradas
+        systemAges(numpy.ndarray)  Matriz con las edades de cada célula
+    Salidas:
+        EpidemiologicalModels.Models.applyEpidemiologicalModel  Contiene toda la información generada al aplicar el modelo
+
+    Ejemplo:
+    cellSpace = CellSpace(9, 9).initialLocationOfInfected(0.1)
+    neighborhoodSystem = GenerateNeighborhoodSystem(cellSpace, "moore")
+    ageMatrix = CreateAgeMatrix([[0,100,1]], cellSpace)
+
+    sir_dd = SIR_DD(0.2,0.5,0.2,[[0,100,0.0005]],[[0,100,0.0005]],365,20,cellSpace,neighborhoodSystem,[1,0],ageMatrix)
+    """
     modelApply = Models.applyEpidemiologicalModel("sir_dd", alpha, beta, cellSpace, neighborhoodSystem, impactRates)
     modelApply.birthRate = birthRate
     modelApply.probabilityOfDyingByAgeGroup = probabilityOfDyingByAgeGroup
@@ -324,16 +418,83 @@ def SIR_DD(alpha, beta, birthRate, probabilityOfDyingByAgeGroup, deathFromDiseas
     return modelApply
 
 def medium_SIS(alpha, beta, initialPercentageInfected, n_iterations, nSimulations, cellSpace, neighborhoodSystem, impactRates):
+    """
+    Aplica el modelo SIS una cantidad determinada de veces y calcula sus datos promedio
+    Parámetros:
+        alpha(float)  Tasa de recuperación
+        beta(float)  Tasa de infección
+        initialPercentageInfected(float)  Porcentage inicial de individuos infectados
+        n_iterations(int)  Cantidad de iteraciones en las que se aplica en modelo
+        nSimulations(int)  Cantidad de simulaciones que va a considerar
+        cellSpace(EpidemiologicalModels.CellSpaceConfiguration.CellSpaceConfiguration)  Espacio de células
+        neighborhoodSystem(list)  Lista con los grados de impacto para cada célula
+        impactRates(list)  Tasas de impacto consideradas
+    Salidas:
+        EpidemiologicalModels.Models.applyEpidemiologicalModel  Contiene toda la información generada al aplicar el modelo
+
+    Ejemplo:
+    cellSpace = CellSpace(9, 9).initialLocationOfInfected(0.1)
+    neighborhoodSystem = GenerateNeighborhoodSystem(cellSpace, "moore")
+    ageMatrix = CreateAgeMatrix([[0,100,1]], cellSpace)
+
+    medium_sis = medium_SIS(0.2,0.5,0.1,10,3,cellSpace,neighborhoodSystem,[1,0])
+    """
     modelApply = Models.applyEpidemiologicalModel_nIterations("sis", alpha, beta, cellSpace, neighborhoodSystem, impactRates, nSimulations, initialPercentageInfected)
     modelApply.basicModel(n_iterations)
     return modelApply
 
 def medium_SIR(alpha, beta, initialPercentageInfected, n_iterations, nSimulations, cellSpace, neighborhoodSystem, impactRates):
+    """
+    Aplica el modelo SIR una cantidad determinada de veces y calcula sus datos promedio
+    Parámetros:
+        alpha(float)  Tasa de recuperación
+        beta(float)  Tasa de infección
+        initialPercentageInfected(float)  Porcentage inicial de individuos infectados
+        n_iterations(int)  Cantidad de iteraciones en las que se aplica en modelo
+        nSimulations(int)  Cantidad de simulaciones que va a considerar
+        cellSpace(EpidemiologicalModels.CellSpaceConfiguration.CellSpaceConfiguration)  Espacio de células
+        neighborhoodSystem(list)  Lista con los grados de impacto para cada célula
+        impactRates(list)  Tasas de impacto consideradas
+    Salidas:
+        EpidemiologicalModels.Models.applyEpidemiologicalModel  Contiene toda la información generada al aplicar el modelo
+
+    Ejemplo:
+    cellSpace = CellSpace(9, 9).initialLocationOfInfected(0.1)
+    neighborhoodSystem = GenerateNeighborhoodSystem(cellSpace, "moore")
+    ageMatrix = CreateAgeMatrix([[0,100,1]], cellSpace)
+
+    medium_sir = medium_SIR(0.2,0.5,0.1,10,3,cellSpace,neighborhoodSystem,[1,0])
+    """
     modelApply = Models.applyEpidemiologicalModel_nIterations("sir", alpha, beta, cellSpace, neighborhoodSystem, impactRates, nSimulations, initialPercentageInfected)
     modelApply.basicModel(n_iterations)
     return modelApply
 
 def medium_SIS_BM(alpha, beta, birthRate, probabilityOfDyingByAgeGroup, annualUnit, initialPercentageInfected, n_iterations, nSimulations, cellSpace, neighborhoodSystem, impactRates, systemAges):
+    """
+    Aplica el modelo SIS con natalidad y mortalidad una cantidad determinada de veces y calcula sus datos promedio
+    Parámetros:
+        alpha(float)  Tasa de recuperación
+        beta(float)  Tasa de infección
+        birthRate(float)  Tasa de natalidad
+        probabilityOfDyingByAgeGroup(list)  Lista con las probabilidades de muerte de una célula por rangos de edad
+        annualUnit(int)  Unidad que se toma como base para un ciclo (se puede entender como un año de 365 días)
+        initialPercentageInfected(float)  Porcentage inicial de individuos infectados
+        n_iterations(int)  Cantidad de iteraciones en las que se aplica en modelo
+        nSimulations(int)  Cantidad de simulaciones que va a considerar
+        cellSpace(EpidemiologicalModels.CellSpaceConfiguration.CellSpaceConfiguration)  Espacio de células
+        neighborhoodSystem(list)  Lista con los grados de impacto para cada célula
+        impactRates(list)  Tasas de impacto consideradas
+        systemAges(numpy.ndarray)  Matriz con las edades de cada célula
+    Salidas:
+        EpidemiologicalModels.Models.applyEpidemiologicalModel  Contiene toda la información generada al aplicar el modelo
+
+    Ejemplo:
+    cellSpace = CellSpace(9, 9).initialLocationOfInfected(0.1)
+    neighborhoodSystem = GenerateNeighborhoodSystem(cellSpace, "moore")
+    ageMatrix = CreateAgeMatrix([[0,100,1]], cellSpace)
+
+    medium_sis_bm = medium_SIS_BM(0.2,0.5, 0.2, [[0,100,0.0000005]], 365, 0.1,10,3,cellSpace,neighborhoodSystem,[1,0],ageMatrix)
+    """
     modelApply = Models.applyEpidemiologicalModel_nIterations("sis_bm", alpha, beta, cellSpace, neighborhoodSystem, impactRates, nSimulations, initialPercentageInfected)
     modelApply.birthRate = birthRate
     modelApply.probabilityOfDyingByAgeGroup = probabilityOfDyingByAgeGroup
@@ -343,6 +504,31 @@ def medium_SIS_BM(alpha, beta, birthRate, probabilityOfDyingByAgeGroup, annualUn
     return modelApply
 
 def medium_SIR_BM(alpha, beta, birthRate, probabilityOfDyingByAgeGroup, annualUnit, initialPercentageInfected, n_iterations, nSimulations, cellSpace, neighborhoodSystem, impactRates, systemAges):
+    """
+    Aplica el modelo SIR con natalidad y mortalidad una cantidad determinada de veces y calcula sus datos promedio
+    Parámetros:
+        alpha(float)  Tasa de recuperación
+        beta(float)  Tasa de infección
+        birthRate(float)  Tasa de natalidad
+        probabilityOfDyingByAgeGroup(list)  Lista con las probabilidades de muerte de una célula por rangos de edad
+        annualUnit(int)  Unidad que se toma como base para un ciclo (se puede entender como un año de 365 días)
+        initialPercentageInfected(float)  Porcentage inicial de individuos infectados
+        n_iterations(int)  Cantidad de iteraciones en las que se aplica en modelo
+        nSimulations(int)  Cantidad de simulaciones que va a considerar
+        cellSpace(EpidemiologicalModels.CellSpaceConfiguration.CellSpaceConfiguration)  Espacio de células
+        neighborhoodSystem(list)  Lista con los grados de impacto para cada célula
+        impactRates(list)  Tasas de impacto consideradas
+        systemAges(numpy.ndarray)  Matriz con las edades de cada célula
+    Salidas:
+        EpidemiologicalModels.Models.applyEpidemiologicalModel  Contiene toda la información generada al aplicar el modelo
+
+    Ejemplo:
+    cellSpace = CellSpace(9, 9).initialLocationOfInfected(0.1)
+    neighborhoodSystem = GenerateNeighborhoodSystem(cellSpace, "moore")
+    ageMatrix = CreateAgeMatrix([[0,100,1]], cellSpace)
+
+    medium_sir_bm = medium_SIR_BM(0.2,0.5, 0.2, [[0,100,0.0000005]], 365, 0.1,10,3,cellSpace,neighborhoodSystem,[1,0],ageMatrix)
+    """
     modelApply = Models.applyEpidemiologicalModel_nIterations("sir_bm", alpha, beta, cellSpace, neighborhoodSystem, impactRates, nSimulations, initialPercentageInfected)
     modelApply.birthRate = birthRate
     modelApply.probabilityOfDyingByAgeGroup = probabilityOfDyingByAgeGroup
@@ -352,6 +538,32 @@ def medium_SIR_BM(alpha, beta, birthRate, probabilityOfDyingByAgeGroup, annualUn
     return modelApply
 
 def medium_SIS_DD(alpha, beta, birthRate, probabilityOfDyingByAgeGroup, deathFromDiseaseByAgeRange, annualUnit, initialPercentageInfected, n_iterations, nSimulations, cellSpace, neighborhoodSystem, impactRates, systemAges):
+    """
+    Aplica el modelo SIS con muerte por enfermead una cantidad determinada de veces y calcula sus datos promedio
+    Parámetros:
+        alpha(float)  Tasa de recuperación
+        beta(float)  Tasa de infección
+        birthRate(float)  Tasa de natalidad
+        probabilityOfDyingByAgeGroup(list)  Lista con las probabilidades de muerte de una célula por rangos de edad
+        deathFromDiseaseByAgeRange(list)  Lista con las probabilidades de muerte ocasionada por la enfermedad por rango de edad
+        annualUnit(int)  Unidad que se toma como base para un ciclo (se puede entender como un año de 365 días)
+        initialPercentageInfected(float)  Porcentage inicial de individuos infectados
+        n_iterations(int)  Cantidad de iteraciones en las que se aplica en modelo
+        nSimulations(int)  Cantidad de simulaciones que va a considerar
+        cellSpace(EpidemiologicalModels.CellSpaceConfiguration.CellSpaceConfiguration)  Espacio de células
+        neighborhoodSystem(list)  Lista con los grados de impacto para cada célula
+        impactRates(list)  Tasas de impacto consideradas
+        systemAges(numpy.ndarray)  Matriz con las edades de cada célula
+    Salidas:
+        EpidemiologicalModels.Models.applyEpidemiologicalModel  Contiene toda la información generada al aplicar el modelo
+
+    Ejemplo:
+    cellSpace = CellSpace(9, 9).initialLocationOfInfected(0.1)
+    neighborhoodSystem = GenerateNeighborhoodSystem(cellSpace, "moore")
+    ageMatrix = CreateAgeMatrix([[0,100,1]], cellSpace)
+
+    medium_sis_dd = medium_SIS_DD(0.2,0.5, 0.2, [[0,100,0.0000005]], [[0,100,0.0000005]],365, 0.1,10,3,cellSpace,neighborhoodSystem,[1,0],ageMatrix)
+    """
     modelApply = Models.applyEpidemiologicalModel_nIterations("sis_dd", alpha, beta, cellSpace, neighborhoodSystem, impactRates, nSimulations, initialPercentageInfected)
     modelApply.birthRate = birthRate
     modelApply.probabilityOfDyingByAgeGroup = probabilityOfDyingByAgeGroup
@@ -362,6 +574,32 @@ def medium_SIS_DD(alpha, beta, birthRate, probabilityOfDyingByAgeGroup, deathFro
     return modelApply
 
 def medium_SIR_DD(alpha, beta, birthRate, probabilityOfDyingByAgeGroup, deathFromDiseaseByAgeRange, annualUnit, initialPercentageInfected, n_iterations, nSimulations, cellSpace, neighborhoodSystem, impactRates, systemAges):
+    """
+    Aplica el modelo SIR con muerte por enfermead una cantidad determinada de veces y calcula sus datos promedio
+    Parámetros:
+        alpha(float)  Tasa de recuperación
+        beta(float)  Tasa de infección
+        birthRate(float)  Tasa de natalidad
+        probabilityOfDyingByAgeGroup(list)  Lista con las probabilidades de muerte de una célula por rangos de edad
+        deathFromDiseaseByAgeRange(list)  Lista con las probabilidades de muerte ocasionada por la enfermedad por rango de edad
+        annualUnit(int)  Unidad que se toma como base para un ciclo (se puede entender como un año de 365 días)
+        initialPercentageInfected(float)  Porcentage inicial de individuos infectados
+        n_iterations(int)  Cantidad de iteraciones en las que se aplica en modelo
+        nSimulations(int)  Cantidad de simulaciones que va a considerar
+        cellSpace(EpidemiologicalModels.CellSpaceConfiguration.CellSpaceConfiguration)  Espacio de células
+        neighborhoodSystem(list)  Lista con los grados de impacto para cada célula
+        impactRates(list)  Tasas de impacto consideradas
+        systemAges(numpy.ndarray)  Matriz con las edades de cada célula
+    Salidas:
+        EpidemiologicalModels.Models.applyEpidemiologicalModel  Contiene toda la información generada al aplicar el modelo
+
+    Ejemplo:
+    cellSpace = CellSpace(9, 9).initialLocationOfInfected(0.1)
+    neighborhoodSystem = GenerateNeighborhoodSystem(cellSpace, "moore")
+    ageMatrix = CreateAgeMatrix([[0,100,1]], cellSpace)
+
+    medium_sir_dd = medium_SIR_DD(0.2,0.5, 0.2, [[0,100,0.0000005]], [[0,100,0.0000005]],365, 0.1,10,3,cellSpace,neighborhoodSystem,[1,0],ageMatrix)
+    """
     modelApply = Models.applyEpidemiologicalModel_nIterations("sir_dd", alpha, beta, cellSpace, neighborhoodSystem, impactRates, nSimulations, initialPercentageInfected)
     modelApply.birthRate = birthRate
     modelApply.probabilityOfDyingByAgeGroup = probabilityOfDyingByAgeGroup
