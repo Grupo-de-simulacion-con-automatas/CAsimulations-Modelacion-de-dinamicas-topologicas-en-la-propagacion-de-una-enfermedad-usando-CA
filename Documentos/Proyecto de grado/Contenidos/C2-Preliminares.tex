@@ -1,12 +1,13 @@
 \chapter{Preliminares}\label{cap:Preliminares}
-Comenzamos el presente capítulo con una breve explicación de uno de los objetivos principales de la epidemiología: determinar cuando una enfermedad es endémica o no.
 
-Es importante tener en cuenta que no todos los modelos epidemiológicos pueden describir el comportamiento de una enfermedad particular, debido a la naturaleza de la misma enfermedad y de la manera en la que se transmite. En el presente documento abordaremos únicamente a los modelos SIS, SIR y algunas de sus variaciones debido a la gran cantidad de comportamientos de enfermedades que pueden describir.
+En este capítulo nos enfocaremos en las herramientas conceptuales necesarias para el diseño e implementación de las definiciones del proyecto de grado. Inicialmente, hablaremos de la historia de algunos de los modelos matemáticos usados en la epidemiología. Posteriormente, nos enfocaremos en determinar cuando una enfermedad es endémica o no, es decir, si la enfermedad permanece en la población a lo largo del tiempo de manera estable (incluyendo variaciones estacionales) o si, por otra parte, desaparece por completo de la población. Esto visto completamente desde los modelos clásicos.
 
-Una vez se establezcan los conceptos epidemiológicos que consideramos fundamentales para el desarrollo de nuestro trabajo abordaremos algunas definiciones y propiedades básicas de topología y autómatas celulares que nos servirán de punto de partida para el desarrollo de los algoritmos expuestos en el capítulo 3.
+Es importante tener en cuenta que no todos los modelos epidemiológicos pueden describir el comportamiento de una enfermedad particular, debido a la naturaleza de la misma enfermedad y a la manera en la que se transmite. En el presente documento abordaremos únicamente los modelos SIS, SIR y algunas de sus variaciones debido a su nivel de aplicabilidad en distintas enfermedades.
+
+Una vez se establezcan los conceptos epidemiológicos que consideramos fundamentales para el desarrollo de nuestro trabajo abordaremos algunas definiciones y propiedades básicas de topología y autómatas celulares que nos servirán de punto de partida para el desarrollo de los algoritmos expuestos en el capítulo \ref{cap:Modelos epidemiológicos en AC}.
 
 \section{Historia de los modelos epidemiológicos}\label{sec:HistoriaEpidemiología}
-De acuerdo con \cite{epiDictionary}, la epidemiología se encarga de estudiar la ocurrencia y distribución de eventos, estados y procesos relacionados con la salud de distintas poblaciones, con el objetivo de brindar estrategias de control y prevención de problemas de salud relevantes.
+La epidemiología es la rama de las ciencias que se encarga de estudiar la ocurrencia y distribución de eventos, estados y procesos relacionados con la salud de distintas poblaciones, con el objetivo de brindar estrategias de control y prevención de problemas de salud relevantes \cite{epiDictionary}.
 
 El primer intento por modelar teóricamente la propagación de una enfermedad, fue realizado por Daniel Bernouilli en 1760, en el cual, basándose en sus conocimientos en medicina y matemáticas, desarrolló un modelo que describe el comportamiento de la viruela y evalúa el impacto teórico de la inoculación para su época \cite{shortHistory}. 
 
@@ -17,21 +18,21 @@ Uno de los objetos de estudio con mayor importancia en el campo de la epidemiolo
 
 \begin{itemize}
     \item \textbf{Número básico de reproducción $\mathcal{R}_0$:} Se define como la cantidad de individuos que infecta el paciente cero en una población completamente susceptible. En general, si $\mathcal{R}_0<1$ la enfermedad desaparecerá paulatinamente y sí $\mathcal{R}_0>1$, podríamos estar ante un caso de endemia.
-    \item \textbf{Número de contactos adecuados $\sigma(t)$:} Es la cantidad de contactos con individuos del sistema que realiza un individuo infectado durante su etapa de infección, cuando se introduce en la población en el momento $t$.
-    \item \textbf{Número de desplazamiento $\mathcal{R}(t)$:} Se entiende como la cantidad promedio de infecciones secundarias que produce un individuo infectado durante su etapa de infección, cuando es introducido en la población en el momento $t$. De ese modo, $\mathcal{R}(t) = \sigma(t)\cdot S(t)$, donde $S(t)$ indica la cantidad de individuos susceptibles en el momento $t$.
+    \item \textbf{Número de contactos adecuados $\sigma(t)$:} Es la cantidad de contactos con individuos del sistema que realiza un infectado durante su etapa de infección cuando se introduce en la población en el momento $t$.
+    \item \textbf{Número de desplazamiento $\mathcal{R}(t)$:} Se entiende como la cantidad promedio de infecciones secundarias que produce un individuo infectado durante su etapa de infección cuando es introducido en la población en el momento $t$. De ese modo, $\mathcal{R}(t) = \sigma(t)\cdot S(t)$, donde $S(t)$ indica la cantidad de individuos susceptibles en el momento $t$.
 \end{itemize}
 
 Heesterbeek y Dietz definen el número básico de reproducción $R_0$ como:
 \begin{equation}\label{eq:R0}
-    \mathcal{R}_0 = \int_0^\infty b(a)F(a) da,
+    \mathcal{R}_0 = \int_0^\infty b(t)F(t) dt,
 \end{equation}
-donde $b(a)$ representa la cantidad promedio de nuevos contagios que producirá un individuo infectado durante un tiempo y $F(a)$, conocida como la función de supervivencia, representa la probabilidad de que un individuo recién infectado se mantenga en ese estado durante al menos un tiempo $a$ \cite{conceptOfR0, perspectivesOnR0}.
+donde $b(t)$ representa la cantidad promedio de nuevos contagios que producirá un individuo infectado durante un tiempo $t$ y $F(t)$, conocida como la función de supervivencia, representa la probabilidad de que un individuo recién infectado se mantenga en ese estado durante al menos un tiempo $t$ \cite{conceptOfR0, perspectivesOnR0}.
 
 \section{Modelos epidemiológicos clásicos}\label{sec:ModelosEpidemiológicosClásicos}
 
-Tradicionalmente, se han utilizado modelos de compartimientos para elaborar análisis epidemiológicos. En estos modelos, cada individuo perteneciente a la población de estudio es clasificado en uno de $n$ posibles ''compartimientos'', según su estado de salud.
+Tradicionalmente, se han utilizado modelos de compartimientos para elaborar análisis epidemiológicos. En estos modelos, cada individuo perteneciente a la población de estudio, es clasificado en uno de $n$ posibles ''compartimientos'', según su estado de salud.
 
-Las siglas de cada estado del modelo definen su nombre, por ejemplo, el modelo MSEIR (\ref{fig:MSEIR}) define la interacción entre poblaciones con inmunidad "pasiva'' o temporal (M), en donde la inmunidad de los individuos se genera a partir de los anticuerpos heredados de la madre. Con la desaparición de los anticuerpos, estos individuos se vuelven susceptibles a contraer la enfermedad (S). Si un individuo susceptible entra en contacto con un individuo infectado, pasará al estado de exposición (E) en donde ya se considera infectado pero incapaz de transmitir la enfermedad. En el momento en el que el individuo adquiera la capacidad de contagiar la enfermedad, se pasará al estado (I) y finalmente, cuando el individuo se recupere y adquiera inmunidad, pasará al estado (R) del modelo.\cite{modelCompartimental}
+Las siglas de cada estado del modelo definen su nombre, por ejemplo, el modelo MSEIR (\ref{fig:MSEIR}) define la interacción entre poblaciones con inmunidad "pasiva'' o temporal (M), en donde la inmunidad de los individuos se genera a partir de los anticuerpos heredados de la madre; con la desaparición de los anticuerpos, estos individuos se vuelven susceptibles a contraer la enfermedad (S) y si un individuo susceptible entra en contacto con uno infectado, es posible que pase al estado de exposición (E), en donde ya se considera infectado pero incapaz de transmitir la enfermedad. En el momento en el que el individuo adquiera la capacidad de contagiar la enfermedad, se pasará al estado (I) y finalmente, si el individuo se recupera, pasará al estado (R) del modelo.\cite{modelCompartimental}
 
 \begin{figure}[h]
   \centering
@@ -42,20 +43,21 @@ Las siglas de cada estado del modelo definen su nombre, por ejemplo, el modelo M
 
 Generalmente, cuando hablamos de modelos epidemiológicos se consideran tres estados o clases en las que podemos dividir a la población en el tiempo: Los que pueden contraer la enfermedad, los que se infectan y los que se recuperan. Si los que se recuperan no adquieren una inmunidad permanente, nos encontraremos ante un modelo SIS, en el que los susceptibles pueden contraer la enfermedad y una vez se recuperan vuelven al estado de susceptibilidad. Por otro lado, si los individuos que se recuperan generan inmunidad a la enfermedad, estaremos ante un modelo SIR. 
 
-Teniendo en cuenta este tipo de consideraciones nos permitimos establecer a los modelos SIS y SIR como foco principal de nuestra investigación sin dejar a un lado la idea de retomar modelos como el MSEIR para investigaciones futuras. Adicionalmente, para efectos aplicables consideraremos las variaciones que tienen en cuenta la natalidad y mortalidad bien sea a causa o por efectos ajenos a la enfermedad.
+Teniendo en cuenta este tipo de consideraciones nos permitimos establecer a los modelos SIS y SIR como foco principal de nuestra investigación, sin dejar a un lado la idea de retomar modelos como el MSEIR en futuras investigaciones. Adicionalmente, para efectos aplicables consideraremos las variaciones que tienen en cuenta la natalidad y mortalidad bien sea a causa o por efectos ajenos a la enfermedad.
 
 Brauer y Castillo describen en \cite{mateModelsInPopulationAndEpidemiology} los planteamientos y técnicas para analizar este tipo de modelos. Nos apoyaremos también en el trabajo realizado por Diego de Pereda Sebastián en \cite{diego2010} para algunos resultados y observaciones interesantes sobre cada modelo.
 
 \subsection{El modelo SIS}\label{sub:modeloSIS}
 
-El modelo SIS considera 2 posibles estados, susceptibles (S) e infectados (I). Las variaciones entre los estados vienen dadas por los nuevos contagios y los individuos que se recuperan de la enfermedad. Adicionalmente, cada estado se ve afectado por los parámetros que describen la natalidad/mortalidad y la muerte a cauda de la enfermedad. 
+El modelo SIS considera 2 posibles estados, susceptibles (S) e infectados (I). Las variaciones entre los estados vienen dadas por los nuevos contagios y los individuos que se recuperan de la enfermedad. Adicionalmente, cada estado se ve afectado por los parámetros que describen la natalidad/mortalidad y/o la muerte a cauda de la enfermedad. 
 
 Los diferentes estados del modelo se pueden apreciar en el diagrama (\ref{fig:SIS}):
 
-\begin{figure}[h]\label{fig:SIS}
+\begin{figure}[h]
   \centering
     \includegraphics[width=0.4\textwidth]{Imagenes/SIS_compartimientos.PNG}
   \caption{Diagrama de compartimientos para el modelo SIS}
+  \label{fig:SIS}
 \end{figure}
 
 Trabajaremos sobre una población de tamaño constante y normalizado, por lo que $S + I = 1$ y en consecuencia $S' + I' = 0$.
@@ -63,9 +65,9 @@ Trabajaremos sobre una población de tamaño constante y normalizado, por lo que
 Normalmente, cuando se habla de modelos epidemiológicos con muerte por enfermedad se consideran 4 parámetros: 
 
 \begin{itemize}
-    \item La \textbf{tasa de infección $\beta$}, que representa la probabilidad que tiene un individuo susceptible de adquirir la enfermedad luego de un contagio con un infectado.
-    \item La \textbf{tasa de recuperación $\alpha$}, que podemos entender como la probabilidad de que un infectado se recupere de la enfermedad.
-    \item La \textbf{tasa de natalidad/mortalidad $\mu$}, que en el caso de los modelos clásicos se supone que son iguales. La natalidad nos indica la cantidad de individuos que ingresan al espacio y la mortalidad representa los individuos que fallecen por causas ajenas a la enfermedad.
+    \item La \textbf{tasa de infección $\beta$}, que representa la probabilidad que tiene un individuo susceptible de adquirir la enfermedad luego de tener contacto con un infectado.
+    \item La \textbf{tasa de recuperación $\alpha$}, que podemos entender como la probabilidad de que un infectado se recupere de la enfermedad. En ocasiones representa el tiempo medio que tarda un infectado en recuperarse de la enfermedad \cite{diego2010}.
+    \item La \textbf{tasa de natalidad/mortalidad $\mu$}, que en el caso de los modelos tradicionales se supone que son iguales. La natalidad nos indica la cantidad de individuos que ingresan al espacio y la mortalidad representa los individuos que fallecen por causas ajenas a la enfermedad.
     \item La \textbf{tasa de muerte por enfermedad $\theta$}, que nos indica la probabilidad que tiene un infectado de fallecer a causa de la enfermedad.
 \end{itemize}
 
@@ -80,7 +82,7 @@ I' = \beta S I - (1 - \theta)\alpha I - \mu I.
 \right.
 \end{equation}
 
-Para determinar los escenarios bajo los cuales una enfermedad es endémica debemos calcular el valor de $R_0$ para nuestro sistema de ecuaciones diferenciales (\ref{eq:modeloSIS}). Recuerde que para determinar el valor de $R_0$ se considera una población completamente susceptible, es decir, $S=1$ e $I=0$.
+Para determinar los escenarios bajo los cuales una enfermedad es endémica, debemos calcular el valor de $R_0$ para nuestro sistema de ecuaciones diferenciales (\ref{eq:modeloSIS}). Recuerde que para determinar el valor de $R_0$ se considera una población completamente susceptible, es decir, $S=1$.
 
 Observe que los nuevos infectados vienen dados por el término $\beta S$, con lo cual definimos $b(t) = \beta S = \beta$. Por otro lado, los flujos que determinan la salida del estado de infección de los individuos viene dado por los términos $-\alpha(1-\theta)I-\mu I$, de modo que si llamamos $I(t)$ a la cantidad de individuos infectados que permanecieron infectados desde el momento $t=0$, tenemos
 
@@ -145,7 +147,7 @@ Con lo que podemos afirmar que si $\mathcal{R}_0>1$, $P_0$ se comportará como u
 
 \subsubsection{Estudio numérico}
 
-Para representar las soluciones del sistema de ecuaciones diferenciales que describe el modelo SIS usaremos el método de Euler, el cual se implementó en el módulo: "\textit{CompartmentalModelsInEDOS}".
+Para representar las soluciones del sistema de ecuaciones diferenciales que describe el modelo SIS usaremos el método de Euler, el cual se implementó en el módulo: "\textit{CompartmentalModelsInEDOS}" de la librería CAsimulations (\ref{CAsimulations}).
 
 De manera general, dadas unas condiciones iniciales $S(0)=S_0,I(0)=I_0$ aplicamos el método de Euler a partir de la siguiente expresión:
 
@@ -175,10 +177,11 @@ Para este modelo se considera el estado de inmunidad frente a la enfermedad R. A
 
 En el diagrama (\ref{fig:SIR}) se pueden apreciar las interacciones para los estados del modelo:
 
-\begin{figure}[h]\label{fig:SIR}
+\begin{figure}[h]
   \centering
     \includegraphics[width=0.7\textwidth]{Imagenes/SIR_compartimientos.PNG}
   \caption{Diagrama de compartimientos para el modelo SIR}
+  \label{fig:SIR}
 \end{figure}
 
 El sistema de ecuaciones diferenciales que describe las interacciones entre estados viene dado por la siguiente ecuación:
@@ -299,13 +302,26 @@ Los elementos de $\tau$ se conocen como \textit{abiertos} de $X$ y la pareja $(X
 \end{definition}
 
 \begin{example}\label{ex:topologíaDiscreta} 
-Sea $X$ un conjunto cualquiera. La familia de todos los subconjuntos de $X$ es una topología sobre $X$ y es llamada la \textit{topología discreta} de $X$.
+Observe que para $X$ un conjunto cualquiera, la familia de todos los subconjuntos de $X$ es una topología sobre $X$. Esta topología se conoce como la \textit{topología discreta} de $X$.
 \end{example}
 
 \begin{example}\label{ex:exBase}
-Considere al conjunto $X=\{a,b,c\}$ y a una subcolección $\mathcal{A}$ de $X$ definida como: 
+Considere al conjunto $X=\{a,b,c\}$ y a una sub-colección $\mathcal{A}$ de $X$ definida como: 
 $$\mathcal{A}=\{\emptyset,\{a\},\{b\}.\{a,b\},\{a,c\},\{a,b,c\}\}.$$
-La colección $\mathcal{A}$ es una topología sobre $X$.
+Veamos que la colección $\mathcal{A}$ es una topología sobre $X$:
+\begin{enumerate}
+    \item Por la definición de $\mathcal{A}$ sabemos que $\emptyset$ y $X$ hacen parte de sus elementos.
+    \item Si calculamos todas las posibles intersecciones obtendremos los siguientes conjuntos:
+    $$\begin{array}{cccccc}
+        \emptyset, & \{a\}, & \{b\}, & \{a,b\}, & \{a,c\}.
+    \end{array}$$
+    Como cada posible intersección está en el conjunto $\mathcal{A}$, podemos concluir que se cumple la segunda condición de la definición de topología.
+    \item Al calcular todas las posibles uniones de sub-colecciones de $\mathcal{A}$ obtendremos los siguientes conjuntos:
+    $$\begin{array}{cccccc}
+        \{a\}, & \{b\}, & \{a,b\}, & \{a,c\}, & \{a,b,c\}.
+    \end{array}$$
+    Y al igual que en el item anterior, de la definición de $\mathcal{A}$ se concluye la tercera condición y de esa manera se afirma que $\mathcal{A}$ es una topología sobre $X$.
+\end{enumerate}
 \end{example}
 
 En ocasiones describir específicamente la topología de un conjunto es una tarea bastante compleja. Para evitar este tipo de inconvenientes se especifica una colección más pequeña de subconjuntos de $X$ llamada base de la topología sobre $X$, que es capaz de definir dicha topología. 
@@ -320,15 +336,17 @@ Los elementos de $\mathcal{B}$ son llamados elementos básicos de $\mathcal{B}$.
 \end{definition}
 
 \begin{example}\label{ex:conUnipuntuales}
-La colección de conjuntos unipuntuales de cualquier conjunto $X$ forma una base para la topología discreta de $X$.
+La colección de las uniones de conjuntos uni-puntuales de cualquier conjunto $X$, forma una base para la topología discreta de $X$.
 \end{example}
 
+A continuación definiremos uno de los conceptos que más usaremos a lo largo del presente documento. Usualmente, la vecindad de un elemento se entiende como el conjunto de los puntos ''cercanos'' (en el caso de espacios métricos) o en general, con los que podría tener algún tipo de relación. 
+
 \begin{definition}\label{def:vecindad}
-Sean $X$ un espacio topológico y $x\in X$. Diremos que un subconjunto $V$ de $X$ es una \textit{vecindad} de $x$ si existe un abierto $A$ tal que $x\in A\subseteq V$. Denotaremos por $\mathcal{V}(x)$ a la familia de todas las vecindades de $x$.
+Sean $X$ un espacio topológico y $x\in X$. Diremos que un subconjunto $V$ de $X$ es una \textit{vecindad} de $x$, si existe un abierto $A$ tal que $x\in A\subseteq V$. Denotaremos por $\mathcal{V}(x)$ a la familia de todas las vecindades de $x$.
 \end{definition}
 
 \begin{example}\label{ex:sisVecindades}
-En el ejemplo \ref{ex:exBase} podremos identificar al conjunto $\mathcal{V}(a)$ como:
+Identificaremos al conjunto de vecindades $\mathcal{V}(a)$ para el punto $a$ del conjunto $X$ definido en el ejemplo \ref{ex:exBase}. Esto es:
 $$\mathcal{V}(a)=\{\{a\},\{a,b\},\{a,c\},\{a,b,c\}\}$$
 \end{example}
 
@@ -345,7 +363,7 @@ $(\supseteq)$ Se obtiene de manera trivial por la definición de los conjuntos $
 $(\subseteq)$ Sea $x\in A$. Ya que $A$ es vecindad de cada uno de sus puntos existe $V_x$ tal que $x\in V_x\subseteq A$, de modo que $x\in V_x\subseteq\bigcup_{x\in A}V_x$. Con lo que concluimos la igualdad.
 \end{proof}
 
-La siguiente proposición resume las propiedades más importantes de las vecindades:
+En la siguiente proposición se exponen las propiedades que poseen las familias de vecindades.
 
 \begin{proposicion}\label{pro:propiedadesSistemaVecindades}
 Sea $X$ un espacio topológico, entonces para cada $x\in X$:
@@ -368,10 +386,10 @@ Sea $X$ un espacio topológico, entonces para cada $x\in X$:
 \end{enumerate} 
 \end{proof}
 
-Así como una base de una topología $\tau$ contiene toda la información necesaria para generarla, también podemos tomar de manera conveniente alguna subcolección de $\mathcal{V}(x)$ que guarde la información topológica necesaria para generar a $\mathcal{V}(x)$.
+Así como una base de una topología $\tau$ contiene toda la información necesaria para generarla, podemos tomar de manera conveniente alguna subcolección de $\mathcal{V}(x)$ que guarde la información topológica necesaria para generar a $\mathcal{V}(x)$. La siguiente definición nos permite determinar cuáles serían los componentes necesarios para formar al conjunto $\mathcal{V}(x)$.
 
 \begin{definition}\label{def:sistemaFundamentalVecindades}
-Para un punto $x$ en un espacio topológico $X$ un subconjunto $\mathcal{B}(x)$ de $\mathcal{V}(x)$ es un \textit{sistema fundamental de vecindades de $x$} sí para cada $V\in\mathcal{V}(x)$, existe $B\in\mathcal{B}(x)$ tal que $B\subseteq V$. Los elementos de $\mathcal{B}(x)$ son llamados \textit{vecindades (o entornos) básicos} de $x$.
+Para un punto $x$ en un espacio topológico $X$, un subconjunto $\mathcal{B}(x)$ de $\mathcal{V}(x)$ es un \textit{sistema fundamental de vecindades de $x$} sí para cada $V\in\mathcal{V}(x)$, existe $B\in\mathcal{B}(x)$ tal que $B\subseteq V$. Los elementos de $\mathcal{B}(x)$ son llamados \textit{vecindades (o entornos) básicos} de $x$.
 \end{definition}
 
 \begin{example}\label{ex:sistemaFundamentalVecindades}
@@ -423,7 +441,7 @@ Para demostrar que $\mathcal{V}(x)$ es el sistema fundamental de vecindades veam
 Finalmente, para una vecindad $U$ de $x$ existe $V\in\tau$ tal que $x\in V\subseteq U$ por la definición de vecindad. Luego $V\in\mathcal{V}(x)$ y así, $\mathcal{V}(x)$ es sistema fundamental de vecindades en $(X,\tau)$.
 \end{proof}
 
-Es natural pensar en que si consideramos un sistema de vecindades $\mathcal{V}(x)$ se establezca una relación de orden parcial con los demás elementos. Teniendo esto en mente definimos los siguientes conceptos:
+Es natural pensar en que si consideramos un sistema de vecindades $\mathcal{V}(x)$, se establezca una relación de orden parcial con los demás elementos. Teniendo esto en mente definimos los siguientes conceptos:
 
 \begin{definition}\label{def:vecindadMinimal}
 Una \textit{vecindad minimal de} $x$ es la intersección de todas las vecindades de $x$. Lo denotaremos como $U_x$.
@@ -434,7 +452,7 @@ En la topología discreta las vecindades minimales coinciden con los conjuntos u
 \end{example}
 
 \begin{example}\label{ex:minimalesExBase}
-Considere la topología $\mathcal{A}$ y el espacio $X$ del ejemplo \ref{ex:exBase}. Las vecindades minimales para este caso son:
+Si concideramos la topología $\mathcal{A}$ y el espacio $X$ del ejemplo \ref{ex:exBase}. Las vecindades minimales son:
 $$U_a = \{a\}\text{, }U_b = \{b\}\text{ y }U_c=\{a,c\}.$$
 \end{example}
 
@@ -443,6 +461,8 @@ La unión de todas las vecindades minimales $U_x$ para $x\in X$ forma una base p
 \end{proposicion}
 
 Es facil ver que cualquier otra base de la topología sobre $X$ continene a la base minimal y esto a su vez garantiza que es una base para lo topología.
+
+Los siguientes conceptos nos permiten determinar de manera formal cuales son las propiedades que definen un preorden finito y posteriormente una vecindad máximal de algún elemento.
 
 \begin{definition}\label{def:conjuntoPreordenadoFinito}
 Un \textit{conjunto preordenado finito} es un conjunto finito con una relación transitiva y reflexiva. Definiremos el la relación de orden parcial $x\preceq y$ si $x\in U_y$.
@@ -456,6 +476,8 @@ Un elemento $x$ en un conjunto parcialmente ordenado es llamado un maximal si $y
 Si retomamos el ejemplo \ref{ex:minimalesExBase} podremos determinar que los elementos $a$ y $b$ son maximales pero no comparables bajo el preorden $\preceq$. En particular $c\preceq a$ y $c\preceq b$.
 \end{example}
 
+Usualmente, al trabajar con espacios topológicos finitos se habla de espacios $T_0$. Para que un espacio sea $T_0$ se debe comprobar que dos puntos cualesquiera son "separables" por al menos una vecindad que no contenga a alguno de los puntos. De manera formal definimos un espacio $T_0$ como sigue:
+
 \begin{definition}\label{def:espacioT0}
 Un espacio topológico $X$ es $T_0$ si para cada par de puntos $x,y\in X$ con $x\neq y$, existe $V\in\mathcal{V}(x)$ tal que $y\notin V$.
 \end{definition}
@@ -463,6 +485,8 @@ Un espacio topológico $X$ es $T_0$ si para cada par de puntos $x,y\in X$ con $x
 \begin{example}\label{ex:discretaT0}
 Todo espacio $X$ con la topología discreta es un espacio $T_0$.
 \end{example}
+
+Otro de los conceptos que a menudo se enuncia al trabajar con espacios topológicos es el de los axiomas de numerabilidad. Para los objetivos de nuestro proyecto únicamente abordaremos el primero de ellos debido a que los demás solo se cumplen en algunos casos pasos particulares de nuestra investigación. Se espera profundizar más al rededor de estos casos específicos en futuras investigaciones.
 
 \begin{definition}\label{def:espacio1Numerable}
 Un espacio topológico $X$ que tiene un sistema fundamental de vecindades numerable en cada uno de sus puntos se dice que satisface el primer axioma de numerabilidad o simplemente que es uno-numerable.
@@ -478,19 +502,20 @@ Los autómatas celulares nacen con el trabajo de Von Neumann a finales de la dé
 
 De acuerdo con \cite{descripcionyAplicaciones}, podemos pensar en un autómata celular como un conjunto de células que tienen diferentes comportamientos en el tiempo y que interactúan entre sí, de la misma manera que en sistema biológico de donde se obtiene su nombre.
 
-La implementación computacional de un autómata celular por lo general se hace sobre matrices, por lo que el sistema que se quiere modelar se describe sobre una malla de tamaño regular, como en la figura (\ref{fig:AC a matriz}). Una vez se definen las características de cada célula y sus relaciones con las demás se establece una equivalencia con un conjunto de valores o caracteres que conoceremos como estados del autómata y finalmente, sobre esos estados definiremos las reglas de comportamiento para nuestro modelo.
+La implementación computacional de un autómata celular por lo general se hace sobre matrices o tensores, por lo que el sistema que se quiere modelar se describe sobre una malla de tamaño regular, como en la figura (\ref{fig:AC a matriz}). Una vez se definen las características de cada célula y sus relaciones con las demás, se establece una equivalencia con un conjunto de valores o caracteres que conoceremos como estados del autómata y finalmente, sobre esos estados definiremos las reglas de comportamiento para nuestro modelo.
 
-\begin{figure}[h]\label{fig:AC a matriz}
+\begin{figure}[h]
   \centering
     \includegraphics[width=1\textwidth]{Imagenes/ACaMatriz.PNG}
   \caption{Implementación computacional clásica de un autómata celular}
+  \label{fig:AC a matriz}
 \end{figure}
 
 A continuación definiremos los elementos que componen a un autómata celular:
 
 \subsubsection{Espacio de células}
 
-Un espacio de células $\mathcal{L}$ es el conjunto donde viven e interactuan todas las células que se consideran para el modelo. En general este espacio es discreto, regular y finito, esto último debido a las limitaciones computacionales con las que se construyen los modelos en autómatas celulares.
+Un espacio de células $\mathcal{L}$ es el conjunto donde viven e interactuan todas las células que se consideran para el modelo. En general este espacio es discreto, regular y finito, esto último debido a las limitaciones computacionales presentes en las herramientas con las que se construyen los modelos en autómatas celulares.
 
 La conición de regularidad de nuestro espacio de células se refiere a que las celdas que lo conforman se organizan de una manera regular, con lo que podemos dotar al espacio $\mathcal{L}$ de una dimensión de la forma $n_1\times\cdots\times n_m$ para $n_1,\cdots,n_m\in\mathbb{Z}$.
 
@@ -500,7 +525,7 @@ Todo espacio de células es un conjunto enumerable.
 
 La demostración de esta proposición se deduce directamente de la definición de espacio de células.
 
-\underline{\textit{Nota:}} En adelante cuando hablemos de un espacio de células se asumira que la dimensión del espacio es igual a 2 a menos que se indique lo contrario.
+\underline{\textit{Nota:}} En adelante cuando hablemos de un espacio de células se asumira que el espacio es bidimensional a menos que se indique lo contrario.
 
 La implementación computacional de estos espacios nos permite definir condiciones de frontera que resultan bastante utiles para diferentes aplicaciones. Usualmente se consideran los siguientes tipos de borde:
 
@@ -523,10 +548,11 @@ La implementación computacional de estos espacios nos permite definir condicion
 
 Dependiendo del contexto en que estemos implementando nuestro autómata celular, las células podrán adquirir diferentes atributos. Por ejemplo, si consideramos el ejercicio realizado en  \cite{NetLogoFireModel} en el que se modela la propagación del fuego en un bosque se consideran dos estados: los arboles que están quemados de color rojo y los que no se quemaron verde en la figura (\ref{fig:Fuego Netlogo}). Como puede apreciarse en el ejemplo, hay células que cambian de estado en el tiempo.
 
-\begin{figure}[h]\label{fig:Fuego Netlogo}
+\begin{figure}[h]
   \centering
     \includegraphics[width=0.4\textwidth]{Imagenes/netlogoEx1.PNG}
   \caption{Modelo del fuego en Netlogo. Captura tomada de \cite{NetLogoFireModel}.}
+  \label{fig:Fuego Netlogo}
 \end{figure}
 
 \begin{definition}\label{conjuntoDeEstados}
@@ -547,16 +573,17 @@ Por otro parte tenemos a la vecindad de Moore la cual se define de manera simila
 
 $$\mathcal{V}_M(x_{i,j}) = \{x_{k,l}\mid\abs{i-k},\abs{j-l}\leq1\text{, con }k,l\in\mathbb{Z}\}$$
 
-En la figura (\ref{fig:Moore - Von neumann}) podemos identificar a las celdas de color verde como las células centrales para cada vecindad y las de color azul como sus vecinos:
+En la figura (\ref{fig:Moore - Von neumann}) podemos identificar a las celdas de color verde como las células centrales correspondientes a las ubicadas en la posición $i,j$ para cada vecindad y las de color azul como sus vecinos:
 
-\begin{figure}[h]\label{fig:Moore - Von neumann}
+\begin{figure}[h]
   \centering
     \includegraphics[width=0.5\textwidth]{Imagenes/vecindades.PNG}
   \caption{Vecindades usuales para autómatas celulares}
+  \label{fig:Moore - Von neumann}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
+%\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsubsection{Reglas de evolución}
@@ -576,26 +603,31 @@ Las reglas de evolución pueden ser de dos tipos:
     
     Son aquellas en las que se define un estado para cada posible combinación de estados en la vecindad. Un ejemplo de esto son las \textbf{reglas de Wolfram} en las que se define la correspondencia entre los estados de una celda $x$ y sus vecinos con el estado posterior de la celda $x$. Consideremos como caso particular a la regla 30 en la que se define la siguiente correspondencia:
     
-    \begin{figure}[h]\label{fig:Regla30}
+    \begin{figure}[h]
       \centering
         \includegraphics[width=0.7\textwidth]{Imagenes/regla30.PNG}
       \caption{Regla 30. Captura tomada de \cite{rule30}}
+      \label{fig:Regla30}
     \end{figure}
     
-    Al tratarse de una regla sobre un espacio 1-dimensional los vecinos de cada célula son los que se encuentran a lados izquierdo y derecho, como se ve en la figura (\ref{fig:Regla30}). En este caso el conjunto de estados es de la forma $\Sigma=\{0,1\}$. En la figura (\ref{fig:regla30en15y250}) podemos apreciar la evolución del espacio de células $\mathcal{L}$ en 15 y 250 iteraciones respectivamente para la aplicación de la regla 30 denotada como $\phi_{30}$.
+    Al tratarse de una regla sobre un espacio 1-dimensional, los vecinos de cada célula son los que se encuentran a lados izquierdo y derecho, como se ve en la figura (\ref{fig:Regla30}). En este caso el conjunto de estados es de la forma $\Sigma=\{0,1\}$. En la siguiente figura podemos apreciar la evolución del espacio de células $\mathcal{L}$ en 15 y 250 iteraciones respectivamente para la aplicación de la regla 30 denotada como $\phi_{30}$.
     
     \begin{figure}[htbp]\label{fig:regla30en15y250}
         \centering
-        \subfigure[Evolución del espacio $\mathcal{L}$ luego de 15 iteraciones]{\includegraphics[width=60mm]{Imagenes/regla30en15.PNG}}
-        \subfigure[Evolución del espacio $\mathcal{L}$ luego de 250 iteraciones]{\includegraphics[width=60mm]{Imagenes/regla30en250.PNG}}
+        \subfigure[Evolución del espacio $\mathcal{L}$ luego de 15 iteraciones]{\includegraphics[width=70mm]{Imagenes/regla30en15.PNG}}
+        \subfigure[Evolución del espacio $\mathcal{L}$ luego de 250 iteraciones]{\includegraphics[width=70mm]{Imagenes/regla30en250.PNG}}
         \caption{Evoluciones al aplicar la regla 30 de Wolfram. Captura tomada de \cite{rule30}}
     \end{figure}
+    
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \newpage
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
     \item \textbf{Reglas totalísticas}
     
     A diferencia de las reglas determinísticas, las reglas totalísticas no establecen una correspondencia directa entre estados y combinaciones de vecindades, sino que en su lugar utilizan un componente probabilístico. Esto significa que dependiendo de la combinación, la célula sobre la que se aplica la regla puede tomar un estado de un subconjunto del conjunto de estados $\Sigma$. 
     
-    Existe un subtipo de este tipo de reglas conocido como las reglas semi-totalísticas, en las que el subconjunto que se considera para la evolución de la célula sobre la que se aplica la regla depende del estado de la misma célula. De ese modo:
+    Existe un subtipo de este tipo de reglas conocido como las reglas semi-totalísticas, en las que el subconjunto que se considera para la evolución de la célula sobre la que se aplica la regla, depende del estado de la misma célula. De ese modo, definimos una regla semi-totalística como:
     
     \begin{align*}
         \phi:\Sigma_x\times\overbrace{\Sigma\times\Sigma\times\cdots\times\Sigma}^{N}&\longrightarrow \left\{ \begin{array}{cc}
@@ -620,3 +652,5 @@ Una vez aclarados todos los conceptos que abarcan los autómatas celulares podem
 \begin{definition}\label{def:automataCelular}
 Un \textit{autómata celular} es una la tupla de la forma  $A=(\mathcal{L},\Sigma,\mathcal{N}(\mathcal{L}),\phi)$ con $\mathcal{N}(\mathcal{L})$ un sistema de vecindades sobre $\mathcal{L}$.
 \end{definition}
+
+En el siguiente capítulo nos enfocaremos en unificar los conceptos que vimos a lo largo de este capítulo, para luego definir las reglas de evolución que permitirán describir las interacciones entre células y la manera en la que una enfermedad las puede afectar.

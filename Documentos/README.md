@@ -3,4 +3,6 @@ En esta carpeta se reportan los avances en el documento de la tesis.
 
 ## Últimas actualizaciones 
 
-Se presentan las versiones del capítulo 4 y de las conclusiones antes de correcciones.
+Apendices, corrección sobre referencias a imágenes y arreglos de forma y ortografía. 
+
+Versión sin introducción, resumen y pendiente de corrección de título.
