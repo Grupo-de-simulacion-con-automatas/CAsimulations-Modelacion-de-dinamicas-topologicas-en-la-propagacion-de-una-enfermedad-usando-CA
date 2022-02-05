@@ -54,7 +54,7 @@ Los grados de impacto de una célula $x$ definen un sistema fundamental de vecin
 \begin{proof}
 Sea $x\in\mathcal{L}$ y $\mathcal{V}(x)$ una familia de vecindades de $x$. Defina el conjunto $A_0$ como el conjunto de puntos con grado de impacto con $x$ es igual a cero y de manera recursiva a los conjuntos $A_k$, cuyos elementos tienen grado de impacto con $x$ sea igual o menor a $k$. Claramente, $A_i\subseteq A_j$ para $0\leq i\leq j$ y de ese modo $A_i\in\mathcal{V}(x)$ para $i=0,1,\cdots,n$.
 
-Veamos ahora que el conjunto $A_0$ es la vecindad mínimal de $x$. Considere $y\in U_x$, en particular $y\in\bigcap\mathcal{V}(x)$ por la definición de 2.4.14. Si el grado de impacto de $y$ con $x$ es mayor a cero por la definición 3.1.2 podemos afirmar que existe $z\in\mathcal{L}$ tal que $z\thicksim x$, $z\thicksim y$ y $x\not\thicksim y$ y de ese modo $x$ e $y$ son puntos separables. Esto es una contradicción por el hecho de que $y\in \bigcap \mathcal{V}(x)$ y, por lo tanto $y\thicksim_0 x$, es decir $y\in A_0$.
+Veamos ahora que el conjunto $A_0$ es la vecindad mínimal de $x$. Considere $y\in U_x$, en particular $y\in\bigcap\mathcal{V}(x)$ por la definición de \ref{def:vecindadMinimal} Si el grado de impacto de $y$ con $x$ es mayor a cero por la definición \ref{def:gradoDeImpacto} podemos afirmar que existe $z\in\mathcal{L}$ tal que $z\thicksim x$, $z\thicksim y$ y $x\not\thicksim y$ y de ese modo $x$ e $y$ son puntos separables. Esto es una contradicción por el hecho de que $y\in \bigcap \mathcal{V}(x)$ y, por lo tanto $y\thicksim_0 x$, es decir $y\in A_0$.
 
 Considere $y\in A_0$ y por la definición de grado de impacto cero, afirmamos que los puntos $x$ e $y$ no son separables por lo que $y\in\mathcal{V}(x)$ y con esto concluimos la prueba.
 \end{proof}
@@ -298,7 +298,7 @@ A continuación podremos visualizar las soluciones obtenidas al analizar el mism
 \subsection{Modelos con natalidad y mortalidad}\label{sub:NatalidadyMortalidad}
 Partiendo del principio de que los análisis desarrollados en nuestra investigación tengan una mayor aplicabilidad en el ámbito epidemiológico, decidimos separarnos un poco de los modelos clásicos, ya que en estos se supone que las tasas de natalidad y mortalidad son iguales y esto no necesariamente se cumple en el mundo real.
 
-La segunda característica que tendremos en mente para definir nuestra regla de evolución parte de hipótesis de que los individuos en un sistema tienen una probabilidad de fallecer por causas ajenas a la enfermedad que depende de la edad del mismo individuo.
+La segunda característica que tendremos en mente para definir nuestra regla de evolución parte de la hipótesis de que los individuos en un sistema tienen una probabilidad de fallecer por causas ajenas a la enfermedad que depende de la edad del mismo individuo.
 
 Para implementar la noción de edad de una célula inicialmente tendremos que modificar el dominio de nuestra regla de evolución. Para estos modelos debemos tener en cuenta el estado de la célula central junto con su edad y el estado de sus vecinos, de modo que 
 $$Dom(\phi_\mu)=\Sigma_x\times K\times\overbrace{\Sigma\times\cdots\times\Sigma}^N\text{, con }K=\{1,2,\cdots,100\},$$

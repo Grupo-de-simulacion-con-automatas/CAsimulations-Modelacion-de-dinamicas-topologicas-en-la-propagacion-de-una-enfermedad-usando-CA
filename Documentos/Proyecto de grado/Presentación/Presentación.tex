@@ -29,11 +29,12 @@
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 % Informations
 \subtitle{\\
-\LARGE{Predicción del comportamiento de una enfermedad} \\
-\LARGE{simulada en autómatas celulares con un algoritmo}\\
-\LARGE{propuesto en redes neuronales}}
+\LARGE{CAsimulations: Modelación de dinámicas topológicas } \\
+\LARGE{en la propagación de una enfermedad usando}\\
+\LARGE{autómatas celulares}}
 %\subtitle{The winding number}
-\author{Jorge Andres Ibañez Huertas}
+\author{Jorge Andres Ibañez Huertas, 
+Carlos Isaac Zainea Maya}
 \institute{Central University, Bogotá}
 \date{\today}
 \titlegraphic{Imagenes/logo.png}
@@ -43,6 +44,20 @@
 
 % Generate title page
 \titlepage
+
+\begin{frame}{Introducción}
+Hoy en día existen muchos modelos matemáticos para proyectar el progreso de una enfermedad. Contingencias como la vivida con COVID 19 promueven una mayor comprensión de estos modelos y se crean nuevas teorías en torno a este problema desde diferentes perspectivas.
+
+A pesar de todos los avances realizados hasta el momento, se identifica que no se han tenido en cuenta las interacciones sociales más usuales. Es por esto que podemos preguntarnos por \textbf{¿cuál es el nivel de incidencia de las interacciones sociales en la propagación de una enfermedad?}
+\end{frame}
+
+\begin{frame}{Objetivos}
+\begin{enumerate}
+    \item Proporcionar una herramienta capaz de analizar los fenómenos epidemiológicos a partir de las interacciones sociales en un grupo de individuos.
+    \item Proporcionar una metodología para construir modelos epidemiológicos a partir de patrones y reglas lógicas.
+    \item Determinar el impacto de las interacciones sociales en la propagación de una enfermedad.
+\end{enumerate}
+\end{frame}
 
 \begin{frame}
 \frametitle{Tabla de Contenidos}
@@ -54,37 +69,34 @@
 \begin{frame}{Estudio epidemiológico}
 La epidemiología es la rama de las ciencias que se encarga de estudiar la ocurrencia y distribución de eventos, estados y procesos relacionados con la salud de distintas poblaciones, con el objetivo de brindar estrategias de control y prevención de problemas de salud relevantes \cite{epiDictionary}.
 
-Uno de los objetos de estudio con mayor importancia en el campo de la epidemiología es la cualidad endémica de la enfermedad, es decir, si la enfermedad afectará a la población por un largo periodo de tiempo o si desaparecerá gradualmente. 
+Uno de los objetos de estudio con mayor importancia en el campo de la epidemiología es la \textbf{cualidad endémica} de la enfermedad, es decir, si la enfermedad afectará a la población por un largo periodo de tiempo o si desaparecerá gradualmente. 
+\end{frame}
 
-\begin{alertblock}{Número básico de reproducción $\mathcal{R}_0$}
-Se define como la cantidad de individuos que infecta el paciente cero en una población completamente susceptible. En general, si $\mathcal{R}_0<1$ la enfermedad desaparecerá paulatinamente y sí $\mathcal{R}_0>1$, podríamos estar ante un caso de endemia.
+\begin{frame}{El indicador $\mathcal{R}_0$}
+Se define como la cantidad de individuos que infecta el paciente cero en una población completamente susceptible. 
 
 \begin{equation}\label{eq:R0}
  \mathcal{R}_0 = \int_0^\infty b(t)F(t) dt,
 \end{equation}
-\end{alertblock}
 
-% Heesterbeek y Dietz definen el número básico de reproducción $R_0$ como:
+donde $b(t)$ representa la \textbf{cantidad promedio de nuevos contagios} que producirá un individuo infectado durante un tiempo $t$ y $F(t)$, conocida como la función de supervivencia, representa la \textbf{probabilidad de que un individuo recién infectado se mantenga en ese estado} durante al menos un tiempo $t$ \cite{conceptOfR0, perspectivesOnR0}.
 
-% \begin{equation}\label{eq:R0}
-%  \mathcal{R}_0 = \int_0^\infty b(t)F(t) dt,
-% \end{equation}
-
-% donde $b(t)$ representa la cantidad promedio de nuevos contagios que producirá un individuo infectado durante un tiempo $t$ y $F(t)$, conocida como la función de supervivencia, representa la probabilidad de que un individuo recién infectado se mantenga en ese estado durante al menos un tiempo $t$ \cite{conceptOfR0, perspectivesOnR0}.
+En general, si $\mathcal{R}_0<1$ la enfermedad desaparecerá paulatinamente y sí $\mathcal{R}_0>1$, podríamos estar ante un caso de endemia.
 \end{frame}
 
-% \subsection{Modelos compartimentales}
-% \begin{frame}{Modelos compartimentales}
-% Tradicionalmente, se han utilizado modelos de compartimientos para elaborar análisis epidemiológicos. En estos modelos, cada individuo perteneciente a la población de estudio, es clasificado en uno de $n$ posibles ''compartimientos'', según su estado de salud.
-
-% Generalmente, cuando hablamos de modelos epidemiológicos se consideran tres estados o clases en las que podemos dividir a la población en el tiempo: Los que pueden contraer la enfermedad, los que se infectan y los que se recuperan. Si los que se recuperan no adquieren una inmunidad permanente, nos encontraremos ante un modelo SIS, en el que los susceptibles pueden contraer la enfermedad y una vez se recuperan vuelven al estado de susceptibilidad. Por otro lado, si los individuos que se recuperan generan inmunidad a la enfermedad, estaremos ante un modelo SIR. 
-% \end{frame}
-
 \subsection{Modelos compartimentales: Modelos SIS y SIR}
+\begin{frame}{Modelos compartimentales}
+Tradicionalmente, se han utilizado modelos de compartimientos para elaborar análisis epidemiológicos. En estos modelos, cada individuo perteneciente a la población de estudio, es clasificado en uno de $n$ posibles ''compartimientos'', según su estado de salud.
+
+Generalmente, se consideran tres estados en las que podemos dividir a la población en el tiempo: Los que pueden contraer la enfermedad, los que se infectan y los que se recuperan. Los modelos que consideran estas variaciones se conocen como los modelos SIS y SIR.
+
+\textbf{Nota:} Usaremos las versiones con tamaño de población constante de los modelos SIS y SIR. Se espera que en futuras investigaciones se profundice en poblaciones de tamaño variable.
+\end{frame}
+
 \begin{frame}{Modelos compartimentales: Modelos SIS y SIR}
 Diagramas compartimentales para los modelos SIS y SIR en sus versiones con muerte causada por enfermedad:\\
 
-\begin{minipage}{0.48\textwidth}
+\begin{minipage}{0.46\textwidth}
 \begin{figure}[h]
   \centering
     \includegraphics[width=0.7\textwidth]{Imagenes/SIS_compartimientos.PNG}
@@ -93,7 +105,7 @@ Diagramas compartimentales para los modelos SIS y SIR en sus versiones con muert
 \end{figure}
 \end{minipage}
 \hfill
-\begin{minipage}{0.48\textwidth}
+\begin{minipage}{0.5\textwidth}
 \begin{figure}[h]
   \centering
     \includegraphics[width=1\textwidth]{Imagenes/SIR_compartimientos.PNG}
@@ -139,47 +151,22 @@ $$\mathcal{R}_0 = \frac{\beta}{\alpha+\mu}.$$
 \begin{frame}{Topología}
 \textbf{Definición:} Sean $X$ un espacio topológico y $x\in X$. Diremos que un subconjunto $V$ de $X$ es una \textit{vecindad} de $x$, si existe un abierto $A$ tal que $x\in A\subseteq V$. Denotaremos por $\mathcal{V}(x)$ a la familia de todas las vecindades de $x$.
 
-\textbf{Proposición:} Sea $X$ un espacio topológico, entonces para cada $x\in X$:
-\begin{enumerate}
-    \item Si $U\in\mathcal{V}(x)$, entonces $x\in U$,
-    \item si $U,V\in\mathcal{V}(x)$, entonces $U\cap V\in\mathcal{V}(x)$,
-    \item para cada $U\in\mathcal{V}(x)$, existe $V\in\mathcal{V}(y)$ tal que $U\in\mathcal{V}(y)$ para cada $y\in V$, y 
-    \item si $U\in\mathcal{V}(x)$ y $U\subseteq V\subseteq X$ entonces $V\in\mathcal{V}(x)$.
-\end{enumerate}
+\textbf{Definición:} Para un punto $x$ en un espacio topológico $X$, un subconjunto $\mathcal{B}(x)$ de $\mathcal{V}(x)$ es un \textit{sistema fundamental de vecindades de $x$} sí para cada $V\in\mathcal{V}(x)$, existe $B\in\mathcal{B}(x)$ tal que $B\subseteq V$. 
 
-\textbf{Definición:} Para un punto $x$ en un espacio topológico $X$, un subconjunto $\mathcal{B}(x)$ de $\mathcal{V}(x)$ es un \textit{sistema fundamental de vecindades de $x$} sí para cada $V\in\mathcal{V}(x)$, existe $B\in\mathcal{B}(x)$ tal que $B\subseteq V$. Los elementos de $\mathcal{B}(x)$ son llamados \textit{vecindades (o entornos) básicos} de $x$.
-
-\textbf{Proposición:} La unión de todas las vecindades minimales $U_x$ para $x\in X$ forma una base para la topología de $X$. Esta base es llamada \textit{base minimal}.
+\textbf{Definición:} Una \textit{vecindad minimal de} $x$ es la intersección de todas las vecindades de $x$. Lo denotaremos como $U_x$.
 
 \textbf{Definición:} Un espacio topológico $X$ que tiene un sistema fundamental de vecindades numerable en cada uno de sus puntos se dice que satisface el primer axioma de numerabilidad o simplemente que es uno-numerable.
 \end{frame}
 
 \subsection{Autómatas celulares}
 \begin{frame}{Autómatas celulares}
-%De acuerdo con \cite{descripcionyAplicaciones}, podemos pensar en un autómata celular como un conjunto de células que tienen diferentes comportamientos en el tiempo y que interactúan entre sí, de la misma manera que en sistema biológico de donde se obtiene su nombre.
+Podemos pensar en un autómata celular como un conjunto de células que tienen diferentes comportamientos en el tiempo y que interactúan entre sí, de la misma manera que en sistema biológico de donde se obtiene su nombre.
 
-Un \textbf{espacio de células} $\mathcal{L}$ es el conjunto donde viven e interactúan todas las células que se consideran para el modelo. %En general este espacio es discreto, regular y finito, esto último debido a las limitaciones computacionales presentes en las herramientas con las que se construyen los modelos en autómatas celulares.
+Un \textbf{espacio de células} $\mathcal{L}$ es el conjunto donde viven e interactúan todas las células que se consideran para el modelo. En general este espacio es discreto, regular y finito.%, esto último debido a las limitaciones computacionales presentes en las herramientas con las que se construyen los modelos en autómatas celulares.
 
 El \textbf{conjunto de estados} $\Sigma$ es el conjunto finito de todas las posibles categorías en las que pueden estar las células del espacio $\mathcal{L}$. %Cada elemento $\sigma$ de $\Sigma$ será conocido como un estado del modelo.
 
-\begin{minipage}{0.6\textwidth}
-\begin{figure}[h]
-  \centering
-    \includegraphics[width=1.1\textwidth]{Imagenes/ACaMatriz.PNG}
-  \caption{Implementación computacional clásica de un autómata celular}
-  \label{fig:AC a matriz}
-\end{figure}
-\end{minipage}
-\hfill
-\begin{minipage}{0.3\textwidth}
-\begin{figure}[h]
-  \centering
-    \includegraphics[width=1\textwidth]{Imagenes/vecindades.PNG}
-  \caption{Vecindades usuales para autómatas celulares}
-  \label{fig:Moore - Von neumann}
-\end{figure}
-\end{minipage}\\
-Las \textbf{reglas} que rigen el comportamiento de los estados de las células depende del estado de sus vecinos y su asignación puede ser de dos posibles tipos: determinística o totalística.
+Las \textbf{reglas} que rigen el comportamiento de los estados de las células depende del estado de sus vecinos y su asignación puede ser de dos posibles tipos: determinística o totalística, y se deben aplicar en simultáneo sobre cada una de las células.
 \end{frame}
 
 \begin{frame}{Autómatas celulares: Reglas de evolución}
@@ -218,34 +205,43 @@ Las \textbf{reglas} que rigen el comportamiento de los estados de las células d
 \end{align*}
     
 donde $k$ es la cantidad de posibles estados que puede tomar $x$.
-    
-Un \textbf{autómata celular} es una la tupla de la forma  $A=(\mathcal{L},\Sigma,\mathcal{N}(\mathcal{L}),\phi)$ con $\mathcal{N}(\mathcal{L})$ un sistema de vecindades sobre $\mathcal{L}$.
+\end{frame}
+
+\begin{frame}{Autómatas celulares: Sistemas de vecindades}
+En general no se trabaja con todo el conjunto $\mathcal{V}(x)$ sino que se consideran elementos de cada una de estas familias para conformar un conjunto de vecindades sobre el espacio $\mathcal{L}$. Este conjunto se conoce como un \textbf{sistema de vecindades} sobre $\mathcal{L}$.
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=0.48\textwidth]{Imagenes/vecindades.PNG}
+  \caption{Vecindades usuales para autómatas celulares}
+  \label{fig:Moore - Von neumann}
+\end{figure}    
+
+De ese modo, un \textbf{autómata celular} es una la tupla de la forma  $A=(\mathcal{L},\Sigma,\mathcal{N}(\mathcal{L}),\phi)$ con $\mathcal{N}(\mathcal{L})$ un sistema de vecindades sobre $\mathcal{L}$.
 \end{frame}
 
 \section{Modelos epidemiológicos en autómatas celulares}
 \subsection{Relaciones entre células}
 \begin{frame}{Relaciones entre células}
-Pensemos ahora en las características que hay detrás de relación cercana entre individuos o células. Denotaremos la relación entre células con el símbolo $\thicksim$ y una vez dicho esto tenemos que:
+Pensemos por un momento en que si un individuo susceptible a una enfermedad tiene contacto con muchos infectados, puede enfermarse con mucha más facilidad que un individuo que tiene contacto con pocos infectados. Ahora bien \textbf{¿cuántas interacciones con infectados de todos las que puede llegar a tener una célula, son suficientes para generar una probabilidad de contagio considerable?}
+
+A diferencia del trabajo realizado en "\textit{Epidemiological modeling with a population density map-based cellular automata simulation system}" \cite{populationDensity} en el que cada celda representaba una región, consideraremos a cada división como un único individuo que será dotado de un conjunto de cualidades como el estado de salud, la edad, los vecinos, etc.
+\end{frame}
+
+\begin{frame}{Relaciones entre células}
+Denotaremos la relación entre células con el símbolo $\thicksim$ y una vez dicho esto tenemos que:
 
 \begin{itemize}
     \item Todas las células están en contacto con ellas mismas, por lo que para cada célula $x$ se cumple $x \thicksim x$.
     \item Si una célula estuviera en contacto con alguna otra entonces esa célula estaría en contacto con la primera, es decir, $x\thicksim y$ implica $y\thicksim x$.
     \item Si una célula interactúa con otras dos no implica necesariamente que estas interactúen entre sí, por lo que $x\thicksim y$ y $x\thicksim z$ no implican que $y\thicksim z$.
 \end{itemize}
-
-\begin{exampleblock}{Ejemplo}
-Consideremos por ejemplo el conjunto $X=\{a,b,c\}$ y a la sub-colección $\mathcal{A}$ dada por $\mathcal{A}=\{\emptyset,\{a\},\{b\}.\{a,b\},\{a,c\},\{a,b,c\}\}$. Las relaciones de interacción presentes en la topología $\mathcal{A}$ son:
-$$\begin{array}{cccccc}
-    a\thicksim a, & b\thicksim b, & a\thicksim b, & a\thicksim c & \text{, y} & b\thicksim c,
-\end{array}$$
-junto con sus relaciones simétricas equivalentes.
-\end{exampleblock}
 \end{frame}
 
-\begin{frame}{Relaciones entre células: Grados de impaccto}
+\begin{frame}{Relaciones entre células: Grados de impacto}
 \textbf{Definición:} Denotaremos como $a\thicksim_n b$ con $n\in\mathbb{N}$, a la menor cantidad de interacciones entre $a$ y $b$. Conoceremos como \textbf{grado de impacto} a la relación $\thicksim_n$.
 
-Del ejemplo anterior se obtiene que:
+Consideremos el siguiente ejemplo en donde $\mathcal{A}=\{\emptyset,\{a\},\{b\}.\{a,b\},\{a,c\},\{a,b,c\}\}$:
 
 $$\begin{array}{cccccccc}
     a\thicksim_0 a, & b\thicksim_0 b, & a\thicksim_1 c, & a\thicksim_1 b, &
@@ -259,7 +255,7 @@ $$\begin{array}{cccccccc}
 \end{figure}
 \end{frame}
 
-\begin{frame}{Relaciones entre células: Grados de impaccto}
+\begin{frame}{Relaciones entre células: Grados de impacto}
 %De la definición de grado de impacto podemos deducir el siguiente resultado:
 
 \textbf{Teorema:} Los grados de impacto de una célula $x$ definen un sistema fundamental de vecindades.
@@ -267,10 +263,12 @@ $$\begin{array}{cccccccc}
 \underline{\textit{Demostración:}}
 \begin{enumerate}
     \item Para $x\in\mathcal{L}$ defina recursivamente a los conjuntos $\mathcal{A}_k$ formados por los elementos son los puntos con grado de impacto $k$ con $x$.
-    \item 
+    \item Se observa que $A_i\subseteq A_j$ para $0\leq i\leq j$ y de ese modo $A_i\in\mathcal{V}(x)$ para $i=0,1,\cdots,n$
+    \item Se comprueba que $A_0$ es la vecindad mínimal de $x$. (se contradice la definición de $\thicksim_n$)
+    \item Para $y\in A_0$ se afirma que $x$ e $y$ no son separables por lo que $y\in\mathcal{V}(x)$ y con esto existe un abierto que está en todos los $V\in\mathcal{V}(x)$.
 \end{enumerate}
 
-\textbf{Proposición:} Sea $x\in\mathcal{L}$ una célula y sea $\mathcal{A}$ la familia de conjuntos encajados definidos por el grado de impacto con $x$. Se cumplen las siguientes propiedades:
+\textbf{Proposición:} Sea $x\in\mathcal{L}$ una célula y sea $\mathcal{A}$ la familia de conjuntos encajados definidos por el grado de impacto con $x$. Entonces:
 \begin{enumerate}
     \item El conjunto $\mathcal{A}$ posee elemento mínimal igual a $A_0$,
     \item $\mathcal{A}$ es un conjunto ordenado finito con el orden de la contenencia, y
@@ -280,7 +278,22 @@ $$\begin{array}{cccccccc}
 %Algo que debemos tener en cuenta es que el grado de impacto por si solo no nos proporciona una medida del impacto que tienen los cambios de estado de células "lejanas" (o de grado de impacto mayor a cero). Estas medidas de impacto se entenderán como la probabilidad de que un cambio de estado afecte a la célula con la que estamos realizando la comparación. De ese modo, las tasas de impacto serán valores entre 0 y 1 que pueden venir dados por cualquier tipo de función que tenga como dominio al conjunto de grados de impacto.
 \end{frame}
 
+\begin{frame}{Reglas de evolución: Tasas de impacto}
+El grado de impacto por si solo no nos proporciona una medida del impacto que tienen los cambios de estado de células "lejanas" (o de grado de impacto mayor a cero). 
+
+Estas medidas de impacto se entenderán como la probabilidad de que un cambio de estado afecte a la célula con la que estamos realizando la comparación. De ese modo, las tasas de impacto serán valores entre 0 y 1 que pueden venir dados por cualquier tipo de función que tenga como dominio al conjunto de grados de impacto.
+\end{frame}
+
 \subsection{Reglas de evolución}
+
+\begin{frame}{Reglas de evolución: Notación}
+Dado que estamos trabajando sobre poblaciones de tamaño constante la manera en la que interpretaremos el nacimiento de una célula será con la ocupación del espacio que deja una que muere. 
+
+Identificaremos a los espacios que dejan las células que mueren con el estado $D$, esto nos permitirá separar a los espacios que pueden ocuparse y los que no de células que interactúen con sus vecinos. 
+
+Al igual que en los modelos clásicos, asumiremos que los individuos que "nacen" son susceptibles a la enfermedad.
+\end{frame}
+
 \begin{frame}{Reglas de evolución: Notación}
 Antes de comenzar a definir nuestras reglas de evolución definiremos las siguientes notaciones:
 \begin{itemize}
@@ -294,38 +307,21 @@ Antes de comenzar a definir nuestras reglas de evolución definiremos las siguie
 \end{frame}
 
 \begin{frame}{Reglas de evolución: Modelo SI}
-\textbf{Definición:} Para una célula $x$ en un espacio $\mathcal{L}$ definimos la regla SI como:
-\begin{equation}
-    \phi_{SI}^t(x)=\left\{\begin{array}{ll}
-        S & \text{si }\pi^t(x)=S\text{, }\sum_g{\sigma_{g,I}^t(x)\cdot P(g)}\leq \sum_g{\sigma_{g,S}^t(x)\cdot P(g)}\text{ y }\rho\geq i(t),\\
-        I & \text{si }\pi^t(x)\in\{S,I\}\text{,} \\
-        \pi^t(x) & \text{en otro caso,}
-    \end{array}\right.
-\end{equation}
-con $\rho\in\mathcal{U}_{[0,1]}$, $P(g)$ la tasa de impacto del grado $g$ e
-\begin{equation}
-    i(t) = \frac{\beta}{\alpha}\sum_g{\frac{\sigma_{g,I}^t(x)}{\Delta_g}}\cdot P(g),
-\end{equation}
-donde el factor $\frac{\beta}{\alpha}$ indica la afectación ocasionada por la enfermedad y el factor restante corresponde al comportamiento de las células y su impacto en la célula $x$.
-\end{frame}
-
-\begin{frame}{Reglas de evolución: Modelo SI}
 \textbf{Ejemplo:}
-En la figura \ref{fig:configuraciónInicialEspacio25Celulas} podemos encontrar la configuración de estados para un sistema de 25 células: en las tres del lado derecho encontramos la disposición de grados de impacto para las tres células marcadas en color verde (primera imagen), donde SFV es una abreviación de Sistema Fundamental de Vecindades.\\
 
-\begin{minipage}{0.73\textwidth}
+\begin{minipage}{0.55\textwidth}
 \begin{figure}[h]
   \centering
-    \includegraphics[width=1\textwidth]{Imagenes/cellSpace.PNG}
+    \includegraphics[width=0.8\textwidth]{Imagenes/cellSpacePresentation.png}
     \caption{Configuración inicial de estados y sistemas fundamentales de vecindades}
     \label{fig:configuraciónInicialEspacio25Celulas}
 \end{figure}
 \end{minipage}
 \hfill
-\begin{minipage}{0.23\textwidth}
+\begin{minipage}{0.4\textwidth}
 \begin{figure}[h]
   \centering
-    \includegraphics[width=0.7\textwidth]{Imagenes/RelacionTasasYGrados_Ex_SI.png}
+    \includegraphics[width=0.5\textwidth]{Imagenes/RelacionTasasYGrados_Ex_SI.png}
     \caption{Relación entre tasas y grados de impacto.}
 \end{figure}
 \end{minipage}
@@ -338,6 +334,24 @@ En la figura \ref{fig:configuraciónInicialEspacio25Celulas} podemos encontrar l
     \end{array}
 \end{align*}
 Para una tasa $\beta=0.5$ y una tasa $\alpha=0.2$ se tiene que $i_{2,2}(0)=0.8$.
+\end{frame}
+
+\begin{frame}{Reglas de evolución: Modelo SI}
+\textbf{Definición:} Para una célula $x$ en un espacio $\mathcal{L}$ definimos la regla SI como:
+\begin{equation}
+    \phi_{SI}^t(x)=\left\{\begin{array}{ll}
+        S & \text{si }\pi^t(x)=S\text{, }\sum_g{\sigma_{g,I}^t(x)\cdot P(g)}\leq \sum_g{\sigma_{g,S}^t(x)\cdot P(g)}\text{ y }\rho\geq i(t),\\
+        \pi^t(x) & \text{si }\pi^t(x)\notin\{S,I\}\text{,} \\
+        I & \text{en otro caso,}
+    \end{array}\right.
+\end{equation}
+con $\rho\in\mathcal{U}_{[0,1]}$, $P(g)$ la tasa de impacto del grado $g$ e
+\begin{equation}
+    i(t) = \frac{\beta}{\alpha}\sum_g{\frac{\sigma_{g,I}^t(x)}{\Delta_g}}\cdot P(g),
+\end{equation}
+donde el factor $\frac{\beta}{\alpha}$ indica la afectación ocasionada por la enfermedad y el factor restante corresponde al comportamiento de las células y su impacto en la célula $x$.
+
+\textbf{Nota:} Se espera que en futuras investigaciones se profundice en cambios sobre la distribución usada, esto vendrá dado por el contexto del problema planteado.
 \end{frame}
 
 \begin{frame}{Reglas de evolución: Modelos SIS y SIR}
@@ -391,7 +405,6 @@ donde $\rho\in\mathcal{U}_{[0,1]}$.
 Para estos modelos se considerarán las "edades" de las células, por lo que
 $$Dom(\phi_\mu)=\Sigma_x\times K\times\overbrace{\Sigma\times\cdots\times\Sigma}^N\text{, con }K=\{1,2,\cdots,100\},$$
 $$Ran(\phi_\mu)=\Sigma_x\times K.$$
-La manera en la que interpretaremos el nacimiento de una célula será con la ocupación del espacio que deja una que muere. %Para esto identificaremos a los espacios que dejan las células que mueren con el estado $D$ y una edad cero, esto nos permitirá separar a los espacios que pueden ocuparse y los que no de células que interactúen con sus vecinos. Al igual que en los modelos descritos en el capítulo \ref{cap:Preliminares}, asumiremos que los individuos que "nacen" son susceptibles a la enfermedad.
 
 \textbf{Definición:} Definimos la regla de evolución con nacimientos y muertes para $M$ como:
 \begin{equation*}
@@ -403,7 +416,7 @@ La manera en la que interpretaremos el nacimiento de una célula será con la oc
         \phi_M^t(x),E^t(x)+1 & \text{si }t\equiv 0 \text{ (modulo }T),
     \end{array}\right.
 \end{equation*}
-donde $\omega_k$ es la probabilidad de morir por causas ajenas a la enfermedad para las edades en la partición k-ésima del intervalo $[0,100]$, $b$ es la tasa de natalidad, $\phi_M^t$ es la regla de evolución del modelo epidemiológico, $E^t(x)$ denota la edad de la célula $x$ en el momento $t$ y $\rho\in\mathcal{U}_{[0,1]}$.
+donde $\omega_k$ es la probabilidad de morir por causas ajenas a la enfermedad para las edades en la k-ésima partición del intervalo $[0,100]$, $b$ es la tasa de natalidad, $\phi_M^t$ es la regla de evolución del modelo epidemiológico, $E^t(x)$ denota la edad de la célula $x$ en el momento $t$ y $\rho\in\mathcal{U}_{[0,1]}$.
 \end{frame}
 
 % \begin{frame}{Reglas de evolución: Modelos con natalidad y mortalidad}
@@ -451,12 +464,11 @@ Donde $\theta_k$ es la probabilidad de morir por la enfermedad para los individu
 
 \section{Ejemplo particular}
 \begin{frame}{Ejemplo particular}
-Supongamos que se descubre el inicio de un brote de gripa en el hospital de un pueblo con 49 personas y deseamos analizar el comportamiento de la enfermedad para establecer medidas de control para variaciones futuras de la misma gripa.
 \begin{itemize}
     \item \textbf{Escuela (E):} Se sabe que en el pueblo hay 9 niños y 2 profesores.
     \item \textbf{Oficinas (O):} Cuenta con un personal de 16 individuos.
     \item \textbf{Mercado (M):} Se identificaron 8 trabajadores.
-    \item \textbf{Hospital (H):} Entre doctores, enfermeros y pacientes se identifica una cantidad de 14 individuos.
+    \item \textbf{Hospital (H):} Entre doctores, enfermeros y pacientes se identifica una cantidad de 14 individuos. Para un total de 49 personas en el pueblo.
 \end{itemize}
 \begin{minipage}{0.48\textwidth}
 \begin{figure}[h]
@@ -475,7 +487,26 @@ Supongamos que se descubre el inicio de un brote de gripa en el hospital de un p
 \end{figure}
 \end{minipage}
 
-En el caso de la enfermedad, tomaremos $\alpha=\frac{1}{5}=0.2$ (la gripa dura en promedio 5 días), $\beta=0.3$, tasas de natalidad del $2\%$ y de mortalidad del $0.5\%$.
+En el caso de la enfermedad, tomaremos $\alpha=\frac{1}{5}=0.2$ (la gripa dura en promedio 5 días), $\beta=0.3$, tasas de natalidad del $2\%$ y de mortalidad del $0.5\%$. Supondremos inicialmente que la enfermedad inicia en el hospital.
+\end{frame}
+
+\begin{frame}{Ejemplo particular}
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=0.8\textwidth]{Imagenes/vecindadesCap4.PNG}
+    \caption{Grados de impacto.}
+    \label{fig:GradosdeImpactoEX4}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Ejemplo particular}
+Para un periodo de 30 días y las tasas de impacto $P(0)=1,P(1)=0.5$ y $P(2)=0.25$ se tiene el comportamiento descrito en la segunda figura:
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=0.5\textwidth]{Imagenes/metricas1.PNG}
+    \caption{Cambios de estado con punto de inicio en el hospital.}
+    \label{fig:metricas1}
+\end{figure}
 \end{frame}
 
 \begin{frame}{Ejemplo particular}
@@ -486,6 +517,17 @@ En la siguiente figura podremos observar la evolución promedio sobre 100 simula
     \includegraphics[width=1\textwidth]{Imagenes/comparacionTasasImpacto.PNG}
     \caption{Evolución promedio de la enfermedad tomando distintas tasas de impacto.}
     \label{fig:comparacionTasasdeImpacto}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Ejemplo particular}
+Teniendo en cuenta que el ejemplo anterior muestra que diferentes tasas de impacto afectan a las curvas de evolución del modelo, podemos preguntarnos si ocurre algo similar con diferentes condiciones iniciales. 
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=0.5\textwidth]{Imagenes/condicionesIniciales.png}
+    \caption{Población infectada por condición inicial.}
+    \label{fig:condicionesIniciales}
 \end{figure}
 \end{frame}
 
@@ -502,18 +544,17 @@ Por otro lado, podemos también preguntarnos si el sistema de vecindades con el 
 \section{Conclusiones}
 \begin{frame}{Conclusiones}
 \begin{itemize}
-    \item Haciendo uso de las propiedades de los autómatas celulares para describir comportamientos espaciales y de los sistemas fundamentales de vecindades es posible modelar las relaciones sociales de un conjunto de individuos determinado.
-    \item Las condiciones iniciales sobre la manera en la que interactúan las células no impacta a los puntos de equilibrio de las curvas que describen el comportamiento de la enfermedad.
+    \item Haciendo uso de las \textbf{propiedades de los autómatas celulares} para describir comportamientos espaciales y de los sistemas fundamentales de vecindades \textbf{es posible modelar las relaciones sociales} de un conjunto de individuos determinado.
+    \item Las \textbf{condiciones iniciales} sobre cómo interactúan las células \textbf{no afectan a los puntos de equilibrio} de las curvas que describen el comportamiento de la enfermedad. Sin embargo, como se observa en los ejemplos realizados, los \textbf{cambios en la condición inicial} pueden afectar a la \textbf{velocidad de propagación} de la misma enfermedad.
     \item Se evidencia que limitar y/o reducir la intensidad de las interacciones sociales es una medida efectiva para disminuir los casos de individuos infectados.
-    \item Se comprobó que es posible alcanzar una inmunidad de rebaño si se reducen significativamente las interacciones entre individuos.
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Conclusiones}
 \begin{itemize}
-    \item Las reglas y algoritmos propuestos permiten visualizar de manera clara e intuitiva a la manera en la que una enfermedad evoluciona dentro de una población, manteniendo un comportamiento que puede ser descrito en cierta medida por los modelos compartimentales clásicos.
-    \item Si bien las reglas planteadas permiten analizar características que no eran posibles con los modelos clásicos, se evidencia una limitación en cuanto a que se asume una capacidad máxima de individuos en el sistema.
-    \item La metodología empleada para el diseño e implementación de las reglas de evolución descritas en este trabajo, brindan un camino claro para la definición de reglas que modelen el comportamiento de modelos epidemiológicos más generales.
+    \item Las reglas y algoritmos propuestos \textbf{permiten visualizar de manera clara e intuitiva a la manera en la que una enfermedad evoluciona dentro de una población}, manteniendo un comportamiento que puede ser descrito en cierta medida por los modelos compartimentales clásicos.
+    \item Si bien las reglas planteadas permiten analizar características que no eran posibles con los modelos clásicos, se evidencia una \textbf{limitación} en cuanto a que se asume una \textbf{capacidad máxima de individuos en el sistema.}
+    \item La \textbf{metodología} empleada para el diseño e implementación de las reglas de evolución descritas en este trabajo, brindan un camino claro para la definición de reglas que modelen el comportamiento de modelos epidemiológicos más generales.
 \end{itemize}
 \end{frame}
 

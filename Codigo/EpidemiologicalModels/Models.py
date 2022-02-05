@@ -375,7 +375,7 @@ class applyEpidemiologicalModel_nIterations:
         elif self.nSimulations == 1:
             print("Debe generar más de una simulación.")
             return False
-        elif self.initialPercentageInfected == 0:
+        elif self.initialPercentageInfected < 0:
             print("Debe establecer un porcentage de infectados inicial para cada simulación.")
             return False
         else:

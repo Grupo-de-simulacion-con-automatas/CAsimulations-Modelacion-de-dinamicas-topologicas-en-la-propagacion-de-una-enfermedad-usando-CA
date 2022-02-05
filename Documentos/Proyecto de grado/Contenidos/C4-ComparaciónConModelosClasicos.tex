@@ -125,7 +125,7 @@ Este escenario también nos permite ver que en el pueblo se alcanza lo que se co
     \label{fig:evo2}
 \end{figure}
 
-Cabe resaltar que a pesar de que la población está más distanciada, la enfermedad tiene un comportamiento similar a la del primer escenario. Esto se debe a la naturaleza descrita por los parámetros de la enfermedad y a su número básico de reproducción $\mathcal{R}_0$ (\ref{eq:R0}). En la figura (\ref{fig:comparacionTasasdeImpacto}) podremos observar la evolución promedio sobre 100 simulaciones de la enfermedad teniendo en cuenta diferentes tasas de impacto:
+Cabe resaltar que a pesar de que la población está más distanciada, la enfermedad tiene un comportamiento similar a la del primer escenario. Esto se debe a la naturaleza descrita por los parámetros de la enfermedad y a su número básico de reproducción $\mathcal{R}_0\approx 1.46$ (\ref{eq:R0}). En la figura (\ref{fig:comparacionTasasdeImpacto}) podremos observar la evolución promedio sobre 100 simulaciones de la enfermedad teniendo en cuenta diferentes tasas de impacto:
 
 \begin{figure}[h]
   \centering
@@ -134,12 +134,21 @@ Cabe resaltar que a pesar de que la población está más distanciada, la enferm
     \label{fig:comparacionTasasdeImpacto}
 \end{figure}
 
+Teniendo en cuenta que el ejemplo anterior muestra que diferentes tasas de impacto afectan a las curvas de evolución del modelo, podemos preguntarnos si ocurre algo similar con diferentes condiciones iniciales. La figura \ref{fig:condicionesIniciales} muestra la evolución de la población infectada en el pueblo para diferentes condiciones iniciales, cada una de ellas situada en uno de los lugares de trabajo mencionados anteriormente.
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=0.5\textwidth]{Imagenes/condicionesIniciales.png}
+    \caption{Población infectada por condición inicial.}
+    \label{fig:condicionesIniciales}
+\end{figure}
+
 Durante todo el capítulo hemos estado trabajando al rededor de un escenario similar con un valor de $\mathcal{R}_0>1$ y en todos los ejercicios que abordamos, se puede evidenciar que la enfermedad alcanza un pico (o punto máximo de cantidad de contagios activos) en un momento similar. Esto se debe a que a pesar de considerar los mismos parámetros de la enfermedad, estamos modificando las propiedades en sí del espacio de células y esto a su vez, nos permite afirmar que la condición inicial no dependerá únicamente de los parámetros $\alpha$, $\beta$ y las tasas $\mu_k, \theta_k$ como ocurría en el modelo clásico, sino que en su lugar se tendrán que tomar en cuenta las maneras en las que las células pueden llegar a interactuar.
 
 Afirmaciones como la anterior, nos motivan a preguntarnos si el sistema de vecindades con el que se describen las interacciones, tiene algún tipo de incidencia en el comportamiento de la enfermedad. Para responder a esta inquietud nos planteamos el escenario que se puede observar en la figura (\ref{fig:comparacionTasasdeImpacto}) en donde se muestra la evolución de la misma enfermedad, sobre un espacio en el que las relaciones entre células se pueden describir a partir de los sistemas de vecindades de Moore y de Von Neumann junto con el escenario planteado durante el presente capítulo. Para los tres escenarios se tomaron las curvas promedio sobre un total de 100 simulaciones.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
+% \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{figure}[h]
