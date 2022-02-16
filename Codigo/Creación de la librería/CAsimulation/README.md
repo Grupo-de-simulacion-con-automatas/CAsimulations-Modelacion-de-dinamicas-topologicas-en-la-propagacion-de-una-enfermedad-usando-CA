@@ -1,2 +1,2 @@
 # UNTDA
-Paquete de aprendizaje de ATD - Isaac Zainea
+Paquete de simulación epidemiológica - Jorge Ibañez

@@ -169,43 +169,43 @@ El \textbf{conjunto de estados} $\Sigma$ es el conjunto finito de todas las posi
 Las \textbf{reglas} que rigen el comportamiento de los estados de las células depende del estado de sus vecinos y su asignación puede ser de dos posibles tipos: determinística o totalística, y se deben aplicar en simultáneo sobre cada una de las células.
 \end{frame}
 
-\begin{frame}{Autómatas celulares: Reglas de evolución}
-\textbf{Reglas determinísticas}\\
-\begin{minipage}{0.65\textwidth}
-\begin{figure}[h]
-  \centering
-    \includegraphics[width=1\textwidth]{Imagenes/regla30.PNG}
-  \caption{Regla 30 de Wolfram. Captura tomada de \cite{rule30}}
-  \label{fig:Regla30}
-\end{figure}
-\end{minipage}
-\hfill
-\begin{minipage}{0.3\textwidth}
-\begin{figure}[h]
-  \centering
-    \includegraphics[width=0.8\textwidth]{Imagenes/regla30en15.PNG}
-  \caption{Evolución del espacio en 15 iteraciones.}
-  \label{fig:Regla30}
-\end{figure}
-\end{minipage}\\
+% \begin{frame}{Autómatas celulares: Reglas de evolución}
+% \textbf{Reglas determinísticas}\\
+% \begin{minipage}{0.65\textwidth}
+% \begin{figure}[h]
+%   \centering
+%     \includegraphics[width=1\textwidth]{Imagenes/regla30.PNG}
+%   \caption{Regla 30 de Wolfram. Captura tomada de \cite{rule30}}
+%   \label{fig:Regla30}
+% \end{figure}
+% \end{minipage}
+% \hfill
+% \begin{minipage}{0.3\textwidth}
+% \begin{figure}[h]
+%   \centering
+%     \includegraphics[width=0.8\textwidth]{Imagenes/regla30en15.PNG}
+%   \caption{Evolución del espacio en 15 iteraciones.}
+%   \label{fig:Regla30}
+% \end{figure}
+% \end{minipage}\\
 
-\textbf{Reglas totalísticas}
+% \textbf{Reglas totalísticas}
     
-%Las reglas totalísticas no establecen una correspondencia directa entre estados y combinaciones de vecindades, sino que en su lugar utilizan un componente probabilístico. %Esto significa que dependiendo de la combinación, la célula sobre la que se aplica la regla puede tomar un estado de un subconjunto del conjunto de estados $\Sigma$. 
+% %Las reglas totalísticas no establecen una correspondencia directa entre estados y combinaciones de vecindades, sino que en su lugar utilizan un componente probabilístico. %Esto significa que dependiendo de la combinación, la célula sobre la que se aplica la regla puede tomar un estado de un subconjunto del conjunto de estados $\Sigma$. 
     
-%Existe un subtipo de este tipo de reglas conocido como las reglas semi-totalísticas, en las que el subconjunto que se considera para la evolución de la célula sobre la que se aplica la regla, depende del estado de la misma célula. De ese modo, definimos una regla semi-totalística como:
+% %Existe un subtipo de este tipo de reglas conocido como las reglas semi-totalísticas, en las que el subconjunto que se considera para la evolución de la célula sobre la que se aplica la regla, depende del estado de la misma célula. De ese modo, definimos una regla semi-totalística como:
     
-\begin{align*}
-    \phi:\Sigma_x\times\overbrace{\Sigma\times\Sigma\times\cdots\times\Sigma}^{N}&\longrightarrow \left\{ \begin{array}{cc}
-    \sigma_1 \subseteq \Sigma_x & \text{si el estado de }x\text{ es }s_1 \\
-    \sigma_2 \subseteq \Sigma_x & \text{si el estado de }x\text{ es }s_2 \\
-    \vdots & \vdots \\
-    \sigma_k \subseteq \Sigma_x & \text{si el estado de }x\text{ es }s_k
-    \end{array} \right. ,
-\end{align*}
+% \begin{align*}
+%     \phi:\Sigma_x\times\overbrace{\Sigma\times\Sigma\times\cdots\times\Sigma}^{N}&\longrightarrow \left\{ \begin{array}{cc}
+%     \sigma_1 \subseteq \Sigma_x & \text{si el estado de }x\text{ es }s_1 \\
+%     \sigma_2 \subseteq \Sigma_x & \text{si el estado de }x\text{ es }s_2 \\
+%     \vdots & \vdots \\
+%     \sigma_k \subseteq \Sigma_x & \text{si el estado de }x\text{ es }s_k
+%     \end{array} \right. ,
+% \end{align*}
     
-donde $k$ es la cantidad de posibles estados que puede tomar $x$.
-\end{frame}
+% donde $k$ es la cantidad de posibles estados que puede tomar $x$.
+% \end{frame}
 
 \begin{frame}{Autómatas celulares: Sistemas de vecindades}
 En general no se trabaja con todo el conjunto $\mathcal{V}(x)$ sino que se consideran elementos de cada una de estas familias para conformar un conjunto de vecindades sobre el espacio $\mathcal{L}$. Este conjunto se conoce como un \textbf{sistema de vecindades} sobre $\mathcal{L}$.
@@ -225,7 +225,7 @@ De ese modo, un \textbf{autómata celular} es una la tupla de la forma  $A=(\mat
 \begin{frame}{Relaciones entre células}
 Pensemos por un momento en que si un individuo susceptible a una enfermedad tiene contacto con muchos infectados, puede enfermarse con mucha más facilidad que un individuo que tiene contacto con pocos infectados. Ahora bien \textbf{¿cuántas interacciones con infectados de todos las que puede llegar a tener una célula, son suficientes para generar una probabilidad de contagio considerable?}
 
-A diferencia del trabajo realizado en "\textit{Epidemiological modeling with a population density map-based cellular automata simulation system}" \cite{populationDensity} en el que cada celda representaba una región, consideraremos a cada división como un único individuo que será dotado de un conjunto de cualidades como el estado de salud, la edad, los vecinos, etc.
+% A diferencia del trabajo realizado en "\textit{Epidemiological modeling with a population density map-based cellular automata simulation system}" \cite{populationDensity} en el que cada celda representaba una región, consideraremos a cada división como un único individuo que será dotado de un conjunto de cualidades como el estado de salud, la edad, los vecinos, etc.
 \end{frame}
 
 \begin{frame}{Relaciones entre células}
@@ -242,17 +242,16 @@ Denotaremos la relación entre células con el símbolo $\thicksim$ y una vez di
 \textbf{Definición:} Denotaremos como $a\thicksim_n b$ con $n\in\mathbb{N}$, a la menor cantidad de interacciones entre $a$ y $b$. Conoceremos como \textbf{grado de impacto} a la relación $\thicksim_n$.
 
 Consideremos el siguiente ejemplo en donde $\mathcal{A}=\{\emptyset,\{a\},\{b\}.\{a,b\},\{a,c\},\{a,b,c\}\}$:
-
-$$\begin{array}{cccccccc}
-    a\thicksim_0 a, & b\thicksim_0 b, & a\thicksim_1 c, & a\thicksim_1 b, &
-    b\thicksim_1 a, & b\thicksim_2 c, & c\thicksim_0 a, & c\thicksim_0 c
-\end{array}$$
 \begin{figure}[h]
   \centering
     \includegraphics[width=0.3\textwidth]{Imagenes/grados_de_impacto.PNG}
   \caption{Grados de impacto para el espacio $X$ con la topología $\mathcal{A}$.}
   \label{fig:gradoImpacto}
 \end{figure}
+$$\begin{array}{cccccccc}
+    a\thicksim_0 a, & b\thicksim_0 b, & a\thicksim_1 c, & a\thicksim_1 b, &
+    b\thicksim_1 a, & b\thicksim_2 c, & c\thicksim_0 a, & c\thicksim_0 c
+\end{array}$$
 \end{frame}
 
 \begin{frame}{Relaciones entre células: Grados de impacto}
@@ -264,8 +263,11 @@ $$\begin{array}{cccccccc}
 \begin{enumerate}
     \item Para $x\in\mathcal{L}$ defina recursivamente a los conjuntos $\mathcal{A}_k$ formados por los elementos son los puntos con grado de impacto $k$ con $x$.
     \item Se observa que $A_i\subseteq A_j$ para $0\leq i\leq j$ y de ese modo $A_i\in\mathcal{V}(x)$ para $i=0,1,\cdots,n$
-    \item Se comprueba que $A_0$ es la vecindad mínimal de $x$. (se contradice la definición de $\thicksim_n$)
-    \item Para $y\in A_0$ se afirma que $x$ e $y$ no son separables por lo que $y\in\mathcal{V}(x)$ y con esto existe un abierto que está en todos los $V\in\mathcal{V}(x)$.
+    \item Se comprueba que $A_0$ es la vecindad mínimal de $x$. 
+    \begin{enumerate}
+        \item $(\subseteq)$ Se toma $y\in U_x$ y se supone que $y\not\thicksim_0 x$ (Contradicción de la definición de $\thicksim_n$).
+        \item $(\supseteq)$ Se toma $y\in A_0$ y se afirma que $y\in\bigcap\mathcal{V}(x)$, por lo que $y\in U_x$.
+    \end{enumerate}
 \end{enumerate}
 
 \textbf{Proposición:} Sea $x\in\mathcal{L}$ una célula y sea $\mathcal{A}$ la familia de conjuntos encajados definidos por el grado de impacto con $x$. Entonces:
@@ -326,18 +328,30 @@ Antes de comenzar a definir nuestras reglas de evolución definiremos las siguie
 \end{figure}
 \end{minipage}
 
-\begin{align*}
+\begin{itemize}
+    \item Niveles de incidencia:
+    \begin{align*}
     \begin{array}{l}
         \sum_g\sigma_{g,S}^0(x_{2,2})\cdot P(g) = 4\cdot0.5+6\cdot0.3+6\cdot0.25+2\cdot0.1+1\cdot0.05 = 5.55 \\
-        \sum_g\sigma_{g,I}^0(x_{2,2})\cdot P(g) = 3\cdot0.5+1\cdot0.3+2\cdot0.25+0\cdot0.1+0\cdot0.05 = 2.3\\
+        \sum_g\sigma_{g,I}^0(x_{2,2})\cdot P(g) = 3\cdot0.5+1\cdot0.3+2\cdot0.25+0\cdot0.1+0\cdot0.05 = 2.3
+    \end{array}
+\end{align*}
+\item Probabilidad de contagio: 
+\end{itemize}
+\begin{align*}
+    \begin{array}{l}
         i_{2,2}(0) = \frac{\beta}{\alpha}\cdot\left(\frac{3\cdot0.5}{7}+\frac{1\cdot0.3}{7}+\frac{2\cdot0.25}{8}+\frac{0\cdot0.1}{2}+\frac{0\cdot0.05}{1}\right)=\frac{179}{560}\cdot\frac{\beta}{\alpha}
     \end{array}
 \end{align*}
-Para una tasa $\beta=0.5$ y una tasa $\alpha=0.2$ se tiene que $i_{2,2}(0)=0.8$.
+Para $\beta=0.5$ y $\alpha=0.2$ se tiene que $i_{2,2}(0)=0.8$.
 \end{frame}
 
 \begin{frame}{Reglas de evolución: Modelo SI}
-\textbf{Definición:} Para una célula $x$ en un espacio $\mathcal{L}$ definimos la regla SI como:
+\textbf{Definición:} Sean $x\in\mathcal{L}$ una célula e
+\begin{equation}
+    i(t) = \frac{\beta}{\alpha}\sum_g{\frac{\sigma_{g,I}^t(x)}{\Delta_g}}\cdot P(g),
+\end{equation}
+entonces, $\rho\in\mathcal{U}_{[0,1]}$ y $P(g)$ la tasa de impacto del grado $g$ definimos a la regla SI como:
 \begin{equation}
     \phi_{SI}^t(x)=\left\{\begin{array}{ll}
         S & \text{si }\pi^t(x)=S\text{, }\sum_g{\sigma_{g,I}^t(x)\cdot P(g)}\leq \sum_g{\sigma_{g,S}^t(x)\cdot P(g)}\text{ y }\rho\geq i(t),\\
@@ -345,17 +359,12 @@ Para una tasa $\beta=0.5$ y una tasa $\alpha=0.2$ se tiene que $i_{2,2}(0)=0.8$.
         I & \text{en otro caso,}
     \end{array}\right.
 \end{equation}
-con $\rho\in\mathcal{U}_{[0,1]}$, $P(g)$ la tasa de impacto del grado $g$ e
-\begin{equation}
-    i(t) = \frac{\beta}{\alpha}\sum_g{\frac{\sigma_{g,I}^t(x)}{\Delta_g}}\cdot P(g),
-\end{equation}
-donde el factor $\frac{\beta}{\alpha}$ indica la afectación ocasionada por la enfermedad y el factor restante corresponde al comportamiento de las células y su impacto en la célula $x$.
 
 \textbf{Nota:} Se espera que en futuras investigaciones se profundice en cambios sobre la distribución usada, esto vendrá dado por el contexto del problema planteado.
 \end{frame}
 
 \begin{frame}{Reglas de evolución: Modelos SIS y SIR}
-\textbf{Definición:} Dada una célula $x$ en un conjunto $\mathcal{L}$ definimos respectivamente las reglas de evolución para los modelos SIS y SIR respectivamente como:
+\textbf{Definición:} Dada una célula $x$ en un conjunto $\mathcal{L}$ y un valor $\rho\in\mathcal{U}_{[0,1]}$ definimos respectivamente las reglas de evolución para los modelos SIS y SIR respectivamente como:
 \begin{equation}
     \phi_{SIS}^t(x)=\left\{\begin{array}{ll}
         \phi_{SI}^t(x) & \text{si }\pi^t(x) = S,\\
@@ -372,7 +381,6 @@ donde el factor $\frac{\beta}{\alpha}$ indica la afectación ocasionada por la e
         R & \text{si }\pi^t(x)=R,
     \end{array}\right.
 \end{equation}
-donde $\rho\in\mathcal{U}_{[0,1]}$.
 \end{frame}
 
 \begin{frame}{Reglas de evolución: Modelos SIS y SIR}
@@ -406,7 +414,7 @@ Para estos modelos se considerarán las "edades" de las células, por lo que
 $$Dom(\phi_\mu)=\Sigma_x\times K\times\overbrace{\Sigma\times\cdots\times\Sigma}^N\text{, con }K=\{1,2,\cdots,100\},$$
 $$Ran(\phi_\mu)=\Sigma_x\times K.$$
 
-\textbf{Definición:} Definimos la regla de evolución con nacimientos y muertes para $M$ como:
+\textbf{Definición:} Para $x\in\mathcal{L},\rho\in\mathcal{U}_{[0,1]},b$ la tasa de natalidad y $\omega_k$ la probabilidad de morir por causas ajenas a la enfermedad para las edades en la k-ésima partición del intervalo $[0,100]$, definimos la regla de evolución con nacimientos y muertes para $M$ como:
 \begin{equation*}
     \mu_{M,T}^t(x)=\left\{\begin{array}{ll}
         D,0 & \text{si }t\not\equiv 0 \text{ (modulo }T\text{), }\pi^t(x)\in\{S,I,R\}\text{ y }\rho\leq\omega_k, \\
@@ -416,7 +424,7 @@ $$Ran(\phi_\mu)=\Sigma_x\times K.$$
         \phi_M^t(x),E^t(x)+1 & \text{si }t\equiv 0 \text{ (modulo }T),
     \end{array}\right.
 \end{equation*}
-donde $\omega_k$ es la probabilidad de morir por causas ajenas a la enfermedad para las edades en la k-ésima partición del intervalo $[0,100]$, $b$ es la tasa de natalidad, $\phi_M^t$ es la regla de evolución del modelo epidemiológico, $E^t(x)$ denota la edad de la célula $x$ en el momento $t$ y $\rho\in\mathcal{U}_{[0,1]}$.
+donde $\phi_M^t$ es la regla de evolución del modelo epidemiológico y $E^t(x)$ denota la edad de la célula $x$ en el momento $t$.
 \end{frame}
 
 % \begin{frame}{Reglas de evolución: Modelos con natalidad y mortalidad}
@@ -444,14 +452,14 @@ donde $\omega_k$ es la probabilidad de morir por causas ajenas a la enfermedad p
 % \end{frame}
 
 \begin{frame}{Reglas de evolución: Modelos con muerte por enfermedad}
-\textbf{Definición:} Sea $x$ una célula en un conjunto $\mathcal{L}$, $M$ un modelo epidemiológico ($SIS$, $SIR$, etc.) y $T$ una unidad temporal (días, meses, años, etc.). Definimos la regla de evolución con muerte por enfermedad para $M$ como:
+\textbf{Definición:} Sea $x$ una célula en un conjunto $\mathcal{L},\rho\in\mathcal{U}_{[0,1]}$ y $\theta_k$ la probabilidad de morir por la enfermedad para los individuos con una edad en el intervalo k-ésimo de la partición del intervalo $[0,100]$, definimos la regla de evolución con muerte por enfermedad para $M$ como:
 \begin{equation}
     \theta_{M,T}^t(x)=\left\{\begin{array}{ll}
         D,0 & \text{si }\pi^t(x)=I\text{ y }\rho\leq\theta_k, \\
         \mu_{M,T}^t(x) & \text{en otro caso.}
     \end{array}\right.
 \end{equation}
-Donde $\theta_k$ es la probabilidad de morir por la enfermedad para los individuos con una edad en el intervalo k-ésimo de la partición del intervalo $[0,100]$, $\mu_{M,T}^t$ es la regla de evolución para modelos con nacimientos y muertes y $\rho\in\mathcal{U}_{[0,1]}$.
+Donde $\mu_{M,T}^t$ es la regla de evolución para modelos con nacimientos y muertes.
 % Partiremos de la misma configuración de edades sobre un sistema de 100 células y las mismas tasas de natalidad y mortalidad consideradas en el ejemplo \ref{ex:aplicaciónReglaNatalidadyMortalidad}. Tomaremos las vecindades de Von Neumann para describir sus interacciones. En cuanto a la enfermedad, supondremos una tasa de infección $\beta=0.5$, una de recuperación $\alpha=0.2$ y una probabilidad de muerte causada por la misma enfermedad de $\theta=0.4$ (tomamos este valor con el objetivo de comparar los resultados con el modelo clásico).
 
 % \begin{figure}[h]
