@@ -1,5 +1,5 @@
 import numpy as np
-import EpidemiologicalModels.CellManagement as CellManagement
+import CAsimulation.CellManagement as CellManagement
 
 class CellSpaceConfiguration:
 

@@ -2,10 +2,10 @@ from typing import Type
 import numpy as np
 import random
 import math
-import EpidemiologicalModels.Models as Models
-import EpidemiologicalModels.CellManagement as CellManagement
-import EpidemiologicalModels.DataManager as DataManager
-import EpidemiologicalModels.CellSpaceConfiguration as CellSpaceConfiguration
+import CAsimulation.Models as Models
+import CAsimulation.CellManagement as CellManagement
+import CAsimulation.DataManager as DataManager
+import CAsimulation.CellSpaceConfiguration as CellSpaceConfiguration
 
 class AgesMatrix:
     

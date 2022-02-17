@@ -1,9 +1,18 @@
+
 # CAsimulations
 
-Para importar la librería, ejecute el siguiente script
-~~~
- from EpidemiologicalModels.epidemiologicalModelsInCA import * 
- ~~~
+```CAsimulations``` proporciona una manera de simular fenómenos asociados con la propagación de enfermedades, basándose en modelos *SIR* y *SIS* implementados en autómatas celulares en Python. ```CAsimulations``` incluye una gran variedad de utilidades para análisis epidemiológicos tales como la capacidad de definir la condición inicial de frontera del sistema, la condición inicial de dispersión de los individuos infectados, variaciones y comparaciones con respecto al cambio de escala y al cambio de frontera del sistema, variaciones promedio para un número arbitrario de simulaciones, entre otros. 
+
+Para importar la librería, ejecute el siguiente comando pip en su entorno de Python:
+
+```pip install -i https://test.pypi.org/simple/ CAsimulation```
+
+Una vez instalada, podemos proceder a cargar la librería, para lo cual tendrá que ejecutar el siguiente script
+
+```from CAsimulation import epidemiologicalModelsInCA as ca```
+
+A continuación se presenta la documentación de las funciones principales de nuestra librería separadas por los conceptos definidos en el proyecto:
+
 ## El espacio de células
 
 ### CellSpace(nRows, nColumns, xnRows, xnColumns, unRows, unColumns)
@@ -22,7 +31,7 @@ Genera la configuración básica de un sistema de células
 
 **Ejemplo 1:**
 ~~~
-space = CellSpace(10,10)
+space = ca.CellSpace(10,10)
 space.system
 --> array([[0., 0., 0., 0., 0.],
            [0., 0., 0., 0., 0.],
@@ -39,7 +48,7 @@ space.initialLocationOfInfected(0.1)
 ~~~
 **Ejemplo 2:**
 ~~~
-space = CellSpace(3,1,5,5)
+space = ca.CellSpace(3,1,5,5)
 space.system
 --> array([[ 0., -1., -1., -1., -1.],
            [ 0., -1., -1., -1., -1.],
@@ -56,7 +65,7 @@ space.rectangularBoundary(2,2,3,1)
 ~~~
 **Ejemplo 3:**
 ~~~
-space = CellSpace(3,1,5,5,1,2)
+space = ca.CellSpace(3,1,5,5,1,2)
 space.system
 --> array([[-1., -1., -1., -1., -1.],
            [-1., -1.,  0., -1., -1.],
@@ -76,8 +85,8 @@ Crea una matriz con las edades de las células de acuerdon con las probabilidade
 **Ejemplo:**
 ~~~
 ranges = [[0,10,0.2],[11,100,0.8]]  # 20% tienen entre 0 y 10 años, y 80% tienen entre 11 y 100.
-space = CellSpace(5,5)
-createAgeMatrix(ranges, space)
+space = ca.CellSpace(5,5)
+ca.createAgeMatrix(ranges, space)
     
 --> array([[ 1., 81., 33.,  5., 18.],
            [90., 19., 18., 36., 50.],
@@ -172,10 +181,10 @@ Modelo SIS aplicado sobre el espacio de células
 
 **Ejemplo:**
 ~~~
-cellSpace = CellSpace(9,9).initialLocationOfInfected(0.1)
-neighborhoodSystem = GenerateNeighborhoodSystem(cellSpace,"moore")
+cellSpace = ca.CellSpace(9,9).initialLocationOfInfected(0.1)
+neighborhoodSystem = ca.GenerateNeighborhoodSystem(cellSpace,"moore")
 
-sis = SIS(0.2,0.5,10,cellSpace,neighborhoodSystem,[1,0])
+sis = ca.SIS(0.2,0.5,10,cellSpace,neighborhoodSystem,[1,0])
 ~~~
 
 ### SIR(alpha, beta, n_iterations, cellSpace, neighborhoodSystem, impactRates):
@@ -193,10 +202,10 @@ Modelo SIR aplicado sobre el espacio de células
 
 **Ejemplo:**
 ~~~
-cellSpace = CellSpace(9,9).initialLocationOfInfected(0.1)
-neighborhoodSystem = GenerateNeighborhoodSystem(cellSpace,"moore")
+cellSpace = ca.CellSpace(9,9).initialLocationOfInfected(0.1)
+neighborhoodSystem = ca.GenerateNeighborhoodSystem(cellSpace,"moore")
 
-sir = SIR(0.2,0.5,10,cellSpace,neighborhoodSystem,[1,0])
+sir = ca.SIR(0.2,0.5,10,cellSpace,neighborhoodSystem,[1,0])
 ~~~
 ### SIS_BM(alpha, beta, birthRate, probabilityOfDyingByAgeGroup, annualUnit, n_iterations, cellSpace, neighborhoodSystem, impactRates, systemAges)
 Modelo SIS con natalidad y mortalidad aplicado sobre el espacio de células
@@ -217,11 +226,11 @@ Modelo SIS con natalidad y mortalidad aplicado sobre el espacio de células
 
 **Ejemplo:**
 ~~~
-cellSpace = CellSpace(9, 9).initialLocationOfInfected(0.1)
-neighborhoodSystem = GenerateNeighborhoodSystem(cellSpace, "moore")
+cellSpace = ca.CellSpace(9, 9).initialLocationOfInfected(0.1)
+neighborhoodSystem = ca.GenerateNeighborhoodSystem(cellSpace, "moore")
 ageMatrix = CreateAgeMatrix([[0,100,1]], cellSpace)
 
-sis_bm = SIS_BM(0.2,0.5,0.2,[[0,100,0.0005]],365,20,cellSpace,neighborhoodSystem,[1,0],ageMatrix)
+sis_bm = ca.SIS_BM(0.2,0.5,0.2,[[0,100,0.0005]],365,20,cellSpace,neighborhoodSystem,[1,0],ageMatrix)
 ~~~
 ### SIR_BM(alpha, beta, birthRate, probabilityOfDyingByAgeGroup, annualUnit, n_iterations, cellSpace, neighborhoodSystem, impactRates, systemAges)
 Modelo SIR con natalidad y mortalidad aplicado sobre el espacio de células
@@ -242,11 +251,11 @@ Modelo SIR con natalidad y mortalidad aplicado sobre el espacio de células
 
 **Ejemplo:**
 ~~~
-cellSpace = CellSpace(9, 9).initialLocationOfInfected(0.1)
-neighborhoodSystem = GenerateNeighborhoodSystem(cellSpace, "moore")
-ageMatrix = CreateAgeMatrix([[0,100,1]], cellSpace)
+cellSpace = ca.CellSpace(9, 9).initialLocationOfInfected(0.1)
+neighborhoodSystem = ca.GenerateNeighborhoodSystem(cellSpace, "moore")
+ageMatrix = ca.CreateAgeMatrix([[0,100,1]], cellSpace)
 
-sir_bm = SIR_BM(0.2,0.5,0.2,[[0,100,0.0005]],365,20,cellSpace,neighborhoodSystem,[1,0],ageMatrix)
+sir_bm = ca.SIR_BM(0.2,0.5,0.2,[[0,100,0.0005]],365,20,cellSpace,neighborhoodSystem,[1,0],ageMatrix)
 ~~~
 ### SIS_DD(alpha, beta, birthRate, probabilityOfDyingByAgeGroup, deathFromDiseaseByAgeRange, annualUnit, n_iterations, cellSpace, neighborhoodSystem, impactRates, systemAges)
 Modelo SIS con muerte por enfermedad aplicado sobre el espacio de células
@@ -268,11 +277,11 @@ Modelo SIS con muerte por enfermedad aplicado sobre el espacio de células
 
 **Ejemplo:**
 ~~~
-cellSpace = CellSpace(9, 9).initialLocationOfInfected(0.1)
-neighborhoodSystem = GenerateNeighborhoodSystem(cellSpace, "moore")
-ageMatrix = CreateAgeMatrix([[0,100,1]], cellSpace)
+cellSpace = ca.CellSpace(9, 9).initialLocationOfInfected(0.1)
+neighborhoodSystem = ca.GenerateNeighborhoodSystem(cellSpace, "moore")
+ageMatrix = ca.CreateAgeMatrix([[0,100,1]], cellSpace)
 
-sis_dd = SIS_DD(0.2,0.5,0.2,[[0,100,0.0005]],[[0,100,0.0005]],365,20,cellSpace,neighborhoodSystem,[1,0],ageMatrix)
+sis_dd = ca.SIS_DD(0.2,0.5,0.2,[[0,100,0.0005]],[[0,100,0.0005]],365,20,cellSpace,neighborhoodSystem,[1,0],ageMatrix)
 ~~~
 ### SIR_DD(alpha, beta, birthRate, probabilityOfDyingByAgeGroup, deathFromDiseaseByAgeRange, annualUnit, n_iterations, cellSpace, neighborhoodSystem, impactRates, systemAges)
 Modelo SIR con muerte por enfermedad aplicado sobre el espacio de células
@@ -294,11 +303,11 @@ Modelo SIR con muerte por enfermedad aplicado sobre el espacio de células
 
 **Ejemplo:**
 ~~~
-cellSpace = CellSpace(9, 9).initialLocationOfInfected(0.1)
-neighborhoodSystem = GenerateNeighborhoodSystem(cellSpace, "moore")
-ageMatrix = CreateAgeMatrix([[0,100,1]], cellSpace)
+cellSpace = ca.CellSpace(9, 9).initialLocationOfInfected(0.1)
+neighborhoodSystem = ca.GenerateNeighborhoodSystem(cellSpace, "moore")
+ageMatrix = ca.CreateAgeMatrix([[0,100,1]], cellSpace)
 
-sir_dd = SIR_DD(0.2,0.5,0.2,[[0,100,0.0005]],[[0,100,0.0005]],365,20,cellSpace,neighborhoodSystem,[1,0],ageMatrix)
+sir_dd = ca.SIR_DD(0.2,0.5,0.2,[[0,100,0.0005]],[[0,100,0.0005]],365,20,cellSpace,neighborhoodSystem,[1,0],ageMatrix)
 ~~~
 
 ### medium_SIS(alpha, beta, initialPercentageInfected, n_iterations, nSimulations, cellSpace, neighborhoodSystem, impactRates)
@@ -318,11 +327,11 @@ Aplica el modelo SIS una cantidad determinada de veces y calcula sus datos prome
 
 **Ejemplo:**
 ~~~
-cellSpace = CellSpace(9, 9).initialLocationOfInfected(0.1)
-neighborhoodSystem = GenerateNeighborhoodSystem(cellSpace, "moore")
-ageMatrix = CreateAgeMatrix([[0,100,1]], cellSpace)
+cellSpace = ca.CellSpace(9, 9).initialLocationOfInfected(0.1)
+neighborhoodSystem = ca.GenerateNeighborhoodSystem(cellSpace, "moore")
+ageMatrix = ca.CreateAgeMatrix([[0,100,1]], cellSpace)
 
-medium_sis = medium_SIS(0.2,0.5,0.1,10,3,cellSpace,neighborhoodSystem,[1,0])
+medium_sis = ca.medium_SIS(0.2,0.5,0.1,10,3,cellSpace,neighborhoodSystem,[1,0])
 ~~~
 ### medium_SIR(alpha, beta, initialPercentageInfected, n_iterations, nSimulations, cellSpace, neighborhoodSystem, impactRates)
 Aplica el modelo SIR una cantidad determinada de veces y calcula sus datos promedio
@@ -341,11 +350,11 @@ Aplica el modelo SIR una cantidad determinada de veces y calcula sus datos prome
 
 **Ejemplo:**
 ~~~
-cellSpace = CellSpace(9, 9).initialLocationOfInfected(0.1)
-neighborhoodSystem = GenerateNeighborhoodSystem(cellSpace, "moore")
-ageMatrix = CreateAgeMatrix([[0,100,1]], cellSpace)
+cellSpace = ca.CellSpace(9, 9).initialLocationOfInfected(0.1)
+neighborhoodSystem = ca.GenerateNeighborhoodSystem(cellSpace, "moore")
+ageMatrix = ca.CreateAgeMatrix([[0,100,1]], cellSpace)
 
-medium_sir = medium_SIR(0.2,0.5,0.1,10,3,cellSpace,neighborhoodSystem,[1,0])
+medium_sir = ca.medium_SIR(0.2,0.5,0.1,10,3,cellSpace,neighborhoodSystem,[1,0])
 ~~~
 ### medium_SIS_BM(alpha, beta, birthRate, probabilityOfDyingByAgeGroup, annualUnit, initialPercentageInfected, n_iterations, nSimulations, cellSpace, neighborhoodSystem, impactRates, systemAges) 
 Aplica el modelo SIS con natalidad y mortalidad una cantidad determinada de veces y calcula sus datos promedio
@@ -368,11 +377,11 @@ Aplica el modelo SIS con natalidad y mortalidad una cantidad determinada de vece
 
 **Ejemplo:**
 ~~~
-cellSpace = CellSpace(9, 9).initialLocationOfInfected(0.1)
-neighborhoodSystem = GenerateNeighborhoodSystem(cellSpace, "moore")
-ageMatrix = CreateAgeMatrix([[0,100,1]], cellSpace)
+cellSpace = ca.CellSpace(9, 9).initialLocationOfInfected(0.1)
+neighborhoodSystem = ca.GenerateNeighborhoodSystem(cellSpace, "moore")
+ageMatrix = ca.CreateAgeMatrix([[0,100,1]], cellSpace)
 
-medium_sis_bm = medium_SIS_BM(0.2,0.5, 0.2, [[0,100,0.0000005]], 365, 0.1,10,3,cellSpace,neighborhoodSystem,[1,0],ageMatrix)
+medium_sis_bm = ca.medium_SIS_BM(0.2,0.5, 0.2, [[0,100,0.0000005]], 365, 0.1,10,3,cellSpace,neighborhoodSystem,[1,0],ageMatrix)
 ~~~
 ### medium_SIR_BM(alpha, beta, birthRate, probabilityOfDyingByAgeGroup, annualUnit, initialPercentageInfected, n_iterations, nSimulations, cellSpace, neighborhoodSystem, impactRates, systemAges) 
 Aplica el modelo SIR con natalidad y mortalidad una cantidad determinada de veces y calcula sus datos promedio
@@ -395,11 +404,11 @@ Aplica el modelo SIR con natalidad y mortalidad una cantidad determinada de vece
 
 **Ejemplo:**
 ~~~
-cellSpace = CellSpace(9, 9).initialLocationOfInfected(0.1)
-neighborhoodSystem = GenerateNeighborhoodSystem(cellSpace, "moore")
-ageMatrix = CreateAgeMatrix([[0,100,1]], cellSpace)
+cellSpace = ca.CellSpace(9, 9).initialLocationOfInfected(0.1)
+neighborhoodSystem = ca.GenerateNeighborhoodSystem(cellSpace, "moore")
+ageMatrix = ca.CreateAgeMatrix([[0,100,1]], cellSpace)
 
-medium_sir_bm = medium_SIR_BM(0.2,0.5, 0.2, [[0,100,0.0000005]], 365, 0.1,10,3,cellSpace,neighborhoodSystem,[1,0],ageMatrix)
+medium_sir_bm = ca.medium_SIR_BM(0.2,0.5, 0.2, [[0,100,0.0000005]], 365, 0.1,10,3,cellSpace,neighborhoodSystem,[1,0],ageMatrix)
 ~~~
 ### medium_SIS_DD(alpha, beta, birthRate, probabilityOfDyingByAgeGroup, deathFromDiseaseByAgeRange, annualUnit, initialPercentageInfected, n_iterations, nSimulations, cellSpace, neighborhoodSystem, impactRates, systemAges)
 Aplica el modelo SIS con muerte por enfermead una cantidad determinada de veces y calcula sus datos promedio
@@ -423,11 +432,11 @@ Aplica el modelo SIS con muerte por enfermead una cantidad determinada de veces 
 
 **Ejemplo:**
 ~~~
-cellSpace = CellSpace(9, 9).initialLocationOfInfected(0.1)
-neighborhoodSystem = GenerateNeighborhoodSystem(cellSpace, "moore")
-ageMatrix = CreateAgeMatrix([[0,100,1]], cellSpace)
+cellSpace = ca.CellSpace(9, 9).initialLocationOfInfected(0.1)
+neighborhoodSystem = ca.GenerateNeighborhoodSystem(cellSpace, "moore")
+ageMatrix = ca.CreateAgeMatrix([[0,100,1]], cellSpace)
 
-medium_sis_dd = medium_SIS_DD(0.2,0.5, 0.2, [[0,100,0.0000005]], [[0,100,0.0000005]],365, 0.1,10,3,cellSpace,neighborhoodSystem,[1,0],ageMatrix)
+medium_sis_dd = ca.medium_SIS_DD(0.2,0.5, 0.2, [[0,100,0.0000005]], [[0,100,0.0000005]],365, 0.1,10,3,cellSpace,neighborhoodSystem,[1,0],ageMatrix)
 ~~~
 ### medium_SIR_DD(alpha, beta, birthRate, probabilityOfDyingByAgeGroup, deathFromDiseaseByAgeRange, annualUnit, initialPercentageInfected, n_iterations, nSimulations, cellSpace, neighborhoodSystem, impactRates, systemAges)
 Aplica el modelo SIR con muerte por enfermead una cantidad determinada de veces y calcula sus datos promedio
@@ -451,9 +460,9 @@ Aplica el modelo SIR con muerte por enfermead una cantidad determinada de veces 
 
 **Ejemplo:**
 ~~~
-cellSpace = CellSpace(9, 9).initialLocationOfInfected(0.1)
-neighborhoodSystem = GenerateNeighborhoodSystem(cellSpace, "moore")
-ageMatrix = CreateAgeMatrix([[0,100,1]], cellSpace)
+cellSpace = ca.CellSpace(9, 9).initialLocationOfInfected(0.1)
+neighborhoodSystem = ca.GenerateNeighborhoodSystem(cellSpace, "moore")
+ageMatrix = ca.CreateAgeMatrix([[0,100,1]], cellSpace)
 
-medium_sir_dd = medium_SIR_DD(0.2,0.5, 0.2, [[0,100,0.0000005]], [[0,100,0.0000005]],365, 0.1,10,3,cellSpace,neighborhoodSystem,[1,0],ageMatrix)
+medium_sir_dd = ca.medium_SIR_DD(0.2,0.5, 0.2, [[0,100,0.0000005]], [[0,100,0.0000005]],365, 0.1,10,3,cellSpace,neighborhoodSystem,[1,0],ageMatrix)
 ~~~

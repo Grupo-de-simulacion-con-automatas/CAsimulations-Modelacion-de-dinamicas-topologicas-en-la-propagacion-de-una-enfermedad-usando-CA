@@ -1,14 +1,17 @@
-Metadata-Version: 1.1
-Name: CAsimulation
-Version: 1.0.0
+Metadata-Version: 2.1
+Name: casimulation
+Version: 1.0.1.2
 Summary: Paquete de simulación epidemiológica basada en autómatas celulares
 Home-page: https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN
 Author: Jorge Ibañez - Isaac Zainea
 Author-email: jonan0804@gmail.com
 License: UNKNOWN
-Description: UNKNOWN
 Keywords: SIR models,Celular automaton,Simulación epidemiológica,modelo SIR,modelo SIS
 Platform: UNKNOWN
 Classifier: Programming Language :: Python :: 3
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Operating System :: OS Independent
+License-File: LICENSE
+
+UNKNOWN
+

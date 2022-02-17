@@ -1,7 +1,7 @@
-import EpidemiologicalModels.CellSpaceConfiguration as CellSpaceConfiguration
-import EpidemiologicalModels.AgeManagement as AgeManagement
-import EpidemiologicalModels.NeighborhoodManager as NeighborhoodManager
-import EpidemiologicalModels.Models as Models
+import CAsimulation.CellSpaceConfiguration as CellSpaceConfiguration
+import CAsimulation.AgeManagement as AgeManagement
+import CAsimulation.NeighborhoodManager as NeighborhoodManager
+import CAsimulation.Models as Models
 
 def CellSpace(nRows, nColumns, xnRows = -1, xnColumns = -1, unRows = 0, unColumns = 0):
     """

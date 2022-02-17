@@ -2,13 +2,13 @@ import enum
 import random
 import math
 from typing_extensions import Annotated
-import EpidemiologicalModels.NeighborhoodManager as NeighborhoodManager
-import EpidemiologicalModels.CellManagement as CellManagement
+import CAsimulation.NeighborhoodManager as NeighborhoodManager
+import CAsimulation.CellManagement as CellManagement
 import numpy as np
-import EpidemiologicalModels.AgeManagement as AgeManagement
-import EpidemiologicalModels.DataManager as DataManager
-import EpidemiologicalModels.PlotsManager as PlotsManager
-import EpidemiologicalModels.SystemVisualization as SystemVisualization
+import CAsimulation.AgeManagement as AgeManagement
+import CAsimulation.DataManager as DataManager
+import CAsimulation.PlotsManager as PlotsManager
+import CAsimulation.SystemVisualization as SystemVisualization
 
 class State(enum.Enum):
     H = -1  # Huecos
