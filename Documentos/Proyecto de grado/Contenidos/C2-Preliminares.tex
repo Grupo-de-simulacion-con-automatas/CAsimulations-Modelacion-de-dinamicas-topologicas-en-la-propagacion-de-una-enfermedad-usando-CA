@@ -28,11 +28,13 @@ Heesterbeek y Dietz definen el número básico de reproducción $R_0$ como:
 \end{equation}
 donde $b(t)$ representa la cantidad promedio de nuevos contagios que producirá un individuo infectado durante un tiempo $t$ y $F(t)$, conocida como la función de supervivencia, representa la probabilidad de que un individuo recién infectado se mantenga en ese estado durante al menos un tiempo $t$ \cite{conceptOfR0, perspectivesOnR0}.
 
+Apoyándonos en la definición anterior y en los conceptos definidos durante esta sección, buscaremos establecer los posibles escenarios en los cuales los modelos SIS, SIR y sus variaciones, describen una enfermedad del tipo endémico. Esto a partir de un análisis de estabilidad sobre la definición misma de los modelos en ecuaciones diferenciales, que expondremos en la siguiente sección.
+
 \section{Modelos epidemiológicos clásicos}\label{sec:ModelosEpidemiológicosClásicos}
 
-Tradicionalmente, se han utilizado modelos de compartimientos para elaborar análisis epidemiológicos. En estos modelos, cada individuo perteneciente a la población de estudio, es clasificado en uno de $n$ posibles ''compartimientos'', según su estado de salud.
+Tradicionalmente, se han utilizado modelos de compartimientos para elaborar análisis epidemiológicos. En estos modelos, cada individuo perteneciente a la población de estudio, es clasificado en uno de $n$ posibles ``compartimientos'', según su estado de salud.
 
-Las siglas de cada estado del modelo definen su nombre, por ejemplo, el modelo MSEIR (\ref{fig:MSEIR}) define la interacción entre poblaciones con inmunidad "pasiva'' o temporal (M), en donde la inmunidad de los individuos se genera a partir de los anticuerpos heredados de la madre; con la desaparición de los anticuerpos, estos individuos se vuelven susceptibles a contraer la enfermedad (S) y si un individuo susceptible entra en contacto con uno infectado, es posible que pase al estado de exposición (E), en donde ya se considera infectado pero incapaz de transmitir la enfermedad. En el momento en el que el individuo adquiera la capacidad de contagiar la enfermedad, se pasará al estado (I) y finalmente, si el individuo se recupera, pasará al estado (R) del modelo.\cite{modelCompartimental}
+Las siglas de cada estado del modelo definen su nombre, por ejemplo, el modelo MSEIR (\ref{fig:MSEIR}) define la interacción entre poblaciones con inmunidad ``pasiva'' o temporal (M), en donde la inmunidad de los individuos se genera a partir de los anticuerpos heredados de la madre; con la desaparición de los anticuerpos, estos individuos se vuelven susceptibles a contraer la enfermedad (S) y si un individuo susceptible entra en contacto con uno infectado, es posible que pase al estado de exposición (E), en donde ya se considera infectado pero incapaz de transmitir la enfermedad. En el momento en el que el individuo adquiera la capacidad de contagiar la enfermedad, se pasará al estado (I) y finalmente, si el individuo se recupera, pasará al estado (R) del modelo.\cite{modelCompartimental}
 
 \begin{figure}[h]
   \centering
@@ -60,7 +62,7 @@ Los diferentes estados del modelo se pueden apreciar en el diagrama (\ref{fig:SI
   \label{fig:SIS}
 \end{figure}
 
-Trabajaremos sobre una población de tamaño constante y normalizado, por lo que $S + I = 1$ y en consecuencia $S' + I' = 0$.
+Trabajaremos sobre una población de tamaño constante y normalizado, por lo que $S(t) + I(t) = 1$ y en consecuencia $S'(t) + I'(t) = 0$.
 
 Normalmente, cuando se habla de modelos epidemiológicos con muerte por enfermedad se consideran 4 parámetros: 
 
@@ -114,7 +116,9 @@ $$\begin{array}{ccc}
     P_0=(S_a,I_a)=(1,0) & \text{y} & P_1=(S_b,I_b)=\left(\frac{\alpha(1-\theta)+\mu}{\beta},\frac{\beta-\alpha(1-\theta)-\mu}{\beta}\right).
 \end{array}$$
 
-Veamos que los puntos de equilibrio satisfacen las condiciones de ser positivos y menores o iguales a 1:
+Veamos que los puntos de equilibrio satisfacen las condiciones de tener coordenadas positivas y menores o iguales a 1.
+
+\textbf{Demostración:}
 
 En el caso de $P_0$ la verificación es trivial. Por otro lado, para el caso de $P_1$ observe que 
 
@@ -134,7 +138,7 @@ Es momento de determinar los comportamientos que describen ambos puntos, $P_0$ y
 
 $$|A-\lambda I|=
 \left|\begin{array}{cc}
--\mu-\beta I-\lambda & \lambda(1-\theta)-\beta S \\
+-\mu-\beta I-\lambda & \alpha(1-\theta)-\beta S \\
 \beta I & \beta S-\alpha(1-\theta)-\mu-\lambda
 \end{array}\right|.$$
 
@@ -147,7 +151,8 @@ Con lo que podemos afirmar que si $\mathcal{R}_0>1$, $P_0$ se comportará como u
 
 \subsubsection{Estudio numérico}
 
-Para representar las soluciones del sistema de ecuaciones diferenciales que describe el modelo SIS usaremos el método de Euler, el cual se implementó en el módulo: "\textit{CompartmentalModelsInEDOS}" de la librería CAsimulations (\ref{CAsimulations}).
+Para representar las soluciones del sistema de ecuaciones diferenciales que describe el modelo SIS usaremos el método de Euler, el cual se implementó en el módulo:
+\href{https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN/blob/master/Codigo/1.\%20Modelos\%20compartimentales\%20en\%20ecuaciones\%20diferenciales.ipynb}{\underline{CompartimentalModels}} de la librería \href{https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN/tree/master/Codigo/CAsimulation}{CAsimulations} (\ref{CAsimulations}).
 
 De manera general, dadas unas condiciones iniciales $S(0)=S_0,I(0)=I_0$ aplicamos el método de Euler a partir de la siguiente expresión:
 
@@ -156,16 +161,24 @@ S_{t+1} = S_t + h\cdot(\mu(1 - S_t) + (1 - \theta)\alpha I_t - \beta S_t I_t )\t
 I_{t+1} = I_t + h\cdot(\beta S_t I_t - (1 - \theta)\alpha I_t - \mu I_t).
 \end{array}\right.$$
 
-\begin{itemize}
-    \item Consideremos por ejemplo una enfermedad en la que la tasa de recuperación $\alpha$ es del $0.2$ y su tasa de infección es de $\beta=0.5$ con una tasa de letalidad de $\theta=0.4$. La tasa de natalidad para nuestra población será de $\mu=\frac{1}{75\cdot365}$, es decir, una esperanza de vida de $75$ años.
+El módulo \href{https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN/blob/master/Codigo/1.\%20Modelos\%20compartimentales\%20en\%20ecuaciones\%20diferenciales.ipynb}{\underline{CompartimentalModels}} nos permite visualizar las soluciones para el modelo SIS dada una condición inicial, sin tener que recurrir a ninguna herramienta externa. Para esto debemos definir inicialmente a las funciones que describen las derivadas de nuestro modelo y luego las guardamos en una lista, como se muestra a continuación:
+
+\begin{figure}[h]
+    \includegraphics[width=1\textwidth]{Imagenes/compartimentalModels1.png}
+\end{figure}
+
+Si ahora suponemos que tenemos el caso de una enfermedad cuyos parámetros están dados por $\alpha=0.2$, $\beta=0.5$, $\theta=0.4$ y $\mu=\frac{1}{75\cdot365}$, obtendremos una gráfica como la de la figura (\ref{fig:Ejemplo 2 - SIS}) para las condiciones iniciales $S_0=0.9$ e $I_0=0.1$:
+
+\begin{figure}[h]
+    \includegraphics[width=1\textwidth]{Imagenes/compartimentalModels2.png}
+\end{figure}
     
-    \begin{figure}[h]
-      \centering
-        \includegraphics[width=0.4\textwidth]{Imagenes/ex1SIS.PNG}
-      \caption{Evolución de la enfermedad en 1100 días con $S_0=0.9,I_0=0.1$ y $h=0.1$.}
-      \label{fig:Ejemplo 2 - SIS}
-    \end{figure}
-\end{itemize}
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=0.45\textwidth]{Imagenes/ex1SIS.PNG}
+  \caption{Evolución de la enfermedad en 1100 días ($h=0.1$).}
+  \label{fig:Ejemplo 2 - SIS}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
@@ -179,7 +192,7 @@ En el diagrama (\ref{fig:SIR}) se pueden apreciar las interacciones para los est
 
 \begin{figure}[h]
   \centering
-    \includegraphics[width=0.7\textwidth]{Imagenes/SIR_compartimientos.PNG}
+    \includegraphics[width=0.75\textwidth]{Imagenes/SIR_compartimientos.PNG}
   \caption{Diagrama de compartimientos para el modelo SIR}
   \label{fig:SIR}
 \end{figure}
@@ -272,16 +285,26 @@ I_{t+1} = I_t + h\cdot(\beta S_t I_t - \alpha I_t - \mu I_t)\text{, y} \\
 R_{t+1} = R_t + h\cdot(\alpha I_t - \alpha\theta I_t - \mu R_t).
 \end{array}\right.$$
 
-\begin{itemize}
-    \item Para este ejemplo supondremos una variación de la enfermedad contemplada en el ejemplo del modelo SIS en la que los individuos que se recuperan de la enfermedad adquieren inmunidad.
-    
-    \begin{figure}[h]
-      \centering
-        \includegraphics[width=0.4\textwidth]{Imagenes/ex1SIR.PNG}
-      \caption{\centering Evolución de la enfermedad en 1100 días con $S_0=0.9,I_0=0.1,R_0=0$ y $h=0.1$.}
-      \label{fig:Ejemplo 2 - SIR}
-    \end{figure}
-\end{itemize}
+Al igual que con el modelo anterior, nos apoyaremos sobre el módulo \href{https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN/blob/master/Codigo/1.\%20Modelos\%20compartimentales\%20en\%20ecuaciones\%20diferenciales.ipynb}{\underline{CompartimentalModels}} para visualizar las soluciones del modelo SIR, con lo cual debemos definir inicialmente nuestro sistema de ecuaciones, esto es:
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=1\textwidth]{Imagenes/compartimentalModels3.png}
+\end{figure}
+
+Si suponemos una enfermedad con los mismos parámetros del ejemplo que usamos para el modelo SIS, con la diferencia de que los individuos que se recuperan ganan inmunidad frente a la enfermedad, obtendremos algo como lo que se puede apreciar en la figura \ref{fig:Ejemplo 2 - SIR} para las condiciones $S_0=0.9,I_0=0.1,R_0=0$.
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=1\textwidth]{Imagenes/compartimentalModels4.png}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=0.45\textwidth]{Imagenes/ex1SIR.PNG}
+  \caption{\centering Evolución de la enfermedad en 1100 días con ($h=0.1$).}
+  \label{fig:Ejemplo 2 - SIR}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
@@ -320,7 +343,7 @@ Veamos que la colección $\mathcal{A}$ es una topología sobre $X$:
     $$\begin{array}{cccccc}
         \{a\}, & \{b\}, & \{a,b\}, & \{a,c\}, & \{a,b,c\}.
     \end{array}$$
-    Y al igual que en el item anterior, de la definición de $\mathcal{A}$ se concluye la tercera condición y de esa manera se afirma que $\mathcal{A}$ es una topología sobre $X$.
+    De la misma manera que en el item anterior, de la definición de $\mathcal{A}$ se concluye la tercera condición y de ese modo se afirma que $\mathcal{A}$ es una topología sobre $X$.
 \end{enumerate}
 \end{example}
 
@@ -476,17 +499,7 @@ Un elemento $x$ en un conjunto parcialmente ordenado es llamado un maximal si $y
 Si retomamos el ejemplo \ref{ex:minimalesExBase} podremos determinar que los elementos $a$ y $b$ son maximales pero no comparables bajo el preorden $\preceq$. En particular $c\preceq a$ y $c\preceq b$.
 \end{example}
 
-Usualmente, al trabajar con espacios topológicos finitos se habla de espacios $T_0$. Para que un espacio sea $T_0$ se debe comprobar que dos puntos cualesquiera son "separables" por al menos una vecindad que no contenga a alguno de los puntos. De manera formal definimos un espacio $T_0$ como sigue:
-
-\begin{definition}\label{def:espacioT0}
-Un espacio topológico $X$ es $T_0$ si para cada par de puntos $x,y\in X$ con $x\neq y$, existe $V\in\mathcal{V}(x)$ tal que $y\notin V$.
-\end{definition}
-
-\begin{example}\label{ex:discretaT0}
-Todo espacio $X$ con la topología discreta es un espacio $T_0$.
-\end{example}
-
-Otro de los conceptos que a menudo se enuncia al trabajar con espacios topológicos es el de los axiomas de numerabilidad. Para los objetivos de nuestro proyecto únicamente abordaremos el primero de ellos debido a que los demás solo se cumplen en algunos casos pasos particulares de nuestra investigación. Se espera profundizar más al rededor de estos casos específicos en futuras investigaciones.
+Usualmente, al trabajar con espacios topológicos finitos se habla de los axiomas de numerabilidad. Para los objetivos de nuestro proyecto únicamente abordaremos el primero de ellos debido a que los demás solo se cumplen en algunos casos pasos particulares de nuestra investigación. Se espera profundizar más al rededor de estos casos específicos en futuras investigaciones.
 
 \begin{definition}\label{def:espacio1Numerable}
 Un espacio topológico $X$ que tiene un sistema fundamental de vecindades numerable en cada uno de sus puntos se dice que satisface el primer axioma de numerabilidad o simplemente que es uno-numerable.
@@ -498,7 +511,7 @@ Todo espacio topológico finito es un espacio uno-numerable.
 
 \section{Autómatas celulares}\label{sec:Autómatas celulares}
 
-Los autómatas celulares nacen con el trabajo de Von Neumann a finales de la década de 1940 con su trabajo \textit{"The General and Logical Theory of Automata"} en el que se plantean por primera vez las ideas para una máquina capaz de autorreplicarse. Trabajó sobre un sistema bidimensional discreto para desarrollar dinámicas bastante complejas que además fueran autorreplicables \cite{alfons2010,ACaplicacionesComputacion}.
+Los autómatas celulares nacen con el trabajo de Von Neumann a finales de la década de 1940 con su trabajo \textit{``The General and Logical Theory of Automata"} en el que se plantean por primera vez las ideas para una máquina capaz de autorreplicarse. Trabajó sobre un sistema bidimensional discreto para desarrollar dinámicas bastante complejas que además fueran autorreplicables \cite{alfons2010,ACaplicacionesComputacion}.
 
 De acuerdo con \cite{descripcionyAplicaciones}, podemos pensar en un autómata celular como un conjunto de células que tienen diferentes comportamientos en el tiempo y que interactúan entre sí, de la misma manera que en sistema biológico de donde se obtiene su nombre.
 

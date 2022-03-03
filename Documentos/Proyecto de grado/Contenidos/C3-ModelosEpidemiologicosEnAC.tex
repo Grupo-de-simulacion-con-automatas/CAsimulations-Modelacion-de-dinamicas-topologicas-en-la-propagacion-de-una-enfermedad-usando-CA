@@ -73,7 +73,7 @@ Sea $x\in\mathcal{L}$ una célula y sea $\mathcal{A}$ la familia de conjuntos en
 Cada numeral se deduce directamente de las definiciones \ref{def:vecindadMinimal}, \ref{def:conjuntoPreordenadoFinito}, \ref{def:espacio1Numerable} y el teorema \ref{teo:gradeosDeImpactoImplicaSFV}.
 \end{proof}
 
-Algo que debemos tener en cuenta es que el grado de impacto por si solo no nos proporciona una medida del impacto que tienen los cambios de estado de células "lejanas" (o de grado de impacto mayor a cero). Estas medidas de impacto se entenderán como la probabilidad de que un cambio de estado afecte a la célula con la que estamos realizando la comparación. De ese modo, las tasas de impacto serán valores entre 0 y 1 que pueden venir dados por cualquier tipo de función que tenga como dominio al conjunto de grados de impacto.
+Algo que debemos tener en cuenta es que el grado de impacto por si solo no nos proporciona una medida del impacto que tienen los cambios de estado de células ``lejanas" (o de grado de impacto mayor a cero). Estas medidas de impacto se entenderán como la probabilidad de que un cambio de estado afecte a la célula con la que estamos realizando la comparación. De ese modo, las tasas de impacto serán valores entre 0 y 1 que pueden venir dados por cualquier tipo de función que tenga como dominio al conjunto de grados de impacto.
 
 \begin{example}
 Consideremos las siguientes matrices que describen los grados de impacto en tres distintos sistemas fundamentales de vecindades para la célula en la posición 2,2:
@@ -119,7 +119,7 @@ Antes de comenzar a definir nuestras reglas de evolución definiremos las siguie
 
 \subsection{Modelos SIS y SIR simples}\label{sub:SISySIRSimples}
 
-Recordemos que para las tasas de infección $\beta$ y de recuperación $\alpha$, los modelos SIS y SIR nos afirman que para $\mathcal{R}_0=\frac{\beta}{\alpha}>1$ la enfermedad será endémica. Trataremos de replicar inicialmente esté comportamiento de manera local sobre una célula analizando los siguientes puntos:
+Recordemos que para las tasas de infección $\beta$ y de recuperación $\alpha$, los modelos SIS y SIR en su versión más simple, nos afirman que para $\mathcal{R}_0=\frac{\beta}{\alpha}>1$ la enfermedad será endémica. Trataremos de replicar inicialmente esté comportamiento de manera local sobre una célula analizando los siguientes puntos:
 
 \begin{itemize}
     \item La probabilidad de que un individuo susceptible se enferme depende no solo de la enfermedad, sino que también se debe considerar a la cantidad de individuos infectados que tenga en su sistema de vecindades locales, atada a las tasas de impacto que definimos en la sección anterior. 
@@ -145,8 +145,14 @@ con $\rho\in\mathcal{U}_{[0,1]}$, $P(g)$ la tasa de impacto del grado $g$ e
 donde el factor $\frac{\beta}{\alpha}$ indica la afectación ocasionada por la enfermedad y el factor restante corresponde al comportamiento de las células y su impacto en la célula $x$.
 \end{definition}
 
+\begin{definition}\label{def:nivelIncidencia}
+Las sumatorias $\sum_g{\sigma_{g,S}^t(x)\cdot P(g)}$ y $\sum_g{\sigma_{g,I}^t(x)\cdot P(g)}$ de la definición anterior, serán conocidas como el nivel de incidencia de las células con estados $S$ e $I$ sobre una célula $x$ respectivamente.
+\end{definition}
+
+\underline{\textit{Observación:}} La definición \ref{def:nivelIncidencia} se puede extender a un estado $\sigma$ cualquiera tomando a la sumatoria $\sum_g{\sigma_{g,\sigma}^t(x)\cdot P(g)}$ para una célula $x$ y un conjunto de grados de impacto establecidos previamente.
+
 \begin{example}\label{ex:SIenAutómatasCelulares}
-En la figura \ref{fig:configuraciónInicialEspacio25Celulas} podemos encontrar la configuración de estados para un sistema de 25 células: en las tres del lado derecho encontramos la disposición de grados de impacto para las tres células marcadas en color verde (primera imagen), donde SFV es una abreviación de Sistema Fundamental de Vecindades.
+En la figura (\ref{fig:configuraciónInicialEspacio25Celulas}) podemos encontrar la configuración de estados para un sistema de 25 células: en las tres del lado derecho encontramos la disposición de grados de impacto para las tres células marcadas en color verde (primera imagen), donde SFV es una abreviación de Sistema Fundamental de Vecindades.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\newpage
@@ -184,7 +190,7 @@ A continuación calcularemos las magnitudes ponderadas de individuos susceptible
     \begin{array}{l}
         \sum_g\sigma_{g,S}^0(x_{2,2})\cdot P(g) = 4\cdot0.5+6\cdot0.3+6\cdot0.25+2\cdot0.1+1\cdot0.05 = 5.55 \\
         \sum_g\sigma_{g,I}^0(x_{2,2})\cdot P(g) = 3\cdot0.5+1\cdot0.3+2\cdot0.25+0\cdot0.1+0\cdot0.05 = 2.3\\
-        i_{2,2}(0) = \frac{\beta}{\alpha}\cdot\left(\frac{3\cdot0.5}{7}+\frac{1\cdot0.3}{7}+\frac{2\cdot0.25}{8}+\frac{0\cdot0.1}{2}+\frac{0\cdot0.05}{1}\right)=\frac{179}{560}\cdot\frac{\beta}{\alpha}
+        i_{2,2}(0) = \frac{\beta}{\alpha}\cdot\left(\frac{3\cdot0.5}{7}+\frac{1\cdot0.3}{7}+\frac{2\cdot0.25}{8}+\frac{0\cdot0.1}{2}+\frac{0\cdot0.05}{1}\right)=\frac{\beta}{\alpha}\cdot\frac{179}{560}
     \end{array}
     \end{align*}
     \item Célula $x_{5,2}$:
@@ -192,7 +198,7 @@ A continuación calcularemos las magnitudes ponderadas de individuos susceptible
     \begin{array}{l}
         \sum_g\sigma_{g,S}^0(x_{5,2})\cdot P(g) = 6\cdot0.5+8\cdot0.3+4\cdot0.25+1\cdot0.1+0\cdot0.05 = 6.5 \\
         \sum_g\sigma_{g,I}^0(x_{5,2})\cdot P(g) = 2\cdot0.5+2\cdot0.3+2\cdot0.25+0\cdot0.1+0\cdot0.05 = 2.1\\
-        i_{5,2}(0) = \frac{\beta}{\alpha}\cdot\left(\frac{2\cdot0.5}{8}+\frac{2\cdot0.3}{10}+\frac{2\cdot0.25}{6}+\frac{0\cdot0.1}{1}\right)=\frac{161}{600}\cdot\frac{\beta}{\alpha}
+        i_{5,2}(0) = \frac{\beta}{\alpha}\cdot\left(\frac{2\cdot0.5}{8}+\frac{2\cdot0.3}{10}+\frac{2\cdot0.25}{6}+\frac{0\cdot0.1}{1}\right)=\frac{\beta}{\alpha}\cdot\frac{161}{600}
     \end{array}
     \end{align*}
     \item Célula $x_{4,4}$:
@@ -200,12 +206,12 @@ A continuación calcularemos las magnitudes ponderadas de individuos susceptible
     \begin{array}{l}
         \sum_g\sigma_{g,S}^0(x_{4,4})\cdot P(g) = 1\cdot0.5+7\cdot0.3+5\cdot0.25+6\cdot0.1+0\cdot0.05 = 4.45 \\
         \sum_g\sigma_{g,I}^0(x_{4,4})\cdot P(g) = 0\cdot0.5+1\cdot0.3+2\cdot0.25+3\cdot0.1+0\cdot0.05 = 1.1\\
-        i_{4,4}(0) = \frac{\beta}{\alpha}\cdot\left(\frac{0\cdot0.5}{1}+\frac{1\cdot0.3}{8}+\frac{2\cdot0.25}{7}+\frac{3\cdot0.1}{9}\right)=\frac{239}{1680}\cdot\frac{\beta}{\alpha}
+        i_{4,4}(0) = \frac{\beta}{\alpha}\cdot\left(\frac{0\cdot0.5}{1}+\frac{1\cdot0.3}{8}+\frac{2\cdot0.25}{7}+\frac{3\cdot0.1}{9}\right)=\frac{\beta}{\alpha}\cdot\frac{239}{1680}
     \end{array}
     \end{align*}
 \end{itemize}
 
-Podemos apreciar que las magnitudes ponderadas tanto de individuos susceptibles como de infectados son diferentes para cada célula son diferentes. Esto implica que las probabilidades de contagiarse de la enfermedad están directamente relacionados con la manera en la que las células interactúan entre sí.
+Podemos apreciar que los niveles de incidencia para los estados del modelo son diferentes para cada una de las células que consideramos. Esto implica que las probabilidades de contagiarse de la enfermedad están directamente relacionados con la manera en la que las células interactúan entre sí.
 
 En este caso las tres células pueden o no contagiarse de la enfermedad si aplicamos la regla $\phi_{SI}^t(x)$. Supongamos que la enfermedad cuenta con una tasa de infección $\beta=0.5$ y una tasa $\alpha=0.2$, de ese modo las probabilidades de adquirir la enfermedad son:
 $$\begin{array}{ccccc}
@@ -213,6 +219,8 @@ $$\begin{array}{ccccc}
 \end{array}$$
 Podemos observar que la célula $x_{4,4}$ tiene una probabilidad menor de adquirir la enfermedad y esto se debe a que según el sistema de vecindades escogido, la célula se encuentra más alejada de los infectados que las células $x_{2,2}$ y $x_{5,2}$.
 \end{example}
+
+\underline{\textit{Nota:}} Puede consultar la implementación de la definición \ref{def:reglaSI} en el módulo \href{https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN/blob/master/Codigo/CAsimulation/casimulation/Models.py#:~:text=def-,__SI_rule,-(self\%2C\%20cellState\%2C\%20neighborsByImpact}{\underline{Models}} de la librería. \\
 
 La definición \ref{def:reglaSI} nos permite definir de manera natural a las reglas de evolución para los modelos SIS y SIR en autómatas celulares:
 
@@ -237,13 +245,15 @@ Dada una célula $x$ en un conjunto $\mathcal{L}$ definimos respectivamente las 
 donde $\rho\in\mathcal{U}_{[0,1]}$.
 \end{definition}
 
-\textbf{Observación:} Dado que las reglas $\phi_{SIS}^t(x)$ y $\phi_{SIR}^t(x)$ actúan como una composición de funciones para el estado $I$, debemos conocer primero a los individuos que se recuperan de la enfermedad, esto significa que computacionalmente tendremos que aplicar primero la regla $\phi_{IR}^t(x)$ (o $\phi_{IS}^t(x)$ en el caso del modelo SIS) y luego las probabilidades de infección sobre los individuos susceptibles.
+\underline{\textit{Observación:}} Dado que las reglas $\phi_{SIS}^t(x)$ y $\phi_{SIR}^t(x)$ actúan como una composición de funciones para el estado $I$, debemos conocer primero a los individuos que se recuperan de la enfermedad, esto significa que computacionalmente tendremos que aplicar primero la regla $\phi_{IR}^t(x)$ (o $\phi_{IS}^t(x)$ en el caso del modelo SIS) y luego las probabilidades de infección sobre los individuos susceptibles.
+
+
 
 \begin{example}\label{ex:SISySIRenAutomatasCelulares}
 Consideremos la configuración de estados del ejemplo anterior junto con las tasas de infección y recuperación $\beta=0.5$ y $\alpha=0.2$ respectivamente. De acuerdo con la definición \ref{def:reglaSI} y la observación anterior, si aplicamos las reglas $\phi_{SIS}^t(x)$ y $\phi_{SIR}^t(x)$ podremos observar un comportamiento similar a los siguientes:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
+% \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{figure}[h]
@@ -261,7 +271,9 @@ Consideremos la configuración de estados del ejemplo anterior junto con las tas
 Como se puede observar en la aplicación de ambas reglas existe una unidad temporal intermedia en la que se aplica la regla $\phi_{SI}^t(x)$ para luego aplicar la regla sobre el estado $I$. En el caso del modelo SIS vemos que las células pasan al estado $S$ de acuerdo con las reglas del modelo clásico y de manera similar con el modelo SIR.
 \end{example}
 
-\textbf{Observación:} Es importante recordar que el paso del estado $I$ al estado $S$ (o al $R$) no depende del sistema de vecindades, ya que se asume que no es necesario el contacto con células no infectadas para que una que se encuentra enferma se recupere.
+\underline{\textit{Observación:}} Es importante recordar que el paso del estado $I$ al estado $S$ (o al $R$) no depende del sistema de vecindades, ya que se asume que no es necesario el contacto con células no infectadas para que una que se encuentra enferma se recupere. \\
+
+\underline{\textit{Nota:}} Al igual que para la regla SI, brindamos al lector la posibilidad de consultar las reglas \href{https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN/blob/master/Codigo/EpidemiologicalModels/Models.py#:~:text=class-,SISmodel,-(SImodel)\%3A}{\underline{SIS}} y \href{https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN/blob/master/Codigo/EpidemiologicalModels/Models.py#:~:text=class-,SIRmodel,-(SImodel)\%3A}{\underline{SIR}} en el módulo Models de la librería CAsimulations.
 
 \begin{example}\label{ex:SISySIRclásicovsModeloEnAC}
 Consideremos dos espacios de 900 células en donde una misma enfermedad actúa de manera diferente en el sentido de que mientras en el primer espacio los individuos no generan inmunidad tras recuperarse de la enfermedad, en el segundo espacio si y durante un tiempo indefinido.
@@ -304,9 +316,9 @@ Para implementar la noción de edad de una célula inicialmente tendremos que mo
 $$Dom(\phi_\mu)=\Sigma_x\times K\times\overbrace{\Sigma\times\cdots\times\Sigma}^N\text{, con }K=\{1,2,\cdots,100\},$$
 si suponemos que la edad de la célula $x$ puede ir de 1 a 100 unidades temporales (semanas, meses, años, etc.).
 
-Otra característica que podemos implementar en nuestro modelo es la del envejecimiento de las células, esto con el objetivo de analizar el impacto de una enfermedad sobre los individuos de un sistema en diferentes etapas de su "vida". La manera en la que abordaremos esta idea será con el siguiente ajuste en el rango de nuestra regla
+Otra característica que podemos implementar en nuestro modelo es la del envejecimiento de las células, esto con el objetivo de analizar el impacto de una enfermedad sobre los individuos de un sistema en diferentes etapas de su ``vida". La manera en la que abordaremos esta idea será con el siguiente ajuste en el rango de nuestra regla
 $$Ran(\phi_\mu)=\Sigma_x\times K.$$
-Dado que estamos trabajando sobre poblaciones de tamaño constante la manera en la que interpretaremos el nacimiento de una célula será con la ocupación del espacio que deja una que muere. Para esto identificaremos a los espacios que dejan las células que mueren con el estado $D$ y una edad cero, esto nos permitirá separar a los espacios que pueden ocuparse y los que no de células que interactúen con sus vecinos. Al igual que en los modelos descritos en el capítulo \ref{cap:Preliminares}, asumiremos que los individuos que "nacen" son susceptibles a la enfermedad.
+Dado que estamos trabajando sobre poblaciones de tamaño constante la manera en la que interpretaremos el nacimiento de una célula será con la ocupación del espacio que deja una que muere. Para esto identificaremos a los espacios que dejan las células que mueren con el estado $D$ y una edad cero, esto nos permitirá separar a los espacios que pueden ocuparse y los que no de células que interactúen con sus vecinos. Al igual que en los modelos descritos en el capítulo \ref{cap:Preliminares}, asumiremos que los individuos que ``nacen" son susceptibles a la enfermedad.
 
 Teniendo estas ideas en mente podemos definir la regla de evolución para un modelo epidemiológico $M$ de la siguiente manera:
 

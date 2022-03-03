@@ -2,6 +2,7 @@ import CAsimulation.CellSpaceConfiguration as CellSpaceConfiguration
 import CAsimulation.AgeManagement as AgeManagement
 import CAsimulation.NeighborhoodManager as NeighborhoodManager
 import CAsimulation.Models as Models
+import CAsimulation.CompartmentalModelsInEDOS as CompartmentalModelsInEDOS
 
 def CellSpace(nRows, nColumns, xnRows = -1, xnColumns = -1, unRows = 0, unColumns = 0):
     """
