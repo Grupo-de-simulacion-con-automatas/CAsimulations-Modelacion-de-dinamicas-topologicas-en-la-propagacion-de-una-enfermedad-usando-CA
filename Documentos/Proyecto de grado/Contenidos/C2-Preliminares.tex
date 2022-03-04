@@ -38,7 +38,7 @@ Las siglas de cada estado del modelo definen su nombre, por ejemplo, el modelo M
 
 \begin{figure}[h]
   \centering
-    \includegraphics[width=0.7\textwidth]{Imagenes/MSEIR_compatimientos.PNG}
+    \includegraphics[width=0.6\textwidth]{Imagenes/MSEIR_compatimientos.PNG}
   \caption{Diagrama de compartimientos para el modelo MSEIR}
   \label{fig:MSEIR}
 \end{figure}
@@ -106,7 +106,15 @@ De ese modo, podemos afirmar que la proporción de individuos que permanecen inf
 &= \frac{\beta}{\alpha(1-\theta)+\mu}.
 \end{align*}
 
-\underline{\textit{Observación:}} De la ecuación (\ref{eq:Infectados en el tiempo}) podemos afirmar que la cantidad de individuos infectados tiende a cero cuando $t$ tiende a infinito.
+Una vez calculado el valor de $\mathcal{R}_0$, podemos reemplazar sobre la derivada para la población infectada de la ecuación (\ref{eq:modeloSIS}), con lo cual
+
+\begin{align*}
+    \frac{dI}{dt} &= \beta SI - \alpha(1-\theta)I - \mu I \\
+    &= \left(S-\frac{1}{\mathcal{R}_0}\right)\beta I \\
+    &< \left(1-\frac{1}{\mathcal{R}_0}\right)\beta I, \\
+\end{align*}
+
+de donde podemos afirmar que si $\mathcal{R}_0>1$, la derivada $I'$ será positiva, lo cual significa que la enfermedad será endémica.
 
 \subsubsection{Análisis de estabilidad}
 
@@ -116,9 +124,7 @@ $$\begin{array}{ccc}
     P_0=(S_a,I_a)=(1,0) & \text{y} & P_1=(S_b,I_b)=\left(\frac{\alpha(1-\theta)+\mu}{\beta},\frac{\beta-\alpha(1-\theta)-\mu}{\beta}\right).
 \end{array}$$
 
-Veamos que los puntos de equilibrio satisfacen las condiciones de tener coordenadas positivas y menores o iguales a 1.
-
-\textbf{Demostración:}
+Veamos que los puntos de equilibrio pertenecen al conjunto de posibles soluciones de nuestro sistema, es decir, veamos que satisfacen las condiciones de tener coordenadas positivas y menores o iguales a 1:
 
 En el caso de $P_0$ la verificación es trivial. Por otro lado, para el caso de $P_1$ observe que 
 
@@ -134,20 +140,15 @@ $$1-\frac{\alpha(1-\theta)+\mu}{\beta}\leq1 \longrightarrow \frac{\beta-\alpha(1
 
 De ese modo podemos concluir que ambos puntos de equilibrio cumplen las condiciones de tener coordenadas positivas y menores que la unidad.
 
-Es momento de determinar los comportamientos que describen ambos puntos, $P_0$ y $P_1$. Consideremos el jacobiano de nuestro modelo:
+Es momento de determinar los comportamientos que describen ambos puntos, $P_0$ y $P_1$. Para esto, considere el jacobiano de la parte lineal del sistema (\ref{eq:modeloSIS}) dado por:
 
 $$|A-\lambda I|=
 \left|\begin{array}{cc}
--\mu-\beta I-\lambda & \alpha(1-\theta)-\beta S \\
-\beta I & \beta S-\alpha(1-\theta)-\mu-\lambda
+-\mu-\lambda & \alpha(1-\theta) \\
+0 & -\alpha(1-\theta)-\mu-\lambda
 \end{array}\right|.$$
 
-Si evaluamos en $P_0$ obtendremos los valores propios:
-
-$$\left\{\begin{array}{l}\lambda=-\mu\text{, y}\\
-\lambda=\beta-\alpha(1-\theta)-\mu.\end{array}\right.$$
-
-Con lo que podemos afirmar que si $\mathcal{R}_0>1$, $P_0$ se comportará como un punto de silla y por otro lado, si $\mathcal{R}_0<1$ estaremos ante un nodo estable. Para el caso de $P_1$ tendremos un comportamiento tipo sumidero dado que $\lambda=0,\lambda=-\mu$ son los valores propios asociados a $P_1$.
+De donde se obtienen los valores propios $\lambda_0 = -\mu$ y $\lambda_1 = -\alpha(1-\theta)-\mu$. Dado que $\mu$ representa la tasa de natalidad, no puede ocurrir que $\mu\leq0$, por lo que podemos afirmar que ambos puntos de equilibrio son hiperbólicos y, por otra parte, como claramente nuestro sistema es $C^1$, podemos aplicar el teorema de Hartman-Grobman, el cual nos garantiza que el sistema es conjugado topológicamente a su parte lineal en una vecindad abierta de cada uno de los puntos de equilibrio y de ese modo, concluimos que el sistema se comporta como un sumidero cerca de los puntos $P_0$ y $P_1$, concluyendo así la estabilidad de nuestro modelo en dichas vecindades.
 
 \subsubsection{Estudio numérico}
 
@@ -225,9 +226,19 @@ Con lo que definimos $F(t)=e^{-(\alpha+\mu)t}$. Por otra parte, la función $b(t
 
 \underline{\textit{Observación:}} De acuerdo con la ecuación (\ref{eq:Infectados en el tiempo I - SIR}), la población de infectada tendera a cero cuando $t$ tienda a infinito.
 
+De la derivada para la población infectada de la ecuación (\ref{eq:Modelo SIR}), podemos observar que:
+
+\begin{align*}
+    \frac{dI}{dt} &= \beta SI - \alpha I - \mu I \\
+    &= \left(S-\frac{1}{\mathcal{R}_0}\right)\beta I \\
+    &< \left(1-\frac{1}{\mathcal{R}_0}\right)\beta I, \\
+\end{align*}
+
+de donde podemos afirmar que si $\mathcal{R}_0>1$, la derivada $I'$ será positiva, lo cual significa que la enfermedad será endémica.
+
 \subsubsection{Análisis de estabilidad}
 
-Al igualar a cero las derivadas del sistema de ecuaciones \ref{eq:Modelo SIR} obtenemos los puntos de equilibrio:
+Al igualar a cero las derivadas del sistema de ecuaciones (\ref{eq:Modelo SIR}) obtenemos los puntos de equilibrio:
 
 $$\begin{array}{ccc}
 P_0=(S_a,I_a,R_a)=(1,0,0) & \text{y} & P_1=(S_b,I_b,R_b)=\left(\frac{\alpha+\mu}{\beta},\frac{\mu(\beta-\alpha-\mu)}{\beta(\mu+(1-\theta)\alpha)},\frac{(1-\theta)\alpha(\beta-\alpha-\mu)}{\beta(\mu+(1-\theta)\alpha)}\right).
@@ -257,23 +268,33 @@ Así,
 
 $$\frac{\mu(\beta-\alpha-\mu)}{\beta(\mu+(1-\theta)\alpha)},\frac{(1-\theta)\alpha(\beta-\alpha-\mu)}{\beta(\mu+(1-\theta)\alpha)}<1.$$
 
-Hemos demostrado que ambos puntos de equilibrio cumplen con las condiciones de tener coordenadas positivas y menores a la unidad. Ahora analizaremos la estabilidad de nuestro modelo SIR, consideremos el jacobiano de nuestro sistema de ecuaciones diferenciales:
+Hemos demostrado que ambos puntos de equilibrio cumplen con las condiciones de tener coordenadas positivas y menores a la unidad. Ahora analizaremos los comportamientos que describen los puntos, $P_0$ y $P_1$. Para esto, considere el jacobiano de la parte lineal del sistema (\ref{eq:Modelo SIR}) dado por:
 
 $$|A-\lambda I|=(-\mu-\lambda)
 \left|\begin{array}{cc}
--\beta I-\mu-\lambda & -\beta S+\theta\alpha\\
-\beta I & \beta S-\alpha-\mu -\lambda
+-\mu-\lambda & \theta\alpha\\
+0 & -\alpha-\mu -\lambda
 \end{array}\right|.$$
 
-Si evaluamos en el punto $P_1$, podemos identificar un comportamiento de tipo silla si $\beta-\alpha-\mu>0$, en caso contrario nos encontraremos ante un nodo estable. Si tomamos ahora el punto $P_2$ y observamos los valores propios:
+De donde se obtienen los valores propios $\lambda_0 = -\mu$ y $\lambda_1 = -\alpha-\mu$. Dado que $\mu$ representa la tasa de natalidad, no puede ocurrir que $\mu\leq0$, por lo que podemos afirmar que ambos puntos de equilibrio son hiperbólicos y, por otra parte, como claramente nuestro sistema es $C^1$, podemos aplicar el teorema de Hartman-Grobman de la misma manera a como se aplicó en la sección anterior, concluyendo así, que el sistema se comporta como un sumidero cerca de los puntos $P_0$ y $P_1$, concluyendo así la estabilidad de nuestro modelo en dichas vecindades.
 
-$$\left\{\begin{array}{l}
-\lambda=-\mu,\\
-\lambda=-\frac{1}{2}\frac{\mu\beta-\mu\theta\alpha+\sqrt{(\mu\beta-\mu\theta\alpha)^2-4\mu(\beta-\alpha-\mu)(\alpha+\mu-\theta\alpha)^2}}{\alpha+\mu-\theta\alpha} \text{, y}\\
-\lambda=-\frac{1}{2}\frac{\mu\beta-\mu\theta\alpha-\sqrt{(\mu\beta-\mu\theta\alpha)^2-4\mu(\beta-\alpha-\mu)(\alpha+\mu-\theta\alpha)^2}}{\alpha+\mu-\theta\alpha}.
-\end{array}\right.$$
+% Ahora analizaremos la estabilidad de nuestro modelo SIR, consideremos el jacobiano de nuestro sistema de ecuaciones diferenciales:
 
-De ese modo obtendremos dos tipos de comportamientos: una espiral estable si los valores propios son imaginarios y un nodo estable en el caso de que los valores propios sean reales.
+% $$|A-\lambda I|=(-\mu-\lambda)
+% \left|\begin{array}{cc}
+% -\beta I-\mu-\lambda & -\beta S+\theta\alpha\\
+% \beta I & \beta S-\alpha-\mu -\lambda
+% \end{array}\right|.$$
+
+% Si evaluamos en el punto $P_1$, podemos identificar un comportamiento de tipo silla si $\beta-\alpha-\mu>0$, en caso contrario nos encontraremos ante un nodo estable. Si tomamos ahora el punto $P_2$ y observamos los valores propios:
+
+% $$\left\{\begin{array}{l}
+% \lambda=-\mu,\\
+% \lambda=-\frac{1}{2}\frac{\mu\beta-\mu\theta\alpha+\sqrt{(\mu\beta-\mu\theta\alpha)^2-4\mu(\beta-\alpha-\mu)(\alpha+\mu-\theta\alpha)^2}}{\alpha+\mu-\theta\alpha} \text{, y}\\
+% \lambda=-\frac{1}{2}\frac{\mu\beta-\mu\theta\alpha-\sqrt{(\mu\beta-\mu\theta\alpha)^2-4\mu(\beta-\alpha-\mu)(\alpha+\mu-\theta\alpha)^2}}{\alpha+\mu-\theta\alpha}.
+% \end{array}\right.$$
+
+% De ese modo obtendremos dos tipos de comportamientos: una espiral estable si los valores propios son imaginarios y un nodo estable en el caso de que los valores propios sean reales.
 
 \subsubsection{Estudio numérico}
 
@@ -292,7 +313,11 @@ Al igual que con el modelo anterior, nos apoyaremos sobre el módulo \href{https
     \includegraphics[width=1\textwidth]{Imagenes/compartimentalModels3.png}
 \end{figure}
 
-Si suponemos una enfermedad con los mismos parámetros del ejemplo que usamos para el modelo SIS, con la diferencia de que los individuos que se recuperan ganan inmunidad frente a la enfermedad, obtendremos algo como lo que se puede apreciar en la figura \ref{fig:Ejemplo 2 - SIR} para las condiciones $S_0=0.9,I_0=0.1,R_0=0$.
+Si suponemos una enfermedad con los mismos parámetros del ejemplo que usamos para el modelo SIS, con la diferencia de que los individuos que se recuperan ganan inmunidad frente a la enfermedad, obtendremos algo como lo que se puede apreciar en la figura (\ref{fig:Ejemplo 2 - SIR}) para las condiciones $S_0=0.9,I_0=0.1,R_0=0$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{figure}[h]
   \centering
@@ -306,9 +331,6 @@ Si suponemos una enfermedad con los mismos parámetros del ejemplo que usamos pa
   \label{fig:Ejemplo 2 - SIR}
 \end{figure}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Algunos conceptos de topología}\label{sec:NocionesTopología}
 
