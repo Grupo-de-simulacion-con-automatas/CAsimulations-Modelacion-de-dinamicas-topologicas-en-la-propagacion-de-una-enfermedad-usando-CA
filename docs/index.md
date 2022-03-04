@@ -1,37 +1,29 @@
-## Welcome to GitHub Pages
+# CAsimulations: Modelación de dinámicas topológicas en la propagación de una enfermedad usando autómatas celulares
 
-You can use the [editor on GitHub](https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN/edit/master/docs/index.md) to maintain and preview the content for your website in Markdown files.
+```CAsimulations``` proporciona una manera de simular fenómenos asociados con la propagación de enfermedades, basándose en modelos SIS, SIR y algunas de sus variaciones implementadas en autómatas celulares en Python. ```CAsimulations``` incluye una gran variedad de utilidades para análisis epidemiológicos tales como la capacidad de definir la condición inicial de frontera del sistema, la condición inicial de dispersión de los individuos infectados, variaciones y comparaciones con respecto al cambio de escala y al cambio de frontera del sistema, variaciones promedio para un número arbitrario de simulaciones, entre otros.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+Si desea profundizar sobre los fundamentos detrás de la lógica implementada en la librería, puede dirigirse al [documento principal](https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN/blob/master/Documentos/Proyecto_de_grado.pdf).
 
-### Markdown
+Para importar la librería, ejecute el siguiente comando pip en su entorno de Python:
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+```pip install -i https://test.pypi.org/simple/ CAsimulation```
 
-```markdown
-Syntax highlighted code block
+Una vez instalada, podemos proceder a cargar la librería, para lo cual tendrá que ejecutar el siguiente script
 
-# Header 1
-## Header 2
-### Header 3
+```from CAsimulation import epidemiologicalModelsInCA as ca```
 
-- Bulleted
-- List
+Con la línea anterior podrá acceder a los módulos que le brindarán la posibilidad de implementar las herramientas descritas en el documento de una manera fácil y rápida. Si desea analizar detalladamente las funciones de la librería, puede dirigirse al [enlace](https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN/tree/master/Codigo/CAsimulation/casimulation) o implementar los módulos de manera individual.
 
-1. Numbered
-2. List
+A continuación presentaremos la documentación de cada uno de los módulos de la librería, si desea consultar ejemplos particulares puede consultar directamente el [documento principal](https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN/blob/master/Documentos/Proyecto_de_grado.pdf) o los [ejemplos particulares](https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN/tree/master/Codigo).
 
-**Bold** and _Italic_ and `Code` text
+## CompartmentalModelsInEDOS
+Este módulo permite visualizar las soluciones para un sistema de ecuaciones cualquiera, en nuestro caso lo usaremos para observar los comportamientos descritos por los modelos compartimentales clásicos, sin embargo, el lector puede usar este módulo en el contexto sobre el que esté trabajando.
 
-[Link](url) and ![Image](src)
-```
+Puede importar esté módulo de dos maneras: la primera es haciéndolo directamente con siguiente comando:
 
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+```from CAsimulation import CompartmentalModelsInEDOS as ca ```
 
-### Jekyll Themes
+La segunda forma de hacerlo es a través del módulo ```epidemiologicalModelsInCA``` con el comando
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+```from CAsimulation.epidemiologicalModelsInCA import CompartmentalModelsInEDOS as ca```
 
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
