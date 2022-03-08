@@ -32,7 +32,7 @@ class SystemVisualization:
         """Gráfica una evolución especifica del conjunto de evoluciones generadas tras aplicar el modelo"""
         plt.imshow(self.__color(self.evolutionsOfCellSpace[specificIteration]), cmap="nipy_spectral", interpolation='nearest')
 
-    def __orderDefinition(numberOfElements, numberOfCategories):
+    def __orderDefinition(self,numberOfElements, numberOfCategories):
         categories = [(i % numberOfElements) * numberOfCategories for i in range(numberOfElements)]
         groups = [[j,i] for i in range(numberOfElements) for j in categories]
         return groups

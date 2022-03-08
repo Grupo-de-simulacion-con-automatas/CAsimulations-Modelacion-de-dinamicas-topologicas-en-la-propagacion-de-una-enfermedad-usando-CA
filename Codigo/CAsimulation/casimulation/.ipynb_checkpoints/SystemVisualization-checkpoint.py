@@ -1,4 +1,4 @@
-import EpidemiologicalModels.CellManagement as CellManagement
+import CAsimulation.CellManagement as CellManagement
 import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns

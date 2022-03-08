@@ -80,7 +80,7 @@ Consideremos las siguientes matrices que describen los grados de impacto en tres
 
 \begin{figure}[h]
   \centering
-    \includegraphics[width=0.7\textwidth]{Imagenes/ex315.PNG}
+    \includegraphics[width=0.75\textwidth]{Imagenes/ex315.PNG}
   \caption{Grados de impacto en diferentes sistemas de vecindades.}
   \label{fig:gradoImpacto}
 \end{figure}
@@ -109,7 +109,7 @@ La asignación entre grados y tasas de impacto puede escogerse de cualquier mane
 
 \begin{figure}[h]
   \centering
-    \includegraphics[width=0.7\textwidth]{Imagenes/ex3152.PNG}
+    \includegraphics[width=0.75\textwidth]{Imagenes/ex3152.PNG}
   \caption{Tasas de impacto en diferentes sistemas de vecindades.}
   \label{fig:tasaImpacto}
 \end{figure}
@@ -185,7 +185,7 @@ En la figura (\ref{fig:configuraciónInicialEspacio25Celulas}) podemos encontrar
 
 \begin{figure}[h]
   \centering
-    \includegraphics[width=0.9\textwidth]{Imagenes/cellSpace.PNG}
+    \includegraphics[width=0.95\textwidth]{Imagenes/cellSpace.PNG}
     \caption{Configuración inicial de estados y sistemas fundamentales de vecindades}
     \label{fig:configuraciónInicialEspacio25Celulas}
 \end{figure}
@@ -283,13 +283,13 @@ Consideremos la configuración de estados del ejemplo anterior junto con las tas
 
 \begin{figure}[h]
   \centering
-    \includegraphics[width=0.7\textwidth]{Imagenes/sisAplication.PNG}
+    \includegraphics[width=0.75\textwidth]{Imagenes/sisAplication.PNG}
     \caption{Aplicación de la regla $\phi_{SIS}^t(x)$}
 \end{figure}
 
 \begin{figure}[h]
   \centering
-    \includegraphics[width=0.7\textwidth]{Imagenes/sirAplication.PNG}
+    \includegraphics[width=0.75\textwidth]{Imagenes/sirAplication.PNG}
     \caption{Aplicación de la regla $\phi_{SIR}^t(x)$}
 \end{figure}
 
@@ -305,24 +305,49 @@ Consideremos dos espacios de 900 células en donde una misma enfermedad actúa d
 
 Las tasas de infección y de recuperación de la enfermedad son $\beta=0.5$ y $\alpha=0.2$, lo que implica que la enfermedad será endémica, pues $\mathcal{R}_0=\frac{\beta}{\alpha}=2.5>1$. Asumiremos que el brote de infectados inicial se ubicó en la zona central de ambos espacios y que las interacciones entre células se describen a partir del sistema de vecindades generado por las vecindades de Moore. La evolución de la enfermedad en ambos espacios se puede apreciar en las figuras (\ref{fig:sisEn30}) y (\ref{fig:sirEn30}).
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Definimos los parámetros tanto del espacio de células como de la enfermedad:
 
 \begin{figure}[h]
   \centering
-    \includegraphics[width=0.95\textwidth]{Imagenes/sisEn30.PNG}
+    \includegraphics[width=1\textwidth]{Imagenes/interaccionesSociales4.png}
+\end{figure}
+
+Una vez definidos los parámetros procedemos a aplicar las reglas de evolución de ambos modelos. Como se puede apreciar en los siguientes fragmentos, se ofrece la posibilidad de visualizar los comportamientos espaciales luego de haber aplicado los modelos:
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=1\textwidth]{Imagenes/interaccionesSociales5.png}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=0.9\textwidth]{Imagenes/sisEn30.PNG}
     \caption{Evolución de la enfermedad en 30 días (modelo SIS).}
     \label{fig:sisEn30}
 \end{figure}
+
 \begin{figure}[h]
   \centering
-    \includegraphics[width=0.95\textwidth]{Imagenes/sirEn30.PNG}
+    \includegraphics[width=1\textwidth]{Imagenes/interaccionesSociales6.png}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=0.9\textwidth]{Imagenes/sirEn30.PNG}
     \caption{Evolución de la enfermedad en 30 días (modelo SIR).}
     \label{fig:sirEn30}
 \end{figure}
 
-A continuación podremos visualizar las soluciones obtenidas al analizar el mismo escenario con los modelos clásicos (izquierda) y las generadas por nuestras reglas de evolución $\phi_{SIS}^t(x)$ y $\phi_{SIR}^t(x)$ (derecha):
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+En la figura (\ref{fig:sirEn30}) podremos visualizar las soluciones obtenidas al analizar el mismo escenario con los modelos clásicos (izquierda) y las generadas por nuestras reglas de evolución $\phi_{SIS}^t(x)$ y $\phi_{SIR}^t(x)$ (derecha). Para generar las gráficas de las reglas SIS y SIR definidas durante esta sección, utilizaremos el siguiente script:
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=1\textwidth]{Imagenes/interaccionesSociales7.png}
+\end{figure}
 
 \begin{figure}[h]
   \centering
