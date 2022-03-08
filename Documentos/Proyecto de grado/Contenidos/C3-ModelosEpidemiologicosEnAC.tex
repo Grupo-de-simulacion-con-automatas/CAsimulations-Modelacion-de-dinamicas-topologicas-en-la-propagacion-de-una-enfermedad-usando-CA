@@ -85,11 +85,25 @@ Consideremos las siguientes matrices que describen los grados de impacto en tres
   \label{fig:gradoImpacto}
 \end{figure}
 
-En la figura \ref{fig:gradoImpacto} podemos ver que debido a la manera en la que implementamos nuestro espacio de células, es posible representar los grados de impacto de cada una con una célula particular en un arreglo matricial, al igual que los estados de cada célula como se vio en el capítulo dos.
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Para implementar los grados de impacto descritos en la figura anterior tendremos que crear inicialmente un conjunto de células, como se muestra a continuación:
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=1\textwidth]{Imagenes/interaccionesSociales1.png}
+\end{figure}
+
+Posteriormente, se definen manualmente los sistemas de vecindades junto con los grados de impacto de la siguiente manera
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=1\textwidth]{Imagenes/interaccionesSociales2.png}
+\end{figure}
+
+En la figura \ref{fig:gradoImpacto} podemos ver que debido a la manera en la que implementamos nuestro espacio de células, es posible representar los grados de impacto de cada una con una célula particular en un arreglo matricial, al igual que los estados de cada célula como se vio en el capítulo dos.
 
 La asignación entre grados y tasas de impacto puede escogerse de cualquier manera dependiendo del contexto y la enfermedad que esté modelando. Para los efectos del ejemplo, consideraremos las siguientes matrices de tasas de impacto (figura (\ref{fig:tasaImpacto})):
 
@@ -100,6 +114,17 @@ La asignación entre grados y tasas de impacto puede escogerse de cualquier mane
   \label{fig:tasaImpacto}
 \end{figure}
 \end{example}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Para establecer las tasas de impacto basta con agregarlas de manera ordenada a una lista, como se muestra en el siguiente script:
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=1\textwidth]{Imagenes/interaccionesSociales3.png}
+\end{figure}
 
 Una vez establecidos los conceptos de topología implementados para nuestro espacio $\mathcal{L}$ y sus sistemas fundamentales de vecindades podemos definir cada una de las reglas que implementaremos para cada modelo epidemiológico.
 
