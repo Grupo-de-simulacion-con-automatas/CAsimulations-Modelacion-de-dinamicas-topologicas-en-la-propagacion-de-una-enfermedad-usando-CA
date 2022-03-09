@@ -41,12 +41,14 @@ $$\begin{array}{ccccccc}
 \end{array}$$
 \begin{figure}[h]
   \centering
-    \includegraphics[width=0.3\textwidth]{Imagenes/grados_de_impacto.PNG}
+    \includegraphics[width=0.35\textwidth]{Imagenes/grados_de_impacto.PNG}
   \caption{Grados de impacto para el espacio $X$ con la topología $\mathcal{A}$.}
   \label{fig:gradoImpacto}
 \end{figure}
 
 De la definición \ref{def:gradoDeImpacto} podemos deducir el siguiente resultado:
+
+\newpage
 
 \begin{teorema}\label{teo:gradeosDeImpactoImplicaSFV}
 Los grados de impacto de una célula $x$ definen un sistema fundamental de vecindades.
@@ -103,7 +105,7 @@ Posteriormente, se definen manualmente los sistemas de vecindades junto con los 
     \includegraphics[width=1\textwidth]{Imagenes/interaccionesSociales2.png}
 \end{figure}
 
-En la figura \ref{fig:gradoImpacto} podemos ver que debido a la manera en la que implementamos nuestro espacio de células, es posible representar los grados de impacto de cada una con una célula particular en un arreglo matricial, al igual que los estados de cada célula como se vio en el capítulo dos.
+En la figura (\ref{fig:gradoImpacto}) podemos ver que debido a la manera en la que implementamos nuestro espacio de células, es posible representar los grados de impacto de cada una con una célula particular en un arreglo matricial, al igual que los estados de cada célula como se vio en el capítulo dos.
 
 La asignación entre grados y tasas de impacto puede escogerse de cualquier manera dependiendo del contexto y la enfermedad que esté modelando. Para los efectos del ejemplo, consideraremos las siguientes matrices de tasas de impacto (figura (\ref{fig:tasaImpacto})):
 
@@ -170,14 +172,16 @@ con $\rho\in\mathcal{U}_{[0,1]}$, $P(g)$ la tasa de impacto del grado $g$ e
 donde el factor $\frac{\beta}{\alpha}$ indica la afectación ocasionada por la enfermedad y el factor restante corresponde al comportamiento de las células y su impacto en la célula $x$.
 \end{definition}
 
+\newpage
+
 \begin{definition}\label{def:nivelIncidencia}
 Las sumatorias $\sum_g{\sigma_{g,S}^t(x)\cdot P(g)}$ y $\sum_g{\sigma_{g,I}^t(x)\cdot P(g)}$ de la definición anterior, serán conocidas como el nivel de incidencia de las células con estados $S$ e $I$ sobre una célula $x$ respectivamente.
 \end{definition}
 
-\underline{\textit{Observación:}} La definición \ref{def:nivelIncidencia} se puede extender a un estado $\sigma$ cualquiera tomando a la sumatoria $\sum_g{\sigma_{g,\sigma}^t(x)\cdot P(g)}$ para una célula $x$ y un conjunto de grados de impacto establecidos previamente.
+\textit{Observación:} La definición \ref{def:nivelIncidencia} se puede extender a un estado $\sigma$ cualquiera tomando a la sumatoria $\sum_g{\sigma_{g,\sigma}^t(x)\cdot P(g)}$ para una célula $x$ y un conjunto de grados de impacto establecidos previamente.
 
 \begin{example}\label{ex:SIenAutómatasCelulares}
-En la figura (\ref{fig:configuraciónInicialEspacio25Celulas}) podemos encontrar la configuración de estados para un sistema de 25 células: en las tres del lado derecho encontramos la disposición de grados de impacto para las tres células marcadas en color verde (primera imagen), donde SFV es una abreviación de Sistema Fundamental de Vecindades.
+En la figura (\ref{fig:configuraciónInicialEspacio25Celulas}) podemos encontrar la configuración de estados para un sistema de 25 células: en las tres del lado derecho encontramos la disposición de grados de impacto para las tres células marcadas en color naranja (primera imagen), donde SFV es una abreviación de Sistema Fundamental de Vecindades.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\newpage
@@ -245,7 +249,7 @@ $$\begin{array}{ccccc}
 Podemos observar que la célula $x_{4,4}$ tiene una probabilidad menor de adquirir la enfermedad y esto se debe a que según el sistema de vecindades escogido, la célula se encuentra más alejada de los infectados que las células $x_{2,2}$ y $x_{5,2}$.
 \end{example}
 
-\underline{\textit{Nota:}} Puede consultar la implementación de la definición \ref{def:reglaSI} en el módulo \href{https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN/blob/master/Codigo/CAsimulation/casimulation/Models.py#:~:text=def-,__SI_rule,-(self\%2C\%20cellState\%2C\%20neighborsByImpact}{\underline{Models}} de la librería. \\
+\textit{Nota:} Puede consultar la implementación de la definición \ref{def:reglaSI} en el módulo \href{https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN/blob/master/Codigo/CAsimulation/casimulation/Models.py#:~:text=def-,__SI_rule,-(self\%2C\%20cellState\%2C\%20neighborsByImpact}{\underline{Models}} de la librería. \\
 
 La definición \ref{def:reglaSI} nos permite definir de manera natural a las reglas de evolución para los modelos SIS y SIR en autómatas celulares:
 
@@ -270,7 +274,7 @@ Dada una célula $x$ en un conjunto $\mathcal{L}$ definimos respectivamente las 
 donde $\rho\in\mathcal{U}_{[0,1]}$.
 \end{definition}
 
-\underline{\textit{Observación:}} Dado que las reglas $\phi_{SIS}^t(x)$ y $\phi_{SIR}^t(x)$ actúan como una composición de funciones para el estado $I$, debemos conocer primero a los individuos que se recuperan de la enfermedad, esto significa que computacionalmente tendremos que aplicar primero la regla $\phi_{IR}^t(x)$ (o $\phi_{IS}^t(x)$ en el caso del modelo SIS) y luego las probabilidades de infección sobre los individuos susceptibles.
+\textit{Observación:} Dado que las reglas $\phi_{SIS}^t(x)$ y $\phi_{SIR}^t(x)$ actúan como una composición de funciones para el estado $I$, debemos conocer primero a los individuos que se recuperan de la enfermedad, esto significa que computacionalmente tendremos que aplicar primero la regla $\phi_{IR}^t(x)$ (o $\phi_{IS}^t(x)$ en el caso del modelo SIS) y luego las probabilidades de infección sobre los individuos susceptibles.
 
 
 
@@ -283,22 +287,20 @@ Consideremos la configuración de estados del ejemplo anterior junto con las tas
 
 \begin{figure}[h]
   \centering
-    \includegraphics[width=0.75\textwidth]{Imagenes/sisAplication.PNG}
+    \includegraphics[width=0.7\textwidth]{Imagenes/sisAplication.PNG}
     \caption{Aplicación de la regla $\phi_{SIS}^t(x)$}
 \end{figure}
-
+\vspace{-0.5cm}
 \begin{figure}[h]
   \centering
-    \includegraphics[width=0.75\textwidth]{Imagenes/sirAplication.PNG}
+    \includegraphics[width=0.7\textwidth]{Imagenes/sirAplication.PNG}
     \caption{Aplicación de la regla $\phi_{SIR}^t(x)$}
 \end{figure}
 
-Como se puede observar en la aplicación de ambas reglas existe una unidad temporal intermedia en la que se aplica la regla $\phi_{SI}^t(x)$ para luego aplicar la regla sobre el estado $I$. En el caso del modelo SIS vemos que las células pasan al estado $S$ de acuerdo con las reglas del modelo clásico y de manera similar con el modelo SIR.
+Como se puede observar en la aplicación de ambas reglas, existe una unidad temporal intermedia en la que se aplica la regla $\phi_{SI}^t(x)$ para luego aplicar la regla sobre el estado $I$. En el caso del modelo SIS vemos que las células pasan al estado $S$ de acuerdo con las reglas del modelo clásico y de manera similar con el modelo SIR.
 \end{example}
 
-\underline{\textit{Observación:}} Es importante recordar que el paso del estado $I$ al estado $S$ (o al $R$) no depende del sistema de vecindades, ya que se asume que no es necesario el contacto con células no infectadas para que una que se encuentra enferma se recupere. \\
-
-\underline{\textit{Nota:}} Al igual que para la regla SI, brindamos al lector la posibilidad de consultar las reglas \href{https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN/blob/master/Codigo/EpidemiologicalModels/Models.py#:~:text=class-,SISmodel,-(SImodel)\%3A}{\underline{SIS}} y \href{https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN/blob/master/Codigo/EpidemiologicalModels/Models.py#:~:text=class-,SIRmodel,-(SImodel)\%3A}{\underline{SIR}} en el módulo Models de la librería CAsimulations.
+\textit{Observación:} Es importante recordar que el paso del estado $I$ al estado $S$ (o al $R$) no depende del sistema de vecindades, ya que se asume que no es necesario el contacto con células no infectadas para que una que se encuentra enferma se recupere.
 
 \begin{example}\label{ex:SISySIRclásicovsModeloEnAC}
 Consideremos dos espacios de 900 células en donde una misma enfermedad actúa de manera diferente en el sentido de que mientras en el primer espacio los individuos no generan inmunidad tras recuperarse de la enfermedad, en el segundo espacio si y durante un tiempo indefinido.
@@ -318,44 +320,38 @@ Una vez definidos los parámetros procedemos a aplicar las reglas de evolución 
   \centering
     \includegraphics[width=1\textwidth]{Imagenes/interaccionesSociales5.png}
 \end{figure}
-
+\vspace{-0.5cm}
 \begin{figure}[h]
   \centering
-    \includegraphics[width=0.9\textwidth]{Imagenes/sisEn30.PNG}
+    \includegraphics[width=1\textwidth]{Imagenes/sisEn30.PNG}
     \caption{Evolución de la enfermedad en 30 días (modelo SIS).}
     \label{fig:sisEn30}
 \end{figure}
-
+\vspace{-0.5cm}
 \begin{figure}[h]
   \centering
     \includegraphics[width=1\textwidth]{Imagenes/interaccionesSociales6.png}
 \end{figure}
+\vspace{-0.5cm}
+\newpage
 
 \begin{figure}[h]
   \centering
-    \includegraphics[width=0.9\textwidth]{Imagenes/sirEn30.PNG}
+    \includegraphics[width=1\textwidth]{Imagenes/sirEn30.PNG}
     \caption{Evolución de la enfermedad en 30 días (modelo SIR).}
     \label{fig:sirEn30}
 \end{figure}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-En la figura (\ref{fig:sirEn30}) podremos visualizar las soluciones obtenidas al analizar el mismo escenario con los modelos clásicos (izquierda) y las generadas por nuestras reglas de evolución $\phi_{SIS}^t(x)$ y $\phi_{SIR}^t(x)$ (derecha). Para generar las gráficas de las reglas SIS y SIR definidas durante esta sección, utilizaremos el siguiente script:
+En la figura (\ref{fig:sirEn30}) podremos visualizar las soluciones obtenidas al analizar el mismo escenario con los modelos clásicos (izquierda) y las generadas por nuestras reglas de evolución $\phi_{SIS}^t(x)$ y $\phi_{SIR}^t(x)$ (derecha). Para generar las gráficas del lado derecho (reglas SIS y SIR definidas durante esta sección) utilizaremos el siguiente script:
 
 \begin{figure}[h]
   \centering
     \includegraphics[width=1\textwidth]{Imagenes/interaccionesSociales7.png}
-\end{figure}
-
-\begin{figure}[h]
-  \centering
-    \includegraphics[width=0.6\textwidth]{Imagenes/solucionesSISySIR1.PNG}
+    \includegraphics[width=0.55\textwidth]{Imagenes/solucionesSISySIR1.PNG}
     \caption{Evolución de la enfermedad en 30 días (modelos clásicos vs reglas de evolución).}
     \label{fig:sirEn30}
 \end{figure}
 \end{example}
+\textit{Nota:} Al igual que para la regla SI, brindamos al lector la posibilidad de consultar las reglas \href{https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN/blob/master/Codigo/EpidemiologicalModels/Models.py#:~:text=class-,SISmodel,-(SImodel)\%3A}{\underline{SIS}} y \href{https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN/blob/master/Codigo/EpidemiologicalModels/Models.py#:~:text=class-,SIRmodel,-(SImodel)\%3A}{\underline{SIR}} en el módulo Models de la librería CAsimulations.
 
 \subsection{Modelos con natalidad y mortalidad}\label{sub:NatalidadyMortalidad}
 Partiendo del principio de que los análisis desarrollados en nuestra investigación tengan una mayor aplicabilidad en el ámbito epidemiológico, decidimos separarnos un poco de los modelos clásicos, ya que en estos se supone que las tasas de natalidad y mortalidad son iguales y esto no necesariamente se cumple en el mundo real.
@@ -386,7 +382,7 @@ Sea $x$ una célula en un conjunto $\mathcal{L}$, $M$ un modelo epidemiológico 
 donde $\omega_k$ es la probabilidad de morir por causas ajenas a la enfermedad para las edades en la partición k-ésima del intervalo $[0,100]$, $b$ es la tasa de natalidad, $\phi_M^t$ es la regla de evolución del modelo epidemiológico, $E^t(x)$ denota la edad de la célula $x$ en el momento $t$ y $\rho\in\mathcal{U}_{[0,1]}$.
 \end{definition}
 
-$\textbf{\underline{Observación:}}$ La distribución de probabilidad con la que se escoge a $\rho$ puede no ser uniforme y en su lugar depender del fenómeno que se esté modelando. Para los objetivos del proyecto nos enfocaremos únicamente en la distribución uniforme y esperamos profundizar en futuras investigaciones en analizar el nivel de afectación que puede tener la escogencia de diferentes distribuciones de probabilidad.
+\textit{Observación:} La distribución de probabilidad con la que se escoge a $\rho$ puede no ser uniforme y en su lugar depender del fenómeno que se esté modelando. Para los objetivos del proyecto nos enfocaremos únicamente en la distribución uniforme y esperamos profundizar en futuras investigaciones en analizar el nivel de afectación que puede tener la escogencia de diferentes distribuciones de probabilidad.
 
 \begin{example}\label{ex:natalidadyMortalidad}
 Consideremos una probabilidad de nacimiento (u ocupación de espacios disponibles) $b=0.02$ y una unidad temporal $T=2$ sobre la siguiente configuración de estados en un espacio de células junto con las probabilidades de muerte por grupo de edad: 
@@ -407,12 +403,18 @@ Dado que las células que posean una edad igual a cero no podrán interactuar co
     \label{ex:aplicaciónReglaNatalidadyMortalidad}
 \end{figure}
 
-En la figura \ref{ex:aplicaciónReglaNatalidadyMortalidad} podemos observar la aplicación del modelo SIR con natalidad y mortalidad en donde en particular en los tiempos $t=1/2$ y $t=3/2$ mueren y nacen nuevas células de acuerdo con las probabilidades de muerte por rango de edad y tasa de nacimiento establecidas. Por otra parte y de acuerdo con la definición del parámetro $T$, todas las células cumplen un ciclo (que puede entenderse como un año) cuando $t\equiv0$ (Módulo $T$).
+En la figura (\ref{ex:aplicaciónReglaNatalidadyMortalidad}) podemos observar la aplicación del modelo SIR con natalidad y mortalidad en donde en particular en los tiempos $t=1/2$ y $t=3/2$ mueren y nacen nuevas células de acuerdo con las probabilidades de muerte por rango de edad y tasa de nacimiento establecidas. Por otra parte y de acuerdo con la definición del parámetro $T$, todas las células cumplen un ciclo (que puede entenderse como un año) cuando $t\equiv0$ (Módulo $T$).
 \end{example}
 
 \begin{example}\label{ex:sisClásicovsModeloEnAC}
 Consideremos ahora una enfermedad que actúa sobre un espacio de 100 células y que posee tasas de infección y de recuperación, $\beta=0.05$ y $\alpha=0.2$ respectivamente. Para comparar los resultados con el modelo clásico asumiremos que las tasas de natalidad y mortalidad son iguales a $\mu=\frac{1}{75\cdot6}$ (esperanza de vida de 75 años y $T=6$, es decir, las medidas se toman cada 2 meses). En particular podemos observar que la enfermedad no será endémica, pues $\mathcal{R}_0=\frac{\beta}{\alpha+\mu}\approx0.25<1$.
 
+Inicialmente, definimos tanto los parámetros espaciales como los parámetros de la enfermedad, de la siguiente manera:
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=1\textwidth]{Imagenes/interaccionesSociales8.png}
+\end{figure}
 \begin{figure}[h]
   \centering
     \includegraphics[width=0.6\textwidth]{Imagenes/sistemaYEdades.PNG}
@@ -420,7 +422,7 @@ Consideremos ahora una enfermedad que actúa sobre un espacio de 100 células y 
     \label{ex:aplicaciónReglaNatalidadyMortalidad}
 \end{figure}
 
-A continuación ejecutaremos 40 veces la regla de evolución $\mu_{SIS,6}^t(x)$ y comparemos los resultados con los generados por el modelo clásico (figura (\ref{ex:aplicaciónReglaNatalidadyMortalidad})). Podemos observar que en ambos casos la población de infectados tiende a cero y que la cantidad de espacios libres (o células muertas) no crece demasiado, esto se debe a la baja probabilidad de muerte de nuestro espacio de células.
+A continuación ejecutaremos 30 veces la regla de evolución $\mu_{SIS,6}^t(x)$ y comparemos los resultados con los generados por el modelo clásico (figura (\ref{ex:aplicaciónReglaNatalidadyMortalidad})). Podemos observar que en ambos casos la población de infectados tiende a cero y que la cantidad de espacios libres (o células muertas) no crece demasiado, esto se debe a la baja probabilidad de muerte de nuestro espacio de células.
 
 \begin{figure}[h]
   \centering
@@ -428,7 +430,15 @@ A continuación ejecutaremos 40 veces la regla de evolución $\mu_{SIS,6}^t(x)$ 
     \caption{Evolución de la enfermedad en 30 bimestres (modelo clásico y regla $\mu_{SIS,6}^t(x)$)}
     \label{ex:aplicaciónReglaNatalidadyMortalidad}
 \end{figure}
+
+Para generar una gráfica como la de la derecha puede ejecutar el siguiente script una vez tenga definidos los parámetros del modelo:
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=1\textwidth]{Imagenes/interaccionesSociales9.png}
+\end{figure}
 \end{example}
+
+\textit{Nota:} Al igual que para las reglas anteriores, se brinda al lector la posibilidad de consultar la regla para los  \href{https://github.com/Grupo-de-simulacion-con-automatas/CAsimulations-Modelacion-de-dinamicas-topologicas-en-la-propagacion-de-una-enfermedad-usando-CA/blob/master/Codigo/CAsimulation/casimulation/Models.py#:~:text=class-,birthAndMortavility,-\%3A}{\underline{modelos con natalidad y mortalidad}} en el módulo Models de la librería CAsimulations.
 
 \subsection{Modelos con muerte por enfermedad}\label{sub:MuertePorEnfermedad}
 En esta sección nos enfocaremos en definir la versión más general de los modelos epidemiológicos clásicos en ecuaciones diferenciales definidas en el capítulo \ref{cap:Preliminares}. La muerte por enfermedad afectará únicamente a las células que posean la enfermedad y, buscando una mayor aplicabilidad sobre eventos más realistas asumiremos que la enfermedad puede tener distintos grados de mortalidad para rangos de edad diferentes. 
@@ -458,12 +468,10 @@ Al igual que en el ejemplo \ref{ex:natalidadyMortalidad}, la aplicación de la r
 
 \begin{figure}[h]
   \centering
-    \includegraphics[width=0.8\textwidth]{Imagenes/muertePorEnfermedadEvo.PNG}
+    \includegraphics[width=1\textwidth]{Imagenes/muertePorEnfermedadEvo.PNG}
     \caption{Aplicación de la regla $\theta_{SIR,2}^t(x)$}
 \end{figure}
 \end{example}
-
-\newpage
 
 \begin{example}\label{ex:muertePorEnfermedadClásicovsModeloEnAC}
 Partiremos de la misma configuración de edades sobre un sistema de 100 células y las mismas tasas de natalidad y mortalidad consideradas en el ejemplo \ref{ex:aplicaciónReglaNatalidadyMortalidad}. Tomaremos las vecindades de Von Neumann para describir sus interacciones. En cuanto a la enfermedad, supondremos una tasa de infección $\beta=0.5$, una de recuperación $\alpha=0.2$ y una probabilidad de muerte causada por la misma enfermedad de $\theta=0.4$ (tomamos este valor con el objetivo de comparar los resultados con el modelo clásico).
@@ -481,11 +489,11 @@ Una de las ventajas que ofrece nuestra librería es la de aplicar la regla de ev
 
 \begin{figure}[h]
   \centering
-    \includegraphics[width=1\textwidth]{Imagenes/solucionesMuertePorEnfermedad.PNG}
+    \includegraphics[width=0.95\textwidth]{Imagenes/solucionesMuertePorEnfermedad.PNG}
     \caption{Evolución de la enfermedad en 100 bimestres (modelo clásico y regla $\theta_{SIR,6}^t(x)$)}
     \label{fig:evolución100bimestres}
 \end{figure}
-En la figura \ref{fig:evolución100bimestres} se evidencia un pico para la enfermedad en las primeras iteraciones, esto debido principalmente a la alta tasa de contagio. Sin embargo, la alta tasa de muerte causada por la enfermedad hace que la población infectada desaparezca rápidamente como observa en ambos modelos.
+En la figura (\ref{fig:evolución100bimestres}) se evidencia un pico para la enfermedad en las primeras iteraciones, esto debido principalmente a la alta tasa de contagio. Sin embargo, la alta tasa de muerte causada por la enfermedad hace que la población infectada desaparezca rápidamente como observa en ambos modelos.
 
 Una diferencia significativa se puede apreciar en la cantidad de contagios. En el caso del modelo en autómatas celulares podemos afirmar que el número de contagios pudo no haber crecido en gran medida por algo como lo que se observa en la figura (\ref{fig:muertePorEnfermedad10Veces}), en donde las limitadas relaciones de las células hacen que los individuos infectados tiendan a aislarse.
 \end{example}

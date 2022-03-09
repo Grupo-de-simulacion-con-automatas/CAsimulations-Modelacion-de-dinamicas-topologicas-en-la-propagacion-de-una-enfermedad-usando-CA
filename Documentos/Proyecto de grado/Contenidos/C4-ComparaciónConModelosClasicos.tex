@@ -20,7 +20,7 @@ Supondremos que todos los niños del pueblo son hijos únicos y que las vivienda
     \label{fig:edadesYOcupaciones}
 \end{figure}
 
-En la figura \ref{fig:edadesYOcupaciones} se muestran las diferentes ocupaciones junto con las edades de cada uno de los 49 individuos.
+En la figura (\ref{fig:edadesYOcupaciones}) se muestran las diferentes ocupaciones junto con las edades de cada uno de los 49 individuos.
 
 De acuerdo con lo mencionado en el capítulo anterior, debemos establecer los grados de impacto de acuerdo con la manera en la que se distribuye nuestra población. En nuestro caso asumiremos que las personas que viven juntas tienen una grado de impacto cero entre ellas, que con los que tienen contacto en el lugar de ocupación tienen un grado de impacto igual a uno y que con las demás células tienen grado de impacto dos. De ese modo, si organizamos a la población sobre una malla identificando sus edades, ocupaciones y vecindades obtendremos algo como lo que se ve en las figuras (\ref{fig:edadesYOcupaciones}) y (\ref{fig:GradosdeImpactoEX4}).
 
@@ -31,10 +31,12 @@ De acuerdo con lo mencionado en el capítulo anterior, debemos establecer los gr
     \label{fig:GradosdeImpactoEX4}
 \end{figure}
 
+La implementación de cada los sistemas de vecindades para cada una de las células descritos en la figura anterior se puede consultar en el cuadernillo \href{https://github.com/Grupo-de-simulacion-con-automatas/CAsimulations-Modelacion-de-dinamicas-topologicas-en-la-propagacion-de-una-enfermedad-usando-CA/blob/master/Codigo/4.\%20Evoluci\%C3\%B3n\%20de\%20la\%20enfermedad\%20en\%20un\%20entorno\%20controlado.ipynb}{\underline{Entorno controlado}}.
+
 En el caso de la enfermedad, supondremos que dura en promedio 5 días, por lo que tomaremos $\alpha=\frac{1}{5}=0.2$ y, por otro lado, tomaremos una tasa de infección $\beta=0.3$. Supondremos unas tasas de natalidad y de mortalidad iguales a 0.02 y 0.005 respectivamente y finalmente, asumiremos que de brotes de gripa anteriores se tiene que las tasas de letalidad de la enfermedad son:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
+% \newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{table}[h]
@@ -60,7 +62,7 @@ Analizaremos el comportamiento de la enfermedad en un periodo de 30 días tomand
     \label{fig:evo1}
 \end{figure}
 
-En el ejercicio de la figura \ref{fig:evo1} se puede observar que la enfermedad acaba desapareciendo en un periodo de 16 días, cabe resaltar que en algún momento toda la población contrajo la enfermedad y que la cantidad de casos empezó a disminuir desde el día 3. La figura \ref{fig:metricas1} nos muestra las cantidades de individuos por estado para un periodo de 30 días, mientras que en la tabla \ref{tab:tasasDeImpacto1} encontramos las tasas de impacto usadas durante el ejercicio.
+En el ejercicio de la figura (\ref{fig:evo1}) se puede observar que la enfermedad acaba desapareciendo en un periodo de 16 días, cabe resaltar que en algún momento toda la población contrajo la enfermedad y que la cantidad de casos empezó a disminuir desde el día 3. La figura (\ref{fig:metricas1}) nos muestra las cantidades de individuos por estado para un periodo de 30 días, mientras que en la tabla \ref{tab:tasasDeImpacto1} encontramos las tasas de impacto usadas durante el ejercicio.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newpage
@@ -87,7 +89,7 @@ Grados & Tasas \\ \hline
     \label{fig:metricas1}
 \end{figure}
 
-Si ahora en lugar de esto suponemos que dentro del pueblo las relaciones son un poco más lejanas debido por ejemplo a medidas como los periodos de alternancia, podemos asumir que las tasas de impacto son menores a las del ejercicio anterior. Para este escenario supondremos que las tasas de impacto son las descritas en la tabla (\ref{tab:tasasDeImpacto2}).
+Si ahora en lugar de esto suponemos que dentro del pueblo las relaciones son un poco más lejanas debido por ejemplo a medidas como los periodos de alternancia, podemos asumir que las tasas de impacto son menores a las del ejercicio anterior. Para este escenario supondremos que las tasas de impacto son las descritas en la tabla \ref{tab:tasasDeImpacto2}.
 
 \begin{table}[h]
 \begin{center}
@@ -134,13 +136,24 @@ Cabe resaltar que a pesar de que la población está más distanciada, la enferm
     \label{fig:comparacionTasasdeImpacto}
 \end{figure}
 
-Teniendo en cuenta que el ejemplo anterior muestra que diferentes tasas de impacto afectan a las curvas de evolución del modelo, podemos preguntarnos si ocurre algo similar con diferentes condiciones iniciales. La figura \ref{fig:condicionesIniciales} muestra la evolución de la población infectada en el pueblo para diferentes condiciones iniciales, cada una de ellas situada en uno de los lugares de trabajo mencionados anteriormente.
+Teniendo en cuenta que el ejemplo anterior muestra que diferentes tasas de impacto afectan a las curvas de evolución del modelo, podemos preguntarnos si ocurre algo similar con diferentes condiciones iniciales. La figura (\ref{fig:condicionesIniciales}) muestra la evolución de la población infectada en el pueblo para diferentes condiciones iniciales, cada una de ellas situada en uno de los lugares de trabajo mencionados anteriormente.
 
 \begin{figure}[h]
   \centering
     \includegraphics[width=0.5\textwidth]{Imagenes/condicionesIniciales.png}
     \caption{Población infectada por condición inicial.}
     \label{fig:condicionesIniciales}
+\end{figure}
+
+Para obtener la gráfica anterior, basta con definir cada una de las condiciones iniciales y a continuación aplicar el modelo sobre cada una de ellas, como se muestra en el siguiente script:
+
+ \newpage
+
+\begin{figure}[h]
+  \centering
+    \includegraphics[width=0.99\textwidth]{Imagenes/entornoControlado1.png}
+    \includegraphics[width=0.99\textwidth]{Imagenes/entornoControlado2.png}
+    \includegraphics[width=0.99\textwidth]{Imagenes/entornoControlado3.png}
 \end{figure}
 
 Durante todo el capítulo hemos estado trabajando al rededor de un escenario similar con un valor de $\mathcal{R}_0>1$ y en todos los ejercicios que abordamos, se puede evidenciar que la enfermedad alcanza un pico (o punto máximo de cantidad de contagios activos) en un momento similar. Esto se debe a que a pesar de considerar los mismos parámetros de la enfermedad, estamos modificando las propiedades en sí del espacio de células y esto a su vez, nos permite afirmar que la condición inicial no dependerá únicamente de los parámetros $\alpha$, $\beta$ y las tasas $\mu_k, \theta_k$ como ocurría en el modelo clásico, sino que en su lugar se tendrán que tomar en cuenta las maneras en las que las células pueden llegar a interactuar.
