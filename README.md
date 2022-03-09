@@ -16,16 +16,18 @@ Con la línea anterior podrá acceder a los módulos que le brindarán la posibi
 
 A continuación presentaremos la documentación de cada uno de los módulos de la librería, si desea consultar ejemplos particulares puede consultar directamente el [documento principal](https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN/blob/master/Documentos/Proyecto_de_grado.pdf) o los [ejemplos particulares](https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN/tree/master/Codigo).
 
-## CompartmentalModelsInEDOS
-Este módulo permite visualizar las soluciones discretas para un sistema de ecuaciones cualquiera obtenidas a partir del método de Euler, en nuestro caso lo usaremos para observar los comportamientos descritos por los modelos compartimentales clásicos, sin embargo, el lector puede usar este módulo en el contexto sobre el que esté trabajando.
+## AgeManagement
 
-Puede importar esté módulo de dos maneras: la primera es haciéndolo directamente con siguiente comando:
+## CellManagement
+
+## CellSpaceConfiguration
+
+## CompartmentalModelsInEDOS
+Con este módulo podremos aplicar el método de Euler para ecuaciones diferenciales y visualizar sus soluciones, en nuestro caso lo usaremos para observar los comportamientos descritos por los modelos compartimentales clásicos, sin embargo, el lector puede implementarlo en el contexto sobre el que esté trabajando.
+
+Puede importar esté módulo de la siguiente manera:
 
 ```from CAsimulation import CompartmentalModelsInEDOS as ca ```
-
-La segunda forma de hacerlo es a través del módulo ```epidemiologicalModelsInCA``` con el comando
-
-```from CAsimulation.epidemiologicalModelsInCA import CompartmentalModelsInEDOS as ca```
 
 Antes de empezar a usar este módulo debemos definir el sistema de ecuaciones adecuadamente, como se muestra  a continuación
 
@@ -95,3 +97,17 @@ discreteSolutions.titlePlot = "Modelo SIS"
 discreteSolutions.plotSolutions(nameVariables, colorOfVariables)
 ```
 ![Modelo SIS](Codigo/Imagenes/ex1SIS.PNG)
+
+Si desea consultar más ejemplos, puede dirigirse al cuadernillo [Modelos compartimentales clásicos](https://github.com/Grupo-de-simulacion-con-automatas/CAsimulations-Modelacion-de-dinamicas-topologicas-en-la-propagacion-de-una-enfermedad-usando-CA/blob/master/Codigo/1.%20Modelos%20compartimentales%20en%20ecuaciones%20diferenciales.ipynb).
+
+## DataManager
+
+## Models
+
+## NeighborhoodManager
+
+## PlotsManager
+
+## SystemVisualization
+
+## epidemiologicalModelsInCA
