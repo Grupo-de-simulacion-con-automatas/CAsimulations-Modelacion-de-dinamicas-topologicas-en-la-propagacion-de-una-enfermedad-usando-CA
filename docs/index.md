@@ -17,7 +17,7 @@ Con la línea anterior podrá acceder a los módulos que le brindarán la posibi
 A continuación presentaremos la documentación de cada uno de los módulos de la librería, si desea consultar ejemplos particulares puede consultar directamente el [documento principal](https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN/blob/master/Documentos/Proyecto_de_grado.pdf) o los [ejemplos particulares](https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN/tree/master/Codigo).
 
 ## CompartmentalModelsInEDOS
-Este módulo permite visualizar las soluciones para un sistema de ecuaciones cualquiera, en nuestro caso lo usaremos para observar los comportamientos descritos por los modelos compartimentales clásicos, sin embargo, el lector puede usar este módulo en el contexto sobre el que esté trabajando.
+Este módulo permite visualizar las soluciones discretas para un sistema de ecuaciones cualquiera obtenidas a partir del método de Euler, en nuestro caso lo usaremos para observar los comportamientos descritos por los modelos compartimentales clásicos, sin embargo, el lector puede usar este módulo en el contexto sobre el que esté trabajando.
 
 Puede importar esté módulo de dos maneras: la primera es haciéndolo directamente con siguiente comando:
 
@@ -27,3 +27,71 @@ La segunda forma de hacerlo es a través del módulo ```epidemiologicalModelsInC
 
 ```from CAsimulation.epidemiologicalModelsInCA import CompartmentalModelsInEDOS as ca```
 
+Antes de empezar a usar este módulo debemos definir el sistema de ecuaciones adecuadamente, como se muestra  a continuación
+
+```
+# Parámetros del modelo:
+alpha =  0.2
+mu = 1/(75*365)
+theta = 0.4
+beta = 0.5
+
+# Funciones del modelo:
+def S_function(values, beta = beta, mu = mu, theta = theta):
+    S = values[0]; I = values[1]
+    return mu*(1 - S) + (1 - theta)*alpha*I - beta*S*I
+
+def I_function(values, alpha = alpha, beta = beta, mu = mu, theta = theta):
+    S = values[0]; I = values[1]
+    return beta*S*I - (1 - theta)*alpha*I - mu*I
+
+listOfFunctions = [S_function, I_function]
+
+# Condiciones iniciales:
+initialValues = [0.9, 0.1]  # S_0 = 0.9; I_0 = 0.1
+```
+
+El módulo ```CompartmentalModelsInEDOS``` permite establecer la cantidad de iteraciones y el valor $h$ usado en el método de Euler.
+
+```
+# Se instancia el módulo
+discreteSolutions = ca.CompartmentalModelsInEDOS(listOfFunctions, initialValues)
+discreteSolutions.n_iterations(1100)
+discreteSolutions.h(0.1)
+```
+
+Si desea visualizar los parámetros que está usando en su modelo, puede ejecutar la siguiente linea:
+
+```
+discreteSolutions.PrintParameters()
+>>> h: 0.1 
+    n_iterations: 1100 
+    differentialEquations: [<function S_function at 0x7f5462cb14d0>, <function I_function at 0x7f5462cb1200>]
+```
+
+Puede obtener las soluciones discretas del sistema que esté trabajando de dos formas: la primera le presenta el conjunto de coordenadas por iteración para estado del modelo; y la segunda le muestra los datos en forma de gráfica brindandole la posibilidad de acceder a los datos.
+
+```
+# Conjunto de datos correspondiente a las soluciones del modelo
+discreteSolutions.ModelSolutions()
+>>> [[[0.9,
+       0.8967003652968036,
+       0.8933088972548366,
+       0.8898241746599574,
+       0.8862448313902722,
+       ...],
+      [0.1,
+       0.10329963470319635,
+       0.10669110274516336,
+       0.1101758253400425,
+       0.11375516860972777,
+       ...]],
+      range(0, 1100)]
+
+# Gráfica de las soluciones del modelo
+nameVariables = ["Susceptibles", "Infectados"]
+colorOfVariables = ["yellow", "red"]
+discreteSolutions.titlePlot = "Modelo SIS"
+discreteSolutions.plotSolutions(nameVariables, colorOfVariables)
+```
+![Modelo SIS](Codigo/Imagenes/ex1SIS.PNG)
