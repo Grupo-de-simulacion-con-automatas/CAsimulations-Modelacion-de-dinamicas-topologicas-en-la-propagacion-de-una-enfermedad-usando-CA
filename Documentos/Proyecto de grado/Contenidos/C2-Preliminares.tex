@@ -1,8 +1,8 @@
 \chapter{Preliminares}\label{cap:Preliminares}
 
-En este capítulo nos enfocaremos en las herramientas conceptuales necesarias para el diseño e implementación de las definiciones del proyecto de grado. Inicialmente, hablaremos de la historia de algunos de los modelos matemáticos usados en la epidemiología. Posteriormente, nos enfocaremos en determinar cuando una enfermedad es endémica o no, es decir, si la enfermedad permanece en la población a lo largo del tiempo de manera estable (incluyendo variaciones estacionales) o si, por otra parte, desaparece por completo de la población. Esto visto completamente desde los modelos clásicos.
+En este capítulo nos enfocaremos en las herramientas conceptuales necesarias para el diseño e implementación de las definiciones del proyecto de grado. Inicialmente, hablaremos de la historia de algunos de los modelos matemáticos usados en la epidemiología. Para luego centrarnos en determinar cuando una enfermedad es endémica o no, es decir, si la enfermedad permanece en la población a lo largo del tiempo de manera estable (incluyendo variaciones estacionales) o si, por otra parte, desaparece por completo de la población. Esto visto completamente desde los modelos clásicos.
 
-Es importante tener en cuenta que no todos los modelos epidemiológicos pueden describir el comportamiento de una enfermedad particular, debido a la naturaleza de la misma enfermedad y a la manera en la que se transmite. En el presente documento abordaremos únicamente los modelos SIS, SIR y algunas de sus variaciones debido a su nivel de aplicabilidad en distintas enfermedades.
+Es importante tener en cuenta que no todos los modelos epidemiológicos pueden describir el comportamiento de una enfermedad particular, debido a la naturaleza de la misma enfermedad y a la manera en la que se transmite. En el presente documento abordaremos únicamente los modelos SIS, SIR y algunas de sus variaciones debido a su alto nivel de aplicabilidad en distintas enfermedades.
 
 Una vez se establezcan los conceptos epidemiológicos que consideramos fundamentales para el desarrollo de nuestro trabajo abordaremos algunas definiciones y propiedades básicas de topología y autómatas celulares que nos servirán de punto de partida para el desarrollo de los algoritmos expuestos en el capítulo \ref{cap:Modelos epidemiológicos en AC}.
 
@@ -11,7 +11,7 @@ La epidemiología es la rama de las ciencias que se encarga de estudiar la ocurr
 
 El primer intento por modelar teóricamente la propagación de una enfermedad, fue realizado por Daniel Bernouilli en 1760, en el cual, basándose en sus conocimientos en medicina y matemáticas, desarrolló un modelo que describe el comportamiento de la viruela y evalúa el impacto teórico de la inoculación para su época \cite{shortHistory}. 
 
-Sin embargo, en el modelamiento epidemiológico se considera como punto de partida el modelo descrito por Kermack y McKendrick en 1927, también conocido como modelo SIR, en el que se establecen relaciones entre tres estados de una enfermedad (Susceptible-Infectado-Recuperado) y se implementan los conceptos de tasa de contagio y de recuperación \cite{malariaSIR}. Desde entonces se han desarrollado múltiples variaciones sobre el modelo SIR, con el objetivo de analizar diferentes tipos de enfermedades de una manera más precisa, considerando por ejemplo diferentes estados, tasas de natalidad y mortalidad, entre otros \cite{diego2010}.
+Sin embargo, en el modelamiento epidemiológico se considera como punto de partida el modelo descrito por Kermack y McKendrick en 1927, también conocido como modelo SIR, en el que se establecen relaciones entre tres estados de una enfermedad (Susceptible-Infectado-Recuperado) y se implementan los conceptos de tasa de contagio y de recuperación \cite{malariaSIR}. Desde entonces se han desarrollado múltiples variaciones sobre el modelo SIR, con el objetivo de analizar diferentes tipos de enfermedades de una manera más precisa, considerando por ejemplo diferentes estados, incorporando nuevos parámetros al modelo como las tasas de natalidad y mortalidad, entre otros \cite{diego2010}.
 
 \section{Estudio epidemiológico}\label{sec:EstudioEpidemiológico}
 Uno de los objetos de estudio con mayor importancia en el campo de la epidemiología es la cualidad endémica de la enfermedad, es decir, si la enfermedad afectará a la población por un largo periodo de tiempo o si desaparecerá gradualmente. La manera en la que se determina está capacidad está dada por los siguientes indicadores:
@@ -22,7 +22,7 @@ Uno de los objetos de estudio con mayor importancia en el campo de la epidemiolo
     \item \textbf{Número de desplazamiento $\mathcal{R}(t)$:} Se entiende como la cantidad promedio de infecciones secundarias que produce un individuo infectado durante su etapa de infección cuando es introducido en la población en el momento $t$. De ese modo, $\mathcal{R}(t) = \sigma(t)\cdot S(t)$, donde $S(t)$ indica la cantidad de individuos susceptibles en el momento $t$.
 \end{itemize}
 
-Heesterbeek y Dietz definen el número básico de reproducción $R_0$ como:
+Heesterbeek y Dietz definen el número básico de reproducción $\mathcal{R}_0$ como:
 \begin{equation}\label{eq:R0}
     \mathcal{R}_0 = \int_0^\infty b(t)F(t) dt,
 \end{equation}
@@ -32,7 +32,7 @@ Apoyándonos en la definición anterior y en los conceptos definidos durante est
 
 \section{Modelos epidemiológicos clásicos}\label{sec:ModelosEpidemiológicosClásicos}
 
-Tradicionalmente, se han utilizado modelos de compartimientos para elaborar análisis epidemiológicos. En estos modelos, cada individuo perteneciente a la población de estudio, es clasificado en uno de $n$ posibles ``compartimientos'', según su estado de salud.
+Tradicionalmente, se han utilizado modelos de compartimientos para elaborar análisis epidemiológicos. En estos modelos, cada individuo perteneciente a la población de estudio es clasificado en uno de $n$ posibles ``compartimientos'', según su estado de salud.
 
 Las siglas de cada estado del modelo definen su nombre, por ejemplo, el modelo MSEIR (\ref{fig:MSEIR}) define la interacción entre poblaciones con inmunidad ``pasiva'' o temporal (M), en donde la inmunidad de los individuos se genera a partir de los anticuerpos heredados de la madre; con la desaparición de los anticuerpos, estos individuos se vuelven susceptibles a contraer la enfermedad (S) y si un individuo susceptible entra en contacto con uno infectado, es posible que pase al estado de exposición (E), en donde ya se considera infectado pero incapaz de transmitir la enfermedad. En el momento en el que el individuo adquiera la capacidad de contagiar la enfermedad, se pasará al estado (I) y finalmente, si el individuo se recupera, pasará al estado (R) del modelo.\cite{modelCompartimental}
 
@@ -84,7 +84,7 @@ I' = \beta S I - (1 - \theta)\alpha I - \mu I.
 \right.
 \end{equation}
 
-Para determinar los escenarios bajo los cuales una enfermedad es endémica, debemos calcular el valor de $R_0$ para nuestro sistema de ecuaciones diferenciales (\ref{eq:modeloSIS}). Recuerde que para determinar el valor de $R_0$ se considera una población completamente susceptible, es decir, $S=1$.
+Para determinar los escenarios bajo los cuales una enfermedad es endémica, debemos calcular el valor de $\mathcal{R}_0$ para nuestro sistema de ecuaciones diferenciales (\ref{eq:modeloSIS}). Recuerde que para determinar el valor de $\mathcal{R}_0$ se considera una población completamente susceptible, es decir, $S=1$.
 
 Observe que los nuevos infectados vienen dados por el término $\beta S$, con lo cual definimos $b(t) = \beta S = \beta$. Por otro lado, los flujos que determinan la salida del estado de infección de los individuos viene dado por los términos $-\alpha(1-\theta)I-\mu I$, de modo que si llamamos $I(t)$ a la cantidad de individuos infectados que permanecieron infectados desde el momento $t=0$, tenemos
 
@@ -114,7 +114,7 @@ Una vez calculado el valor de $\mathcal{R}_0$, podemos reemplazar sobre la deriv
     &< \left(1-\frac{1}{\mathcal{R}_0}\right)\beta I, \\
 \end{align*}
 
-de donde podemos afirmar que si $\mathcal{R}_0>1$, la derivada $I'$ será positiva, lo cual significa que la enfermedad será endémica.
+de donde podemos afirmar que si $\mathcal{R}_0>1$, la derivada $I'$ será positiva, lo cual significa que la enfermedad será endémica. En el caso $\mathcal{R}_0<1$ nos encontraremos con una derivada negativa, por lo que la cantidad de infectados terminará desapareciendo, lo cual implica que la enfermedad no será endémica.
 
 \subsubsection{Análisis de estabilidad}
 
@@ -148,12 +148,12 @@ $$|A-\lambda I|=
 0 & -\alpha(1-\theta)-\mu-\lambda
 \end{array}\right|.$$
 
-De donde se obtienen los valores propios $\lambda_0 = -\mu$ y $\lambda_1 = -\alpha(1-\theta)-\mu$. Dado que $\mu$ representa la tasa de natalidad, no puede ocurrir que $\mu\leq0$, por lo que podemos afirmar que ambos puntos de equilibrio son hiperbólicos y, por otra parte, como claramente nuestro sistema es $C^1$, podemos aplicar el teorema de Hartman-Grobman, el cual nos garantiza que el sistema es conjugado topológicamente a su parte lineal en una vecindad abierta de cada uno de los puntos de equilibrio y de ese modo, concluimos que el sistema se comporta como un sumidero cerca de los puntos $P_0$ y $P_1$, concluyendo así la estabilidad de nuestro modelo en dichas vecindades.
+De donde se obtienen los valores propios $\lambda_0 = -\mu$ y $\lambda_1 = -\alpha(1-\theta)-\mu$. Dado que $\mu$ representa la tasa de natalidad, $\alpha$ es la tasa de recuperación y $\theta$ es la probabilidad de morir a causa de la enfermedad, no puede ocurrir que $\mu,\alpha,\theta\leq0$, por lo que podemos afirmar que ambos puntos de equilibrio son hiperbólicos y, por otra parte, como claramente nuestro sistema es $C^1$, podemos aplicar el teorema de Hartman-Grobman, el cual nos garantiza que el sistema es conjugado topológicamente a su parte lineal en una vecindad abierta de cada uno de los puntos de equilibrio y de ese modo, concluimos que el sistema se comporta como un sumidero cerca de los puntos $P_0$ y $P_1$, concluyendo así la estabilidad de nuestro modelo en dichas vecindades.
 
 \subsubsection{Estudio numérico}
 
 Para representar las soluciones del sistema de ecuaciones diferenciales que describe el modelo SIS usaremos el método de Euler, el cual se implementó en el módulo:
-\href{https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN/blob/master/Codigo/1.\%20Modelos\%20compartimentales\%20en\%20ecuaciones\%20diferenciales.ipynb}{\underline{CompartimentalModels}} de la librería \href{https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN/tree/master/Codigo/CAsimulation}{CAsimulations} (\ref{CAsimulations}).
+\href{https://grupo-de-simulacion-con-automatas.github.io/CAsimulations-Modelacion-de-dinamicas-topologicas-en-la-propagacion-de-una-enfermedad-usando-CA/#:~:text=CellSpaceConfiguration-,CompartmentalModelsInEDOS,-Con\%20este\%20m\%C3\%B3dulo}{\underline{CompartimentalModels}} de la librería \href{https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN/tree/master/Codigo/CAsimulation}{CAsimulations} (\ref{CAsimulations}).
 
 De manera general, dadas unas condiciones iniciales $S(0)=S_0,I(0)=I_0$ aplicamos el método de Euler a partir de la siguiente expresión:
 
@@ -162,7 +162,7 @@ S_{t+1} = S_t + h\cdot(\mu(1 - S_t) + (1 - \theta)\alpha I_t - \beta S_t I_t )\t
 I_{t+1} = I_t + h\cdot(\beta S_t I_t - (1 - \theta)\alpha I_t - \mu I_t).
 \end{array}\right.$$
 
-El módulo \href{https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN/blob/master/Codigo/1.\%20Modelos\%20compartimentales\%20en\%20ecuaciones\%20diferenciales.ipynb}{\underline{CompartimentalModels}} nos permite visualizar las soluciones para el modelo SIS dada una condición inicial, sin tener que recurrir a ninguna herramienta externa. Para esto debemos definir inicialmente a las funciones que describen las derivadas de nuestro modelo y luego las guardamos en una lista, como se muestra a continuación:
+El módulo \href{https://grupo-de-simulacion-con-automatas.github.io/CAsimulations-Modelacion-de-dinamicas-topologicas-en-la-propagacion-de-una-enfermedad-usando-CA/#:~:text=CellSpaceConfiguration-,CompartmentalModelsInEDOS,-Con\%20este\%20m\%C3\%B3dulo}{\underline{CompartimentalModels}} nos permite visualizar las soluciones para el modelo SIS dada una condición inicial, sin tener que recurrir a ninguna herramienta externa. Para esto debemos definir inicialmente a las funciones que describen las derivadas de nuestro modelo y luego las guardamos en una lista, como se muestra a continuación:
 
 \begin{figure}[h]
     \includegraphics[width=1\textwidth]{Imagenes/compartimentalModels1.png}
@@ -234,7 +234,7 @@ De la derivada para la población infectada de la ecuación (\ref{eq:Modelo SIR}
     &< \left(1-\frac{1}{\mathcal{R}_0}\right)\beta I, \\
 \end{align*}
 
-de donde podemos afirmar que si $\mathcal{R}_0>1$, la derivada $I'$ será positiva, lo cual significa que la enfermedad será endémica.
+de donde podemos afirmar que si $\mathcal{R}_0>1$, la derivada $I'$ será positiva, lo cual significa que la enfermedad será endémica, mientras que si $\mathcal{R}_0<1$, la enfermedad terminará desapareciendo junto con la cantidad de infectados por iteración.
 
 \subsubsection{Análisis de estabilidad}
 
@@ -276,7 +276,7 @@ $$|A-\lambda I|=(-\mu-\lambda)
 0 & -\alpha-\mu -\lambda
 \end{array}\right|.$$
 
-De donde se obtienen los valores propios $\lambda_0 = -\mu$ y $\lambda_1 = -\alpha-\mu$. Dado que $\mu$ representa la tasa de natalidad, no puede ocurrir que $\mu\leq0$, por lo que podemos afirmar que ambos puntos de equilibrio son hiperbólicos y, por otra parte, como claramente nuestro sistema es $C^1$, podemos aplicar el teorema de Hartman-Grobman de la misma manera a como se aplicó en la sección anterior, concluyendo así, que el sistema se comporta como un sumidero cerca de los puntos $P_0$ y $P_1$, concluyendo así la estabilidad de nuestro modelo en dichas vecindades.
+De donde se obtienen los valores propios $\lambda_0 = -\mu$ y $\lambda_1 = -\alpha-\mu$. Dado que $\mu$ representa la tasa de natalidad y $\alpha$ la tasa de recuperación, no puede ocurrir que $\mu,\alpha\leq0$, por lo que podemos afirmar que ambos puntos de equilibrio son hiperbólicos y, por otra parte, como claramente nuestro sistema es $C^1$, podemos aplicar el teorema de Hartman-Grobman de la misma manera a como se aplicó en la sección anterior, concluyendo así, que el sistema se comporta como un sumidero cerca de los puntos $P_0$ y $P_1$, concluyendo así la estabilidad de nuestro modelo en dichas vecindades.
 
 % Ahora analizaremos la estabilidad de nuestro modelo SIR, consideremos el jacobiano de nuestro sistema de ecuaciones diferenciales:
 
@@ -306,7 +306,7 @@ I_{t+1} = I_t + h\cdot(\beta S_t I_t - \alpha I_t - \mu I_t)\text{, y} \\
 R_{t+1} = R_t + h\cdot(\alpha I_t - \alpha\theta I_t - \mu R_t).
 \end{array}\right.$$
 
-Al igual que con el modelo anterior, nos apoyaremos sobre el módulo \href{https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN/blob/master/Codigo/1.\%20Modelos\%20compartimentales\%20en\%20ecuaciones\%20diferenciales.ipynb}{\underline{CompartimentalModels}} para visualizar las soluciones del modelo SIR, con lo cual debemos definir inicialmente nuestro sistema de ecuaciones, esto es:
+Al igual que con el modelo anterior, nos apoyaremos sobre el módulo \href{https://grupo-de-simulacion-con-automatas.github.io/CAsimulations-Modelacion-de-dinamicas-topologicas-en-la-propagacion-de-una-enfermedad-usando-CA/#:~:text=CellSpaceConfiguration-,CompartmentalModelsInEDOS,-Con\%20este\%20m\%C3\%B3dulo}{\underline{CompartimentalModels}} para visualizar las soluciones del modelo SIR, con lo cual debemos definir inicialmente nuestro sistema de ecuaciones, esto es:
 
 \begin{figure}[h]
   \centering
@@ -552,7 +552,7 @@ A continuación definiremos los elementos que componen a un autómata celular:
 
 Un espacio de células $\mathcal{L}$ es el conjunto donde viven e interactuan todas las células que se consideran para el modelo. En general este espacio es discreto, regular y finito, esto último debido a las limitaciones computacionales presentes en las herramientas con las que se construyen los modelos en autómatas celulares.
 
-La conición de regularidad de nuestro espacio de células se refiere a que las celdas que lo conforman se organizan de una manera regular, con lo que podemos dotar al espacio $\mathcal{L}$ de una dimensión de la forma $n_1\times\cdots\times n_m$ para $n_1,\cdots,n_m\in\mathbb{Z}$.
+La condición de regularidad de nuestro espacio de células se refiere a que las celdas que lo conforman se organizan de una manera regular, con lo que podemos dotar al espacio $\mathcal{L}$ de una dimensión de la forma $n_1\times\cdots\times n_m$ para $n_1,\cdots,n_m\in\mathbb{Z}$.
 
 \begin{proposicion}\label{pro:LEsEnumerable}
 Todo espacio de células es un conjunto enumerable.
@@ -604,7 +604,7 @@ La vecindad de Von neumann se compone de una célula central y de las que se enc
 
 $$\mathcal{V}_V(x_{i,j}) = \{x_{k,l}\mid\abs{i-k}+\abs{j-l}\leq1\text{, con }k,l\in\mathbb{Z}\}$$
 
-Por otro parte tenemos a la vecindad de Moore la cual se define de manera similar a la vecindad de Von neumann. La diferencia entre una y otra radica en que la vecindad de Moore incluye a las células de las diagonales formando un cuadrado. La vecindad de Moore se define  de la célula $i,j$ como:
+Por otro parte, tenemos a la vecindad de Moore la cual se define de manera similar a la vecindad de Von neumann. La diferencia entre una y otra radica en que la vecindad de Moore incluye a las células de las diagonales formando un cuadrado. La vecindad de Moore se define  de la célula $i,j$ como:
 
 $$\mathcal{V}_M(x_{i,j}) = \{x_{k,l}\mid\abs{i-k},\abs{j-l}\leq1\text{, con }k,l\in\mathbb{Z}\}$$
 
@@ -636,7 +636,7 @@ Las reglas de evolución pueden ser de dos tipos:
 \begin{itemize}
     \item \textbf{Reglas determinísticas}
     
-    Son aquellas en las que se define un estado para cada posible combinación de estados en la vecindad. Un ejemplo de esto son las \textbf{reglas de Wolfram} en las que se define la correspondencia entre los estados de una celda $x$ y sus vecinos con el estado posterior de la celda $x$. Consideremos como caso particular a la regla 30 en la que se define la siguiente correspondencia:
+    Son aquellas en las que se define un estado para cada posible combinación de estados en la vecindad. Un ejemplo de esto son las \textbf{reglas de Wolfram}, en las que se define la correspondencia entre los estados de una celda $x$ y sus vecinos con el estado posterior de la celda $x$. Consideremos como caso particular a la regla 30 en la que se define la siguiente correspondencia:
     
     \begin{figure}[h]
       \centering
@@ -644,6 +644,8 @@ Las reglas de evolución pueden ser de dos tipos:
       \caption{Regla 30. Captura tomada de \cite{rule30}}
       \label{fig:Regla30}
     \end{figure}
+    
+    \newpage
     
     Al tratarse de una regla sobre un espacio 1-dimensional, los vecinos de cada célula son los que se encuentran a lados izquierdo y derecho, como se ve en la figura (\ref{fig:Regla30}). En este caso el conjunto de estados es de la forma $\Sigma=\{0,1\}$. En la siguiente figura podemos apreciar la evolución del espacio de células $\mathcal{L}$ en 15 y 250 iteraciones respectivamente para la aplicación de la regla 30 denotada como $\phi_{30}$.
     
@@ -655,7 +657,7 @@ Las reglas de evolución pueden ser de dos tipos:
     \end{figure}
     
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    \newpage
+    % \newpage
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
     \item \textbf{Reglas totalísticas}

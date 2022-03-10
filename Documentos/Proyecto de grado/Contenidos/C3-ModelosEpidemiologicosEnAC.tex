@@ -27,7 +27,7 @@ $$\begin{array}{cccccc}
 junto con sus relaciones simétricas equivalentes.
 \end{example}
 
-La noción de relación del ejemplo \ref{ex:relacionesExBase} de interacción entre células puede ir un poco más allá. Pensemos por un momento en el impacto que puede tener un comportamiento sobre la célula $b$ en la célula $a$, si bien estas dos celdas no interactúan entre sí, la relación que cada una de ellas tiene con las células $c$ y $d$ puede tener un impacto sobre la otra. Con lo cual definimos la siguiente relación de interacción:
+La noción de relación del ejemplo \ref{ex:relacionesExBase} de interacción entre células puede ir un poco más allá. Pensemos por un momento en el impacto que puede tener un comportamiento sobre la célula $b$ en la célula $c$, si bien estas dos celdas no interactúan entre sí, la relación que cada una de ellas tiene con la célula $a$ puede tener un impacto sobre la otra. Teniendo esto en mente definimos la siguiente relación de interacción:
 
 \begin{definition}\label{def:gradoDeImpacto}
 Definimos el \textit{grado de impacto} entre dos puntos $a$ y $b$ como la menor cantidad de interacciones necesaria para llegar de $a$ a $b$. Para reconocer el grado de impacto entre dos puntos usaremos la notación $a\thicksim_n b$ donde $n\in\mathbb{N}$ denota la menor cantidad de interacciones entre $a$ y $b$.
@@ -61,7 +61,7 @@ Veamos ahora que el conjunto $A_0$ es la vecindad mínimal de $x$. Considere $y\
 Considere $y\in A_0$ y por la definición de grado de impacto cero, afirmamos que los puntos $x$ e $y$ no son separables por lo que $y\in V$ para todo $V\in\mathcal{V}(x)$ y de ese modo $y\in\bigcap\mathcal{V}(x)$, con lo que podemos concluimos la prueba.
 \end{proof}
 
-A continuación mostraremos algunas de las propiedades del conjunto $\mathcal{A}$ definido en la demostración anterior:
+A continuación mostraremos algunas de las propiedades del conjunto $\mathcal{A}$ cuyos elementos son los conjuntos $A_k$ definidos en la demostración anterior.
 
 \begin{proposicion}\label{pro:propiedadesSistemasDeVecindadesEncajadas}
 Sea $x\in\mathcal{L}$ una célula y sea $\mathcal{A}$ la familia de conjuntos encajados definidos por el grado de impacto con $x$. Se cumplen las siguientes propiedades:
@@ -105,7 +105,7 @@ Posteriormente, se definen manualmente los sistemas de vecindades junto con los 
     \includegraphics[width=1\textwidth]{Imagenes/interaccionesSociales2.png}
 \end{figure}
 
-En la figura (\ref{fig:gradoImpacto}) podemos ver que debido a la manera en la que implementamos nuestro espacio de células, es posible representar los grados de impacto de cada una con una célula particular en un arreglo matricial, al igual que los estados de cada célula como se vio en el capítulo dos.
+En la figura (\ref{fig:gradoImpacto}) podemos ver que debido a la manera en la que implementamos nuestro espacio de células, es posible representar los grados de impacto de cada una con una célula particular en un arreglo matricial, al igual que los estados de cada célula, como se vio en el capítulo \ref{cap:Preliminares}.
 
 La asignación entre grados y tasas de impacto puede escogerse de cualquier manera dependiendo del contexto y la enfermedad que esté modelando. Para los efectos del ejemplo, consideraremos las siguientes matrices de tasas de impacto (figura (\ref{fig:tasaImpacto})):
 
@@ -297,7 +297,7 @@ Consideremos la configuración de estados del ejemplo anterior junto con las tas
     \caption{Aplicación de la regla $\phi_{SIR}^t(x)$}
 \end{figure}
 
-Como se puede observar en la aplicación de ambas reglas, existe una unidad temporal intermedia en la que se aplica la regla $\phi_{SI}^t(x)$ para luego aplicar la regla sobre el estado $I$. En el caso del modelo SIS vemos que las células pasan al estado $S$ de acuerdo con las reglas del modelo clásico y de manera similar con el modelo SIR.
+Como se puede observar en la aplicación de ambas reglas, existe una unidad temporal intermedia en la que se aplica la regla sobre el estado $I$ para luego aplicar la regla $\phi_{SI}^t(x)$. En el caso del modelo SIS vemos que las células pasan al estado $S$ de acuerdo con las reglas del modelo clásico y de manera similar con el modelo SIR.
 \end{example}
 
 \textit{Observación:} Es importante recordar que el paso del estado $I$ al estado $S$ (o al $R$) no depende del sistema de vecindades, ya que se asume que no es necesario el contacto con células no infectadas para que una que se encuentra enferma se recupere.
@@ -341,14 +341,14 @@ Una vez definidos los parámetros procedemos a aplicar las reglas de evolución 
     \caption{Evolución de la enfermedad en 30 días (modelo SIR).}
     \label{fig:sirEn30}
 \end{figure}
-En la figura (\ref{fig:sirEn30}) podremos visualizar las soluciones obtenidas al analizar el mismo escenario con los modelos clásicos (izquierda) y las generadas por nuestras reglas de evolución $\phi_{SIS}^t(x)$ y $\phi_{SIR}^t(x)$ (derecha). Para generar las gráficas del lado derecho (reglas SIS y SIR definidas durante esta sección) utilizaremos el siguiente script:
+En la figura (\ref{fig:comparacionReglasvsClasico}) podremos visualizar las soluciones obtenidas al analizar el mismo escenario con los modelos clásicos (izquierda) y las generadas por nuestras reglas de evolución $\phi_{SIS}^t(x)$ y $\phi_{SIR}^t(x)$ (derecha). Para generar las gráficas del lado derecho (reglas SIS y SIR definidas durante esta sección) utilizaremos el siguiente script:
 
 \begin{figure}[h]
   \centering
     \includegraphics[width=1\textwidth]{Imagenes/interaccionesSociales7.png}
     \includegraphics[width=0.55\textwidth]{Imagenes/solucionesSISySIR1.PNG}
     \caption{Evolución de la enfermedad en 30 días (modelos clásicos vs reglas de evolución).}
-    \label{fig:sirEn30}
+    \label{fig:comparacionReglasvsClasico}
 \end{figure}
 \end{example}
 \textit{Nota:} Al igual que para la regla SI, brindamos al lector la posibilidad de consultar las reglas \href{https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN/blob/master/Codigo/EpidemiologicalModels/Models.py#:~:text=class-,SISmodel,-(SImodel)\%3A}{\underline{SIS}} y \href{https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN/blob/master/Codigo/EpidemiologicalModels/Models.py#:~:text=class-,SIRmodel,-(SImodel)\%3A}{\underline{SIR}} en el módulo Models de la librería CAsimulations.
@@ -472,6 +472,8 @@ Al igual que en el ejemplo \ref{ex:natalidadyMortalidad}, la aplicación de la r
     \caption{Aplicación de la regla $\theta_{SIR,2}^t(x)$}
 \end{figure}
 \end{example}
+
+\textit{Nota:} Al igual que para las reglas anteriores, se brinda al lector la posibilidad de consultar la regla para los  \href{https://github.com/Grupo-de-simulacion-con-automatas/CAsimulations-Modelacion-de-dinamicas-topologicas-en-la-propagacion-de-una-enfermedad-usando-CA/blob/master/Codigo/CAsimulation/casimulation/Models.py#:~:text=class-,deathByDisease,-\%3A}{\underline{modelos con muerte por enfermedad}} en el módulo Models de la librería CAsimulations.
 
 \begin{example}\label{ex:muertePorEnfermedadClásicovsModeloEnAC}
 Partiremos de la misma configuración de edades sobre un sistema de 100 células y las mismas tasas de natalidad y mortalidad consideradas en el ejemplo \ref{ex:aplicaciónReglaNatalidadyMortalidad}. Tomaremos las vecindades de Von Neumann para describir sus interacciones. En cuanto a la enfermedad, supondremos una tasa de infección $\beta=0.5$, una de recuperación $\alpha=0.2$ y una probabilidad de muerte causada por la misma enfermedad de $\theta=0.4$ (tomamos este valor con el objetivo de comparar los resultados con el modelo clásico).
