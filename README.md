@@ -1,3 +1,4 @@
+
 # CAsimulations: Modelación de las dinámicas de la propagación de una enfermedad usando AC
 
 ```CAsimulations``` proporciona una manera de simular fenómenos asociados con la propagación de enfermedades, basándose en modelos SIS, SIR y algunas de sus variaciones implementadas en autómatas celulares en Python. ```CAsimulations``` incluye una gran variedad de utilidades para análisis epidemiológicos tales como la capacidad de definir la condición inicial de frontera del sistema, la condición inicial de dispersión de los individuos infectados, variaciones y comparaciones con respecto al cambio de escala y al cambio de frontera del sistema, variaciones promedio para un número arbitrario de simulaciones, entre otros.
@@ -16,14 +17,66 @@ Con la línea anterior podrá acceder a los módulos que le brindarán la posibi
 
 A continuación presentaremos la documentación de cada uno de los módulos de la librería, si desea consultar ejemplos particulares puede consultar directamente el [documento principal](https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN/blob/master/Documentos/Proyecto_de_grado.pdf) o los [ejemplos particulares](https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN/tree/master/Codigo).
 
-## AgeManagement
+Los módulos de la siguiente manera:
+1. [AgeManagement](#id1)
+2. [CellManagement](#id2)
+3. [CellSpaceConfiguration](#id3)
+4. [CompartmentalModelsInEDOS](#id4)
+5. [DataManager](#id5)
+6. [Models](#id6)
+7. [NeighborhoodManager](#id7)
+8. [PlotsManager](#id8)
+9. [SystemVisualization](#id9)
+10. [epidemiologicalModelsInCA](#id10) 
 
-## CellManagement
+## AgeManagement<a name="id1"></a>
+El módulo```AgeManagement``` se encarga de controlar todos los procesos que tengan que ver con el manejo de las edades de algún conjunto de células, esto en particular para los modelos con natalidad y mortalidad; y los que tienen en cuenta la muerte por enfermedad, ambos descritos en el  [documento principal](https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN/blob/master/Documentos/Proyecto_de_grado.pdf).
 
-## CellSpaceConfiguration
+Con este módulo podremos crear a la matriz de edades, dados los rangos y las proporciones de edades en el sistema, y, por otro lado, tenemos a las evoluciones para la matriz de edades descritas en los modelos que implementan esta característica. Para importar este módulo puede usar la siguiente línea:
 
-## CompartmentalModelsInEDOS
-Con este módulo podremos aplicar el método de Euler para ecuaciones diferenciales y visualizar sus soluciones, en nuestro caso lo usaremos para observar los comportamientos descritos por los modelos compartimentales clásicos, sin embargo, el lector puede implementarlo en el contexto sobre el que esté trabajando.
+```from EpidemiologicalModels import AgeManagement as am```
+
+Para usar la clase ```AgesMatrix``` debe establecer inicialmente los rangos de edades y sus proporciones en el sistema, es decir, que porcentaje de los individuos tiene cierto rango de edad; y, por otro lado, será necesario que ya tenga definido un espacio de células. 
+
+```
+from EpidemiologicalModels import epidemiologicalModelsInCA as em
+
+# Espacio de células
+cellSpace = em.CellSpace(5,5)  # Sistema con 25 células (dim(cellSpace) = 5x5)
+
+# Rangos de edades
+ranges = [[0,20,0.5], [21,60,0.25], [61,100,0.25]]  # El 50% tienen entre 0 y 20, el 25% entre 
+                                                    # 21 y 60 , y el 25% restante tiene entre 61 y 100
+
+# Matriz de edades
+agesMatrix = am.AgesMatrix(ranges, cellSpace)
+```
+No es necesario utilizar un script adicional, ya que al instanciar la clase ```AgesMatrix``` se genera automáticamente la matriz de edades. Para ver dicha matriz, ejecute el siguiente comando:
+
+```
+agesMatrix.agesMatrix
+>>> array([[52., 52., 54., 84., 14.],
+           [54., 72., 62.,  6., 13.],
+           [ 1.,  2.,  5.,  5., 14.],
+           [54.,  5., 84., 62., 21.],
+           [18., 52., 13., 10., 86.]])
+```
+
+## CellManagement<a name="id2"></a>
+Con el módulo ```CellManagement``` podrá darle manejo a propiedades espaciales que le permitan manipular o redefinir la lógica para el comportamiento mismo de las células. Adicionalmente, tendremos la capacidad de acceder a un conjunto de células, vía sus coordenadas, dado un estado específico del modelo. Para importar el módulo ```CellManagement``` puede usar la siguiente línea:
+
+```from CAsimulation.CellManagement import CellManagement as cm```
+
+
+## CellSpaceConfiguration<a name="id3"></a>
+Como su nombre lo indica, el módulo ```CellSpaceConfiguration``` será el encargado de las configuraciones sobre el espacio de células, como por ejemplo, las condiciones iniciales o las condiciones de frontera. Para importar el módulo ```CellSpaceConfiguration``` puede usar la siguiente línea:
+
+```
+from CAsimulation.CellSpaceConfiguration import CellSpaceConfiguration as cc
+```
+
+## CompartmentalModelsInEDOS<a name="id4"></a>
+Con el módulo ```CompartmentalModelsInEDOS```podremos aplicar el método de Euler para ecuaciones diferenciales y visualizar sus soluciones, en nuestro caso lo usaremos para observar los comportamientos descritos por los modelos compartimentales clásicos, sin embargo, el lector puede implementarlo en el contexto sobre el que esté trabajando.
 
 Puede importar esté módulo de la siguiente manera:
 
@@ -53,7 +106,7 @@ listOfFunctions = [S_function, I_function]
 initialValues = [0.9, 0.1]  # S_0 = 0.9; I_0 = 0.1
 ```
 
-El módulo ```CompartmentalModelsInEDOS``` permite establecer la cantidad de iteraciones y el valor $h$ usado en el método de Euler.
+El módulo ```CompartmentalModelsInEDOS``` permite establecer la cantidad de iteraciones y el valor h empleado en el método de Euler.
 
 ```
 # Se instancia el módulo
@@ -62,7 +115,7 @@ discreteSolutions.n_iterations(1100)
 discreteSolutions.h(0.1)
 ```
 
-Si desea visualizar los parámetros que está usando en su modelo, puede ejecutar la siguiente linea:
+Si desea visualizar los parámetros que está usando en su modelo, puede ejecutar la siguiente línea:
 
 ```
 discreteSolutions.PrintParameters()
@@ -71,7 +124,7 @@ discreteSolutions.PrintParameters()
     differentialEquations: [<function S_function at 0x7f5462cb14d0>, <function I_function at 0x7f5462cb1200>]
 ```
 
-Puede obtener las soluciones discretas del sistema que esté trabajando de dos formas: la primera le presenta el conjunto de coordenadas por iteración para estado del modelo; y la segunda le muestra los datos en forma de gráfica brindandole la posibilidad de acceder a los datos.
+Puede obtener las soluciones discretas del sistema que esté trabajando de dos formas: la primera le presenta el conjunto de coordenadas por iteración para estado del modelo; y la segunda le muestra los datos en forma de gráfica, brindándole la posibilidad de acceder a los datos.
 
 ```
 # Conjunto de datos correspondiente a las soluciones del modelo
@@ -100,14 +153,19 @@ discreteSolutions.plotSolutions(nameVariables, colorOfVariables)
 
 Si desea consultar más ejemplos, puede dirigirse al cuadernillo [Modelos compartimentales clásicos](https://github.com/Grupo-de-simulacion-con-automatas/CAsimulations-Modelacion-de-dinamicas-topologicas-en-la-propagacion-de-una-enfermedad-usando-CA/blob/master/Codigo/1.%20Modelos%20compartimentales%20en%20ecuaciones%20diferenciales.ipynb).
 
-## DataManager
+## DataManager<a name="id5"></a>
+Este módulo será el encargado de darle manejo a todos los datos que puedan extraerse de las aplicaciones por iteración de cada uno de los modelos descritos en el [documento principal](https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN/blob/master/Documentos/Proyecto_de_grado.pdf). Para importar el módulo ```DataManager``` puede usar la siguiente línea:
 
-## Models
+```
+from CAsimulation import DataManager as dm
+```
 
-## NeighborhoodManager
+## Models<a name="id6"></a>
 
-## PlotsManager
+## NeighborhoodManager<a name="id7"></a>
 
-## SystemVisualization
+## PlotsManager<a name="id8"></a>
 
-## epidemiologicalModelsInCA
+## SystemVisualization<a name="id9"></a>
+
+## epidemiologicalModelsInCA<a name="id10"></a>
