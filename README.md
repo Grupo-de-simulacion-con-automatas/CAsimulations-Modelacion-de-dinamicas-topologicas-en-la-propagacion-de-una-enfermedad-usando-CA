@@ -18,7 +18,7 @@ Con la línea anterior podrá acceder a los módulos que le brindarán la posibi
 A continuación presentaremos la documentación de cada uno de los módulos de la librería, si desea consultar ejemplos particulares puede consultar directamente el [documento principal](https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN/blob/master/Documentos/Proyecto_de_grado.pdf) o los [ejemplos particulares](https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN/tree/master/Codigo).
 
 Los módulos de la siguiente manera:
-1. [AgeManagement](#id1)
+1. [AgeManagement](#AgeManagement)
 2. [CellManagement](#id2)
 3. [CellSpaceConfiguration](#id3)
 4. [CompartmentalModelsInEDOS](#id4)
@@ -29,7 +29,7 @@ Los módulos de la siguiente manera:
 9. [SystemVisualization](#id9)
 10. [epidemiologicalModelsInCA](#id10) 
 
-## AgeManagement<a name="id1"></a>
+## AgeManagement<a name="AgeManagement"></a>
 El módulo```AgeManagement``` se encarga de controlar todos los procesos que tengan que ver con el manejo de las edades de algún conjunto de células, esto en particular para los modelos con natalidad y mortalidad; y los que tienen en cuenta la muerte por enfermedad, ambos descritos en el  [documento principal](https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN/blob/master/Documentos/Proyecto_de_grado.pdf).
 
 Con este módulo podremos crear a la matriz de edades, dados los rangos y las proporciones de edades en el sistema, y, por otro lado, tenemos a las evoluciones para la matriz de edades descritas en los modelos que implementan esta característica. Para importar este módulo puede usar la siguiente línea:
@@ -55,11 +55,69 @@ No es necesario utilizar un script adicional, ya que al instanciar la clase ```A
 
 ```
 agesMatrix.agesMatrix
->>> array([[52., 52., 54., 84., 14.],
-           [54., 72., 62.,  6., 13.],
-           [ 1.,  2.,  5.,  5., 14.],
-           [54.,  5., 84., 62., 21.],
-           [18., 52., 13., 10., 86.]])
+>>> array([[52.,  0., 52., 52., 52.],
+           [15., 75., 12.,  8., 41.],
+           [ 5.,  7., 10.,  7.,  7.],
+           [12., 71.,  5., 52., 74.],
+           [16., 24.,  7., 53., 15.]])
+```
+
+Una vez tenemos definida la matriz de edades, podremos aplicar las reglas de evolución que tienen en cuenta las edades de las células. En particular nos encontramos con el manejo de edades descrito en la regla para modelos con natalidad y mortalidad, y los modelos con muerte por enfermedad.
+
+Debido a que una de las características de nuestra propuesta es considerar diferentes rangos de edades para aplicar las reglas de evolución que definimos en el documento, debemos ser capaces de identificar a los individuos que poseen cierta edad. Esto lo podremos hacer con la siguiente línea de código:
+```
+# Parámetros para instanciar la clase AgeMatrixEvolution
+birthRate = 0.02
+annualUnit = 365
+mortabilityRatesByAgeRange = [[1,20,0.05],[21,100,0.025]]
+ages = agesMatrix.agesMatrix
+
+ageMatrixManagement = am.AgeMatrixEvolution(ages, birthRate, annualUnit, mortabilityRatesByAgeRange)
+ageMatrixManagement.ageGroupPositions(42, 65)  # Coordenadas de células con edades entre 42 y 65 "años"
+>>> [[0, 0], [0, 2], [0, 3], [0, 4], [3, 3], [4, 3]]
+```
+Para aplicar la regla que describe la evolución para la matriz de edades considerando la natalidad y la mortalidad, debemos establecer la iteración sobre la que estamos aplicando el modelo. Si esta iteración es múltiplo de ```annualUnit``` diremos que las células cumplen un ciclo temporal (años, meses, décadas, minutos, etc).  El siguiente script nos muestra la manera adecuada de implementar esta característica:
+
+```
+ageMatrixManagement.evolutionRuleForAges(10)
+>>> array([[52.,  0., 52., 52., 52.],
+           [15., 75., 12.,  8., 41.],
+           [ 5.,  7., 10.,  7.,  7.],
+           [12., 71.,  5., 52., 74.],
+           [16., 24.,  7., 53., 15.]])
+
+ageMatrixManagement.evolutionRuleForAges(365*2)
+>>> array([[53.,  1., 53., 53., 53.],
+           [16., 76., 13.,  9., 42.],
+           [ 6.,  8., 11.,  8.,  8.],
+           [13., 72.,  6., 53., 75.],
+           [17., 25.,  8., 54., 16.]])
+```
+Para aplicar la regla que describe la evolución para las edades del sistema de células considerando la muerte por enfermedad podemos ejecutar el siguiente script:
+```
+cellSpace = cellSpace.initialLocationOfInfected(0.5)  # Suponemos que el 50% de la población posee la enfermedad
+cellSpace.system
+>>> array([[1., 0., 1., 1., 0.],
+           [1., 1., 1., 1., 1.],
+           [1., 1., 1., 1., 0.],
+           [0., 1., 1., 1., 1.],
+           [1., 1., 1., 1., 1.]])
+	       
+deathByDiseaseRatesByAgeRanges = [[1,50,0.2], [51,100,0.4]]
+systemAfterEvolution, agesMatrixAfterEvolution = ageMatrixManagement.deathByDiseaseRule(cellSpace, deadByDiseaseRatesByAgeRanges)
+systemAfterEvolution.system
+>>> array([[1., 3., 3., 3., 0.],
+           [1., 1., 3., 3., 1.],
+           [1., 1., 3., 1., 0.],
+           [0., 1., 3., 3., 3.],
+           [1., 1., 1., 3., 3.]])
+
+agesMatrixAfterEvolution
+>>> array([[52.,  0.,  0.,  0., 52.],
+           [15., 75.,  0.,  0., 41.],
+           [ 5.,  7.,  0.,  7.,  7.],
+           [12., 71.,  0.,  0.,  0.],
+           [ 0., 24.,  7.,  0.,  0.]])
 ```
 
 ## CellManagement<a name="id2"></a>
@@ -161,8 +219,14 @@ from CAsimulation import DataManager as dm
 ```
 
 ## Models<a name="id6"></a>
+En el módulo ```Models``` podrá encontrar las reglas definidas en el [documento principal](https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN/blob/master/Documentos/Proyecto_de_grado.pdf). Para importarlo puede usar el siguiente comando:
+```
+from CAsimulation import Models as mo
+```
 
 ## NeighborhoodManager<a name="id7"></a>
+
+
 
 ## PlotsManager<a name="id8"></a>
 
