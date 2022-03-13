@@ -15,11 +15,21 @@ Una vez instalada, podemos proceder a cargar la librería, para lo cual tendrá 
 
 Con la línea anterior podrá acceder a los módulos que le brindarán la posibilidad de implementar las herramientas descritas en el documento de una manera fácil y rápida. Si desea analizar detalladamente las funciones de la librería, puede dirigirse al [enlace](https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN/tree/master/Codigo/CAsimulation/casimulation) o implementar los módulos de manera individual.
 
+**Observación:** Los valores que se muestran sobre las matrices que describen las evoluciones del sistema, son precisamente los indicadores de cada estado. El indicador para cada estado se muestra en la siguiente tabla:
+
+| Estado | Indicador |
+|-------------------|-------------|
+| Susceptible    | 0    |
+| Infectado 	  | 1       |
+| Recuperado  | 2 |
+| Muerto  | 3 |
+| Espacio vacío| -1 |
+
 A continuación presentaremos la documentación de cada uno de los módulos de la librería, si desea consultar ejemplos particulares puede consultar directamente el [documento principal](https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN/blob/master/Documentos/Proyecto_de_grado.pdf) o los [ejemplos particulares](https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN/tree/master/Codigo).
 
 Los módulos de la siguiente manera:
 1. [AgeManagement](#AgeManagement)
-2. [CellManagement](#id2)
+2. [CellManagement](#CellManagement)
 3. [CellSpaceConfiguration](#id3)
 4. [CompartmentalModelsInEDOS](#id4)
 5. [DataManager](#id5)
@@ -118,13 +128,64 @@ agesMatrixAfterEvolution
            [ 5.,  7.,  0.,  7.,  7.],
            [12., 71.,  0.,  0.,  0.],
            [ 0., 24.,  7.,  0.,  0.]])
+	       
 ```
 
-## CellManagement<a name="id2"></a>
+## CellManagement<a name="CellManagement"></a>
 Con el módulo ```CellManagement``` podrá darle manejo a propiedades espaciales que le permitan manipular o redefinir la lógica para el comportamiento mismo de las células. Adicionalmente, tendremos la capacidad de acceder a un conjunto de células, vía sus coordenadas, dado un estado específico del modelo. Para importar el módulo ```CellManagement``` puede usar la siguiente línea:
 
 ```from CAsimulation.CellManagement import CellManagement as cm```
 
+Con este módulo será posible generar una copia de un sistema a partir de uno existente, con la posibilidad de expandir su dimensión. Esto lo podremos hacer con la función ```InsideCopy```.  Para implementar esta función podemos usar un script como el siguiente:
+```
+from CAsimulation import epidemiologicalModelsInCA as em
+
+cellSpace = em.CellSpace(5,5).initialLocationOfInfected(0.4)
+cellSpace.system
+>>> array([[0., 1., 0., 0., 0.], 
+           [1., 1., 0., 1., 1.], 
+           [0., 0., 0., 0., 1.], 
+           [0., 1., 0., 0., 0.], 
+           [0., 1., 0., 0., 1.]])
+
+cellSpaceCopy = cm.CellManagement(cellSpace).InsideCopy(1, 3)
+cellSpaceCopy.system
+>>> array([[-1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1.], 
+           [-1., -1., -1., 0., 1., 0., 0., 0., -1., -1., -1.], 
+           [-1., -1., -1., 1., 1., 0., 1., 1., -1., -1., -1.], 
+           [-1., -1., -1., 0., 0., 0., 0., 1., -1., -1., -1.], 
+           [-1., -1., -1., 0., 1., 0., 0., 0., -1., -1., -1.], 
+           [-1., -1., -1., 0., 1., 0., 0., 1., -1., -1., -1.], 
+           [-1., -1., -1., -1., -1., -1., -1., -1., -1., -1., -1.]])
+```
+Debemos resaltar que los valores -1 indican espacios vacíos, es decir, celdas que no interactúan de ninguna forma con las demás.
+
+Si ahora lo que desea es conocer las coordenadas por estado, puede usar la función ```StateCoordinates```, la cual toma como parámetro al indicador de un estado específico y retorna una lista de coordenadas, como se muestra a continuación:
+```
+cm.CellManagement(cellSpace).StateCoordinates(1) # Coordenadas de las células infectadas
+>>> [[0, 1], [1, 0], [1, 1], [1, 3], [1, 4], [2, 4], [3, 1], [4, 1], [4, 4]]
+```
+
+Puede también determinar el porcentaje de individuos con un estado específico y visualizar como distribuirían, si deseará por ejemplo, establecer una condición inicial particular. Para esto usaremos la función ```StatePercentageInSpace```, la cual se implementa de la siguiente manera:
+
+```
+cm.CellManagement(cellSpace).StatePercentageInSpace(2, 8, 1)
+>>> [0, 0, 0, 0, 1, 1, 0]
+
+cm.CellManagement(cellSpace).StatePercentageInSpace(2, 10, 2, -1)
+>>> [-1, -1, 2, 2, -1, -1, -1, -1, -1]
+```
+La última función que encontraremos en este módulo nos permite definir la condición inicial de una manera sencilla con la característica de distribuir aleatoriamente a las células dado el porcentaje inicial de infectados.
+
+```
+cellSpaceWithInitialCondition = cm.CellManagement(cellSpace).InitialCondition(0.4)
+cellSpaceWithInitialCondition.system
+>>> array([[0., 1., 0., 0., 1.], 
+           [1., 1., 0., 1., 1.], 
+           [0., 1., 1., 0., 1.], 
+           [1., 1., 1., 0., 0.], 
+           [0., 1., 0., 0., 1.]])
+```
 
 ## CellSpaceConfiguration<a name="id3"></a>
 Como su nombre lo indica, el módulo ```CellSpaceConfiguration``` será el encargado de las configuraciones sobre el espacio de células, como por ejemplo, las condiciones iniciales o las condiciones de frontera. Para importar el módulo ```CellSpaceConfiguration``` puede usar la siguiente línea:
