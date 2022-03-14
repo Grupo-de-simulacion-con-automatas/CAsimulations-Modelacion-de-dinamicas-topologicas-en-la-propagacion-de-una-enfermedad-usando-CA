@@ -30,8 +30,8 @@ A continuación presentaremos la documentación de cada uno de los módulos de l
 Los módulos de la siguiente manera:
 1. [AgeManagement](#AgeManagement)
 2. [CellManagement](#CellManagement)
-3. [CellSpaceConfiguration](#id3)
-4. [CompartmentalModelsInEDOS](#id4)
+3. [CellSpaceConfiguration](#CellSpaceConfiguration)
+4. [CompartmentalModelsInEDOS](#CompartmentalModelsInEDOS)
 5. [DataManager](#id5)
 6. [Models](#id6)
 7. [NeighborhoodManager](#id7)
@@ -187,14 +187,87 @@ cellSpaceWithInitialCondition.system
            [0., 1., 0., 0., 1.]])
 ```
 
-## CellSpaceConfiguration<a name="id3"></a>
+## CellSpaceConfiguration<a name="CellSpaceConfiguration"></a>
 Como su nombre lo indica, el módulo ```CellSpaceConfiguration``` será el encargado de las configuraciones sobre el espacio de células, como por ejemplo, las condiciones iniciales o las condiciones de frontera. Para importar el módulo ```CellSpaceConfiguration``` puede usar la siguiente línea:
 
 ```
 from CAsimulation.CellSpaceConfiguration import CellSpaceConfiguration as cc
 ```
+Podemos definir de tres maneras diferentes al espacio de células: la primera genera un espacio completo en el sentido de que no hay celdas vacías; la segunda manera crea una región de células que pueden interactuar en la esquina superior izquierda, dejando una cantidad determinada de espacios vacíos; y la última, permite definir varias regiones de células que interactuan en diferentes ubicaciones. Esto será de vital importancia si desea analizar el comportamiento de alguna enfermedad en espacios con diferentes condiciones de frontera. 
 
-## CompartmentalModelsInEDOS<a name="id4"></a>
+Para generar estos espacios puede ejecutar las siguientes líneas, dependiendo del contexto en el contexto en el que este definiendo su espacio de células:
+```
+csc1 = cc.CellSpaceConfiguration(3,3)  # Espacio de 9 células sin celdas vacías
+csc2 = cc.CellSpaceConfiguration(3,3,5,6)  # Espacio de 9 células ubicado en una matriz de espacios 
+                                           # vacíos de dimensión 5x6
+csc3 = cc.CellSpaceConfiguration(3,3,7,7,1,2)  # Espacio de 9 células ubicado en una matriz de 
+                                               # espacios vacíos de dimensión 7x7 ubicado en la 
+                                               # posición 1,2
+```
+Este módulo nos permite observar la construcción de los espacios y los parámetros con los que se define, independientemente de la manera en la que se define:
+```
+# Parámetros con los que se define el espacio de células
+csc1.basicParameters()
+>>> (3, 3, -1, -1, 0, 0)
+
+csc1.system
+>>> array([[0., 0., 0.], 
+           [0., 0., 0.], 
+           [0., 0., 0.]])
+
+csc2.system
+>>> array([[ 0., 0., 0., -1., -1., -1.], 
+           [ 0., 0., 0., -1., -1., -1.], 
+           [ 0., 0., 0., -1., -1., -1.], 
+           [-1., -1., -1., -1., -1., -1.], 
+           [-1., -1., -1., -1., -1., -1.]])
+
+csc3.system
+>>> array([[-1., -1., -1., -1., -1., -1., -1.], 
+           [-1., -1., 0., 0., 0., -1., -1.], 
+           [-1., -1., 0., 0., 0., -1., -1.], 
+           [-1., -1., 0., 0., 0., -1., -1.], 
+           [-1., -1., -1., -1., -1., -1., -1.], 
+           [-1., -1., -1., -1., -1., -1., -1.], 
+           [-1., -1., -1., -1., -1., -1., -1.]])
+```
+Una de las cualidades de este módulo es que permite definir sistemas no necesariamente regulares, lo que a su vez nos brinda la capacidad por ejemplo, de aislar individuos bajo diferentes supuestos. Para implementar la función ```rectangularBoundary``` debe tener en cuenta que los dos primeros parámetros corresponden a la dimensión de una segunda región de células que pueden interactuar; y los dos últimos parámetros indican la ubicación de esta segunda región.
+```
+cellSystem = csc3.rectangularBoundary(2,3,4,3)  # Sistema de dimensión 2x3 ubicado en la posición 4,3
+cellSystem
+>>> array([[-1., -1., -1., -1., -1., -1., -1.], 
+           [-1., -1., 0., 0., 0., -1., -1.], 
+           [-1., -1., 0., 0., 0., -1., -1.], 
+           [-1., -1., 0., 0., 0., -1., -1.], 
+           [-1., -1., -1., 0., 0., 0., -1.], 
+           [-1., -1., -1., 0., 0., 0., -1.], 
+           [-1., -1., -1., -1., -1., -1., -1.]])
+```
+Por último, presentamos a la función que nos permitirá definir una condición inicial de población infectada con la posibilidad de partir de una ubicación específica, como se muestra en los siguientes fragmentos de código:
+```
+csc1.initialLocationOfInfected(0.5, "center")  # 50% de la población en el centro, esta infectada
+>>> array([[0., 0., 0.], 
+           [0., 1., 0.], 
+           [0., 0., 0.]])
+           
+csc1.initialLocationOfInfected(0.5).system  # El 50% del total de la población posee la enfermedad
+>>> array([[0., 1., 1.], 
+           [1., 0., 1.], 
+           [0., 0., 1.]])
+
+csc3.initialLocationOfInfected(0.5).system  # El 50% del total de la población posee la enfermedad 
+                                            # sin importar la regularidad del espacio de células
+>>> array([[-1., -1., -1., -1., -1., -1., -1.], 
+           [-1., -1., 1., 0., 1., -1., -1.], 
+           [-1., -1., 1., 0., 0., -1., -1.], 
+           [-1., -1., 0., 0., 0., -1., -1.], 
+           [-1., -1., -1., 0., 1., 1., -1.], 
+           [-1., -1., -1., 1., 0., 1., -1.], 
+           [-1., -1., -1., -1., -1., -1., -1.]])
+```
+
+
+## CompartmentalModelsInEDOS<a name="CompartmentalModelsInEDOS"></a>
 Con el módulo ```CompartmentalModelsInEDOS```podremos aplicar el método de Euler para ecuaciones diferenciales y visualizar sus soluciones, en nuestro caso lo usaremos para observar los comportamientos descritos por los modelos compartimentales clásicos, sin embargo, el lector puede implementarlo en el contexto sobre el que esté trabajando.
 
 Puede importar esté módulo de la siguiente manera:
