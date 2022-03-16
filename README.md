@@ -32,7 +32,7 @@ Los módulos de la siguiente manera:
 2. [CellManagement](#CellManagement)
 3. [CellSpaceConfiguration](#CellSpaceConfiguration)
 4. [CompartmentalModelsInEDOS](#CompartmentalModelsInEDOS)
-5. [DataManager](#id5)
+5. [DataManager](#DataManager)
 6. [Models](#id6)
 7. [NeighborhoodManager](#id7)
 8. [PlotsManager](#id8)
@@ -345,11 +345,122 @@ discreteSolutions.plotSolutions(nameVariables, colorOfVariables)
 
 Si desea consultar más ejemplos, puede dirigirse al cuadernillo [Modelos compartimentales clásicos](https://github.com/Grupo-de-simulacion-con-automatas/CAsimulations-Modelacion-de-dinamicas-topologicas-en-la-propagacion-de-una-enfermedad-usando-CA/blob/master/Codigo/1.%20Modelos%20compartimentales%20en%20ecuaciones%20diferenciales.ipynb).
 
-## DataManager<a name="id5"></a>
+## DataManager<a name="DataManager"></a>
 Este módulo será el encargado de darle manejo a todos los datos que puedan extraerse de las aplicaciones por iteración de cada uno de los modelos descritos en el [documento principal](https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN/blob/master/Documentos/Proyecto_de_grado.pdf). Para importar el módulo ```DataManager``` puede usar la siguiente línea:
 
 ```
 from CAsimulation import DataManager as dm
+```
+En este módulo encontraremos a la clase ```SystemMetrics``` que nos permite extraer las métricas de cada iteración, luego de aplicar el modelo epidemiológico. Para instanciar esta clase inicialmente debemos crear un espacio de células y definir además, los estados para los cuales se extraerán las métricas.
+```
+csc = cc.CellSpaceConfiguration(3,3,7,7,1,2)
+
+SISstates = [0, 1]
+# Métricas para el modelo SIS
+metricsWithoutEmptyCells = dm.SystemMetrics(csc, SISstates)
+
+SISstatesWithEmptySpaces = [0, 1, -1]
+# Métricas para el modelo SIS con espacios vacíos
+metrics = dm.SystemMetrics(csc, SISstatesWithEmptySpaces)  
+```
+Podemos extraer dos tipos de datos: las proporciones y las cantidades de individuos por estado:
+```
+# Proporciones
+metricsWithoutEmptyCells.statusInTheSystem()
+>>> [1.0, 0.0]
+
+metrics.statusInTheSystem() # Porcentajes
+>>> [0.30612244897959184, 0.0, 0.6938775510204082]
+
+# Cantidades
+metricsWithoutEmptyCells.statusInTheSystem(False)
+>>> [9, 0]
+
+metrics.statusInTheSystem(False)
+>>> [9, 0, 40]
+```
+Observe que los datos cambian entre métricas debido a que en una de ellas se considera un estado "vacío" para las cuentas. Con la función ```numberOfIndividuals``` podremos determinar cual es la cantidad de células con la que se están extrayendo las proporciones.
+```
+metricsWithoutEmptyCells.numberOfIndividuals()
+>>> 9
+
+metrics.numberOfIndividuals()
+>>> 49
+```
+A continuación describiremos la segunda parte del módulo. la cual corresponde al manejo propio de los datos que se pueden extraer. Para esto debemos tener un conjunto de evoluciones del espacio de células, para lo cual nos apoyaremos del módulo ```epidemiologicalModelsInCA``` y específicamente, del modelo SIS el cuál puede consultar en el [documento principal](https://github.com/Grupo-de-simulacion-con-automatas/Prediccion-del-comportamiento-de-una-enfermedad-simulada-en-AC-con-un-algoritmo-en-RN/blob/master/Documentos/Proyecto_de_grado.pdf) o directamente sobre el [Código](https://github.com/Grupo-de-simulacion-con-automatas/CAsimulations-Modelacion-de-dinamicas-topologicas-en-la-propagacion-de-una-enfermedad-usando-CA/blob/master/Codigo/CAsimulation/casimulation/Models.py#:~:text=class-,SISmodel,-(SImodel)%3A).
+```
+from CAsimulation import epidemiologicalModelsInCA as em
+
+# Parámetros del modelo
+alpha = 0.2
+beta = 0.5
+n_iterations = 10
+neighborhooSystem = em.GenerateNeighborhoodSystem(csc3, "Moore")
+impactRates = [1, 0.5]
+
+SISmodel = em.SIS(alpha, beta, n_iterations, csc3, neighborhooSystem, impactRates)
+evolutions = SISmodel.evolutions
+evolutions
+>>> [<EpidemiologicalModels.CellSpaceConfiguration.CellSpaceConfiguration at 0x15d6f7c41c0>,
+     <EpidemiologicalModels.CellSpaceConfiguration.CellSpaceConfiguration at 0x15d1360a610>,
+     <EpidemiologicalModels.CellSpaceConfiguration.CellSpaceConfiguration at 0x15d1360aa60>,
+     <EpidemiologicalModels.CellSpaceConfiguration.CellSpaceConfiguration at 0x15d1360ae20>,
+     <EpidemiologicalModels.CellSpaceConfiguration.CellSpaceConfiguration at 0x15d1360aac0>,
+     <EpidemiologicalModels.CellSpaceConfiguration.CellSpaceConfiguration at 0x15d1360ac70>,
+     <EpidemiologicalModels.CellSpaceConfiguration.CellSpaceConfiguration at 0x15d1360aaf0>,
+     <EpidemiologicalModels.CellSpaceConfiguration.CellSpaceConfiguration at 0x15d1360a1f0>,
+     <EpidemiologicalModels.CellSpaceConfiguration.CellSpaceConfiguration at 0x15d13534a30>,
+     <EpidemiologicalModels.CellSpaceConfiguration.CellSpaceConfiguration at 0x15d13534af0>,
+     <EpidemiologicalModels.CellSpaceConfiguration.CellSpaceConfiguration at 0x15d1360a100>,
+     <EpidemiologicalModels.CellSpaceConfiguration.CellSpaceConfiguration at 0x15d1360abe0>]
+```
+Una vez obtenidas las evoluciones del espacio de células, la función ```OrderData``` obtener las métricas por iteración de tres maneras distintas: la primera organiza los datos en forma de tuplas o puntos, estos serán usados para graficar dichas métricas; la segunda corresponde a las propias métricas del modelo, con estos datos podremos analizar por ejemplo. el comportamiento del modelo para distintas escalas; y finalmente, la lista con las evoluciones del sistema, estos datos nos permitirán visualizar al espacio en cada iteración.
+```
+dm.OrderData(evolutions, [0, 1])
+>>> [[array([[ 0.,  1.],
+             [ 1.,  1.],
+             [ 2.,  1.],
+             [ 3.,  1.],
+             [ 4.,  1.],
+             ...]),
+      array([[ 0.,  0.],
+             [ 1.,  0.],
+             [ 2.,  0.],
+             [ 3.,  0.],
+             [ 4.,  0.],
+             ...])],
+    [[1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
+     [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]],
+    [<EpidemiologicalModels.CellSpaceConfiguration.CellSpaceConfiguration at 0x15d6f7c41c0>,
+     <EpidemiologicalModels.CellSpaceConfiguration.CellSpaceConfiguration at 0x15d1360a610>,
+     <EpidemiologicalModels.CellSpaceConfiguration.CellSpaceConfiguration at 0x15d1360aa60>,
+     <EpidemiologicalModels.CellSpaceConfiguration.CellSpaceConfiguration at 0x15d1360ae20>,
+     <EpidemiologicalModels.CellSpaceConfiguration.CellSpaceConfiguration at 0x15d1360aac0>,
+     ...]]
+```
+Por último, presentamos a la función ```variationsBetweenScales``` con la cual podremos calcular las variaciones para distintas escalas del espacio de células, entendiendo a la escala de un espacio como la cantidad de células que lo conforma.
+```
+cellSpaceEscale1 = em.CellSpace(3,3).initialLocationOfInfected(0.5)
+cellSpaceEscale2 = em.CellSpace(9,9).initialLocationOfInfected(0.5)
+neighborhooSystem1 = em.GenerateNeighborhoodSystem(cellSpaceEscale1, "Moore")
+neighborhooSystem2 = em.GenerateNeighborhoodSystem(cellSpaceEscale2, "Moore")
+n_iterations = 10
+impactRates = [1, 0.5]
+
+evolutionsOfescale1 = em.SIS(alpha, beta, n_iterations, cellSpaceEscale1, neighborhooSystem1, impactRates).evolutions
+evolutionsOfescale2 = em.SIS(alpha, beta, n_iterations, cellSpaceEscale2, neighborhooSystem2, impactRates).evolutions
+                              
+escale1 = dm.OrderData(evolutionsOfescale1, [0,1])[1]
+escale2 = dm.OrderData(evolutionsOfescale2, [0,1])[1]
+
+dm.variationsBetweenScales(escale1[1], escale2[1])
+>>> array([[ 0.        ,  0.14814815],
+           [ 1.        ,  0.07407407],
+           [ 2.        ,  0.        ],
+           [ 3.        ,  0.        ],
+           [ 4.        ,  0.        ],
+           [ 5.        ,  0.        ],
+           ...])
 ```
 
 ## Models<a name="id6"></a>
