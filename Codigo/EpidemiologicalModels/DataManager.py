@@ -60,7 +60,7 @@ def OrderData(data,states):
         amountsIndividuals.append(np.array((range(len(data)),percentages[state])).transpose())
     return [amountsIndividuals,percentages,data]
 
-def appliedModel(modelFunction, cellSpace, n_iterations, theSystemHasAges = False, systemAges = None):
+def _appliedModel(modelFunction, cellSpace, n_iterations, theSystemHasAges = False, systemAges = None):
     """Aplica el modelo 'modelFunction' una cantidad nIterations de veces
     modelFunction => Regla de evolución del modelo
     n_iterations  => Cantidad de veces que va a iterar el modelo
@@ -83,7 +83,7 @@ def appliedModel(modelFunction, cellSpace, n_iterations, theSystemHasAges = Fals
             systemAgesEvolutions.append(updateCellSpace[1])
         return cellSpaceChanges    
 
-def mediumData(dataPerSimulation,states,n_iterations,n_simulations):
+def _mediumData(dataPerSimulation,states,n_iterations,n_simulations):
     """Organiza la información de cada simulación
     dataPerSimulation => Lista con los datos por estado
     states => Estados que se consideran"""
@@ -102,7 +102,7 @@ def mediumData(dataPerSimulation,states,n_iterations,n_simulations):
         amountsIndividuals.append(np.array((range(n_iterations),percentages[state])).transpose())
     return [amountsIndividuals,percentages]
 
-def appliedMediumData(modelFunction,cellSpace,initialPercentageInfected,states,n_iterations,n_simulations,theSystemHasAges = False, systemAges = None):
+def _appliedMediumData(modelFunction,cellSpace,initialPercentageInfected,states,n_iterations,n_simulations,theSystemHasAges = False, systemAges = None):
     """Aplica el modelo epidemiológico en n_simulations
     modelFunction => Función basica del modelo epidemiológico
     initialPercentageInfected => Porcentaje de infectados en el momento inicial
@@ -113,18 +113,18 @@ def appliedMediumData(modelFunction,cellSpace,initialPercentageInfected,states,n
     if theSystemHasAges:
         for simulation in range(n_simulations):
             infectedCellSpace = CellManagement.CellManagement(cellSpace).InitialCondition(initialPercentageInfected)
-            systemEvolution = appliedModel(modelFunction, infectedCellSpace, n_iterations, True, systemAges)
+            systemEvolution = _appliedModel(modelFunction, infectedCellSpace, n_iterations, True, systemAges)
             evolution = OrderData(systemEvolution, states)[1]
             for state in range(len(states)):
                 mediumStates[state].append(evolution[state])
     else:
         for simulation in range(n_simulations):
             infectedCellSpace = CellManagement.CellManagement(cellSpace).InitialCondition(initialPercentageInfected)
-            systemEvolution = appliedModel(modelFunction, infectedCellSpace, n_iterations, False)
+            systemEvolution = _appliedModel(modelFunction, infectedCellSpace, n_iterations, False)
             evolution = OrderData(systemEvolution, states)[1]
             for state in range(len(states)):
                 mediumStates[state].append(evolution[state])
-    return mediumData(mediumStates,states,n_iterations,n_simulations)
+    return _mediumData(mediumStates,states,n_iterations,n_simulations)
 
 def variationsBetweenScales(scale1,scale2):
     '''Genera una lista con las diferencias entre escalas'''
@@ -133,10 +133,3 @@ def variationsBetweenScales(scale1,scale2):
         variationsArray[data][0] = data
         variationsArray[data][1] = abs(scale1[data]-scale2[data])
     return variationsArray
-
-def scale_differences(L1,L2):
-    '''variationsBetweenScales'''
-    L=np.zeros((len(L1),2))
-    for i in range(len(L1)):
-        L[i][0]=i; L[i][1]=abs(L1[i]-L2[i])
-    return L

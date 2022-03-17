@@ -36,16 +36,16 @@ class SImodel:
         if self.alpha <= 0:
             print("Debe definir una tasa de recuperación alpha > 0.")
             return False
-        elif self.beta <= 0:
+        if self.beta <= 0:
             print("Debe definir una tasa de infección beta > 0.")
             return False
-        elif str(type(self.cellSpace)) != "<class 'EpidemiologicalModels.CellSpaceConfiguration.CellSpaceConfiguration'>":
-            print("Asegurese de pasar un sistema con el tipo <class 'EpidemiologicalModels.CellSpaceConfiguration.CellSpaceConfiguration'>")
+        if self.cellSpace is CellManagement.CellSpaceConfiguration.CellSpaceConfiguration:
+            print("Asegurese de pasar un sistema con el tipo CellSpaceConfiguration.CellSpaceConfiguration")
             return False
-        elif len(self.neighborhoodSystems) == 0:
+        if len(self.neighborhoodSystems) == 0:
             print("Debe definir un sistema de vecindades.")
             return False
-        elif len(self.impactRates) == 0:
+        if len(self.impactRates) == 0:
             print("Debe definir las tasas de impacto.")
             return False
         else:

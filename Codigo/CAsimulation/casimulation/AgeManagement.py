@@ -20,8 +20,8 @@ class AgesMatrix:
         if len(self.ranges) == 0:
             print("Debe definir los rangos de edades en el sistema.")
             return False
-        if str(type(self.cellSpace)) != "<class 'EpidemiologicalModels.CellSpaceConfiguration.CellSpaceConfiguration'>":
-            print("Asegurese de pasar un sistema con el tipo <class 'EpidemiologicalModels.CellSpaceConfiguration.CellSpaceConfiguration'>")
+        if self.cellSpace is CellSpaceConfiguration.CellSpaceConfiguration:
+            print("Asegurese de pasar un sistema con el tipo CellSpaceConfiguration.CellSpaceConfiguration.")
             return False
         else:
             for r in self.ranges:
