@@ -44,12 +44,12 @@ El módulo```AgeManagement``` se encarga de controlar todos los procesos que ten
 
 Con este módulo podremos crear a la matriz de edades, dados los rangos y las proporciones de edades en el sistema, y, por otro lado, tenemos a las evoluciones para la matriz de edades descritas en los modelos que implementan esta característica. Para importar este módulo puede usar la siguiente línea:
 
-```from EpidemiologicalModels import AgeManagement as am```
+```from CAsimulation import AgeManagement as am```
 
 Para usar la clase ```AgesMatrix``` debe establecer inicialmente los rangos de edades y sus proporciones en el sistema, es decir, que porcentaje de los individuos tiene cierto rango de edad; y, por otro lado, será necesario que ya tenga definido un espacio de células. 
 
 ```
-from EpidemiologicalModels import epidemiologicalModelsInCA as em
+from CAsimulation import epidemiologicalModelsInCA as em
 
 # Espacio de células
 cellSpace = em.CellSpace(5,5)  # Sistema con 25 células (dim(cellSpace) = 5x5)
@@ -114,7 +114,7 @@ cellSpace.system
            [1., 1., 1., 1., 1.]])
 	       
 deathByDiseaseRatesByAgeRanges = [[1,50,0.2], [51,100,0.4]]
-systemAfterEvolution, agesMatrixAfterEvolution = ageMatrixManagement.deathByDiseaseRule(cellSpace, deadByDiseaseRatesByAgeRanges)
+systemAfterEvolution, agesMatrixAfterEvolution = ageMatrixManagement.deathByDiseaseRule(cellSpace, deathByDiseaseRatesByAgeRanges)
 systemAfterEvolution.system
 >>> array([[1., 3., 3., 3., 0.],
            [1., 1., 3., 3., 1.],
