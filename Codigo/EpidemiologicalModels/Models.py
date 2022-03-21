@@ -39,8 +39,8 @@ class SImodel:
         if self.beta <= 0:
             print("Debe definir una tasa de infección beta > 0.")
             return False
-        if self.cellSpace is CellManagement.CellSpaceConfiguration.CellSpaceConfiguration:
-            print("Asegurese de pasar un sistema con el tipo <class 'EpidemiologicalModels.CellSpaceConfiguration.CellSpaceConfiguration'>")
+        if str(type(self.cellSpace)) != "<class 'EpidemiologicalModels.CellSpaceConfiguration.CellSpaceConfiguration'>":
+            print("Asegurese de pasar un sistema con el tipo CellSpaceConfiguration.CellSpaceConfiguration")
             return False
         if len(self.neighborhoodSystems) == 0:
             print("Debe definir un sistema de vecindades.")
@@ -173,25 +173,25 @@ class birthAndMortavility:
         if self.model != "sis" and self.model != "sir":
             print("Introduzca un modelo valido. (SIS o SIR)")
             return False
-        elif self.birthRate <= 0:
+        if self.birthRate <= 0:
             print("Defina una tasa de natalidad mayor a cero.")
             return False
-        elif len(self.probabilityOfDyingByAgeGroup) == 0:
+        if len(self.probabilityOfDyingByAgeGroup) == 0:
             print("Establezca las probabilidades de muerte por rango.")
             return False
-        elif self.annualUnit <= 0:
+        if self.annualUnit <= 0:
             print("Defina una unidad anual mayor a cero.")
             return False
-        elif str(type(self.cellSpace)) != "<class 'EpidemiologicalModels.CellSpaceConfiguration.CellSpaceConfiguration'>":
-            print("Asegurese de pasar un sistema con el tipo <class 'EpidemiologicalModels.CellSpaceConfiguration.CellSpaceConfiguration'>")
+        if str(type(self.cellSpace)) != "<class 'EpidemiologicalModels.CellSpaceConfiguration.CellSpaceConfiguration'>":
+            print("Asegurese de pasar un sistema con el tipo CellSpaceConfiguration.CellSpaceConfiguration")
             return False
-        elif len(self.neighborhoodSystems) == 0:
+        if len(self.neighborhoodSystems) == 0:
             print("Defina un sistema de vecindades.")
             return False
-        elif len(self.impactRates) == 0:
+        if len(self.impactRates) == 0:
             print("Defina las tasas de impacto.")
             return False
-        elif self.systemAges.shape[0] == 0:
+        if self.systemAges.shape[0] == 0:
             print("Defina una matriz de edades.")
             return False
         else:

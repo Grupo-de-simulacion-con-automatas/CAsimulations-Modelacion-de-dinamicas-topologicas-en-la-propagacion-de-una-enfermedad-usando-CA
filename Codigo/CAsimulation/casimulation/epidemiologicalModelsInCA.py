@@ -18,7 +18,7 @@ def CellSpace(nRows, nColumns, xnRows = -1, xnColumns = -1, unRows = 0, unColumn
         EpidemiologicalModels.CellSpaceConfiguration.CellSpaceConfiguration  Sistema de células
 
     Ejemplo 1:
-    space = CellSpace(10,10)
+    space = CellSpace(5,5)
     space.system
     --> array([[0., 0., 0., 0., 0.],
                [0., 0., 0., 0., 0.],

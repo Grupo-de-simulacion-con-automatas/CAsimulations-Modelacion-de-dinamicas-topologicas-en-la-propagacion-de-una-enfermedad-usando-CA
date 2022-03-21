@@ -20,7 +20,7 @@ class AgesMatrix:
         if len(self.ranges) == 0:
             print("Debe definir los rangos de edades en el sistema.")
             return False
-        if self.cellSpace is CellSpaceConfiguration.CellSpaceConfiguration:
+        if str(type(self.cellSpace)) != "<class 'CAsimulation.CellSpaceConfiguration.CellSpaceConfiguration'>":
             print("Asegurese de pasar un sistema con el tipo CellSpaceConfiguration.CellSpaceConfiguration.")
             return False
         else:

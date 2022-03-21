@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def spline3(A):     #spline cubico para la lista de coordenadas A
+def _spline3(A):     #spline cubico para la lista de coordenadas A
     n = len(A); l = [1]; B = [0] ; g = [0]; gn = 0; C = [0]*n
     alpha = []; spline = []; a = []; h = []; x = []; y = []*(n-1)
     for i in range(n):
@@ -34,8 +34,8 @@ def plotSolutions(variables, etiquetas, colores, title, limit=True):
         for j in range(len(variables)):
             funcion = []; cond = []; x = []; y = []
             A = variables[j]
-            SP = spline3(A)
-            for i in range(len(spline3(A))):
+            SP = _spline3(A)
+            for i in range(len(_spline3(A))):
                 xa = np.linspace(A[i,0],A[i+1,0] - 0.0001,11); x = np.concatenate((x,xa))
                 ya = SP[i,0] + SP[i,1]*(xa-A[i,0]) + SP[i,2]*(xa-A[i,0])**2 + SP[i,3]*(xa-A[i,0])**3
                 y = np.concatenate((y,ya))
@@ -47,10 +47,3 @@ def plotSolutions(variables, etiquetas, colores, title, limit=True):
     plt.xlabel("Time")
     plt.legend(loc=0)
     plt.show()
-
-def plotMediumCurves(self, initialPercentageInfected, n_iterations, n_simulations, title):
-    """Gráfica la evolución promedio en n_simulations de los estados en n_iterations"""
-    if self.mediumData == None:
-        visualization = self.mediumCurves(initialPercentageInfected, n_iterations, n_simulations)
-        self.mediumData = visualization[0]
-    plotSolutions(self.mediumData, self.epidemiologicalModel.labels, self.epidemiologicalModel.colors, title)

@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
   name = 'casimulation',
-  version = '1.0.1.5',
+  version = '1.0.2',
   author = 'Jorge Ibañez - Isaac Zainea',
   author_email = 'jonan0804@gmail.com',  
   description = 'Paquete de simulación epidemiológica basada en autómatas celulares',

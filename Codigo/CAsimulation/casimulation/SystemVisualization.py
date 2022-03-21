@@ -30,33 +30,16 @@ class SystemVisualization:
 
     def evolutionsPlot(self,specificIteration):
         """Gráfica una evolución especifica del conjunto de evoluciones generadas tras aplicar el modelo"""
-        print(len(specificIteration))
         plt.imshow(self.__color(self.evolutionsOfCellSpace[specificIteration]), cmap="nipy_spectral", interpolation='nearest')
 
-    def __orderDefinition(self,numberOfElements, numberOfCategories):
-        categories = [(i % numberOfElements) * numberOfCategories for i in range(numberOfElements)]
-        groups = [[j,i] for i in range(numberOfElements) for j in categories]
-        return groups
-
-    def showEvolutions(self, categorizer = 5):
-        numberOfEvolutions = len(self.evolutionsOfCellSpace)
-        order = self.__orderDefinition(numberOfEvolutions, categorizer)
-        for i in range(numberOfEvolutions**2):
-            plt.subplot(numberOfEvolutions,numberOfEvolutions,i+1)
-            if i in range(numberOfEvolutions):
-                plt.title(f"t = {i*5}")
-            self.evolutionsPlot(order[i][0])
-        plt.show()
-
     def heatmap(self, state):
-        """Mapa de calor para la población infectada (SIR_Model[6])"""
+        """Mapa de calor dado un estado"""
         stateHeatMap = []
-        n,m = self.evolutionsOfCellSpace[0].shape
         for iteration in range(len(self.evolutionsOfCellSpace)):
-            stateMatrix = np.zeros((n,m))
-            for row in range(n):
-                for column in range(m):
-                    if self.evolutionsOfCellSpace[iteration][row][column] == state:
+            stateMatrix = np.zeros((self.evolutionsOfCellSpace[0].nRows,self.evolutionsOfCellSpace[0].nColumns))
+            for row in range(self.evolutionsOfCellSpace[0].nRows):
+                for column in range(self.evolutionsOfCellSpace[0].nColumns):
+                    if self.evolutionsOfCellSpace[iteration].system[row][column] == state:
                         stateMatrix[row][column] = 1
             stateHeatMap.append(stateMatrix)
         average = 1/len(stateHeatMap)*np.sum(stateHeatMap,axis=0)
