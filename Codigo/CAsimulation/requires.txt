@@ -1,3 +1,0 @@
-opencv-python
-opencv-contrib-python
-seaborn>=0.10.0

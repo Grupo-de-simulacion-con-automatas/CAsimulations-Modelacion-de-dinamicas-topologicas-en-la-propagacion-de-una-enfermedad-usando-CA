@@ -414,7 +414,7 @@ def SIR_DD(alpha, beta, birthRate, probabilityOfDyingByAgeGroup, deathFromDiseas
     modelApply.deathFromDiseaseByAgeRange = deathFromDiseaseByAgeRange
     modelApply.annualUnit = annualUnit
     modelApply.systemAges = systemAges
-    modelApply._basicModel(n_iterations)
+    modelApply.basicModel(n_iterations)
     return modelApply
 
 def medium_SIS(alpha, beta, initialPercentageInfected, n_iterations, nSimulations, cellSpace, neighborhoodSystem, impactRates):
@@ -570,7 +570,7 @@ def medium_SIS_DD(alpha, beta, birthRate, probabilityOfDyingByAgeGroup, deathFro
     modelApply.deathFromDiseaseByAgeRange = deathFromDiseaseByAgeRange
     modelApply.annualUnit = annualUnit
     modelApply.systemAges = systemAges
-    modelApply._basicModel(n_iterations)
+    modelApply.basicModel(n_iterations)
     return modelApply
 
 def medium_SIR_DD(alpha, beta, birthRate, probabilityOfDyingByAgeGroup, deathFromDiseaseByAgeRange, annualUnit, initialPercentageInfected, n_iterations, nSimulations, cellSpace, neighborhoodSystem, impactRates, systemAges):
@@ -606,5 +606,5 @@ def medium_SIR_DD(alpha, beta, birthRate, probabilityOfDyingByAgeGroup, deathFro
     modelApply.deathFromDiseaseByAgeRange = deathFromDiseaseByAgeRange
     modelApply.annualUnit = annualUnit
     modelApply.systemAges = systemAges
-    modelApply._basicModel(n_iterations)
+    modelApply.basicModel(n_iterations)
     return modelApply
